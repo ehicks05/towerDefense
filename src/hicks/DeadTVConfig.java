@@ -2,7 +2,7 @@ package hicks;
 
 public class DeadTVConfig
 {
-    public static int width  = 800;
-    public static int height = 600;
+    public static int width  = 1024;
+    public static int height = 768;
     public static int delay  = 16;
 }
