@@ -6,9 +6,11 @@ public class Init
 {
     public static void init(GameMap map)
     {
-        map.setSize(700);
         // delete previous log
         new File("log.txt").delete();
+
+        map.setWidth(800);
+        map.setHeight(600);
 
         // create a barracks for each team
         List<Unit> units = new ArrayList<>();

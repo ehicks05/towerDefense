@@ -5,11 +5,11 @@ import java.util.*;
 public class Unit
 {
     private static int m_seq = 0;
-
     private int m_objectId;
-    private int m_sizeRadius;
     private int m_team;
     private String m_name;
+
+    private int m_sizeRadius;
     private int m_sightRadius;
     private int m_moveSpeed;
     private BigDecimal m_timeOfLastMove;

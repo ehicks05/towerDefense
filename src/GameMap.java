@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class GameMap
 {
-    private int m_size;
+    private int m_width;
+    private int m_height;
     private List<Unit> m_existingUnits;
 
     public GameMap()
@@ -16,8 +17,8 @@ public class GameMap
     public Point getRandomPointOnMap()
     {
         Random random = new Random();
-        double x = random.nextDouble() * m_size;
-        double y = random.nextDouble() * m_size;
+        double x = random.nextDouble() * m_width;
+        double y = random.nextDouble() * m_height;
 
         return new Point(x, y);
     }
@@ -65,8 +66,8 @@ public class GameMap
             while (!unitPlaced)
             {
                 Point point = null;
-                if (unit.getTeam() == 1) point = getRandomPointOnMap(0, m_size / 2, 0, m_size);
-                if (unit.getTeam() == 2) point = getRandomPointOnMap(m_size / 2, m_size / 2, 0, m_size);
+                if (unit.getTeam() == 1) point = getRandomPointOnMap(0, m_width / 2, 0, m_height);
+                if (unit.getTeam() == 2) point = getRandomPointOnMap(m_width / 2, m_width / 2, 0, m_height);
                 if (!isPositionOccupied(point))
                 {
                     unit.setLocation(point);
@@ -90,7 +91,7 @@ public class GameMap
     {
         double x = location.getX();
         double y = location.getY();
-        return x >= 0 && x < getSize() && y >= 0 && y < getSize();
+        return x >= 0 && x < m_width && y >= 0 && y < m_height;
     }
 
     public void addUnitToExistingUnits(Unit unit)
@@ -103,18 +104,28 @@ public class GameMap
         m_existingUnits.remove(unit);
     }
 
-    public int getSize()
-    {
-        return m_size;
-    }
-
-    public void setSize(int size)
-    {
-        m_size = size;
-    }
-
     public List<Unit> getExistingUnits()
     {
         return m_existingUnits;
+    }
+
+    public int getWidth()
+    {
+        return m_width;
+    }
+
+    public void setWidth(int width)
+    {
+        m_width = width;
+    }
+
+    public int getHeight()
+    {
+        return m_height;
+    }
+
+    public void setHeight(int height)
+    {
+        m_height = height;
     }
 }

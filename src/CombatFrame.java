@@ -5,7 +5,7 @@ public class CombatFrame extends JFrame
 {
     public CombatFrame()
     {
-        getContentPane().setPreferredSize(new Dimension(700, 700));
+        getContentPane().setPreferredSize(new Dimension(800, 600));
         add(new CombatPanel());
         pack();
 
