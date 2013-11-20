@@ -29,6 +29,8 @@ public class Unit
 
     private Unit m_target;
 
+    private int m_kills;
+
     public Unit()
     {
         setObjectId(m_seq++);
@@ -315,5 +317,25 @@ public class Unit
     public void setTarget(Unit target)
     {
         m_target = target;
+    }
+
+    public int getKills()
+    {
+        return m_kills;
+    }
+
+    public void setKills(int kills)
+    {
+        m_kills = kills;
+    }
+
+    public int getMinDamage()
+    {
+        return m_minDamage;
+    }
+
+    public int getMaxDamage()
+    {
+        return m_maxDamage;
     }
 }

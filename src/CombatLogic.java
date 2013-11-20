@@ -12,6 +12,7 @@ public class CombatLogic
         int unmitigatedDamage = getUnmitigatedDamage(rawDamage, defender.getArmor());
 
         defender.setHp(defender.getHp() - unmitigatedDamage);
+        if (attacker instanceof Berserker) attacker.setHp(attacker.getHp() + unmitigatedDamage);
 
         attacker.setTimeOfLastAttack(GameLogic.getNow());
 
@@ -20,7 +21,17 @@ public class CombatLogic
         Log.logInfo(simulationStart, defender + " has " + defender.getHp() + " hp left.");
 
         if (!defender.isAlive())
+        {
             processDeath(defender, map, simulationStart);
+            attacker.setKills(attacker.getKills() + 1);
+            if (attacker instanceof Berserker)
+            {
+                attacker.setHp(attacker.getHp() + 10);
+                attacker.setArmor(attacker.getArmor() + 1);
+                attacker.setMinDamage(attacker.getMinDamage() + 2);
+                attacker.setMaxDamage(attacker.getMaxDamage() + 3);
+            }
+        }
     }
 
     private static void processDeath(Unit defender, GameMap map, BigDecimal simulationStart)

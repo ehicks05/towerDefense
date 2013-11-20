@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ public class CombatPanel extends JPanel implements Runnable
     private Image star;
     private Thread animator;
     private List<Unit> units;
+    private int[][] terrain;
     private BigDecimal simulationStart;
 
     private final int DELAY = 16;
@@ -31,6 +33,25 @@ public class CombatPanel extends JPanel implements Runnable
         star = ii.getImage();
 
         units = new ArrayList<>();
+        terrain = buildTerrain();
+    }
+
+    private int[][] buildTerrain()
+    {
+        Random gen = new Random();
+
+        int[][] terrain = new int[80][60];
+        for (int i = 0; i < 80; i++)
+        {
+            for (int j = 0; j < 60; j++)
+            {
+                if (gen.nextFloat() > 0.9)
+                    terrain[i][j] = 0;
+                else
+                    terrain[i][j] = 1;
+            }
+        }
+        return terrain;
     }
 
     public void addNotify()
@@ -46,18 +67,11 @@ public class CombatPanel extends JPanel implements Runnable
 
         Graphics2D g2d = (Graphics2D) g;
 
-        // first draw vision circles
-        for (Unit unit : units)
-        {
-            int x = (int) unit.getLocation().getX();
-            int y = (int) unit.getLocation().getY();
+        // draw terrain
+        drawTerrain(g2d);
 
-            g2d.setColor(Color.getHSBColor(.12f, .12f, .12f));
-
-            int size = unit.getSightRadius();
-
-            g2d.drawOval(x - size, y - size, size * 2, size * 2);
-        }
+        // draw vision circles
+        drawVisionCircles(g2d);
 
         for (Unit unit : units)
         {
@@ -67,15 +81,17 @@ public class CombatPanel extends JPanel implements Runnable
             {
                 g2d.setColor(Color.RED);
                 if (unit instanceof Barracks) g2d.setColor(Color.PINK);
+                if (unit instanceof Berserker) g2d.setColor(new Color(150, 0, 0));
             }
             if (unit.getTeam() == 2)
             {
                 g2d.setColor(Color.GREEN);
                 if (unit instanceof Barracks) g2d.setColor(Color.YELLOW);
+                if (unit instanceof Berserker) g2d.setColor(new Color(0, 120, 0));
             }
 
             int size = 3;
-            if (unit instanceof Knight) size = 5;
+            if (unit instanceof Knight || unit instanceof Berserker) size = 5;
             if (unit instanceof Barracks) size = 10;
 
             g2d.fillRect(x, y, size, size);
@@ -94,6 +110,37 @@ public class CombatPanel extends JPanel implements Runnable
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
+    }
+
+    private void drawVisionCircles(Graphics2D g2d)
+    {
+        for (Unit unit : units)
+        {
+            int x = (int) unit.getLocation().getX();
+            int y = (int) unit.getLocation().getY();
+
+            g2d.setColor(Color.getHSBColor(.12f, .12f, .12f));
+
+            int size = unit.getSightRadius();
+
+            g2d.drawOval(x - size, y - size, size * 2, size * 2);
+        }
+    }
+
+    private void drawTerrain(Graphics2D g2d)
+    {
+        for (int i = 0; i < 80; i++)
+        {
+            for (int j = 0; j < 60; j++)
+            {
+                if (terrain[i][j] == 0)
+                    g2d.setColor(new Color(40, 60, 16));
+                if (terrain[i][j] == 1)
+                    g2d.setColor(new Color(36, 36, 16));
+
+                g2d.fillRect(i * 10, j * 10, 10, 10);
+            }
+        }
     }
 
     public void run()

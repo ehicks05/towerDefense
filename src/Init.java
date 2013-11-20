@@ -14,23 +14,33 @@ public class Init
 
         // create a barracks for each team
         List<Unit> units = new ArrayList<>();
-        units.add(new Barracks(1));
-        units.add(new Barracks(2));
+
+        for (int i = 0; i < 5; i++)
+        {
+            units.add(new Barracks(1));
+            units.add(new Barracks(2));
+        }
 
         // create some initial units
-        for (int i = 0; i < 384; i++)
+        for (int i = 0; i < 20; i++)
         {
             units.add(new Footman(1));
             units.add(new Footman(2));
         }
 
-        for (int i = 0; i < 60; i++)
+        for (int i = 0; i < 6; i++)
+        {
+            units.add(new Berserker(1));
+            units.add(new Berserker(2));
+        }
+
+        for (int i = 0; i < 2; i++)
         {
             units.add(new Archer(1));
             units.add(new Archer(2));
         }
 
-        for (int i = 0; i < 224; i++)
+        for (int i = 0; i < 2; i++)
         {
             units.add(new Knight(1));
             units.add(new Knight(2));
