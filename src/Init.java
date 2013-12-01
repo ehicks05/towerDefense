@@ -4,13 +4,16 @@ import java.util.List;
 
 public class Init
 {
+    public static int WIDTH = 800;
+    public static int HEIGHT = 600;
+
     public static void init(GameMap map)
     {
         // delete previous log
         new File("log.txt").delete();
 
-        map.setWidth(800);
-        map.setHeight(600);
+        map.setWidth(WIDTH);
+        map.setHeight(HEIGHT);
 
         // create a barracks for each team
         List<Unit> units = new ArrayList<>();

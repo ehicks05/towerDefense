@@ -1,6 +1,7 @@
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameLogic
 {
@@ -30,12 +31,28 @@ public class GameLogic
         Barracks barracks = (Barracks) unit;
         if ((barracks.isReadyToBuild()))
         {
-            Unit barracksCreation = new Footman(barracks.getTeam());
+            // create and add to map, a new footman... it should be in an available spot next to the barracks
+            Random gen = new Random();
+            int typeToBuild = gen.nextInt(4);
+            Unit barracksCreation;
+
+            switch (typeToBuild)
+            {
+                case 0: barracksCreation = new Footman(barracks.getTeam());
+                    break;
+                case 1: barracksCreation = new Knight(barracks.getTeam());
+                    break;
+                case 2: barracksCreation = new Archer(barracks.getTeam());
+                    break;
+                case 3: barracksCreation = new Berserker(barracks.getTeam());
+                    break;
+                default: barracksCreation = new Footman(barracks.getTeam());
+            }
+
             barracksCreation.setLocation(map.getAvailableAdjacentLocation(barracks.getLocation()));
             map.addUnitToExistingUnits(barracksCreation);
             barracks.setTimeOfLastBuild(GameLogic.getNow());
 
-            // create and add to map, a new footman... it should be in an available spot next to the barracks
             Log.logInfo(simulationStart, barracks + " has created a footman " + barracksCreation);
 
             int unitsOnTeam1 = getUnitsOnTeam(map.getExistingUnits(), 1);

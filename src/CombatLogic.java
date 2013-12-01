@@ -12,7 +12,8 @@ public class CombatLogic
         int unmitigatedDamage = getUnmitigatedDamage(rawDamage, defender.getArmor());
 
         defender.setHp(defender.getHp() - unmitigatedDamage);
-        if (attacker instanceof Berserker) attacker.setHp(attacker.getHp() + unmitigatedDamage);
+        if (attacker instanceof Berserker)
+            attacker.setHp(attacker.getHp() + (unmitigatedDamage / 3));
 
         attacker.setTimeOfLastAttack(GameLogic.getNow());
 
@@ -27,9 +28,7 @@ public class CombatLogic
             if (attacker instanceof Berserker)
             {
                 attacker.setHp(attacker.getHp() + 10);
-                attacker.setArmor(attacker.getArmor() + 1);
-                attacker.setMinDamage(attacker.getMinDamage() + 2);
-                attacker.setMaxDamage(attacker.getMaxDamage() + 3);
+                attacker.setMaxDamage(attacker.getMaxDamage() + 2);
             }
         }
     }
@@ -42,7 +41,6 @@ public class CombatLogic
             if (unit.getTarget() != null && unit.getTarget().equals(defender))
             {
                 unit.setTarget(null);
-                unit.setDestination(null);
                 unit.setTimeOfLastMove(GameLogic.getNow());
             }
 

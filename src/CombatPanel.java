@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,10 +41,10 @@ public class CombatPanel extends JPanel implements Runnable
     {
         Random gen = new Random();
 
-        int[][] terrain = new int[80][60];
-        for (int i = 0; i < 80; i++)
+        int[][] terrain = new int[81][61];
+        for (int i = 0; i < 81; i++)
         {
-            for (int j = 0; j < 60; j++)
+            for (int j = 0; j < 61; j++)
             {
                 if (gen.nextFloat() > 0.9)
                     terrain[i][j] = 0;
@@ -101,7 +102,7 @@ public class CombatPanel extends JPanel implements Runnable
         int y = 0;
 
         g2d.setColor(Color.WHITE);
-        g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(simulationStart), x, y += 15);
+        g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(simulationStart).setScale(2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("Units: " + units.size(), x, y += 15);
         g2d.setColor(Color.RED);
         g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
@@ -129,9 +130,9 @@ public class CombatPanel extends JPanel implements Runnable
 
     private void drawTerrain(Graphics2D g2d)
     {
-        for (int i = 0; i < 80; i++)
+        for (int i = 0; i < 81; i++)
         {
-            for (int j = 0; j < 60; j++)
+            for (int j = 0; j < 61; j++)
             {
                 if (terrain[i][j] == 0)
                     g2d.setColor(new Color(40, 60, 16));
