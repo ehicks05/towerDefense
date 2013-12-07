@@ -10,7 +10,7 @@ public class Idle extends State
 
     public void execute(Unit unit)
     {
-//        hicks.combat.entities.Unit closestVisibleEnemy = unit.getClosestVisibleEnemy(map.getExistingUnits());
+//        Unit closestVisibleEnemy = unit.getClosestVisibleEnemy(map.getExistingUnits());
 //
 //        if (closestVisibleEnemy == null)
 //        {
