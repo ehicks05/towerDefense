@@ -1,4 +1,4 @@
-package hicks;
+package hicks.deadtv;
 
 import javax.swing.*;
 import java.awt.*;

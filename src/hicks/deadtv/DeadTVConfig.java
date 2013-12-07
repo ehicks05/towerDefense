@@ -1,4 +1,4 @@
-package hicks;
+package hicks.deadtv;
 
 public class DeadTVConfig
 {
