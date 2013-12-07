@@ -1,3 +1,9 @@
+package hicks.combat.entities;
+
+import hicks.combat.GameLogic;
+import hicks.combat.NameLogic;
+import hicks.combat.Point;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -131,7 +137,7 @@ public class Unit
         setLocation(new Point(newX, newY));
         setTimeOfLastMove(GameLogic.getNow());
 
-//        Log.logInfo(simulationStart, this + " moved " + distanceToMove.setScale(2, RoundingMode.HALF_UP) + " units" + " from " + startLocation + " to " + this.getLocation());
+//        hicks.combat.Log.logInfo(simulationStart, this + " moved " + distanceToMove.setScale(2, RoundingMode.HALF_UP) + " units" + " from " + startLocation + " to " + this.getLocation());
     }
 
     public double getX()

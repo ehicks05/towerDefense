@@ -1,20 +1,32 @@
+package hicks.combat.entities;
+
+import hicks.combat.GameLogic;
+
 import java.math.BigDecimal;
 
-public class Barracks extends Unit
+public class Peasant extends Unit implements Builder
 {
     private BigDecimal m_buildSpeed;
     private BigDecimal m_timeOfLastBuild;
 
-    public Barracks(int team)
+    public Peasant(int team)
     {
         setTeam(team);
-        setSizeRadius(150);
-        setSightRadius(60);
+        setSizeRadius(40);
+        setSightRadius(40);
+        setMoveSpeed(50);
+        setTimeOfLastMove(GameLogic.getNow());
 
-        setHp(600);
-        setArmor(5);
+        setHp(50);
+        setArmor(0);
+        setMinDamage(8);
+        setMaxDamage(10);
+        setAttackRange(8);
 
-        setBuildSpeed(new BigDecimal(10));
+        setAttackSpeed(new BigDecimal(1.5));
+        setTimeOfLastAttack(GameLogic.getNow());
+
+        setBuildSpeed(new BigDecimal(1));
         setTimeOfLastBuild(GameLogic.getNow());
     }
 

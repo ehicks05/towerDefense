@@ -1,3 +1,7 @@
+package hicks.combat.entities;
+
+import hicks.combat.GameLogic;
+
 import java.math.BigDecimal;
 
 public class Knight extends Unit
