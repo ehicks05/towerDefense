@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="26885267-302c-4a28-a72d-2d7fd972867a" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\project\myGame\src\combat" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="myGame.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386440994136" ignored="false" />
+    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386441140835" ignored="false" />
     <file path="/Test.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1380465496446" ignored="false" />
     <file path="/fragment.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386439977711" ignored="false" />
     <file path="/CombatDemo.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381792530286" ignored="false" />
@@ -126,10 +125,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Idle.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Idle.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="62" selection-start="561" selection-end="561" vertical-scroll-proportion="0.55081004">
+            <state line="33" column="35" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="workspace.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="51" selection-start="3151" selection-end="3151" vertical-scroll-proportion="0.5355893">
               <folding />
             </state>
           </provider>
@@ -139,15 +147,6 @@
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/State.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="4" column="22" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Unit.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="123" selection-start="2377" selection-end="2377" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -249,6 +248,7 @@
         <option value="$PROJECT_DIR$/src/hicks/combat/Builder.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/entities/Builder.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/state/Idle.java" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
@@ -437,6 +437,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="combat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -886,7 +900,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15401785" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21316965" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21316965" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Metrics" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.75389755" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -996,11 +1010,6 @@
     <option name="showOnlyWarnings" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="24" selection-start="214" selection-end="214" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Knight.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="30" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0">
@@ -1330,7 +1339,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="62" selection-start="561" selection-end="561" vertical-scroll-proportion="0.55081004">
+        <state line="33" column="35" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="51" selection-start="3151" selection-end="3151" vertical-scroll-proportion="0.5355893">
           <folding />
         </state>
       </provider>
