@@ -1,3 +1,7 @@
+package hicks.combat;
+
+import hicks.combat.entities.Unit;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,11 +20,7 @@ public class GameMap
 
     public Point getRandomPointOnMap()
     {
-        Random random = new Random();
-        double x = random.nextDouble() * m_width;
-        double y = random.nextDouble() * m_height;
-
-        return new Point(x, y);
+        return getRandomPointOnMap(0, m_width, 0, m_height);
     }
 
     public Point getRandomPointOnMap(double minX, double maxX, double minY, double maxY)
@@ -30,6 +30,19 @@ public class GameMap
         double y = minY + random.nextDouble() * maxY;
 
         return new Point(x, y);
+    }
+
+    public Point getRandomAvailablePoint()
+    {
+        Point point = null;
+        while (point == null)
+        {
+            Point possiblePoint = getRandomPointOnMap();
+            if (!isPositionOccupied(possiblePoint))
+                point = possiblePoint;
+        }
+
+        return point;
     }
 
     public Point getAvailableAdjacentLocation(Point location)
@@ -55,7 +68,11 @@ public class GameMap
             if (!isPositionOnMap(candidate) || isPositionOccupied(candidate)) i.remove();
         }
 
-        return possibleLocations.get(0);
+        if (possibleLocations.size() > 0)
+            return possibleLocations.get(0);
+        else
+            return getRandomAvailablePoint();
+
     }
 
     public void placeUnitsRandomlyOnEachHalfOfMap(List<Unit> unitsToPlace)

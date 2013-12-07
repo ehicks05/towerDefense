@@ -1,3 +1,9 @@
+package hicks.combat;
+
+import hicks.combat.entities.Barracks;
+import hicks.combat.entities.Knight;
+import hicks.combat.entities.Unit;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,7 +73,7 @@ public class NameLogic
                 "Haute", "Hauville", "H�diart", "Hendry", "Herbard", "Heriet", "Heuz�", "Hewse", "Hodenc", "Holland", "Hotot",
                 "Hue", "Hugonin", "Hynde", "Ide", "Jolland", "Jubert", "la Berviere", "la Bruiere", "la Cleve", "la Foret",
                 "la Guierche", "la Mare", "la Pommeraie", "la Riviere", "La Vache", "La Verrier", "Labb�", "Laci", "l'Adoube",
-                "l'Aigle", "Lallement", "l'Ane", "Lanquetot", "l'Appeville", "l'Archer", "l'Aune", "Le Barge", "le Berruier",
+                "l'Aigle", "Lallement", "l'Ane", "Lanquetot", "l'Appeville", "l'hicks.combat.entities.Archer", "l'Aune", "Le Barge", "le Berruier",
                 "Le Blanc", "le Blond", "le Bouguignon", "le Breton", "Le Chandelier", "Le Clerc", "Le Conte", "Le Cordier",
                 "Le Cornu", "le Despensier", "Le Doulcet", "le Flamand", "le Gaucher", "Le Goix", "Le Grant", "Le Gras",
                 "Le Jumel", "Le Lieur", "Le Maistre", "Le Marchant", "le Marechal", "Le Marinier", "Le Masson", "Le Paulmier",
@@ -107,7 +113,7 @@ public class NameLogic
 
         String name = names.get(random.nextInt(names.size())) + " " + surnames.get(random.nextInt(surnames.size()));
         if (unit instanceof Knight) name = "Sir " + name;
-        if (unit instanceof Barracks) name = "Barracks";
+        if (unit instanceof Barracks) name = "hicks.combat.entities.Barracks";
         return name;
     }
 }

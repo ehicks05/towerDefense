@@ -1,3 +1,5 @@
+package hicks.combat;
+
 import java.text.DecimalFormat;
 
 public class Point

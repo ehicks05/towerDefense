@@ -1,3 +1,8 @@
+package hicks.combat;
+
+import hicks.combat.entities.Berserker;
+import hicks.combat.entities.Unit;
+
 import java.math.BigDecimal;
 
 public class CombatLogic

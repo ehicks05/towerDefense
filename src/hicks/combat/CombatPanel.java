@@ -1,3 +1,7 @@
+package hicks.combat;
+
+import hicks.combat.entities.*;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,7 +21,7 @@ import javax.swing.JPanel;
 public class CombatPanel extends JPanel implements Runnable
 {
     private final int MS_PER_UPDATE = 8;
-    private Image star;
+    private Image peasant;
     private Thread animator;
     private List<Unit> units;
     private int[][] terrain;
@@ -30,8 +34,8 @@ public class CombatPanel extends JPanel implements Runnable
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
 
-        ImageIcon ii = new ImageIcon("image.png");
-        star = ii.getImage();
+        ImageIcon peasant = new ImageIcon("wc2h_peasant.gif");
+        this.peasant = peasant.getImage();
 
         units = new ArrayList<>();
         terrain = buildTerrain();
@@ -94,8 +98,12 @@ public class CombatPanel extends JPanel implements Runnable
             int size = 3;
             if (unit instanceof Knight || unit instanceof Berserker) size = 5;
             if (unit instanceof Barracks) size = 10;
+            if (unit instanceof Peasant) size = 12;
 
-            g2d.fillRect(x, y, size, size);
+            if (unit instanceof Peasant)
+                g2d.drawImage(peasant, x - size/2, y - size/2, size, size, null);
+            else
+                g2d.fillRect(x, y, size, size);
         }
 
         int x = 10;
