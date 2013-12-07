@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="26885267-302c-4a28-a72d-2d7fd972867a" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\project\myGame\src\hicks\combat\combat\state\Idle.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\project\myGame\src\hicks\combat\combat\state\State.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\project\myGame\src\hicks\combat\combat\state\StateMachine.java" afterPath="" />
       <change type="DELETED" beforePath="C:\project\myGame\src\combat" afterPath="" />
-      <change type="DELETED" beforePath="C:\project\myGame\src\hicks\combat\combat\state" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/state/Idle.java" afterPath="$PROJECT_DIR$/src/hicks/combat/state/Idle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="myGame.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386440750742" ignored="false" />
+    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386440994136" ignored="false" />
     <file path="/Test.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1380465496446" ignored="false" />
     <file path="/fragment.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386439977711" ignored="false" />
     <file path="/CombatDemo.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381792530286" ignored="false" />
@@ -136,7 +129,7 @@
       <file leaf-file-name="Idle.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="34" selection-start="596" selection-end="596" vertical-scroll-proportion="0.57584685">
+            <state line="22" column="62" selection-start="561" selection-end="561" vertical-scroll-proportion="0.55081004">
               <folding />
             </state>
           </provider>
@@ -1337,7 +1330,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="34" selection-start="596" selection-end="596" vertical-scroll-proportion="0.57584685">
+        <state line="22" column="62" selection-start="561" selection-end="561" vertical-scroll-proportion="0.55081004">
           <folding />
         </state>
       </provider>
