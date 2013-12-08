@@ -5,11 +5,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class Log
 {
     private static long m_lines;
-    private static String messageQueue;
+    private static String messageQueue = "";
+    private static DecimalFormat timeFormat = new DecimalFormat("000.00");
+    private static DecimalFormat lineFormat = new DecimalFormat("000");
 
     public static void logInfo(String message)
     {
@@ -22,11 +25,14 @@ public class Log
     public static void logInfo(BigDecimal simulationStart, String message, boolean flush)
     {
         m_lines++;
-        String elapsed = "";
+        String elapsedString = "000.00: ";
         if (simulationStart != null)
-            elapsed = GameLogic.getElapsedTime(simulationStart).setScale(2, BigDecimal.ROUND_HALF_UP).toString() + ": ";
+        {
+            double elapsedTime = GameLogic.getElapsedTime(simulationStart).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            elapsedString = timeFormat.format(elapsedTime) + ": ";
+        }
 
-        message = "Line " + m_lines + " " + elapsed + message;
+        message = lineFormat.format(m_lines) + " " + elapsedString + message;
 
         messageQueue = messageQueue + message + "\r\n";
 

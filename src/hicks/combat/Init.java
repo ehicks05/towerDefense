@@ -14,10 +14,12 @@ public class Init
     public static void init(GameMap map)
     {
         // delete previous log
-        new File("log.txt").delete();
+        if (new File("log.txt").delete())
+            Log.logInfo(CombatPanel.getSimulationStart(), "Previous log deleted...");
 
         map.setWidth(WIDTH);
         map.setHeight(HEIGHT);
+        Unit.setMap(map);
 
         // create a barracks for each team
         List<Unit> units = new ArrayList<>();
@@ -26,31 +28,6 @@ public class Init
         {
             units.add(new Barracks(1));
             units.add(new Barracks(2));
-        }
-
-        // create some initial units
-        for (int i = 0; i < 0; i++)
-        {
-            units.add(new Footman(1));
-            units.add(new Footman(2));
-        }
-
-        for (int i = 0; i < 0; i++)
-        {
-            units.add(new Berserker(1));
-            units.add(new Berserker(2));
-        }
-
-        for (int i = 0; i < 0; i++)
-        {
-            units.add(new Archer(1));
-            units.add(new Archer(2));
-        }
-
-        for (int i = 0; i < 0; i++)
-        {
-            units.add(new Knight(1));
-            units.add(new Knight(2));
         }
 
         // place units on the map - this method adds the units to the list of existing units the map is aware of

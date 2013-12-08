@@ -44,15 +44,9 @@ public class GameLogic
 
                 switch (typeToBuild)
                 {
-                    case 0: barracksCreation = new Footman(barracks.getTeam());
+                    case 0: barracksCreation = new Knight(barracks.getTeam());
                         break;
-                    case 1: barracksCreation = new Knight(barracks.getTeam());
-                        break;
-//                    case 2: barracksCreation = new hicks.combat.entities.Archer(barracks.getTeam());
-//                        break;
-//                    case 3: barracksCreation = new hicks.combat.entities.Berserker(barracks.getTeam());
-//                        break;
-                    case 4: barracksCreation = new Peasant(barracks.getTeam());
+                    case 1: barracksCreation = new Peasant(barracks.getTeam());
                         break;
                     default: barracksCreation = new Footman(barracks.getTeam());
                 }

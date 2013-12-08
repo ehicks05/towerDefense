@@ -12,6 +12,7 @@ public class GameMap
     private int m_width;
     private int m_height;
     private List<Unit> m_existingUnits;
+    private static final GameMap MAP = null;
 
     public GameMap()
     {

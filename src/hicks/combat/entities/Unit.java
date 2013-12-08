@@ -1,6 +1,7 @@
 package hicks.combat.entities;
 
 import hicks.combat.GameLogic;
+import hicks.combat.GameMap;
 import hicks.combat.NameLogic;
 import hicks.combat.Point;
 
@@ -9,26 +10,38 @@ import java.math.RoundingMode;
 
 public class Unit
 {
-    private static int  m_seq = 0;
-    private int         m_objectId;
-    private int         m_team;
-    private String      m_name;
-    private int         m_sizeRadius;
-    private int         m_sightRadius;
-    private int         m_moveSpeed;
-    private BigDecimal  m_timeOfLastMove;
-    private boolean     m_moving;
-    private Point       m_location;
-    private Point       m_destination;
-    private int         m_hp;
-    private int         m_armor;
-    private int         m_minDamage;
-    private int         m_maxDamage;
-    private int         m_attackRange;
-    private BigDecimal  m_attackSpeed;
-    private BigDecimal  m_timeOfLastAttack;
-    private Unit        m_target;
-    private int         m_kills;
+    private static int      m_seq = 0;
+    private int             m_objectId;
+    private int             m_team;
+    private String          m_name;
+    private int             m_sizeRadius;
+    private int             m_sightRadius;
+    private int             m_moveSpeed;
+    private BigDecimal      m_timeOfLastMove;
+    private boolean         m_moving;
+    private Point           m_location;
+    private Point           m_destination;
+    private int             m_hp;
+    private int             m_armor;
+    private int             m_minDamage;
+    private int             m_maxDamage;
+    private int             m_attackRange;
+    private BigDecimal      m_attackSpeed;
+    private BigDecimal      m_timeOfLastAttack;
+    private Unit            m_target;
+    private int             m_kills;
+
+    private static GameMap  m_map;
+
+    public static GameMap getMap()
+    {
+        return m_map;
+    }
+
+    public static void setMap(GameMap map)
+    {
+        m_map = map;
+    }
 
     public Unit()
     {

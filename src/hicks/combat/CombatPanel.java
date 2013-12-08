@@ -25,7 +25,7 @@ public class CombatPanel extends JPanel implements Runnable
     private Thread animator;
     private List<Unit> units;
     private int[][] terrain;
-    private BigDecimal simulationStart;
+    private static BigDecimal simulationStart;
 
     private final int DELAY = 16;
 
@@ -39,6 +39,11 @@ public class CombatPanel extends JPanel implements Runnable
 
         units = new ArrayList<>();
         terrain = buildTerrain();
+    }
+
+    public static BigDecimal getSimulationStart()
+    {
+        return simulationStart;
     }
 
     private int[][] buildTerrain()
@@ -154,13 +159,13 @@ public class CombatPanel extends JPanel implements Runnable
 
     public void run()
     {
-        // create map
-        GameMap map = new GameMap();
-        Init.init(map);
-
         // start simulation timer
         simulationStart = GameLogic.now();
         Log.logInfo("Simulation starting at " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(new Date()));
+
+        // create map
+        GameMap map = new GameMap();
+        Init.init(map);
 
         // run game loop
         long beforeTime, timeDiff, sleep;
