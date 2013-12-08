@@ -159,7 +159,7 @@ public class CombatPanel extends JPanel implements Runnable
         Init.init(map);
 
         // start simulation timer
-        simulationStart = GameLogic.getNow();
+        simulationStart = GameLogic.now();
         Log.logInfo("Simulation starting at " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(new Date()));
 
         // run game loop

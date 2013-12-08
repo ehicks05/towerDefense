@@ -1,6 +1,5 @@
 package hicks.combat;
 
-import hicks.combat.entities.Berserker;
 import hicks.combat.entities.Unit;
 
 import java.math.BigDecimal;
@@ -17,10 +16,8 @@ public class CombatLogic
         int unmitigatedDamage = getUnmitigatedDamage(rawDamage, defender.getArmor());
 
         defender.setHp(defender.getHp() - unmitigatedDamage);
-        if (attacker instanceof Berserker)
-            attacker.setHp(attacker.getHp() + (unmitigatedDamage / 3));
 
-        attacker.setTimeOfLastAttack(GameLogic.getNow());
+        attacker.setTimeOfLastAttack(GameLogic.now());
 
         // update battle log
         Log.logInfo(simulationStart, attacker + " attacks " + attacker.getTarget() + " for " + unmitigatedDamage + " damage.");
@@ -30,11 +27,6 @@ public class CombatLogic
         {
             processDeath(defender, map, simulationStart);
             attacker.setKills(attacker.getKills() + 1);
-            if (attacker instanceof Berserker)
-            {
-                attacker.setHp(attacker.getHp() + 10);
-                attacker.setMaxDamage(attacker.getMaxDamage() + 2);
-            }
         }
     }
 
@@ -46,7 +38,7 @@ public class CombatLogic
             if (unit.getTarget() != null && unit.getTarget().equals(defender))
             {
                 unit.setTarget(null);
-                unit.setTimeOfLastMove(GameLogic.getNow());
+                unit.setTimeOfLastMove(GameLogic.now());
             }
 
         map.removeUnitFromExistingUnits(defender);

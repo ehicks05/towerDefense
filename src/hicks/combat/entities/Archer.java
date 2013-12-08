@@ -12,7 +12,7 @@ public class Archer extends Unit
         setSizeRadius(40);
         setSightRadius(40);
         setMoveSpeed(50);
-        setTimeOfLastMove(GameLogic.getNow());
+        setTimeOfLastMove(GameLogic.now());
 
         setHp(50);
         setArmor(0);
@@ -21,6 +21,6 @@ public class Archer extends Unit
         setAttackRange(100);
 
         setAttackSpeed(new BigDecimal(1.5));
-        setTimeOfLastAttack(GameLogic.getNow());
+        setTimeOfLastAttack(GameLogic.now());
     }
 }

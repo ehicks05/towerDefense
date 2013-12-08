@@ -15,7 +15,7 @@ public class Peasant extends Unit implements Builder
         setSizeRadius(40);
         setSightRadius(40);
         setMoveSpeed(50);
-        setTimeOfLastMove(GameLogic.getNow());
+        setTimeOfLastMove(GameLogic.now());
 
         setHp(50);
         setArmor(0);
@@ -24,10 +24,10 @@ public class Peasant extends Unit implements Builder
         setAttackRange(8);
 
         setAttackSpeed(new BigDecimal(1.5));
-        setTimeOfLastAttack(GameLogic.getNow());
+        setTimeOfLastAttack(GameLogic.now());
 
         setBuildSpeed(new BigDecimal(1));
-        setTimeOfLastBuild(GameLogic.getNow());
+        setTimeOfLastBuild(GameLogic.now());
     }
 
     public boolean isReadyToBuild()

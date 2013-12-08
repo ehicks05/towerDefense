@@ -61,93 +61,10 @@ public class Unit
         return randomPortion + m_minDamage;
     }
 
-    public Unit getClosestVisibleEnemy(List<Unit> units)
-    {
-        Unit closestEnemy = null;
-        double smallestDistance = Double.MAX_VALUE;
-
-        for (Unit unit : units)
-        {
-            if (unit.equals(this) || unit.getTeam() == m_team) continue;
-
-            double distance = m_location.getDistance(unit.getLocation());
-
-            if (distance <= m_sightRadius && distance < smallestDistance)
-            {
-                closestEnemy = unit;
-                smallestDistance = distance;
-            }
-        }
-
-        return closestEnemy;
-    }
-
     public boolean isTargetInRange()
     {
         double distance = new BigDecimal(m_location.getDistance(m_target.getLocation())).setScale(0, RoundingMode.HALF_UP).doubleValue();
         return distance <= m_attackRange;
-    }
-
-    public void moveTowardCoordinate(Point destination, boolean isDestinationAnEnemyTarget)
-    {
-        if (!m_moving)
-        {
-            m_timeOfLastMove = GameLogic.getNow();
-            m_moving = true;
-        }
-
-        BigDecimal timeSinceLastMove = GameLogic.getElapsedTime(m_timeOfLastMove);
-        BigDecimal moveSpeed = new BigDecimal(m_moveSpeed);
-        BigDecimal potentialDistanceToMove = moveSpeed.multiply(timeSinceLastMove);
-        BigDecimal currentDistance = new BigDecimal(m_location.getDistance(destination)).setScale(0, RoundingMode.HALF_UP);
-
-        BigDecimal desiredDistance = BigDecimal.ZERO;
-        if (isDestinationAnEnemyTarget)
-            desiredDistance = new BigDecimal(this.getAttackRange());
-
-        // if we are within our desired distance, stop.
-        if (currentDistance.compareTo(desiredDistance) <= 0)
-        {
-            m_destination = null;
-            return;
-        }
-
-        // if our expected movement would take us closer than we need to be, don't move so far.
-        BigDecimal expectedNewDistance = currentDistance.subtract(potentialDistanceToMove);
-        BigDecimal actualDistanceToMove = potentialDistanceToMove;
-        if (expectedNewDistance.compareTo(desiredDistance) == -1)
-        {
-            BigDecimal excessMovement = desiredDistance.subtract(expectedNewDistance);
-            actualDistanceToMove = potentialDistanceToMove.subtract(excessMovement);
-        }
-
-        // calculate the weighting for x and y terms
-        BigDecimal deltaX = new BigDecimal(destination.getDeltaX(m_location));
-        BigDecimal deltaY = new BigDecimal(destination.getDeltaY(m_location));
-
-        BigDecimal factorX = deltaX.divide(currentDistance, 16, RoundingMode.HALF_UP);
-        BigDecimal factorY = deltaY.divide(currentDistance, 16, RoundingMode.HALF_UP);
-
-        BigDecimal distanceToMoveX = actualDistanceToMove.multiply(factorX);
-        BigDecimal distanceToMoveY = actualDistanceToMove.multiply(factorY);
-
-        double newX = new BigDecimal(getX()).add((distanceToMoveX)).doubleValue();
-        double newY = new BigDecimal(getY()).add((distanceToMoveY)).doubleValue();
-
-        setLocation(new Point(newX, newY));
-        setTimeOfLastMove(GameLogic.getNow());
-
-//        hicks.combat.Log.logInfo(simulationStart, this + " moved " + distanceToMove.setScale(2, RoundingMode.HALF_UP) + " units" + " from " + startLocation + " to " + this.getLocation());
-    }
-
-    public double getX()
-    {
-        return m_location.getX();
-    }
-
-    public double getY()
-    {
-        return m_location.getY();
     }
 
     public int getObjectId()

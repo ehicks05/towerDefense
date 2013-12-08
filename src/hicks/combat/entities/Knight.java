@@ -12,7 +12,7 @@ public class Knight extends Unit
         setSizeRadius(50);
         setSightRadius(60);
         setMoveSpeed(100);
-        setTimeOfLastMove(GameLogic.getNow());
+        setTimeOfLastMove(GameLogic.now());
 
         setHp(100);
         setArmor(3);
@@ -21,6 +21,6 @@ public class Knight extends Unit
         setAttackRange(10);
 
         setAttackSpeed(new BigDecimal(2));
-        setTimeOfLastAttack(GameLogic.getNow());
+        setTimeOfLastAttack(GameLogic.now());
     }
 }

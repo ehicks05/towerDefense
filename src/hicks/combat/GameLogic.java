@@ -59,7 +59,7 @@ public class GameLogic
 
                 barracksCreation.setLocation(map.getAvailableAdjacentLocation(barracks.getLocation()));
                 map.addUnitToExistingUnits(barracksCreation);
-                barracks.setTimeOfLastBuild(GameLogic.getNow());
+                barracks.setTimeOfLastBuild(GameLogic.now());
 
                 Log.logInfo(simulationStart, barracks + " has created a footman " + barracksCreation);
 
@@ -83,7 +83,7 @@ public class GameLogic
 
                 unitCreated.setLocation(map.getAvailableAdjacentLocation(peasant.getLocation()));
                 map.addUnitToExistingUnits(unitCreated);
-                peasant.setTimeOfLastBuild(GameLogic.getNow());
+                peasant.setTimeOfLastBuild(GameLogic.now());
                 map.getExistingUnits().remove(peasant);
 
                 Log.logInfo(simulationStart, peasant + " has created a hicks.combat.entities.Barracks " + unitCreated);
@@ -121,19 +121,19 @@ public class GameLogic
         if (unit.isTargetInRange() && unit.isReadyToAttack())
             CombatLogic.performAttack(unit, map, simulationStart);
         else
-            unit.moveTowardCoordinate(unit.getTarget().getLocation(), true);
+            UnitLogic.moveTowardCoordinate(unit, unit.getTarget().getLocation(), true);
     }
 
     private static void performIdleBehavior(Unit unit, BigDecimal simulationStart, GameMap map)
     {
-        Unit closestVisibleEnemy = unit.getClosestVisibleEnemy(map.getExistingUnits());
+        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit, map.getExistingUnits());
 
         if (closestVisibleEnemy == null)
         {
             if (unit.getDestination() == null)
                 unit.setDestination(map.getRandomPointOnMap());
 
-            unit.moveTowardCoordinate(unit.getDestination(), false);
+            UnitLogic.moveTowardCoordinate(unit, unit.getDestination(), false);
         }
         else
         {
@@ -145,7 +145,7 @@ public class GameLogic
 
     public static BigDecimal getElapsedTime(BigDecimal startTime)
     {
-        return GameLogic.getNow().subtract(startTime).divide(new BigDecimal("1000000000"));
+        return GameLogic.now().subtract(startTime).divide(new BigDecimal("1000000000"));
     }
 
     public static List<Integer> teamsLeft(List<Unit> units)
@@ -158,7 +158,7 @@ public class GameLogic
         return teamsAlive;
     }
 
-    public static BigDecimal getNow()
+    public static BigDecimal now()
     {
         return new BigDecimal(System.nanoTime());
     }

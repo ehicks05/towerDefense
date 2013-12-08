@@ -12,7 +12,7 @@ public class Footman extends Unit
         setSizeRadius(40);
         setSightRadius(40);
         setMoveSpeed(50);
-        setTimeOfLastMove(GameLogic.getNow());
+        setTimeOfLastMove(GameLogic.now());
 
         setHp(60);
         setArmor(1);
@@ -21,6 +21,6 @@ public class Footman extends Unit
         setAttackRange(10);
 
         setAttackSpeed(new BigDecimal(1.5));
-        setTimeOfLastAttack(GameLogic.getNow());
+        setTimeOfLastAttack(GameLogic.now());
     }
 }
