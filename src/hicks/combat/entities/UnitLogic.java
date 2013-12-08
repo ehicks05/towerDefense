@@ -60,6 +60,14 @@ public class UnitLogic
         unit.setTimeOfLastMove(GameLogic.now());
     }
 
+    public static boolean isTargetInRange(Unit unit)
+    {
+        Point location = unit.getLocation();
+        Point targetLocation = unit.getTarget().getLocation();
+        double distance = new BigDecimal(location.getDistance(targetLocation)).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        return distance <= unit.getAttackRange();
+    }
+
     public static Unit getClosestVisibleEnemy(Unit callingUnit, List<Unit> units)
     {
         Unit closestEnemy = null;

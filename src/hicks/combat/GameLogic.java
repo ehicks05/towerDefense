@@ -39,7 +39,7 @@ public class GameLogic
             {
                 // create and add to map, a new footman... it should be in an available spot next to the barracks
                 Random gen = new Random();
-                int typeToBuild = gen.nextInt(10);
+                int typeToBuild = gen.nextInt(5);
                 Unit barracksCreation;
 
                 switch (typeToBuild)
@@ -112,7 +112,7 @@ public class GameLogic
 
     private static void performHostileBehavior(Unit unit, BigDecimal simulationStart, GameMap map)
     {
-        if (unit.isTargetInRange() && unit.isReadyToAttack())
+        if (UnitLogic.isTargetInRange(unit) && unit.isReadyToAttack())
             CombatLogic.performAttack(unit, map, simulationStart);
         else
             UnitLogic.moveTowardCoordinate(unit, unit.getTarget().getLocation(), true);

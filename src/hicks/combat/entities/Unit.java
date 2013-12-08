@@ -59,12 +59,6 @@ public class Unit
         return m_hp > 0;
     }
 
-    public boolean isTargetInRange()
-    {
-        double distance = new BigDecimal(m_location.getDistance(m_target.getLocation())).setScale(0, RoundingMode.HALF_UP).doubleValue();
-        return distance <= m_attackRange;
-    }
-
     public int getObjectId()
     {
         return m_objectId;

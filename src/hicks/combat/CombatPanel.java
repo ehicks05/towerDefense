@@ -26,8 +26,10 @@ public class CombatPanel extends JPanel implements Runnable
     private List<Unit> units;
     private int[][] terrain;
     private static BigDecimal simulationStart;
-
-    private final int DELAY = 16;
+    private long timeDiff;
+    private long beforeTime;
+    private long sleep;
+    private final int DELAY = 16000000;
 
     public CombatPanel()
     {
@@ -114,8 +116,11 @@ public class CombatPanel extends JPanel implements Runnable
         int x = 10;
         int y = 0;
 
+        BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
+
         g2d.setColor(Color.WHITE);
         g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(simulationStart).setScale(2, RoundingMode.HALF_UP), x, y += 15);
+        g2d.drawString("FPS: " + new BigDecimal("1000").divide(timeDifference, 2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("Units: " + units.size(), x, y += 15);
         g2d.setColor(Color.RED);
         g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
@@ -168,8 +173,7 @@ public class CombatPanel extends JPanel implements Runnable
         Init.init(map);
 
         // run game loop
-        long beforeTime, timeDiff, sleep;
-        beforeTime = System.currentTimeMillis();
+        beforeTime = System.nanoTime();
         while (GameLogic.teamsLeft(map.getExistingUnits()).size() > 1)
         {
             // loops through every unit on the map and updates their state
@@ -178,8 +182,9 @@ public class CombatPanel extends JPanel implements Runnable
             units = map.getExistingUnits();
             repaint();
 
-            timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = DELAY - timeDiff;
+            long now = System.nanoTime();
+            timeDiff = now - beforeTime;
+            sleep = (DELAY - timeDiff) / 1000000;
 
             if (sleep < 0)
                 sleep = 2;
@@ -192,7 +197,7 @@ public class CombatPanel extends JPanel implements Runnable
                 System.out.println("interrupted");
             }
 
-            beforeTime = System.currentTimeMillis();
+            beforeTime = System.nanoTime();
         }
         Log.logInfo(simulationStart, "Team " + GameLogic.teamsLeft(map.getExistingUnits()).get(0) + " wins!", true);
     }

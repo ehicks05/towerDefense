@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="26885267-302c-4a28-a72d-2d7fd972867a" name="Default" comment="seeing if i like UnitLogic in its own class">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/CombatFrame.java" afterPath="$PROJECT_DIR$/src/hicks/combat/CombatFrame.java" />
+    <list default="true" readonly="true" id="26885267-302c-4a28-a72d-2d7fd972867a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" afterPath="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" afterPath="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/GameMap.java" afterPath="$PROJECT_DIR$/src/hicks/combat/GameMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/state/Idle.java" afterPath="$PROJECT_DIR$/src/hicks/combat/state/Idle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/Init.java" afterPath="$PROJECT_DIR$/src/hicks/combat/Init.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/Log.java" afterPath="$PROJECT_DIR$/src/hicks/combat/Log.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="myGame.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386469764753" ignored="false" />
+    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386469784186" ignored="false" />
     <file path="/Test.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1380465496446" ignored="false" />
     <file path="/fragment.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386469464795" ignored="false" />
     <file path="/CombatDemo.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381792530286" ignored="false" />
@@ -38,13 +33,13 @@
     <file path="/Footman.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381613297587" ignored="false" />
     <file path="/NameLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381702548261" ignored="false" />
     <file path="/Log.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386469309284" ignored="false" />
-    <file path="/GameLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386467946582" ignored="false" />
+    <file path="/GameLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386470030560" ignored="false" />
     <file path="/Team.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381701487760" ignored="false" />
     <file path="/MyPanel.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381702926211" ignored="false" />
     <file path="/Star.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381792994034" ignored="false" />
     <file path="/Board.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381794309618" ignored="false" />
     <file path="/Init.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386468609108" ignored="false" />
-    <file path="/CombatPanel.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386468242287" ignored="false" />
+    <file path="/CombatPanel.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386471850858" ignored="false" />
     <file path="$PROJECT_DIR$/../Cabinets/.idea/workspace.xml" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1382276027060" ignored="false" />
     <file path="$PROJECT_DIR$/../Cabinets/.idea/modules.xml" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1382235979479" ignored="false" />
     <file path="$PROJECT_DIR$/../Cabinets/src/Controller.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1382281463667" ignored="false" />
@@ -55,7 +50,7 @@
     <file path="/DeadTvPanel.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1384633835720" ignored="false" />
     <file path="/Peasant.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1385953129729" ignored="false" />
     <file path="/Builder.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1385952959210" ignored="false" />
-    <file path="/UnitLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386466971639" ignored="false" />
+    <file path="/UnitLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386470022110" ignored="false" />
     <file path="/Idle.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386468367767" ignored="false" />
     <file path="/a.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386467478262" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -109,7 +104,38 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" line="186" class="hicks.combat.CombatPanel" package="hicks.combat">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" line="118" class="hicks.combat.CombatPanel" package="hicks.combat">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -119,10 +145,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameLogic.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GameLogic.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/GameLogic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="35" selection-start="5119" selection-end="5119" vertical-scroll-proportion="0.0">
+            <state line="43" column="16" selection-start="1442" selection-end="1442" vertical-scroll-proportion="0.45132744">
               <folding />
             </state>
           </provider>
@@ -160,7 +186,7 @@
       <file leaf-file-name="Unit.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="18" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.0">
+            <state line="60" column="0" selection-start="1506" selection-end="1506" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -169,7 +195,7 @@
       <file leaf-file-name="UnitLogic.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="21" selection-start="3366" selection-end="3366" vertical-scroll-proportion="0.0">
+            <state line="62" column="17" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -186,10 +212,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Log.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/hicks/combat/Log.java">
+      <file leaf-file-name="CombatPanel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="33" selection-start="870" selection-end="870" vertical-scroll-proportion="0.57669616">
+            <state line="125" column="52" selection-start="3647" selection-end="3647" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -267,16 +293,16 @@
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/src/hicks/combat/entities/Builder.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/entities/Peasant.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/CombatLogic.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/GameMap.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/CombatFrame.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/state/Idle.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/Init.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/Log.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" />
       </list>
     </option>
   </component>
@@ -991,7 +1017,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="seeing if i like UnitLogic in its own class" />
+    <option name="LAST_COMMIT_MESSAGE" value="too high" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1005,7 +1031,6 @@
     <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="adding combat demo stuff" />
     <MESSAGE value="refactor" />
     <MESSAGE value="improve printouts to be more user-friendly" />
     <MESSAGE value="added rudimentary positioning, sight radius, movement speed" />
@@ -1030,6 +1055,7 @@
     <MESSAGE value="dont remember what i did." />
     <MESSAGE value="moved everything into packages" />
     <MESSAGE value="seeing if i like UnitLogic in its own class" />
+    <MESSAGE value="too high" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1329,22 +1355,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="21" selection-start="3366" selection-end="3366" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="18" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="33" selection-start="258" selection-end="258" vertical-scroll-proportion="0.0">
@@ -1361,13 +1371,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/GameLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="35" selection-start="5119" selection-end="5119" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatLogic.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="60" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0">
@@ -1377,16 +1380,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/Log.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="57" selection-start="4293" selection-end="4293" vertical-scroll-proportion="0.5961165">
+        <state line="23" column="5" selection-start="678" selection-end="678" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/Log.java">
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="33" selection-start="870" selection-end="870" vertical-scroll-proportion="0.57669616">
+        <state line="60" column="0" selection-start="1506" selection-end="1506" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="17" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="52" selection-start="3647" selection-end="3647" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/GameLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="16" selection-start="1442" selection-end="1442" vertical-scroll-proportion="0.45132744">
           <folding />
         </state>
       </provider>
