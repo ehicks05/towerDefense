@@ -39,7 +39,7 @@ public class GameLogic
             {
                 // create and add to map, a new footman... it should be in an available spot next to the barracks
                 Random gen = new Random();
-                int typeToBuild = gen.nextInt(5);
+                int typeToBuild = gen.nextInt(10);
                 Unit barracksCreation;
 
                 switch (typeToBuild)

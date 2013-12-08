@@ -2,28 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="26885267-302c-4a28-a72d-2d7fd972867a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Archer.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Archer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Barracks.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Barracks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Berserker.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Berserker.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/CombatLogic.java" afterPath="$PROJECT_DIR$/src/hicks/combat/CombatLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" afterPath="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Footman.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Footman.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" afterPath="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Knight.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Knight.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Peasant.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Peasant.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="myGame.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386441149697" ignored="false" />
+    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386466677315" ignored="false" />
     <file path="/Test.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1380465496446" ignored="false" />
     <file path="/fragment.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386439977711" ignored="false" />
     <file path="/CombatDemo.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381792530286" ignored="false" />
     <file path="/Coordinate.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381626288716" ignored="false" />
     <file path="/Unit.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1383496348213" ignored="false" />
-    <file path="/CombatLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1383496677834" ignored="false" />
+    <file path="/CombatLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386467017430" ignored="false" />
     <file path="/GraphicsTest.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1380466158850" ignored="false" />
     <file path="$USER_HOME$/Dropbox/projects/combatDemo/CombatDemo.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381372695487" ignored="false" />
     <file path="$USER_HOME$/Dropbox/projects/combatDemo/Unit.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381372695487" ignored="false" />
@@ -57,7 +50,7 @@
     <file path="/DeadTvPanel.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1384633835720" ignored="false" />
     <file path="/Peasant.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1385953129729" ignored="false" />
     <file path="/Builder.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1385952959210" ignored="false" />
-    <file path="/UnitLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386448466379" ignored="false" />
+    <file path="/UnitLogic.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386466971639" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,10 +112,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameLogic.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GameLogic.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/GameLogic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="165" column="33" selection-start="6075" selection-end="6075" vertical-scroll-proportion="0.0">
+            <state line="43" column="16" selection-start="1443" selection-end="1443" vertical-scroll-proportion="0.3259587">
               <folding />
             </state>
           </provider>
@@ -140,7 +133,7 @@
       <file leaf-file-name="Unit.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="15" selection-start="875" selection-end="875" vertical-scroll-proportion="0.0">
+            <state line="46" column="5" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -149,7 +142,7 @@
       <file leaf-file-name="UnitLogic.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="20" selection-start="1243" selection-end="1243" vertical-scroll-proportion="0.0">
+            <state line="86" column="21" selection-start="3366" selection-end="3366" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -178,7 +171,7 @@
       <file leaf-file-name="CombatLogic.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatLogic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="24" selection-start="113" selection-end="113" vertical-scroll-proportion="0.0">
+            <state line="15" column="60" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -186,10 +179,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Berserker.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Berserker.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Berserker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="18" selection-start="538" selection-end="538" vertical-scroll-proportion="0.66019416">
+            <state line="23" column="37" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -248,10 +241,10 @@
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/src/hicks/combat/entities/Builder.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/entities/Peasant.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/CombatLogic.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/CombatLogic.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" />
       </list>
     </option>
   </component>
@@ -903,7 +896,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39620537" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -913,8 +906,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Metrics" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.75389755" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15528281" sideWeight="0.71875" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21428572" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15528281" sideWeight="0.78571427" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21428572" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1325,41 +1318,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Berserker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="15" selection-start="875" selection-end="875" vertical-scroll-proportion="0.0">
+        <state line="23" column="37" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/GameLogic.java">
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="33" selection-start="6075" selection-end="6075" vertical-scroll-proportion="0.0">
+        <state line="15" column="60" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="5" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="20" selection-start="1243" selection-end="1243" vertical-scroll-proportion="0.0">
+        <state line="86" column="21" selection-start="3366" selection-end="3366" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatLogic.java">
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/GameLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="24" selection-start="113" selection-end="113" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Berserker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="18" selection-start="538" selection-end="538" vertical-scroll-proportion="0.66019416">
+        <state line="43" column="16" selection-start="1443" selection-end="1443" vertical-scroll-proportion="0.3259587">
           <folding />
         </state>
       </provider>

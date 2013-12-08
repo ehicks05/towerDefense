@@ -1,6 +1,7 @@
 package hicks.combat;
 
 import hicks.combat.entities.Unit;
+import hicks.combat.entities.UnitLogic;
 
 import java.math.BigDecimal;
 
@@ -12,7 +13,7 @@ public class CombatLogic
             attacker.setMoving(false);
 
         Unit defender = attacker.getTarget();
-        int rawDamage = attacker.getAttackDamage();
+        int rawDamage = UnitLogic.getAttackDamage(attacker);
         int unmitigatedDamage = getUnmitigatedDamage(rawDamage, defender.getArmor());
 
         defender.setHp(defender.getHp() - unmitigatedDamage);

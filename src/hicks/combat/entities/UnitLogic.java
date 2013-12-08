@@ -6,6 +6,7 @@ import hicks.combat.Point;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Random;
 
 public class UnitLogic
 {
@@ -78,5 +79,13 @@ public class UnitLogic
         }
 
         return closestEnemy;
+    }
+
+    public static int getAttackDamage(Unit unit)
+    {
+        Random random       = new Random();
+        int damageRange     = (unit.getMaxDamage() - unit.getMinDamage()) + 1;
+        int randomPortion   = random.nextInt(damageRange);
+        return randomPortion + unit.getMinDamage();
     }
 }

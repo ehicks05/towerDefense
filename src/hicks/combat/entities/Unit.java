@@ -6,36 +6,29 @@ import hicks.combat.Point;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
 
 public class Unit
 {
-    private static int m_seq = 0;
-    private int m_objectId;
-    private int m_team;
-    private String m_name;
-
-    private int m_sizeRadius;
-    private int m_sightRadius;
-    private int m_moveSpeed;
-    private BigDecimal m_timeOfLastMove;
-    private boolean m_moving;
-
-    private Point m_location;
-    private Point m_destination;
-
-    private int m_hp;
-    private int m_armor;
-    private int m_minDamage;
-    private int m_maxDamage;
-    private int m_attackRange;
-
-    private BigDecimal m_attackSpeed;
-    private BigDecimal m_timeOfLastAttack;
-
-    private Unit m_target;
-
-    private int m_kills;
+    private static int  m_seq = 0;
+    private int         m_objectId;
+    private int         m_team;
+    private String      m_name;
+    private int         m_sizeRadius;
+    private int         m_sightRadius;
+    private int         m_moveSpeed;
+    private BigDecimal  m_timeOfLastMove;
+    private boolean     m_moving;
+    private Point       m_location;
+    private Point       m_destination;
+    private int         m_hp;
+    private int         m_armor;
+    private int         m_minDamage;
+    private int         m_maxDamage;
+    private int         m_attackRange;
+    private BigDecimal  m_attackSpeed;
+    private BigDecimal  m_timeOfLastAttack;
+    private Unit        m_target;
+    private int         m_kills;
 
     public Unit()
     {
@@ -51,14 +44,6 @@ public class Unit
     public boolean isAlive()
     {
         return m_hp > 0;
-    }
-
-    public int getAttackDamage()
-    {
-        Random random = new Random();
-        int damageRange = (m_maxDamage - m_minDamage) + 1;
-        int randomPortion = random.nextInt(damageRange);
-        return randomPortion + m_minDamage;
     }
 
     public boolean isTargetInRange()
