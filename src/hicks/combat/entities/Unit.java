@@ -4,6 +4,7 @@ import hicks.combat.GameLogic;
 import hicks.combat.GameMap;
 import hicks.combat.NameLogic;
 import hicks.combat.Point;
+import hicks.combat.state.State;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -41,6 +42,25 @@ public class Unit
     public static void setMap(GameMap map)
     {
         m_map = map;
+    }
+
+    private static State m_currentState;
+
+    public void update()
+    {
+        m_currentState.execute(this);
+    }
+
+    public void changeState(State newState)
+    {
+        if (m_currentState != null) m_currentState.exit(this);
+        m_currentState = newState;
+        m_currentState.enter(this);
+    }
+
+    public State getCurrentState()
+    {
+        return m_currentState;
     }
 
     public Unit()

@@ -1,6 +1,7 @@
 package hicks.combat.entities;
 
 import hicks.combat.GameLogic;
+import hicks.combat.state.Build;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,7 @@ public class Barracks extends Unit implements Builder
 
         setBuildSpeed(new BigDecimal(1));
         setTimeOfLastBuild(GameLogic.now());
+        changeState(new Build());
     }
 
     public boolean isReadyToBuild()

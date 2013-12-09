@@ -120,7 +120,7 @@ public class CombatPanel extends JPanel implements Runnable
 
         g2d.setColor(Color.WHITE);
         g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(simulationStart).setScale(2, RoundingMode.HALF_UP), x, y += 15);
-        g2d.drawString("FPS: " + new BigDecimal("1000").divide(timeDifference, 2, RoundingMode.HALF_UP), x, y += 15);
+//        g2d.drawString("FPS: " + new BigDecimal("1000").divide(timeDifference, 2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("Units: " + units.size(), x, y += 15);
         g2d.setColor(Color.RED);
         g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
@@ -177,7 +177,7 @@ public class CombatPanel extends JPanel implements Runnable
         while (GameLogic.teamsLeft(map.getExistingUnits()).size() > 1)
         {
             // loops through every unit on the map and updates their state
-            GameLogic.updateState(simulationStart, map);
+            BehaviorLogic.updateState(simulationStart, map);
 
             units = map.getExistingUnits();
             repaint();
