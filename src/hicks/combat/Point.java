@@ -44,16 +44,6 @@ public class Point
         return getDistance(this, b);
     }
 
-    public static double getDeltaX(Point a, Point b)
-    {
-        return a.getX() - b.getX();
-    }
-
-    public static double getDeltaY(Point a, Point b)
-    {
-        return a.getY() - b.getY();
-    }
-
     public double getDeltaX(Point b)
     {
         return m_x - b.getX();
@@ -63,6 +53,8 @@ public class Point
     {
         return m_y - b.getY();
     }
+
+    // ----------------------------
 
     public double getX()
     {

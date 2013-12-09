@@ -1,13 +1,11 @@
 package hicks.combat.entities;
 
 import hicks.combat.GameLogic;
-import hicks.combat.GameMap;
 import hicks.combat.NameLogic;
 import hicks.combat.Point;
 import hicks.combat.state.State;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Unit
 {
@@ -31,18 +29,6 @@ public class Unit
     private BigDecimal      m_timeOfLastAttack;
     private Unit            m_target;
     private int             m_kills;
-
-    private static GameMap  m_map;
-
-    public static GameMap getMap()
-    {
-        return m_map;
-    }
-
-    public static void setMap(GameMap map)
-    {
-        m_map = map;
-    }
 
     private static State m_currentState;
 

@@ -1,11 +1,12 @@
 package hicks.combat.state;
 
-import hicks.combat.CombatPanel;
 import hicks.combat.GameLogic;
+import hicks.combat.GameState;
+import hicks.combat.UnitLogic;
+import hicks.combat.entities.Barracks;
 import hicks.combat.entities.Builder;
 import hicks.combat.entities.Peasant;
 import hicks.combat.entities.Unit;
-import hicks.combat.entities.UnitLogic;
 
 public class Idle implements State
 {
@@ -17,12 +18,12 @@ public class Idle implements State
     {
         if (!(unit instanceof Builder))
         {
-            Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit, Unit.getMap().getExistingUnits());
+            Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit, GameState.getUnits());
 
             if (closestVisibleEnemy == null)
             {
                 if (unit.getDestination() == null)
-                    unit.setDestination(Unit.getMap().getRandomPointOnMap());
+                    unit.setDestination(GameState.getGameMap().getRandomPointOnMap());
 
                 UnitLogic.moveTowardCoordinate(unit, unit.getDestination(), false);
             }
@@ -33,27 +34,31 @@ public class Idle implements State
         }
         if (unit instanceof Peasant)
         {
-            if (GameLogic.isClearOfBarracks(unit, Unit.getMap()))
+            if (GameLogic.isClearOfBarracks(unit))
             {
                 unit.changeState(new Build());
             }
             else
             {
                 if (unit.getDestination() == null)
-                    unit.setDestination(Unit.getMap().getRandomPointOnMap());
+                    unit.setDestination(GameState.getGameMap().getRandomPointOnMap());
 
                 UnitLogic.moveTowardCoordinate(unit, unit.getDestination(), false);
             }
+        }
+        if (unit instanceof Barracks)
+        {
+            unit.changeState(new Build());  // todo: this is debugging code, we should never reach this block...
         }
     }
 
     public void exit(Unit unit)
     {
-        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit, Unit.getMap().getExistingUnits());
+        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit, GameState.getUnits());
 
         unit.setDestination(null);
         unit.setTarget(closestVisibleEnemy);
         if (unit.getTarget() != null)
-            hicks.combat.Log.logInfo(CombatPanel.getSimulationStart(), unit + " has targeted " + unit.getTarget() + "!");
+            hicks.combat.Log.logInfo(unit + " has targeted " + unit.getTarget() + "!");
     }
 }

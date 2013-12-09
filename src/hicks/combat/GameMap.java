@@ -11,12 +11,10 @@ public class GameMap
 {
     private int m_width;
     private int m_height;
-    private List<Unit> m_existingUnits;
     private static final GameMap MAP = null;
 
     public GameMap()
     {
-        m_existingUnits = new ArrayList<>();
     }
 
     public Point getRandomPointOnMap()
@@ -89,7 +87,7 @@ public class GameMap
                 if (!isPositionOccupied(point))
                 {
                     unit.setLocation(point);
-                    addUnitToExistingUnits(unit);
+                    GameState.addUnit(unit);
                     unitPlaced = true;
                 }
             }
@@ -98,7 +96,7 @@ public class GameMap
 
     public boolean isPositionOccupied(Point location)
     {
-        for (Unit unit : getExistingUnits())
+        for (Unit unit : GameState.getUnits())
             if (unit.getLocation().equals(location))
                 return true;
 
@@ -110,21 +108,6 @@ public class GameMap
         double x = location.getX();
         double y = location.getY();
         return x >= 0 && x < m_width && y >= 0 && y < m_height;
-    }
-
-    public void addUnitToExistingUnits(Unit unit)
-    {
-        m_existingUnits.add(unit);
-    }
-
-    public void removeUnitFromExistingUnits(Unit unit)
-    {
-        m_existingUnits.remove(unit);
-    }
-
-    public List<Unit> getExistingUnits()
-    {
-        return m_existingUnits;
     }
 
     public int getWidth()

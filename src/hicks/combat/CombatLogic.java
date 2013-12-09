@@ -1,13 +1,12 @@
 package hicks.combat;
 
 import hicks.combat.entities.Unit;
-import hicks.combat.entities.UnitLogic;
 
 import java.math.BigDecimal;
 
 public class CombatLogic
 {
-    public static void performAttack(Unit attacker, GameMap map, BigDecimal simulationStart)
+    public static void performAttack(Unit attacker)
     {
         if (attacker.isMoving())
             attacker.setMoving(false);
@@ -21,28 +20,28 @@ public class CombatLogic
         attacker.setTimeOfLastAttack(GameLogic.now());
 
         // update battle log
-        Log.logInfo(simulationStart, attacker + " attacks " + attacker.getTarget() + " for " + unmitigatedDamage + " damage.");
-        Log.logInfo(simulationStart, defender + " has " + defender.getHp() + " hp left.");
+        Log.logInfo(attacker + " attacks " + attacker.getTarget() + " for " + unmitigatedDamage + " damage.");
+        Log.logInfo(defender + " has " + defender.getHp() + " hp left.");
 
         if (!defender.isAlive())
         {
-            processDeath(defender, map, simulationStart);
+            processDeath(defender);
             attacker.setKills(attacker.getKills() + 1);
         }
     }
 
-    private static void processDeath(Unit defender, GameMap map, BigDecimal simulationStart)
+    private static void processDeath(Unit defender)
     {
-        Log.logInfo(simulationStart, defender + " is dead.");
+        Log.logInfo(defender + " is dead.");
 
-        for (Unit unit : map.getExistingUnits())
+        for (Unit unit : GameState.getUnits())
             if (unit.getTarget() != null && unit.getTarget().equals(defender))
             {
                 unit.setTarget(null);
                 unit.setTimeOfLastMove(GameLogic.now());
             }
 
-        map.removeUnitFromExistingUnits(defender);
+        GameState.removeUnit(defender);
     }
 
     private static int getUnmitigatedDamage(int damage, int armor)

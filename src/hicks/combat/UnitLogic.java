@@ -1,7 +1,6 @@
-package hicks.combat.entities;
+package hicks.combat;
 
-import hicks.combat.GameLogic;
-import hicks.combat.Point;
+import hicks.combat.entities.Unit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

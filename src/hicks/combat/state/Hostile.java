@@ -1,9 +1,8 @@
 package hicks.combat.state;
 
 import hicks.combat.CombatLogic;
-import hicks.combat.CombatPanel;
+import hicks.combat.UnitLogic;
 import hicks.combat.entities.Unit;
-import hicks.combat.entities.UnitLogic;
 
 public class Hostile implements State
 {
@@ -15,12 +14,13 @@ public class Hostile implements State
     {
         if (!unit.getTarget().isAlive())
         {
+            unit.setTarget(null);
             unit.changeState(new Idle());
             return;
         }
 
         if (UnitLogic.isTargetInRange(unit) && unit.isReadyToAttack())
-            CombatLogic.performAttack(unit, Unit.getMap(), CombatPanel.getSimulationStart());
+            CombatLogic.performAttack(unit);
         else
             UnitLogic.moveTowardCoordinate(unit, unit.getTarget().getLocation(), true);
     }

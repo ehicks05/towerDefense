@@ -1,8 +1,8 @@
 package hicks.combat.state;
 
-import hicks.combat.CombatPanel;
 import hicks.combat.GameLogic;
 import hicks.combat.GameMap;
+import hicks.combat.GameState;
 import hicks.combat.Log;
 import hicks.combat.entities.*;
 
@@ -18,9 +18,6 @@ public class Build implements State
 
     public void execute(Unit unit)
     {
-        GameMap map = Unit.getMap();
-        BigDecimal simulationStart = CombatPanel.getSimulationStart();
-
         if (unit instanceof Barracks)
         {
             Barracks barracks = (Barracks) unit;
@@ -28,23 +25,20 @@ public class Build implements State
             {
                 Random gen = new Random();
                 int typeToBuild = gen.nextInt(3);
-                Unit barracksCreation;
+                Unit newUnit = null;
 
-                switch (typeToBuild)
-                {
-                    case 0: barracksCreation = new Knight(barracks.getTeam());
-                        break;
-                    case 1: barracksCreation = new Peasant(barracks.getTeam());
-                        break;
-                    default: barracksCreation = new Footman(barracks.getTeam());
-                }
+                if (typeToBuild == 0) newUnit = new Knight(barracks.getTeam());
+                if (typeToBuild == 1) newUnit = new Peasant(barracks.getTeam());
+                if (typeToBuild == 2) newUnit = new Footman(barracks.getTeam());
 
-                barracksCreation.setLocation(map.getAvailableAdjacentLocation(barracks.getLocation()));
-                barracksCreation.changeState(new Idle());
-                map.addUnitToExistingUnits(barracksCreation);
+                if (newUnit == null) newUnit = new Footman(barracks.getTeam());
+
+                newUnit.setLocation(GameState.getGameMap().getAvailableAdjacentLocation(barracks.getLocation()));
+                newUnit.changeState(new Idle());
+                GameState.addUnit(newUnit);
                 barracks.setTimeOfLastBuild(GameLogic.now());
 
-                Log.logInfo(simulationStart, barracks + " has created a footman " + barracksCreation);
+                Log.logInfo(barracks + " has created a footman " + newUnit);
             }
         }
 
@@ -52,14 +46,13 @@ public class Build implements State
         {
             Peasant peasant = (Peasant) unit;
 
-            Unit unitCreated = new Barracks(peasant.getTeam());
+            Unit newUnit = new Barracks(peasant.getTeam());
+            newUnit.setLocation(GameState.getGameMap().getAvailableAdjacentLocation(peasant.getLocation()));
 
-            unitCreated.setLocation(map.getAvailableAdjacentLocation(peasant.getLocation()));
-            map.addUnitToExistingUnits(unitCreated);
-            peasant.setTimeOfLastBuild(GameLogic.now());
-            map.getExistingUnits().remove(peasant);
+            GameState.addUnit(newUnit);
+            GameState.removeUnit(peasant);
 
-            Log.logInfo(simulationStart, peasant + " has created a hicks.combat.entities.Barracks " + unitCreated);
+            Log.logInfo(peasant + " has created a hicks.combat.entities.Barracks " + newUnit);
         }
     }
 

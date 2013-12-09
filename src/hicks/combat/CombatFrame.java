@@ -13,7 +13,7 @@ public class CombatFrame extends JFrame
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setTitle("hicks.combat.CombatFrame");
+        setTitle("CombatFrame");
         setResizable(false);
         setVisible(true);
     }

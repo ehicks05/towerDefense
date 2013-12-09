@@ -1,11 +1,11 @@
 package hicks.combat;
 
-import hicks.combat.entities.*;
+import hicks.combat.entities.Barracks;
+import hicks.combat.entities.Unit;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class GameLogic
 {
@@ -38,17 +38,10 @@ public class GameLogic
         return result;
     }
 
-    public static int getTeamWithMostUnits(List<Unit> units)
-    {
-        int unitsOnTeam1 = GameLogic.getUnitsOnTeam(units, 1);
-        int unitsOnTeam2 = GameLogic.getUnitsOnTeam(units, 2);
-        return unitsOnTeam1 > unitsOnTeam2 ? 1 : 2;
-    }
-
-    public static boolean isClearOfBarracks(Unit unit, GameMap map)
+    public static boolean isClearOfBarracks(Unit unit)
     {
         boolean isClearOfBarracks = true;
-        List<Unit> barracks = new ArrayList<>(getListOfBarracks(map));
+        List<Unit> barracks = new ArrayList<>(getListOfBarracks());
         for (Unit barrack : barracks)
         {
             if (unit.getLocation().getDistance(barrack.getLocation()) < 100) isClearOfBarracks = false;
@@ -56,9 +49,9 @@ public class GameLogic
         return isClearOfBarracks;
     }
 
-    private static List<Unit> getListOfBarracks(GameMap map)
+    private static List<Unit> getListOfBarracks()
     {
-        List<Unit> units = map.getExistingUnits();
+        List<Unit> units = GameState.getUnits();
         List<Unit> barracks = new ArrayList<>();
         for (Unit unit : units)
         {

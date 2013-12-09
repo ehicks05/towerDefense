@@ -2,34 +2,25 @@ package hicks.combat;
 
 import hicks.combat.entities.*;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 public class CombatPanel extends JPanel implements Runnable
 {
     private final int MS_PER_UPDATE = 8;
     private Image peasant;
     private Thread animator;
-    private List<Unit> units;
-    private int[][] terrain;
-    private static BigDecimal simulationStart;
+    private List<Unit> units = new ArrayList<>();
+    private int[][] terrain = buildTerrain();
     private long timeDiff;
     private long beforeTime;
     private long sleep;
-    private final int DELAY = 16000000;
+    private final int DELAY = 16000000; // (16 ms)
 
     public CombatPanel()
     {
@@ -38,14 +29,6 @@ public class CombatPanel extends JPanel implements Runnable
 
         ImageIcon peasant = new ImageIcon("wc2h_peasant.gif");
         this.peasant = peasant.getImage();
-
-        units = new ArrayList<>();
-        terrain = buildTerrain();
-    }
-
-    public static BigDecimal getSimulationStart()
-    {
-        return simulationStart;
     }
 
     private int[][] buildTerrain()
@@ -119,7 +102,7 @@ public class CombatPanel extends JPanel implements Runnable
         BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
 
         g2d.setColor(Color.WHITE);
-        g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(simulationStart).setScale(2, RoundingMode.HALF_UP), x, y += 15);
+        g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
 //        g2d.drawString("FPS: " + new BigDecimal("1000").divide(timeDifference, 2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("Units: " + units.size(), x, y += 15);
         g2d.setColor(Color.RED);
@@ -165,21 +148,19 @@ public class CombatPanel extends JPanel implements Runnable
     public void run()
     {
         // start simulation timer
-        simulationStart = GameLogic.now();
-        Log.logInfo("Simulation starting at " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(new Date()));
 
-        // create map
-        GameMap map = new GameMap();
-        Init.init(map);
+
+        Init.init();
+        GameMap map = GameState.getGameMap();
 
         // run game loop
         beforeTime = System.nanoTime();
-        while (GameLogic.teamsLeft(map.getExistingUnits()).size() > 1)
+        while (GameLogic.teamsLeft(GameState.getUnits()).size() > 1)
         {
             // loops through every unit on the map and updates their state
-            BehaviorLogic.updateState(simulationStart, map);
+            BehaviorLogic.updateState(GameState.getStartTime(), map);
 
-            units = map.getExistingUnits();
+            units = GameState.getUnits();
             repaint();
 
             long now = System.nanoTime();
@@ -199,6 +180,6 @@ public class CombatPanel extends JPanel implements Runnable
 
             beforeTime = System.nanoTime();
         }
-        Log.logInfo(simulationStart, "Team " + GameLogic.teamsLeft(map.getExistingUnits()).get(0) + " wins!", true);
+        Log.logInfo("Team " + GameLogic.teamsLeft(GameState.getUnits()).get(0) + " wins!", true);
     }
 }
