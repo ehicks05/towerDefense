@@ -29,6 +29,11 @@ public class Idle implements State
             }
             else
             {
+                unit.setDestination(null);
+                unit.setTarget(closestVisibleEnemy);
+                if (unit.getTarget() != null)
+                    hicks.combat.Log.logInfo(unit + " has targeted " + unit.getTarget() + "!");
+
                 unit.changeState(new Hostile());
             }
         }
@@ -54,11 +59,6 @@ public class Idle implements State
 
     public void exit(Unit unit)
     {
-        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit, GameState.getUnits());
 
-        unit.setDestination(null);
-        unit.setTarget(closestVisibleEnemy);
-        if (unit.getTarget() != null)
-            hicks.combat.Log.logInfo(unit + " has targeted " + unit.getTarget() + "!");
     }
 }

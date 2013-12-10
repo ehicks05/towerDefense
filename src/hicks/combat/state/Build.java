@@ -1,12 +1,10 @@
 package hicks.combat.state;
 
 import hicks.combat.GameLogic;
-import hicks.combat.GameMap;
 import hicks.combat.GameState;
 import hicks.combat.Log;
 import hicks.combat.entities.*;
 
-import java.math.BigDecimal;
 import java.util.Random;
 
 public class Build implements State
