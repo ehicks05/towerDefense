@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="26885267-302c-4a28-a72d-2d7fd972867a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hicks/combat/BehaviorLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Barracks.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Barracks.java" />
+    <list default="true" readonly="true" id="26885267-302c-4a28-a72d-2d7fd972867a" name="Default" comment="fps measurements...">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" afterPath="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" afterPath="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" afterPath="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="myGame.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386613863852" ignored="false" />
+    <file path="/Dummy.txt" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386637711338" ignored="false" />
     <file path="/Test.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1380465496446" ignored="false" />
-    <file path="/fragment.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386475583409" ignored="false" />
+    <file path="/fragment.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386633905964" ignored="false" />
     <file path="/CombatDemo.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381792530286" ignored="false" />
     <file path="/Coordinate.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381626288716" ignored="false" />
     <file path="/Unit.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386518398341" ignored="false" />
@@ -40,7 +36,7 @@
     <file path="/Star.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381792994034" ignored="false" />
     <file path="/Board.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1381794309618" ignored="false" />
     <file path="/Init.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386474426375" ignored="false" />
-    <file path="/CombatPanel.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386471850858" ignored="false" />
+    <file path="/CombatPanel.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1386637323017" ignored="false" />
     <file path="$PROJECT_DIR$/../Cabinets/.idea/workspace.xml" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1382276027060" ignored="false" />
     <file path="$PROJECT_DIR$/../Cabinets/.idea/modules.xml" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1382235979479" ignored="false" />
     <file path="$PROJECT_DIR$/../Cabinets/src/Controller.java" changelist="26885267-302c-4a28-a72d-2d7fd972867a" time="1382281463667" ignored="false" />
@@ -67,6 +63,9 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/myGame$CombatFrame.coverage" NAME="CombatFrame Coverage Results" MODIFIED="1386518275159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myActivateViewOnRun" value="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -112,38 +111,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java" line="30" class="hicks.combat.state.Idle" package="hicks.combat.state">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/hicks/combat/state/Hostile.java" line="15" class="hicks.combat.state.Hostile" package="hicks.combat.state">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -156,7 +124,7 @@
       <file leaf-file-name="BehaviorLogic.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/BehaviorLogic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="4" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0">
+            <state line="21" column="0" selection-start="570" selection-end="570" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="method#performBuildBehavior#0;class#BehaviorLogic#0" expanded="false" />
                 <element signature="method#performHostileBehavior#0;class#BehaviorLogic#0" expanded="false" />
@@ -186,7 +154,29 @@
       <file leaf-file-name="Idle.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="37" selection-start="1380" selection-end="1380" vertical-scroll-proportion="0.0">
+            <state line="15" column="4" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hostile.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Hostile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="34" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Build.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Build.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="21" selection-start="585" selection-end="585" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -197,16 +187,7 @@
       <file leaf-file-name="Unit.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="63" selection-start="1296" selection-end="1296" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Build.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Build.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="47" selection-start="714" selection-end="714" vertical-scroll-proportion="0.0">
+            <state line="41" column="0" selection-start="1180" selection-end="1180" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -215,7 +196,7 @@
       <file leaf-file-name="Barracks.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Barracks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="4" selection-start="549" selection-end="549" vertical-scroll-proportion="0.0">
+            <state line="23" column="0" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -224,7 +205,7 @@
       <file leaf-file-name="Init.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/Init.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="23" selection-end="23" vertical-scroll-proportion="0.0">
+            <state line="3" column="0" selection-start="62" selection-end="62" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -233,30 +214,8 @@
       <file leaf-file-name="CombatPanel.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="177" column="12" selection-start="5156" selection-end="5156" vertical-scroll-proportion="0.32894737">
+            <state line="146" column="4" selection-start="4352" selection-end="4352" vertical-scroll-proportion="0.19782214">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Hostile.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Hostile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UnitLogic.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="17" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -339,13 +298,13 @@
         <option value="$PROJECT_DIR$/src/hicks/combat/state/State.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/state/Hostile.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/BehaviorLogic.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/state/Idle.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/GameLogic.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/entities/Barracks.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/entities/Unit.java" />
-        <option value="$PROJECT_DIR$/src/hicks/combat/state/Build.java" />
         <option value="$PROJECT_DIR$/src/hicks/combat/Init.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/state/Build.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/state/Idle.java" />
+        <option value="$PROJECT_DIR$/src/hicks/combat/CombatPanel.java" />
       </list>
     </option>
   </component>
@@ -533,6 +492,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -559,7 +532,7 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="options.lastSelected" value="editor.preferences.tabs" />
+    <property name="options.lastSelected" value="coverage" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="244" />
@@ -628,6 +601,20 @@
             <option name="mySupportsDeletion" value="false" />
             <option name="myCanBeAbsent" value="false" />
             <option name="myId" value="UPDATED" />
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\BehaviorLogic.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\CombatFrame.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\CombatLogic.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\CombatPanel.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\GameLogic.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\GameMap.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\Init.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\Log.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\entities\Unit.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\state\Build.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\state\Hostile.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\state\Idle.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\Point.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\NameLogic.java</PATH>
           </FILE-GROUP>
           <FILE-GROUP>
             <option name="myUpdateName" value="Created" />
@@ -635,6 +622,8 @@
             <option name="mySupportsDeletion" value="false" />
             <option name="myCanBeAbsent" value="false" />
             <option name="myId" value="CREATED" />
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\GameState.java</PATH>
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\UnitLogic.java</PATH>
           </FILE-GROUP>
           <FILE-GROUP>
             <option name="myUpdateName" value="Deleted" />
@@ -642,6 +631,7 @@
             <option name="mySupportsDeletion" value="false" />
             <option name="myCanBeAbsent" value="true" />
             <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+            <PATH vcs="svn" revision="24">C:\project\myGame\src\hicks\combat\entities\UnitLogic.java</PATH>
           </FILE-GROUP>
           <FILE-GROUP>
             <option name="myUpdateName" value="Restored" />
@@ -649,20 +639,6 @@
             <option name="mySupportsDeletion" value="false" />
             <option name="myCanBeAbsent" value="false" />
             <option name="myId" value="RESTORED" />
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\Archer.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\Barracks.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\CombatFrame.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\CombatLogic.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\CombatPanel.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\Footman.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\GameLogic.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\GameMap.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\Init.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\Knight.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\Log.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\NameLogic.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\Point.class</PATH>
-            <PATH vcs="svn" revision="9">C:\project\myGame\out\production\myGame\Unit.class</PATH>
           </FILE-GROUP>
         </FILE-GROUP>
         <FILE-GROUP>
@@ -981,7 +957,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20758928" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2622768" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15401785" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -990,8 +966,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Metrics" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21763393" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15528281" sideWeight="0.79241073" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3560268" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15528281" sideWeight="0.64397323" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3560268" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1364,32 +1340,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Build.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="47" selection-start="714" selection-end="714" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Hostile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/BehaviorLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="4" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="method#performBuildBehavior#0;class#BehaviorLogic#0" expanded="false" />
-            <element signature="method#performHostileBehavior#0;class#BehaviorLogic#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/StateMachine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="63" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0">
@@ -1404,48 +1354,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java">
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/Init.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="37" selection-start="1380" selection-end="1380" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/UnitLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="17" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="63" selection-start="1296" selection-end="1296" vertical-scroll-proportion="0.0">
+        <state line="3" column="0" selection-start="62" selection-end="62" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Barracks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="4" selection-start="549" selection-end="549" vertical-scroll-proportion="0.0">
+        <state line="23" column="0" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hicks/combat/Init.java">
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/entities/Unit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="23" selection-end="23" vertical-scroll-proportion="0.0">
+        <state line="41" column="0" selection-start="1180" selection-end="1180" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/BehaviorLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="570" selection-end="570" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="method#performBuildBehavior#0;class#BehaviorLogic#0" expanded="false" />
+            <element signature="method#performHostileBehavior#0;class#BehaviorLogic#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Build.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="21" selection-start="585" selection-end="585" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Hostile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="34" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hicks/combat/state/Idle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="4" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hicks/combat/CombatPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="12" selection-start="5156" selection-end="5156" vertical-scroll-proportion="0.32894737">
+        <state line="146" column="4" selection-start="4352" selection-end="4352" vertical-scroll-proportion="0.19782214">
           <folding />
         </state>
       </provider>

@@ -99,7 +99,7 @@ public class CombatPanel extends JPanel implements Runnable
         int x = 10;
         int y = 0;
 
-        BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
+//        BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
 
         g2d.setColor(Color.WHITE);
         g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
@@ -147,18 +147,16 @@ public class CombatPanel extends JPanel implements Runnable
 
     public void run()
     {
-        // start simulation timer
-
-
         Init.init();
         GameMap map = GameState.getGameMap();
+        beforeTime = System.nanoTime();
+        BigDecimal startTime = GameState.getStartTime();
 
         // run game loop
-        beforeTime = System.nanoTime();
         while (GameLogic.teamsLeft(GameState.getUnits()).size() > 1)
         {
             // loops through every unit on the map and updates their state
-            BehaviorLogic.updateState(GameState.getStartTime(), map);
+            BehaviorLogic.updateState(startTime, map);
 
             units = GameState.getUnits();
             repaint();
