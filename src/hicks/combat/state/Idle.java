@@ -23,7 +23,7 @@ public class Idle implements State
             if (closestVisibleEnemy == null)
             {
                 if (unit.getDestination() == null)
-                    unit.setDestination(GameState.getGameMap().getRandomPointOnMap());
+                    unit.setDestination(GameState.getGameMap().getRandomPoint());
 
                 UnitLogic.moveTowardCoordinate(unit, unit.getDestination(), false);
             }
@@ -46,7 +46,7 @@ public class Idle implements State
             else
             {
                 if (unit.getDestination() == null)
-                    unit.setDestination(GameState.getGameMap().getRandomPointOnMap());
+                    unit.setDestination(GameState.getGameMap().getRandomPoint());
 
                 UnitLogic.moveTowardCoordinate(unit, unit.getDestination(), false);
             }

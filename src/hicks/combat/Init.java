@@ -29,15 +29,13 @@ public class Init
         map.setHeight(HEIGHT);
 
         // create a barracks for each team
-        List<Unit> units = new ArrayList<>();
-
         for (int i = 0; i < 1; i++)
         {
-            units.add(new Barracks(1));
-            units.add(new Barracks(2));
+            GameState.addUnit(new Barracks(1));
+            GameState.addUnit(new Barracks(2));
         }
 
         // place units on the map - this method adds the units to the list of existing units the map is aware of
-        map.placeUnitsRandomlyOnEachHalfOfMap(units);
+        GameLogic.placeUnitsRandomlyOnEachHalfOfMap(map, GameState.getUnits());
     }
 }

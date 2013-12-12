@@ -156,7 +156,7 @@ public class CombatPanel extends JPanel implements Runnable
         while (GameLogic.teamsLeft(GameState.getUnits()).size() > 1)
         {
             // loops through every unit on the map and updates their state
-            BehaviorLogic.updateState(startTime, map);
+            BehaviorLogic.updateState();
 
             units = GameState.getUnits();
             repaint();

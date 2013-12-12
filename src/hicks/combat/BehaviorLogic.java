@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class BehaviorLogic
 {
-    public static void updateState(BigDecimal simulationStart, GameMap map)
+    public static void updateState()
     {
         // copy list to try to avoid concurrentModificationExceptions
         List<Unit> unitsToProcess = new ArrayList<>(GameState.getUnits());
@@ -110,7 +110,7 @@ public class BehaviorLogic
         if (closestVisibleEnemy == null)
         {
             if (unit.getDestination() == null)
-                unit.setDestination(map.getRandomPointOnMap());
+                unit.setDestination(map.getRandomPoint());
 
             UnitLogic.moveTowardCoordinate(unit, unit.getDestination(), false);
         }

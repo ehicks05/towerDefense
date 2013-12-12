@@ -11,18 +11,17 @@ public class GameMap
 {
     private int m_width;
     private int m_height;
-    private static final GameMap MAP = null;
 
     public GameMap()
     {
     }
 
-    public Point getRandomPointOnMap()
+    public Point getRandomPoint()
     {
-        return getRandomPointOnMap(0, m_width, 0, m_height);
+        return getRandomPoint(0, m_width, 0, m_height);
     }
 
-    public Point getRandomPointOnMap(double minX, double maxX, double minY, double maxY)
+    public Point getRandomPoint(double minX, double maxX, double minY, double maxY)
     {
         Random random = new Random();
         double x = minX + random.nextDouble() * maxX;
@@ -36,7 +35,7 @@ public class GameMap
         Point point = null;
         while (point == null)
         {
-            Point possiblePoint = getRandomPointOnMap();
+            Point possiblePoint = getRandomPoint();
             if (!isPositionOccupied(possiblePoint))
                 point = possiblePoint;
         }
@@ -72,26 +71,6 @@ public class GameMap
         else
             return getRandomAvailablePoint();
 
-    }
-
-    public void placeUnitsRandomlyOnEachHalfOfMap(List<Unit> unitsToPlace)
-    {
-        for (Unit unit : unitsToPlace)
-        {
-            boolean unitPlaced = false;
-            while (!unitPlaced)
-            {
-                Point point = null;
-                if (unit.getTeam() == 1) point = getRandomPointOnMap(0, m_width / 2, 0, m_height);
-                if (unit.getTeam() == 2) point = getRandomPointOnMap(m_width / 2, m_width / 2, 0, m_height);
-                if (!isPositionOccupied(point))
-                {
-                    unit.setLocation(point);
-                    GameState.addUnit(unit);
-                    unitPlaced = true;
-                }
-            }
-        }
     }
 
     public boolean isPositionOccupied(Point location)
