@@ -16,7 +16,7 @@ public class BehaviorLogic
 
         for (Unit unit : unitsToProcess)
         {
-            if (!unit.isAlive()) return;
+            if (!unit.isAlive()) continue;
 
 //            chooseBehavior(simulationStart, map, unit);
             unit.update();

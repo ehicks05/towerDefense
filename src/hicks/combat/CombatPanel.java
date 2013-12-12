@@ -13,14 +13,18 @@ import java.util.Random;
 public class CombatPanel extends JPanel implements Runnable
 {
     private final int MS_PER_UPDATE = 8;
+    private final int DELAY = 16000000; // (16 ms)
+
+    private List<Unit> units = new ArrayList<>();
+    private int[][] terrain;
+
     private Image peasant;
     private Thread animator;
-    private List<Unit> units = new ArrayList<>();
-    private int[][] terrain = buildTerrain();
     private long timeDiff;
     private long beforeTime;
     private long sleep;
-    private final int DELAY = 16000000; // (16 ms)
+    private int width;
+    private int height;
 
     public CombatPanel()
     {
@@ -29,24 +33,6 @@ public class CombatPanel extends JPanel implements Runnable
 
         ImageIcon peasant = new ImageIcon("wc2h_peasant.gif");
         this.peasant = peasant.getImage();
-    }
-
-    private int[][] buildTerrain()
-    {
-        Random gen = new Random();
-
-        int[][] terrain = new int[81][61];
-        for (int i = 0; i < 81; i++)
-        {
-            for (int j = 0; j < 61; j++)
-            {
-                if (gen.nextFloat() > 0.9)
-                    terrain[i][j] = 0;
-                else
-                    terrain[i][j] = 1;
-            }
-        }
-        return terrain;
     }
 
     public void addNotify()
@@ -63,7 +49,7 @@ public class CombatPanel extends JPanel implements Runnable
         Graphics2D g2d = (Graphics2D) g;
 
         // draw terrain
-        drawTerrain(g2d);
+//        drawTerrain(g2d);
 
         // draw vision circles
         drawVisionCircles(g2d);
@@ -99,11 +85,11 @@ public class CombatPanel extends JPanel implements Runnable
         int x = 10;
         int y = 0;
 
-//        BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
+        BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
 
         g2d.setColor(Color.WHITE);
         g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
-//        g2d.drawString("FPS: " + new BigDecimal("1000").divide(timeDifference, 2, RoundingMode.HALF_UP), x, y += 15);
+        g2d.drawString("FPS: " + new BigDecimal("1000").divide(timeDifference, 2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("Units: " + units.size(), x, y += 15);
         g2d.setColor(Color.RED);
         g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
@@ -129,18 +115,36 @@ public class CombatPanel extends JPanel implements Runnable
         }
     }
 
+    private int[][] buildTerrain()
+    {
+        Random gen = new Random();
+
+        int[][] terrain = new int[width][height];
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                if (gen.nextFloat() > 0.9)
+                    terrain[i][j] = 0;
+                else
+                    terrain[i][j] = 1;
+            }
+        }
+        return terrain;
+    }
+
     private void drawTerrain(Graphics2D g2d)
     {
-        for (int i = 0; i < 81; i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j < 61; j++)
+            for (int j = 0; j < height; j++)
             {
                 if (terrain[i][j] == 0)
                     g2d.setColor(new Color(40, 60, 16));
                 if (terrain[i][j] == 1)
                     g2d.setColor(new Color(36, 36, 16));
 
-                g2d.fillRect(i * 10, j * 10, 10, 10);
+                g2d.fillRect(i, j, 1, 1);
             }
         }
     }
@@ -148,7 +152,9 @@ public class CombatPanel extends JPanel implements Runnable
     public void run()
     {
         Init.init();
-        GameMap map = GameState.getGameMap();
+        width = GameState.getGameMap().getWidth();
+        height = GameState.getGameMap().getHeight();
+        terrain = buildTerrain();
         beforeTime = System.nanoTime();
         BigDecimal startTime = GameState.getStartTime();
 

@@ -6,12 +6,34 @@ import hicks.combat.entities.Unit;
 
 public class Hostile implements State
 {
+    private static Hostile instance = null;
+
+    protected Hostile()
+    {
+
+    }
+
+    public static Hostile getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Hostile();
+        }
+        return instance;
+    }
+
     public void enter(Unit unit)
     {
     }
 
     public void execute(Unit unit)
     {
+        if (unit.getTarget() == null)
+        {
+            unit.changeState(new Idle());
+            return;
+        }
+
         if (!unit.getTarget().isAlive())
         {
             unit.setTarget(null);

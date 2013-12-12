@@ -17,7 +17,7 @@ public class Init
     {
         // delete previous log
         if (new File("log.txt").delete())
-            Log.logInfo("Previous log deleted...");
+            Log.logInfo("Deleting old logs...");
 
         GameState.setStartTime(GameLogic.now());
         Log.logInfo("Simulation starting at " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(GameState.getStartTime()));
@@ -35,7 +35,7 @@ public class Init
             GameState.addUnit(new Barracks(2));
         }
 
-        // place units on the map - this method adds the units to the list of existing units the map is aware of
-        GameLogic.placeUnitsRandomlyOnEachHalfOfMap(map, GameState.getUnits());
+        List<Unit> unitsToPlace = new ArrayList<>(GameState.getUnits());
+        GameLogic.placeUnitsRandomlyOnEachHalfOfMap(map, unitsToPlace);
     }
 }

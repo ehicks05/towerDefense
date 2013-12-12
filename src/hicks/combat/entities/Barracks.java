@@ -21,7 +21,7 @@ public class Barracks extends Unit implements Builder
 
         setBuildSpeed(new BigDecimal(1));
         setTimeOfLastBuild(GameLogic.now());
-        changeState(new Build());
+        changeState(Build.getInstance());
     }
 
     public boolean isReadyToBuild()

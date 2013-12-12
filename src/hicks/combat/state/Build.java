@@ -9,6 +9,22 @@ import java.util.Random;
 
 public class Build implements State
 {
+    private static Build instance = null;
+
+    protected Build()
+    {
+
+    }
+
+    public static Build getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Build();
+        }
+        return instance;
+    }
+
     public void enter(Unit unit)
     {
 
@@ -36,7 +52,7 @@ public class Build implements State
                 GameState.addUnit(newUnit);
                 barracks.setTimeOfLastBuild(GameLogic.now());
 
-                Log.logInfo(barracks + " has created a footman " + newUnit);
+                Log.logInfo(barracks + " has built a " + newUnit.getClass().getSimpleName() + " " + newUnit);
             }
         }
 
@@ -50,7 +66,7 @@ public class Build implements State
             GameState.addUnit(newUnit);
             GameState.removeUnit(peasant);
 
-            Log.logInfo(peasant + " has created a hicks.combat.entities.Barracks " + newUnit);
+            Log.logInfo(peasant + " has built a " + newUnit);
         }
     }
 

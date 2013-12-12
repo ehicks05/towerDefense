@@ -10,6 +10,22 @@ import hicks.combat.entities.Unit;
 
 public class Idle implements State
 {
+    private static Idle instance = null;
+
+    protected Idle()
+    {
+
+    }
+
+    public static Idle getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Idle();
+        }
+        return instance;
+    }
+
     public void enter(Unit unit)
     {
     }
@@ -41,7 +57,7 @@ public class Idle implements State
         {
             if (GameLogic.isClearOfBarracks(unit))
             {
-                unit.changeState(new Build());
+                unit.changeState(Build.getInstance());
             }
             else
             {
@@ -53,7 +69,7 @@ public class Idle implements State
         }
         if (unit instanceof Barracks)
         {
-            unit.changeState(new Build());  // todo: this is debugging code, we should never reach this block...
+            unit.changeState(Build.getInstance());  // todo: this is debugging code, we should never reach this block...
         }
     }
 

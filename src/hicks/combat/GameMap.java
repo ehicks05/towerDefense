@@ -73,11 +73,14 @@ public class GameMap
 
     }
 
-    public boolean isPositionOccupied(Point location)
+    public boolean isPositionOccupied(Point testPosition)
     {
         for (Unit unit : GameState.getUnits())
-            if (unit.getLocation().equals(location))
+        {
+            Point unitLocation = unit.getLocation();
+            if (unitLocation != null && testPosition.equals(unitLocation))
                 return true;
+        }
 
         return false;
     }
