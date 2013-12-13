@@ -18,25 +18,25 @@ public class BehaviorLogic
         {
             if (!unit.isAlive()) continue;
 
-//            chooseBehavior(simulationStart, map, unit);
-            unit.update();
+            chooseBehavior(unit);
+//            unit.update();
         }
     }
 
-    private static void chooseBehavior(BigDecimal simulationStart, GameMap map, Unit unit)
+    private static void chooseBehavior(Unit unit)
     {
         if (!(unit instanceof Builder))
         {
             if (unit.getTarget() == null)
-                performIdleBehavior(unit, simulationStart, map);
+                performIdleBehavior(unit);
             if (unit.getTarget() != null)
-                performHostileBehavior(unit, simulationStart, map);
+                performHostileBehavior(unit);
         }
         if (unit instanceof Builder)
-            performBuildBehavior(unit, simulationStart, map);
+            performBuildBehavior(unit);
     }
 
-    private static void performBuildBehavior(Unit unit, BigDecimal simulationStart, GameMap map)
+    private static void performBuildBehavior(Unit unit)
     {
         if (unit instanceof Barracks)
         {
@@ -57,7 +57,7 @@ public class BehaviorLogic
                     default: barracksCreation = new Footman(barracks.getTeam());
                 }
 
-                barracksCreation.setLocation(map.getAvailableAdjacentLocation(barracks.getLocation()));
+                barracksCreation.setLocation(GameState.getGameMap().getAvailableAdjacentLocation(barracks.getLocation()));
                 GameState.addUnit(barracksCreation);
                 barracks.setTimeOfLastBuild(GameLogic.now());
 
@@ -81,7 +81,7 @@ public class BehaviorLogic
             {
                 Unit unitCreated = new Barracks(peasant.getTeam());
 
-                unitCreated.setLocation(map.getAvailableAdjacentLocation(peasant.getLocation()));
+                unitCreated.setLocation(GameState.getGameMap().getAvailableAdjacentLocation(peasant.getLocation()));
                 GameState.addUnit(unitCreated);
                 peasant.setTimeOfLastBuild(GameLogic.now());
                 GameState.removeUnit(peasant);
@@ -89,12 +89,12 @@ public class BehaviorLogic
                 Log.logInfo(peasant + " has created a hicks.combat.entities.Barracks " + unitCreated);
             }
             else
-                performIdleBehavior(unit, simulationStart, map);
+                performIdleBehavior(unit);
         }
     }
 
     // hostile behavior is approach target, then hit target
-    private static void performHostileBehavior(Unit unit, BigDecimal simulationStart, GameMap map)
+    private static void performHostileBehavior(Unit unit)
     {
         if (UnitLogic.isTargetInRange(unit) && unit.isReadyToAttack())
             CombatLogic.performAttack(unit);
@@ -103,14 +103,14 @@ public class BehaviorLogic
     }
 
     // idle behavior is random wandering until we find an enemy
-    private static void performIdleBehavior(Unit unit, BigDecimal simulationStart, GameMap map)
+    private static void performIdleBehavior(Unit unit)
     {
         Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit, GameState.getUnits());
 
         if (closestVisibleEnemy == null)
         {
             if (unit.getDestination() == null)
-                unit.setDestination(map.getRandomPoint());
+                unit.setDestination(GameState.getGameMap().getRandomPoint());
 
             UnitLogic.moveTowardCoordinate(unit, unit.getDestination(), false);
         }

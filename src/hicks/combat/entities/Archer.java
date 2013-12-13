@@ -14,7 +14,8 @@ public class Archer extends Unit
         setMoveSpeed(50);
         setTimeOfLastMove(GameLogic.now());
 
-        setHp(50);
+        setCurrentHp(50);
+        setMaxHp(50);
         setArmor(0);
         setMinDamage(12);
         setMaxDamage(18);

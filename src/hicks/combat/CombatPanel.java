@@ -4,6 +4,9 @@ import hicks.combat.entities.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -12,7 +15,6 @@ import java.util.Random;
 
 public class CombatPanel extends JPanel implements Runnable
 {
-    private final int MS_PER_UPDATE = 8;
     private final int DELAY = 16000000; // (16 ms)
 
     private List<Unit> units = new ArrayList<>();
@@ -30,6 +32,57 @@ public class CombatPanel extends JPanel implements Runnable
     {
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
+
+        addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseMoved(MouseEvent e)
+            {
+                super.mouseMoved(e);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                super.mouseClicked(e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                super.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+                super.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                super.mouseExited(e);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e)
+            {
+                super.mouseWheelMoved(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e)
+            {
+                super.mouseDragged(e);
+            }
+        });
 
         ImageIcon peasant = new ImageIcon("wc2h_peasant.gif");
         this.peasant = peasant.getImage();
@@ -80,6 +133,9 @@ public class CombatPanel extends JPanel implements Runnable
                 g2d.drawImage(peasant, x - size/2, y - size/2, size, size, null);
             else
                 g2d.fillRect(x, y, size, size);
+
+            drawHealthBar(g2d, unit, x, y);
+//            g2d.drawString(String.valueOf(unit.getCurrentHp()), x , y - 5);
         }
 
         int x = 10;
@@ -98,6 +154,19 @@ public class CombatPanel extends JPanel implements Runnable
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
+    }
+
+    private void drawHealthBar(Graphics2D g2d, Unit unit, int x, int y)
+    {
+        double currentHpPercent = (unit.getCurrentHp() * 100) / unit.getMaxHp();
+        int hpBoxes = (int) (currentHpPercent / 10);
+
+        if (unit.getTeam() == 1)
+            g2d.setColor(Color.RED);
+        if (unit.getTeam() == 2)
+            g2d.setColor(Color.GREEN);
+        for (int i = 0; i < hpBoxes; i++)
+            g2d.drawRect(x - 8 + (i * 2), y - 4, 2, 2);
     }
 
     private void drawVisionCircles(Graphics2D g2d)

@@ -14,7 +14,8 @@ public class Knight extends Unit
         setMoveSpeed(100);
         setTimeOfLastMove(GameLogic.now());
 
-        setHp(100);
+        setCurrentHp(100);
+        setMaxHp(100);
         setArmor(3);
         setMinDamage(20);
         setMaxDamage(30);

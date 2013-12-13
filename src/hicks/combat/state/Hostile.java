@@ -22,6 +22,11 @@ public class Hostile implements State
         return instance;
     }
 
+    public String toString()
+    {
+        return this.getClass().getSimpleName();
+    }
+
     public void enter(Unit unit)
     {
     }
@@ -30,14 +35,14 @@ public class Hostile implements State
     {
         if (unit.getTarget() == null)
         {
-            unit.changeState(new Idle());
+//            unit.changeState(new Idle());
             return;
         }
 
         if (!unit.getTarget().isAlive())
         {
             unit.setTarget(null);
-            unit.changeState(new Idle());
+//            unit.changeState(new Idle());
             return;
         }
 

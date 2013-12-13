@@ -14,7 +14,8 @@ public class Berserker extends Unit
         setMoveSpeed(50);
         setTimeOfLastMove(GameLogic.now());
 
-        setHp(60);
+        setCurrentHp(60);
+        setMaxHp(60);
         setArmor(1);
         setMinDamage(12);
         setMaxDamage(18);

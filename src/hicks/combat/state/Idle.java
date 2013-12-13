@@ -26,6 +26,11 @@ public class Idle implements State
         return instance;
     }
 
+    public String toString()
+    {
+        return this.getClass().getSimpleName();
+    }
+
     public void enter(Unit unit)
     {
     }
@@ -50,14 +55,14 @@ public class Idle implements State
                 if (unit.getTarget() != null)
                     hicks.combat.Log.logInfo(unit + " has targeted " + unit.getTarget() + "!");
 
-                unit.changeState(new Hostile());
+//                unit.changeState(new Hostile());
             }
         }
         if (unit instanceof Peasant)
         {
             if (GameLogic.isClearOfBarracks(unit))
             {
-                unit.changeState(Build.getInstance());
+//                unit.changeState(Build.getInstance());
             }
             else
             {
@@ -69,7 +74,7 @@ public class Idle implements State
         }
         if (unit instanceof Barracks)
         {
-            unit.changeState(Build.getInstance());  // todo: this is debugging code, we should never reach this block...
+//            unit.changeState(Build.getInstance());  // todo: this is debugging code, we should never reach this block...
         }
     }
 

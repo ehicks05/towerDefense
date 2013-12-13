@@ -1,7 +1,6 @@
 package hicks.combat.entities;
 
 import hicks.combat.GameLogic;
-import hicks.combat.state.Build;
 
 import java.math.BigDecimal;
 
@@ -16,12 +15,13 @@ public class Barracks extends Unit implements Builder
         setSizeRadius(150);
         setSightRadius(60);
 
-        setHp(100);
+        setCurrentHp(100);
+        setMaxHp(100);
         setArmor(10);
 
         setBuildSpeed(new BigDecimal(1));
         setTimeOfLastBuild(GameLogic.now());
-        changeState(Build.getInstance());
+//        changeState(Build.getInstance());
     }
 
     public boolean isReadyToBuild()

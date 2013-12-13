@@ -17,7 +17,8 @@ public class Peasant extends Unit implements Builder
         setMoveSpeed(50);
         setTimeOfLastMove(GameLogic.now());
 
-        setHp(50);
+        setCurrentHp(50);
+        setMaxHp(50);
         setArmor(0);
         setMinDamage(8);
         setMaxDamage(10);

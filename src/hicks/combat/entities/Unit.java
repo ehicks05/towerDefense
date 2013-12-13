@@ -3,7 +3,6 @@ package hicks.combat.entities;
 import hicks.combat.GameLogic;
 import hicks.combat.NameLogic;
 import hicks.combat.Point;
-import hicks.combat.state.State;
 
 import java.math.BigDecimal;
 
@@ -20,7 +19,8 @@ public class Unit
     private boolean         m_moving;
     private Point           m_location;
     private Point           m_destination;
-    private int             m_hp;
+    private int             m_currentHp;
+    private int             m_maxHp;
     private int             m_armor;
     private int             m_minDamage;
     private int             m_maxDamage;
@@ -29,25 +29,6 @@ public class Unit
     private BigDecimal      m_timeOfLastAttack;
     private Unit            m_target;
     private int             m_kills;
-
-    private static State m_currentState;
-
-    public void update()
-    {
-        m_currentState.execute(this);
-    }
-
-    public void changeState(State newState)
-    {
-        if (m_currentState != null) m_currentState.exit(this);
-        m_currentState = newState;
-        m_currentState.enter(this);
-    }
-
-    public State getCurrentState()
-    {
-        return m_currentState;
-    }
 
     public Unit()
     {
@@ -62,7 +43,7 @@ public class Unit
 
     public boolean isAlive()
     {
-        return m_hp > 0;
+        return m_currentHp > 0;
     }
 
     public int getObjectId()
@@ -170,14 +151,24 @@ public class Unit
         m_destination = destination;
     }
 
-    public int getHp()
+    public int getCurrentHp()
     {
-        return m_hp;
+        return m_currentHp;
     }
 
-    public void setHp(int hp)
+    public void setCurrentHp(int currentHp)
     {
-        m_hp = hp;
+        m_currentHp = currentHp;
+    }
+
+    public int getMaxHp()
+    {
+        return m_maxHp;
+    }
+
+    public void setMaxHp(int maxHp)
+    {
+        m_maxHp = maxHp;
     }
 
     public int getArmor()

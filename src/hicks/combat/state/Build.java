@@ -25,6 +25,11 @@ public class Build implements State
         return instance;
     }
 
+    public String toString()
+    {
+        return this.getClass().getSimpleName();
+    }
+
     public void enter(Unit unit)
     {
 
@@ -48,7 +53,7 @@ public class Build implements State
                 if (newUnit == null) newUnit = new Footman(barracks.getTeam());
 
                 newUnit.setLocation(GameState.getGameMap().getAvailableAdjacentLocation(barracks.getLocation()));
-                newUnit.changeState(new Idle());
+//                newUnit.changeState(new Idle());
                 GameState.addUnit(newUnit);
                 barracks.setTimeOfLastBuild(GameLogic.now());
 

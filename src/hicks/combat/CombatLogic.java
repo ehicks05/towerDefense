@@ -15,13 +15,13 @@ public class CombatLogic
         int rawDamage = UnitLogic.getAttackDamage(attacker);
         int unmitigatedDamage = getUnmitigatedDamage(rawDamage, defender.getArmor());
 
-        defender.setHp(defender.getHp() - unmitigatedDamage);
+        defender.setCurrentHp(defender.getCurrentHp() - unmitigatedDamage);
 
         attacker.setTimeOfLastAttack(GameLogic.now());
 
         // update battle log
         Log.logInfo(attacker + " attacks " + attacker.getTarget() + " for " + unmitigatedDamage + " damage.");
-        Log.logInfo(defender + " has " + defender.getHp() + " hp left.");
+        Log.logInfo(defender + " has " + defender.getCurrentHp() + " hp left.");
 
         if (!defender.isAlive())
         {
