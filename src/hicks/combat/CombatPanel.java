@@ -4,9 +4,7 @@ import hicks.combat.entities.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
+import java.awt.event.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -31,51 +29,61 @@ public class CombatPanel extends JPanel implements Runnable
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
 
+        addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                super.keyTyped(e);
+            }
+
+            public void keyPressed(KeyEvent e)
+            {
+                super.keyPressed(e);
+            }
+
+            public void keyReleased(KeyEvent e)
+            {
+                super.keyReleased(e);
+            }
+        });
+
         addMouseListener(new MouseAdapter()
         {
-            @Override
             public void mouseMoved(MouseEvent e)
             {
                 super.mouseMoved(e);
             }
 
-            @Override
             public void mouseClicked(MouseEvent e)
             {
                 super.mouseClicked(e);
             }
 
-            @Override
             public void mousePressed(MouseEvent e)
             {
                 super.mousePressed(e);
             }
 
-            @Override
             public void mouseReleased(MouseEvent e)
             {
                 super.mouseReleased(e);
             }
 
-            @Override
             public void mouseEntered(MouseEvent e)
             {
                 super.mouseEntered(e);
             }
 
-            @Override
             public void mouseExited(MouseEvent e)
             {
                 super.mouseExited(e);
             }
 
-            @Override
             public void mouseWheelMoved(MouseWheelEvent e)
             {
                 super.mouseWheelMoved(e);
             }
 
-            @Override
             public void mouseDragged(MouseEvent e)
             {
                 super.mouseDragged(e);
