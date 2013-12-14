@@ -9,22 +9,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class CombatPanel extends JPanel implements Runnable
 {
-    private final int DELAY = 16000000; // (16 ms)
+    private final int TILE_SIZE = 5;
+    private final Image PEASANT = new ImageIcon("wc2h_peasant.gif").getImage();
+    private final int FRAMES_TO_AVERAGE = 30;
 
+    private Queue<BigDecimal> frameTimes = new ArrayBlockingQueue<>(30);
     private List<Unit> units = new ArrayList<>();
     private int[][] terrain;
-
-    private Image peasant;
-    private Thread animator;
     private long timeDiff;
-    private long beforeTime;
-    private long sleep;
     private int width;
     private int height;
 
@@ -83,30 +81,66 @@ public class CombatPanel extends JPanel implements Runnable
                 super.mouseDragged(e);
             }
         });
-
-        ImageIcon peasant = new ImageIcon("wc2h_peasant.gif");
-        this.peasant = peasant.getImage();
     }
 
     public void addNotify()
     {
         super.addNotify();
-        animator = new Thread(this);
+        Thread animator = new Thread(this);
         animator.start();
     }
 
     public void paint(Graphics g)
     {
         super.paint(g);
-
         Graphics2D g2d = (Graphics2D) g;
 
-        // draw terrain
-//        drawTerrain(g2d);
+        drawTerrain(g2d);
 
-        // draw vision circles
         drawVisionCircles(g2d);
 
+        drawUnits(g2d);
+
+        int x = 10;
+        int y = 0;
+
+        BigDecimal fps = calculateFPS();
+
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
+        g2d.drawString("FPS: " + fps, x, y += 15);
+        g2d.drawString("Units: " + units.size(), x, y += 15);
+        g2d.setColor(Color.RED);
+        g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
+        g2d.setColor(Color.GREEN);
+        g2d.drawString("Team2: " + GameLogic.getUnitsOnTeam(units, 2), x, y += 15);
+
+        Toolkit.getDefaultToolkit().sync();
+        g.dispose();
+    }
+
+    private BigDecimal calculateFPS()
+    {
+        BigDecimal fps = BigDecimal.ZERO;
+
+        BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
+        frameTimes.add(timeDifference);
+        if (frameTimes.size() == FRAMES_TO_AVERAGE)
+        {
+            BigDecimal sum = BigDecimal.ZERO;
+            for (BigDecimal frameTime : frameTimes)
+                sum = sum.add(frameTime);
+
+            BigDecimal averageFrameTime = sum.divide(new BigDecimal(FRAMES_TO_AVERAGE), 2, RoundingMode.HALF_UP);
+            fps = new BigDecimal("1000").divide(averageFrameTime, 2, RoundingMode.HALF_UP);
+
+            frameTimes.remove();
+        }
+        return fps;
+    }
+
+    private void drawUnits(Graphics2D g2d)
+    {
         for (Unit unit : units)
         {
             int x = (int) unit.getLocation().getX();
@@ -130,30 +164,12 @@ public class CombatPanel extends JPanel implements Runnable
             if (unit instanceof Peasant) size = 12;
 
             if (unit instanceof Peasant)
-                g2d.drawImage(peasant, x - size/2, y - size/2, size, size, null);
+                g2d.drawImage(PEASANT, x - size/2, y - size/2, size, size, null);
             else
                 g2d.fillRect(x, y, size, size);
 
             drawHealthBar(g2d, unit, x, y);
-//            g2d.drawString(String.valueOf(unit.getCurrentHp()), x , y - 5);
         }
-
-        int x = 10;
-        int y = 0;
-
-        BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
-
-        g2d.setColor(Color.WHITE);
-        g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
-        g2d.drawString("FPS: " + new BigDecimal("1000").divide(timeDifference, 2, RoundingMode.HALF_UP), x, y += 15);
-        g2d.drawString("Units: " + units.size(), x, y += 15);
-        g2d.setColor(Color.RED);
-        g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
-        g2d.setColor(Color.GREEN);
-        g2d.drawString("Team2: " + GameLogic.getUnitsOnTeam(units, 2), x, y += 15);
-
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
     }
 
     private void drawHealthBar(Graphics2D g2d, Unit unit, int x, int y)
@@ -189,9 +205,9 @@ public class CombatPanel extends JPanel implements Runnable
         Random gen = new Random();
 
         int[][] terrain = new int[width][height];
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < width; i += TILE_SIZE)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < height; j += TILE_SIZE)
             {
                 if (gen.nextFloat() > 0.9)
                     terrain[i][j] = 0;
@@ -204,16 +220,16 @@ public class CombatPanel extends JPanel implements Runnable
 
     private void drawTerrain(Graphics2D g2d)
     {
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < width; i += TILE_SIZE)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < height; j += TILE_SIZE)
             {
                 if (terrain[i][j] == 0)
                     g2d.setColor(new Color(40, 60, 16));
                 if (terrain[i][j] == 1)
                     g2d.setColor(new Color(36, 36, 16));
 
-                g2d.fillRect(i, j, 1, 1);
+                g2d.fillRect(i, j, TILE_SIZE, TILE_SIZE);
             }
         }
     }
@@ -224,8 +240,10 @@ public class CombatPanel extends JPanel implements Runnable
         width = GameState.getGameMap().getWidth();
         height = GameState.getGameMap().getHeight();
         terrain = buildTerrain();
-        beforeTime = System.nanoTime();
-        BigDecimal startTime = GameState.getStartTime();
+
+        final int DELAY = 16000000; // (16 ms)
+        long beforeTime = System.nanoTime();
+        long sleep;
 
         // run game loop
         while (GameLogic.teamsLeft(GameState.getUnits()).size() > 1)
@@ -233,7 +251,7 @@ public class CombatPanel extends JPanel implements Runnable
             // loops through every unit on the map and updates their state
             BehaviorLogic.updateState();
 
-            units = GameState.getUnits();
+            units = new ArrayList<>(GameState.getUnits());
             repaint();
 
             long now = System.nanoTime();
