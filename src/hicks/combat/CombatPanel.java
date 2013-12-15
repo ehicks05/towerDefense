@@ -4,22 +4,25 @@ import hicks.combat.entities.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class CombatPanel extends JPanel implements Runnable
 {
-    private final int TILE_SIZE = 5;
+    private final int TILE_SIZE = 1;
     private final Image PEASANT = new ImageIcon("wc2h_peasant.gif").getImage();
     private final int FRAMES_TO_AVERAGE = 30;
 
     private Queue<BigDecimal> frameTimes = new ArrayBlockingQueue<>(30);
     private List<Unit> units = new ArrayList<>();
     private int[][] terrain;
+    private BufferedImage terrainImage;
     private long timeDiff;
     private int width;
     private int height;
@@ -29,66 +32,9 @@ public class CombatPanel extends JPanel implements Runnable
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
 
-        addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
-                super.keyTyped(e);
-            }
-
-            public void keyPressed(KeyEvent e)
-            {
-                super.keyPressed(e);
-            }
-
-            public void keyReleased(KeyEvent e)
-            {
-                super.keyReleased(e);
-            }
-        });
-
-        addMouseListener(new MouseAdapter()
-        {
-            public void mouseMoved(MouseEvent e)
-            {
-                super.mouseMoved(e);
-            }
-
-            public void mouseClicked(MouseEvent e)
-            {
-                super.mouseClicked(e);
-            }
-
-            public void mousePressed(MouseEvent e)
-            {
-                super.mousePressed(e);
-            }
-
-            public void mouseReleased(MouseEvent e)
-            {
-                super.mouseReleased(e);
-            }
-
-            public void mouseEntered(MouseEvent e)
-            {
-                super.mouseEntered(e);
-            }
-
-            public void mouseExited(MouseEvent e)
-            {
-                super.mouseExited(e);
-            }
-
-            public void mouseWheelMoved(MouseWheelEvent e)
-            {
-                super.mouseWheelMoved(e);
-            }
-
-            public void mouseDragged(MouseEvent e)
-            {
-                super.mouseDragged(e);
-            }
-        });
+        addKeyListener(new MyKeyboardEventListener());
+        addMouseListener(new MyMouseEventListener());
+        addMouseMotionListener(new MyMouseEventListener());
     }
 
     public void addNotify()
@@ -103,7 +49,7 @@ public class CombatPanel extends JPanel implements Runnable
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        drawTerrain(g2d);
+        g2d.drawImage(terrainImage, 0, 0, null);
 
         drawVisionCircles(g2d);
 
@@ -226,20 +172,21 @@ public class CombatPanel extends JPanel implements Runnable
         return terrain;
     }
 
-    private void drawTerrain(Graphics2D g2d)
+    private BufferedImage buildTerrainImage(int[][] terrain)
     {
+        BufferedImage bf = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
         for (int i = 0; i < width; i += TILE_SIZE)
         {
             for (int j = 0; j < height; j += TILE_SIZE)
             {
                 if (terrain[i][j] == 0)
-                    g2d.setColor(new Color(40, 60, 16));
-                if (terrain[i][j] == 1)
-                    g2d.setColor(new Color(36, 36, 16));
-
-                g2d.fillRect(i, j, TILE_SIZE, TILE_SIZE);
+                    bf.setRGB(i, j, new Color(40, 60, 16).getRGB());
+                else
+                    bf.setRGB(i, j, new Color(36, 36, 16).getRGB());
             }
         }
+        return bf;
     }
 
     public void run()
@@ -248,6 +195,7 @@ public class CombatPanel extends JPanel implements Runnable
         width = GameState.getGameMap().getWidth();
         height = GameState.getGameMap().getHeight();
         terrain = buildTerrain();
+        terrainImage = buildTerrainImage(terrain);
 
         final int DELAY = 16000000; // (16 ms)
         long beforeTime = System.nanoTime();
