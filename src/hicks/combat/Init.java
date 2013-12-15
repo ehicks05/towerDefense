@@ -11,7 +11,7 @@ import java.util.List;
 public class Init
 {
     public static int WIDTH = 1024;
-    public static int HEIGHT = 288;
+    public static int HEIGHT = 576;
 
     public static void init()
     {

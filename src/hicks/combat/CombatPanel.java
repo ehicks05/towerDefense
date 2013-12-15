@@ -4,6 +4,8 @@ import hicks.combat.entities.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,17 +26,66 @@ public class CombatPanel extends JPanel implements Runnable
     private int[][] terrain;
     private BufferedImage terrainImage;
     private long timeDiff;
-    private int width;
-    private int height;
+    private int width = Init.WIDTH;
+    private int height = Init.HEIGHT;
+
+    boolean drawSelectionRect;
+    private int selectionRectStartingX;
+    private int selectionRectStartingY;
+    private int selectionRectX;
+    private int selectionRectY;
+    private int selectionRectW;
+    private int selectionRectH;
 
     public CombatPanel()
     {
+        setSize(width, height);
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
 
-        addKeyListener(new MyKeyboardEventListener());
-        addMouseListener(new MyMouseEventListener());
-        addMouseMotionListener(new MyMouseEventListener());
+//        addKeyListener(new MyKeyboardEventListener());
+//        addMouseListener(new MyMouseEventListener());
+//        addMouseMotionListener(new MyMouseEventListener());
+
+        addMouseListener(new MouseAdapter()
+        {
+            public void mousePressed(MouseEvent e)
+            {
+                super.mousePressed(e);
+
+                selectionRectX = e.getX();
+                selectionRectY = e.getY();
+                selectionRectStartingX = e.getX();
+                selectionRectStartingY = e.getY();
+                drawSelectionRect = true;
+            }
+
+            public void mouseReleased(MouseEvent e)
+            {
+                super.mouseReleased(e);
+                drawSelectionRect = false;
+                selectionRectW = 0;
+                selectionRectH = 0;
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter()
+        {
+            public void mouseDragged(MouseEvent e)
+            {
+                super.mouseDragged(e);
+
+                if (e.getX() < selectionRectStartingX) selectionRectX = e.getX();
+                else                                   selectionRectX = selectionRectStartingX;
+
+                if (e.getY() < selectionRectStartingY) selectionRectY = e.getY();
+                else                                   selectionRectY = selectionRectStartingY;
+
+                // determine width and height
+                selectionRectW = Math.abs(selectionRectStartingX - e.getX());
+                selectionRectH = Math.abs(selectionRectStartingY - e.getY());
+            }
+        });
     }
 
     public void addNotify()
@@ -68,6 +119,8 @@ public class CombatPanel extends JPanel implements Runnable
         g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
         g2d.setColor(Color.GREEN);
         g2d.drawString("Team2: " + GameLogic.getUnitsOnTeam(units, 2), x, y += 15);
+
+        if (drawSelectionRect) g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -192,8 +245,6 @@ public class CombatPanel extends JPanel implements Runnable
     public void run()
     {
         Init.init();
-        width = GameState.getGameMap().getWidth();
-        height = GameState.getGameMap().getHeight();
         terrain = buildTerrain();
         terrainImage = buildTerrainImage(terrain);
 
