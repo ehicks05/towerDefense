@@ -20,6 +20,8 @@ public class Init
         if (new File("log.txt").delete())
             Log.logInfo("Deleting old logs...");
 
+        NameLogic.init();
+
         GameState.setStartTime(GameLogic.now());
         Log.logInfo("Simulation starting at " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(GameState.getStartTime()));
 
