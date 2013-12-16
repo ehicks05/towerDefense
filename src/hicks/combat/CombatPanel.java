@@ -9,10 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Queue;
-import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class CombatPanel extends JPanel implements Runnable
@@ -66,7 +64,7 @@ public class CombatPanel extends JPanel implements Runnable
             {
                 super.mouseReleased(e);
 
-                highlightSelectedUnits();
+                if (e.getButton() == 1) highlightSelectedUnits();
 
                 drawSelectionRect = false;
                 selectionRectW = 0;
@@ -76,6 +74,8 @@ public class CombatPanel extends JPanel implements Runnable
             public void mouseClicked(MouseEvent e)
             {
                 super.mouseClicked(e);
+                if (e.getButton() == 1)
+                    selectedUnits = new ArrayList<>();
                 if (e.getButton() == 3)
                 {
                     Point newDestination = new Point(e.getX(), e.getY());
@@ -108,6 +108,7 @@ public class CombatPanel extends JPanel implements Runnable
 
     private void highlightSelectedUnits()
     {
+        selectedUnits = new ArrayList<>();
         for (Unit unit : units)
         {
             int unitX = (int) unit.getLocation().getX();
