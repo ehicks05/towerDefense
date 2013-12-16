@@ -12,6 +12,7 @@ public class Init
 {
     public static int WIDTH = 1024;
     public static int HEIGHT = 576;
+    public static boolean heavyLogging = false;
 
     public static void init()
     {

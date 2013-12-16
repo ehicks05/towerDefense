@@ -61,7 +61,7 @@ public class BehaviorLogic
                 GameState.addUnit(barracksCreation);
                 barracks.setTimeOfLastBuild(GameLogic.now());
 
-                Log.logInfo(barracks + " has created a footman " + barracksCreation);
+                if (Init.heavyLogging) Log.logInfo(barracks + " has created a footman " + barracksCreation);
 
                 int unitsOnTeam1 = GameLogic.getUnitsOnTeam(GameState.getUnits(), 0);
                 int unitsOnTeam2 = GameLogic.getUnitsOnTeam(GameState.getUnits(), 1);
@@ -86,7 +86,7 @@ public class BehaviorLogic
                 peasant.setTimeOfLastBuild(GameLogic.now());
                 GameState.removeUnit(peasant);
 
-                Log.logInfo(peasant + " has created a hicks.combat.entities.Barracks " + unitCreated);
+                if (Init.heavyLogging) Log.logInfo(peasant + " has created a Barracks " + unitCreated);
             }
             else
                 performIdleBehavior(unit);
