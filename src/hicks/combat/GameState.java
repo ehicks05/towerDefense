@@ -11,6 +11,7 @@ public class GameState
     private static List<Unit> units = new ArrayList<>();
     private static GameMap gameMap;
     private static BigDecimal startTime;
+    private static int teamChosen;
 
     public static void addUnit(Unit unit)
     {
@@ -47,5 +48,15 @@ public class GameState
     public static void setStartTime(BigDecimal startTime)
     {
         GameState.startTime = startTime;
+    }
+
+    public static int getTeamChosen()
+    {
+        return teamChosen;
+    }
+
+    public static void setTeamChosen(int teamChosen)
+    {
+        GameState.teamChosen = teamChosen;
     }
 }

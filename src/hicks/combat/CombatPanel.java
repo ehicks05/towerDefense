@@ -37,6 +37,8 @@ public class CombatPanel extends JPanel implements Runnable
     private int selectionRectW;
     private int selectionRectH;
 
+    private List<Unit> selectedUnits = new ArrayList<>();
+
     public CombatPanel()
     {
         setSize(width, height);
@@ -63,9 +65,25 @@ public class CombatPanel extends JPanel implements Runnable
             public void mouseReleased(MouseEvent e)
             {
                 super.mouseReleased(e);
+
+                highlightSelectedUnits();
+
                 drawSelectionRect = false;
                 selectionRectW = 0;
                 selectionRectH = 0;
+            }
+
+            public void mouseClicked(MouseEvent e)
+            {
+                super.mouseClicked(e);
+                if (e.getButton() == 3)
+                {
+                    Point newDestination = new Point(e.getX(), e.getY());
+                    for (Unit unit : selectedUnits)
+                    {
+                        unit.setDestination(newDestination);
+                    }
+                }
             }
         });
 
@@ -86,6 +104,20 @@ public class CombatPanel extends JPanel implements Runnable
                 selectionRectH = Math.abs(selectionRectStartingY - e.getY());
             }
         });
+    }
+
+    private void highlightSelectedUnits()
+    {
+        for (Unit unit : units)
+        {
+            int unitX = (int) unit.getLocation().getX();
+            int unitY = (int) unit.getLocation().getY();
+            if (unitX >= selectionRectX && unitX <= (selectionRectX + selectionRectW) &&
+                    unitY >= selectionRectY && unitY <= (selectionRectY + selectionRectH))
+            {
+                if (unit.getTeam() == GameState.getTeamChosen()) selectedUnits.add(unit);
+            }
+        }
     }
 
     public void addNotify()
@@ -112,13 +144,14 @@ public class CombatPanel extends JPanel implements Runnable
         BigDecimal fps = calculateFPS();
 
         g2d.setColor(Color.WHITE);
+        g2d.drawString("Selected Team: " + GameState.getTeamChosen(), x, y += 15);
         g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("FPS: " + fps, x, y += 15);
         g2d.drawString("Units: " + units.size(), x, y += 15);
         g2d.setColor(Color.RED);
-        g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
+        g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 0), x, y += 15);
         g2d.setColor(Color.GREEN);
-        g2d.drawString("Team2: " + GameLogic.getUnitsOnTeam(units, 2), x, y += 15);
+        g2d.drawString("Team2: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
 
         if (drawSelectionRect) g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
 
@@ -152,13 +185,13 @@ public class CombatPanel extends JPanel implements Runnable
         {
             int x = (int) unit.getLocation().getX();
             int y = (int) unit.getLocation().getY();
-            if (unit.getTeam() == 1)
+            if (unit.getTeam() == 0)
             {
                 g2d.setColor(Color.RED);
                 if (unit instanceof Barracks) g2d.setColor(Color.PINK);
                 if (unit instanceof Berserker) g2d.setColor(new Color(150, 0, 0));
             }
-            if (unit.getTeam() == 2)
+            if (unit.getTeam() == 1)
             {
                 g2d.setColor(Color.GREEN);
                 if (unit instanceof Barracks) g2d.setColor(Color.YELLOW);
@@ -175,7 +208,7 @@ public class CombatPanel extends JPanel implements Runnable
             else
                 g2d.fillRect(x, y, size, size);
 
-            drawHealthBar(g2d, unit, x, y);
+            if (selectedUnits.contains(unit)) drawHealthBar(g2d, unit, x, y);
         }
     }
 
@@ -184,9 +217,9 @@ public class CombatPanel extends JPanel implements Runnable
         double currentHpPercent = (unit.getCurrentHp() * 100) / unit.getMaxHp();
         int hpBoxes = (int) (currentHpPercent / 10);
 
-        if (unit.getTeam() == 1)
+        if (unit.getTeam() == 0)
             g2d.setColor(Color.RED);
-        if (unit.getTeam() == 2)
+        if (unit.getTeam() == 1)
             g2d.setColor(Color.GREEN);
         for (int i = 0; i < hpBoxes; i++)
             g2d.drawRect(x - 8 + (i * 2), y - 4, 2, 2);

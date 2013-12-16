@@ -31,8 +31,8 @@ public class Init
         // create a barracks for each team
         for (int i = 0; i < 1; i++)
         {
+            GameState.addUnit(new Barracks(0));
             GameState.addUnit(new Barracks(1));
-            GameState.addUnit(new Barracks(2));
         }
 
         List<Unit> unitsToPlace = new ArrayList<>(GameState.getUnits());

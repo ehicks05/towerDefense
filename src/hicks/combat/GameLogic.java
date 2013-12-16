@@ -69,8 +69,8 @@ public class GameLogic
             while (!unitPlaced)
             {
                 Point point = null;
-                if (unit.getTeam() == 1) point = map.getRandomPoint(0, map.getWidth() / 2, 0, map.getHeight());
-                if (unit.getTeam() == 2) point = map.getRandomPoint(map.getWidth() / 2, map.getWidth() / 2, 0, map.getHeight());
+                if (unit.getTeam() == 0) point = map.getRandomPoint(0, map.getWidth() / 2, 0, map.getHeight());
+                if (unit.getTeam() == 1) point = map.getRandomPoint(map.getWidth() / 2, map.getWidth() / 2, 0, map.getHeight());
                 if (!map.isPositionOccupied(point))
                 {
                     unit.setLocation(point);

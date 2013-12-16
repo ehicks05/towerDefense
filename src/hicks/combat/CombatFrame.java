@@ -26,7 +26,14 @@ public class CombatFrame extends JFrame
 
         frame.addWindowListener(new WindowAdapter()
         {
-            @Override
+            public void windowOpened(WindowEvent e)
+            {
+                String[] options = {"Team 1", "Team 2"};
+                int answer = JOptionPane.showOptionDialog(frame, "Choose your team", "Choose Team", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Team 1");
+
+                GameState.setTeamChosen(answer);
+            }
+
             public void windowClosing(WindowEvent windowEvent)
             {
                 if (JOptionPane.showConfirmDialog(frame,

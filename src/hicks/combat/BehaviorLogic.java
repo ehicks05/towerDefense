@@ -63,9 +63,9 @@ public class BehaviorLogic
 
                 Log.logInfo(barracks + " has created a footman " + barracksCreation);
 
-                int unitsOnTeam1 = GameLogic.getUnitsOnTeam(GameState.getUnits(), 1);
-                int unitsOnTeam2 = GameLogic.getUnitsOnTeam(GameState.getUnits(), 2);
-                int winningTeam = unitsOnTeam1 > unitsOnTeam2 ? 1 : 2;
+                int unitsOnTeam1 = GameLogic.getUnitsOnTeam(GameState.getUnits(), 0);
+                int unitsOnTeam2 = GameLogic.getUnitsOnTeam(GameState.getUnits(), 1);
+                int winningTeam = unitsOnTeam1 > unitsOnTeam2 ? 0 : 1;
 
                 if (barracks.getTeam() == winningTeam)
                     barracks.setBuildSpeed(new BigDecimal(1));
