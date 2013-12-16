@@ -12,14 +12,14 @@ import java.util.*;
 
 public class NameLogic
 {
-    private static List<String> names;
+    private static List<String> firstNames;
     private static List<String> lastNames;
 
     public static void init()
     {
         try
         {
-            names     = Files.readAllLines(Paths.get("firstNames.txt"), Charset.defaultCharset());
+            firstNames = Files.readAllLines(Paths.get("firstNames.txt"), Charset.defaultCharset());
             lastNames = Files.readAllLines(Paths.get("lastNames.txt"), Charset.defaultCharset());
         }
         catch (IOException e)
@@ -32,7 +32,7 @@ public class NameLogic
     {
         Random random = new Random();
 
-        String fullName = names.get(random.nextInt(names.size())) + " " + lastNames.get(random.nextInt(lastNames.size()));
+        String fullName = firstNames.get(random.nextInt(firstNames.size())) + " " + lastNames.get(random.nextInt(lastNames.size()));
         if (unit instanceof Knight) fullName = "Sir " + fullName;
         if (unit instanceof Barracks) fullName = "Barracks";
         return fullName;
