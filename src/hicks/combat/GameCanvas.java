@@ -275,8 +275,12 @@ public class GameCanvas extends Canvas
     {
         final JFrame frame = new JFrame("CombatFrame");
         frame.getContentPane().setPreferredSize(new Dimension(Init.WIDTH, Init.HEIGHT));
+
+        GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        graphicsDevice.getDisplayMode();
+
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
+        frame.setLocation(32, 32);
         frame.setResizable(false);
         frame.setVisible(true);
 
@@ -285,7 +289,8 @@ public class GameCanvas extends Canvas
             public void windowOpened(WindowEvent e)
             {
                 String[] options = {"Team 1", "Team 2"};
-                int answer = JOptionPane.showOptionDialog(frame, "Choose your team", "Choose Team", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Team 1");
+                int answer = JOptionPane.showOptionDialog(frame, "Choose your team", "Choose Team",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Team 1");
 
                 GameState.setTeamChosen(answer);
             }
@@ -324,7 +329,7 @@ public class GameCanvas extends Canvas
         terrain = buildTerrain();
         terrainImage = buildTerrainImage(terrain);
 
-        final int DELAY = 16000000; // (16 ms)
+        final int DELAY = 16666666; // (16 ms)
         long beforeTime = System.nanoTime();
         long sleep;
 
@@ -350,20 +355,20 @@ public class GameCanvas extends Canvas
 
             long now = System.nanoTime();
             timeDiff = now - beforeTime;
-//            sleep = (DELAY - timeDiff) / 1000000;
-//
-//            if (sleep < 0)
-//                sleep = 2;
-//            try
-//            {
-//                Thread.sleep(sleep);
-//            }
-//            catch (InterruptedException e)
-//            {
-//                System.out.println("interrupted");
-//            }
-//
+            sleep = (2*DELAY - timeDiff) / 1000000;
             beforeTime = System.nanoTime();
+
+            if (sleep < 0)
+                sleep = 1;
+            try
+            {
+                Thread.sleep(sleep);
+            }
+            catch (InterruptedException e)
+            {
+                System.out.println("interrupted");
+            }
+
         }
         Log.logInfo("Team " + GameLogic.teamsLeft(GameState.getUnits()).get(0) + " wins!", true);
     }
