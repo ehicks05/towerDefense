@@ -339,7 +339,7 @@ public class GameCanvas extends Canvas
             // loops through every unit on the map and updates their state
             BehaviorLogic.updateState();
 
-            units = new ArrayList<>(GameState.getUnits());
+            units = GameState.getUnits();
 
             // Grab the current non visible frame (Memory on the graphics card)
             // getDrawGraphics actually creates a new off screen buffer; it doesn't get something that already exists.
@@ -355,7 +355,7 @@ public class GameCanvas extends Canvas
 
             long now = System.nanoTime();
             timeDiff = now - beforeTime;
-            sleep = (2*DELAY - timeDiff) / 1000000;
+            sleep = (1*DELAY - timeDiff) / 1000000;
             beforeTime = System.nanoTime();
 
             if (sleep < 0)
