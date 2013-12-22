@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Init
 {
-    public static int WIDTH = 1024;
-    public static int HEIGHT = 576;
+    public static int WORLD_WIDTH = 1024;
+    public static int WORLD_HEIGHT = 576;
     public static boolean heavyLogging = false;
 
     public static void init()
@@ -28,8 +28,8 @@ public class Init
         GameMap map = new GameMap();
         GameState.setGameMap(map);
 
-        map.setWidth(WIDTH);
-        map.setHeight(HEIGHT);
+        map.setWidth(WORLD_WIDTH);
+        map.setHeight(WORLD_HEIGHT);
 
         // create a barracks for each team
         for (int i = 0; i < 1; i++)

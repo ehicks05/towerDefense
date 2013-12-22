@@ -4,31 +4,25 @@ import hicks.combat.entities.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class GameCanvas extends Canvas
 {
-    private static final int TILE_SIZE = 1;
     private static final Image PEASANT = new ImageIcon("wc2h_peasant.gif").getImage();
-    private static final int FRAMES_TO_AVERAGE = 30;
-
-    private static Queue<BigDecimal> frameTimes = new ArrayBlockingQueue<>(30);
-    private static java.util.List<Unit> units = new ArrayList<>();
-    private static int[][] terrain;
+    private static List<Unit> units = new ArrayList<>();
     private static BufferedImage terrainImage;
-    private static long timeDiff;
-    private static int width = Init.WIDTH;
-    private static int height = Init.HEIGHT;
+    private static int WORLD_WIDTH = Init.WORLD_WIDTH;
+    private static int WORLD_HEIGHT = Init.WORLD_HEIGHT;
 
+    // -------- SELECTION LASSO
     private static boolean drawSelectionRect;
     private static int selectionRectStartingX;
     private static int selectionRectStartingY;
@@ -36,29 +30,65 @@ public class GameCanvas extends Canvas
     private static int selectionRectY;
     private static int selectionRectW;
     private static int selectionRectH;
-
     private static java.util.List<Unit> selectedUnits = new ArrayList<>();
+
+    // -------- VIEW PORT
+    private static boolean pan = false;
+    private static int viewPortX = 0;
+    private static int viewPortY = 0;
+    private static int viewPortW = 640;
+    private static int viewPortH = 480;
+    private static Set<String> directionKeysPressed = new HashSet<>();
 
     public GameCanvas()
     {
-        setSize(width, height);
-        setBackground(Color.BLACK);
-//        setDoubleBuffered(true);
+        setSize(viewPortW, viewPortH);
 
-//        addKeyListener(new MyKeyboardEventListener());
-//        addMouseListener(new MyMouseEventListener());
-//        addMouseMotionListener(new MyMouseEventListener());
+        addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                super.keyTyped(e);
+            }
+
+            public void keyPressed(KeyEvent e)
+            {
+                super.keyPressed(e);
+                pan = true;
+                int keyCode = e.getKeyCode();
+
+                if (keyCode == KeyEvent.VK_DOWN) directionKeysPressed.add("down");
+                if (keyCode == KeyEvent.VK_UP) directionKeysPressed.add("up");
+                if (keyCode == KeyEvent.VK_LEFT) directionKeysPressed.add("left");
+                if (keyCode == KeyEvent.VK_RIGHT) directionKeysPressed.add("right");
+            }
+
+            public void keyReleased(KeyEvent e)
+            {
+                super.keyReleased(e);
+                int keyCode = e.getKeyCode();
+
+                if (keyCode == KeyEvent.VK_DOWN) directionKeysPressed.remove("down");
+                if (keyCode == KeyEvent.VK_UP) directionKeysPressed.remove("up");
+                if (keyCode == KeyEvent.VK_LEFT) directionKeysPressed.remove("left");
+                if (keyCode == KeyEvent.VK_RIGHT) directionKeysPressed.remove("right");
+
+                if (directionKeysPressed.size() == 0) pan = false;
+            }
+        });
 
         addMouseListener(new MouseAdapter()
         {
             public void mousePressed(MouseEvent e)
             {
                 super.mousePressed(e);
+                int eventX = e.getX();
+                int eventY = e.getY();
 
-                selectionRectX = e.getX();
-                selectionRectY = e.getY();
-                selectionRectStartingX = e.getX();
-                selectionRectStartingY = e.getY();
+                selectionRectX = eventX;
+                selectionRectY = eventY;
+                selectionRectStartingX = eventX;
+                selectionRectStartingY = eventY;
                 drawSelectionRect = true;
             }
 
@@ -76,11 +106,14 @@ public class GameCanvas extends Canvas
             public void mouseClicked(MouseEvent e)
             {
                 super.mouseClicked(e);
+                int eventX = e.getX();
+                int eventY = e.getY();
+
                 if (e.getButton() == 1)
                     selectedUnits = new ArrayList<>();
                 if (e.getButton() == 3)
                 {
-                    Point newDestination = new Point(e.getX(), e.getY());
+                    Point newDestination = new Point(eventX, eventY);
                     for (Unit unit : selectedUnits)
                     {
                         unit.setDestination(newDestination);
@@ -94,16 +127,17 @@ public class GameCanvas extends Canvas
             public void mouseDragged(MouseEvent e)
             {
                 super.mouseDragged(e);
+                int eventX = e.getX();
+                int eventY = e.getY();
 
-                if (e.getX() < selectionRectStartingX) selectionRectX = e.getX();
+                if (eventX < selectionRectStartingX) selectionRectX = eventX;
                 else                                   selectionRectX = selectionRectStartingX;
 
-                if (e.getY() < selectionRectStartingY) selectionRectY = e.getY();
+                if (eventY < selectionRectStartingY) selectionRectY = eventY;
                 else                                   selectionRectY = selectionRectStartingY;
 
-                // determine width and height
-                selectionRectW = Math.abs(selectionRectStartingX - e.getX());
-                selectionRectH = Math.abs(selectionRectStartingY - e.getY());
+                selectionRectW = Math.abs(selectionRectStartingX - eventX);
+                selectionRectH = Math.abs(selectionRectStartingY - eventY);
             }
         });
     }
@@ -115,32 +149,16 @@ public class GameCanvas extends Canvas
         {
             int unitX = (int) unit.getLocation().getX();
             int unitY = (int) unit.getLocation().getY();
-            if (unitX >= selectionRectX && unitX <= (selectionRectX + selectionRectW) &&
-                    unitY >= selectionRectY && unitY <= (selectionRectY + selectionRectH))
+
+            int adjustedX = unitX - viewPortX;
+            int adjustedY = unitY - viewPortY;
+
+            if (adjustedX >= selectionRectX && adjustedX <= (selectionRectX + selectionRectW) &&
+                    adjustedY >= selectionRectY && adjustedY <= (selectionRectY + selectionRectH))
             {
                 if (unit.getTeam() == GameState.getTeamChosen()) selectedUnits.add(unit);
             }
         }
-    }
-
-    private static BigDecimal calculateFPS()
-    {
-        BigDecimal fps = BigDecimal.ZERO;
-
-        BigDecimal timeDifference = new BigDecimal(timeDiff).divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
-        frameTimes.add(timeDifference);
-        if (frameTimes.size() == FRAMES_TO_AVERAGE)
-        {
-            BigDecimal sum = BigDecimal.ZERO;
-            for (BigDecimal frameTime : frameTimes)
-                sum = sum.add(frameTime);
-
-            BigDecimal averageFrameTime = sum.divide(new BigDecimal(FRAMES_TO_AVERAGE), 2, RoundingMode.HALF_UP);
-            fps = new BigDecimal("1000").divide(averageFrameTime, 2, RoundingMode.HALF_UP);
-
-            frameTimes.remove();
-        }
-        return fps;
     }
 
     private static void drawUnits(Graphics2D g2d)
@@ -149,6 +167,9 @@ public class GameCanvas extends Canvas
         {
             int x = (int) unit.getLocation().getX();
             int y = (int) unit.getLocation().getY();
+
+            drawVisionCircle(g2d, unit);
+
             if (unit.getTeam() == 0)
             {
                 g2d.setColor(Color.RED);
@@ -168,9 +189,9 @@ public class GameCanvas extends Canvas
             if (unit instanceof Peasant) size = 12;
 
             if (unit instanceof Peasant)
-                g2d.drawImage(PEASANT, x - size/2, y - size/2, size, size, null);
+                g2d.drawImage(PEASANT, (x - size/2) - viewPortX, (y - size/2) - viewPortY, size, size, null);
             else
-                g2d.fillRect(x, y, size, size);
+                g2d.fillRect(x - viewPortX, y - viewPortY, size, size);
 
             if (selectedUnits.contains(unit)) drawHealthBar(g2d, unit, x, y);
         }
@@ -186,73 +207,33 @@ public class GameCanvas extends Canvas
         if (unit.getTeam() == 1)
             g2d.setColor(Color.GREEN);
         for (int i = 0; i < hpBoxes; i++)
-            g2d.drawRect(x - 8 + (i * 2), y - 4, 2, 2);
+            g2d.drawRect((x - 8 + (i * 2)) - viewPortX, (y - 4) - viewPortY, 2, 2);
     }
 
-    private static void drawVisionCircles(Graphics2D g2d)
+    private static void drawVisionCircle(Graphics2D g2d, Unit unit)
     {
-        for (Unit unit : units)
-        {
-            int x = (int) unit.getLocation().getX();
-            int y = (int) unit.getLocation().getY();
+        int x = (int) unit.getLocation().getX();
+        int y = (int) unit.getLocation().getY();
 
-            g2d.setColor(Color.getHSBColor(.12f, .12f, .12f));
+        g2d.setColor(Color.getHSBColor(.12f, .12f, .12f));
 
-            int size = unit.getSightRadius();
+        int size = unit.getSightRadius();
 
-            g2d.drawOval(x - size, y - size, size * 2, size * 2);
-        }
-    }
-
-    private static int[][] buildTerrain()
-    {
-        Random gen = new Random();
-
-        int[][] terrain = new int[width][height];
-        for (int i = 0; i < width; i += TILE_SIZE)
-        {
-            for (int j = 0; j < height; j += TILE_SIZE)
-            {
-                if (gen.nextFloat() > 0.9)
-                    terrain[i][j] = 0;
-                else
-                    terrain[i][j] = 1;
-            }
-        }
-        return terrain;
-    }
-
-    private static BufferedImage buildTerrainImage(int[][] terrain)
-    {
-        BufferedImage bf = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-        for (int i = 0; i < width; i += TILE_SIZE)
-        {
-            for (int j = 0; j < height; j += TILE_SIZE)
-            {
-                if (terrain[i][j] == 0)
-                    bf.setRGB(i, j, new Color(40, 60, 16).getRGB());
-                else
-                    bf.setRGB(i, j, new Color(36, 36, 16).getRGB());
-            }
-        }
-        return bf;
+        g2d.drawOval((x - size) - viewPortX, (y - size) - viewPortY, size * 2, size * 2);
     }
 
     public static void paintWorld(Graphics g)
     {
         Graphics2D g2d = (Graphics2D) g;
 
-        g2d.drawImage(terrainImage, 0, 0, null);
-
-        drawVisionCircles(g2d);
+        g2d.drawImage(terrainImage, 0 - viewPortX, 0 - viewPortY, null);
 
         drawUnits(g2d);
 
         int x = 10;
         int y = 0;
 
-        BigDecimal fps = calculateFPS();
+        BigDecimal fps = Metrics.calculateFPS();
 
         g2d.setColor(Color.WHITE);
         g2d.drawString("Selected Team: " + GameState.getTeamChosen(), x, y += 15);
@@ -265,16 +246,24 @@ public class GameCanvas extends Canvas
         g2d.drawString("Team2: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
 
         if (drawSelectionRect) g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
+        if (pan) performPan();
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
 
+    public static void performPan()
+    {
+        if (directionKeysPressed.contains("down") && (viewPortY + viewPortH) < WORLD_HEIGHT) viewPortY++;
+        if (directionKeysPressed.contains("up") && (viewPortY) > 0) viewPortY--;
+        if (directionKeysPressed.contains("right") && (viewPortX + viewPortW) < WORLD_WIDTH) viewPortX++;
+        if (directionKeysPressed.contains("left") && (viewPortX) > 0) viewPortX--;
+    }
 
     public static void main(String[] args)
     {
         final JFrame frame = new JFrame("CombatFrame");
-        frame.getContentPane().setPreferredSize(new Dimension(Init.WIDTH, Init.HEIGHT));
+        frame.getContentPane().setPreferredSize(new Dimension(viewPortW, viewPortH));
 
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         graphicsDevice.getDisplayMode();
@@ -310,11 +299,11 @@ public class GameCanvas extends Canvas
 
         JPanel panel = (JPanel) frame.getContentPane();
 
-        panel.setPreferredSize(new Dimension(Init.WIDTH, Init.HEIGHT));
+        panel.setPreferredSize(new Dimension(viewPortW, viewPortH));
         panel.setLayout(null);
 
         GameCanvas gameCanvas = new GameCanvas();
-        gameCanvas.setBounds(0, 0, Init.WIDTH , Init.HEIGHT);
+        gameCanvas.setBounds(0, 0, viewPortW, viewPortH);
         panel.add(gameCanvas);
         gameCanvas.setIgnoreRepaint(true);
         frame.pack();
@@ -326,8 +315,7 @@ public class GameCanvas extends Canvas
         //---------------
 
         Init.init();
-        terrain = buildTerrain();
-        terrainImage = buildTerrainImage(terrain);
+        terrainImage = MapBuilder.buildTerrainImage(WORLD_WIDTH, WORLD_HEIGHT);
 
         final int DELAY = 16666666; // (16 ms)
         long beforeTime = System.nanoTime();
@@ -354,8 +342,8 @@ public class GameCanvas extends Canvas
             bufferStrategy.show();
 
             long now = System.nanoTime();
-            timeDiff = now - beforeTime;
-            sleep = (1*DELAY - timeDiff) / 1000000;
+            Metrics.timeDiff = now - beforeTime;
+            sleep = (1*DELAY - Metrics.timeDiff) / 1000000;
             beforeTime = System.nanoTime();
 
             if (sleep < 0)
