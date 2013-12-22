@@ -57,10 +57,10 @@ public class GameCanvas extends Canvas
                 pan = true;
                 int keyCode = e.getKeyCode();
 
-                if (keyCode == KeyEvent.VK_DOWN) directionKeysPressed.add("down");
-                if (keyCode == KeyEvent.VK_UP) directionKeysPressed.add("up");
-                if (keyCode == KeyEvent.VK_LEFT) directionKeysPressed.add("left");
-                if (keyCode == KeyEvent.VK_RIGHT) directionKeysPressed.add("right");
+                if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) directionKeysPressed.add("up");
+                if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) directionKeysPressed.add("down");
+                if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) directionKeysPressed.add("left");
+                if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) directionKeysPressed.add("right");
             }
 
             public void keyReleased(KeyEvent e)
@@ -68,10 +68,10 @@ public class GameCanvas extends Canvas
                 super.keyReleased(e);
                 int keyCode = e.getKeyCode();
 
-                if (keyCode == KeyEvent.VK_DOWN) directionKeysPressed.remove("down");
-                if (keyCode == KeyEvent.VK_UP) directionKeysPressed.remove("up");
-                if (keyCode == KeyEvent.VK_LEFT) directionKeysPressed.remove("left");
-                if (keyCode == KeyEvent.VK_RIGHT) directionKeysPressed.remove("right");
+                if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) directionKeysPressed.remove("up");
+                if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) directionKeysPressed.remove("down");
+                if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) directionKeysPressed.remove("left");
+                if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) directionKeysPressed.remove("right");
 
                 if (directionKeysPressed.size() == 0) pan = false;
             }
