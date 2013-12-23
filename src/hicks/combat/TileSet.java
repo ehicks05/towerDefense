@@ -4,10 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TileSet
 {
@@ -67,6 +64,8 @@ public class TileSet
         int y = 0;
         int[] rgbArray = new int[32*32];
 
+        Random gen = new Random();
+
         for (int i = 0; i < iterations; i++)
         {
             if (x >= Init.WORLD_WIDTH)
@@ -75,7 +74,8 @@ public class TileSet
                 y += 32;
             }
 
-            BufferedImage tile = tiles.get("CCCC");
+            BufferedImage tile = tiles.get(tileNames.get(gen.nextInt(tiles.size())));
+//            BufferedImage tile = tiles.get("CCCC");
             int width = tile.getWidth();
             int height = tile.getHeight();
 
