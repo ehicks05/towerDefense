@@ -20,7 +20,7 @@ public class TileSet
     {
         try
         {
-            return ImageIO.read(new File("tiles.bmp"));
+            return ImageIO.read(new File("ass\\tiles.bmp"));
         }
         catch (IOException e)
         {

@@ -19,8 +19,8 @@ public class NameLogic
     {
         try
         {
-            firstNames = Files.readAllLines(Paths.get("firstNames.txt"), Charset.defaultCharset());
-            lastNames = Files.readAllLines(Paths.get("lastNames.txt"), Charset.defaultCharset());
+            firstNames = Files.readAllLines(Paths.get("ass\\firstNames.txt"), Charset.defaultCharset());
+            lastNames = Files.readAllLines(Paths.get("ass\\lastNames.txt"), Charset.defaultCharset());
         }
         catch (IOException e)
         {
