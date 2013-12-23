@@ -16,8 +16,7 @@ import java.util.Set;
 
 public class GameCanvas extends Canvas
 {
-    private static final Image PEASANT = new ImageIcon("wc2h_peasant.gif").getImage();
-    private static List<Unit> units = new ArrayList<>();
+    public static List<Unit> units = new ArrayList<>();
     private static BufferedImage terrainImage;
     private static int WORLD_WIDTH = Init.WORLD_WIDTH;
     private static int WORLD_HEIGHT = Init.WORLD_HEIGHT;
@@ -30,12 +29,12 @@ public class GameCanvas extends Canvas
     private static int selectionRectY;
     private static int selectionRectW;
     private static int selectionRectH;
-    private static java.util.List<Unit> selectedUnits = new ArrayList<>();
+    public static java.util.List<Unit> selectedUnits = new ArrayList<>();
 
     // -------- VIEW PORT
     private static boolean pan = false;
-    private static int viewPortX = 0;
-    private static int viewPortY = 0;
+    public static int viewPortX = 0;
+    public static int viewPortY = 0;
     private static int viewPortW = 640;
     private static int viewPortH = 480;
     private static Set<String> directionKeysPressed = new HashSet<>();
@@ -113,7 +112,7 @@ public class GameCanvas extends Canvas
                     selectedUnits = new ArrayList<>();
                 if (e.getButton() == 3)
                 {
-                    Point newDestination = new Point(eventX, eventY);
+                    Point newDestination = new Point(eventX + viewPortX, eventY + viewPortY);
                     for (Unit unit : selectedUnits)
                     {
                         unit.setDestination(newDestination);
@@ -150,76 +149,15 @@ public class GameCanvas extends Canvas
             int unitX = (int) unit.getLocation().getX();
             int unitY = (int) unit.getLocation().getY();
 
-            int adjustedX = unitX - viewPortX;
-            int adjustedY = unitY - viewPortY;
+            int adjustedUnitX = unitX - viewPortX;
+            int adjustedUnitY = unitY - viewPortY;
 
-            if (adjustedX >= selectionRectX && adjustedX <= (selectionRectX + selectionRectW) &&
-                    adjustedY >= selectionRectY && adjustedY <= (selectionRectY + selectionRectH))
+            if (adjustedUnitX >= selectionRectX && adjustedUnitX <= (selectionRectX + selectionRectW) &&
+                    adjustedUnitY >= selectionRectY && adjustedUnitY <= (selectionRectY + selectionRectH))
             {
                 if (unit.getTeam() == GameState.getTeamChosen()) selectedUnits.add(unit);
             }
         }
-    }
-
-    private static void drawUnits(Graphics2D g2d)
-    {
-        for (Unit unit : units)
-        {
-            int x = (int) unit.getLocation().getX();
-            int y = (int) unit.getLocation().getY();
-
-            drawVisionCircle(g2d, unit);
-
-            if (unit.getTeam() == 0)
-            {
-                g2d.setColor(Color.RED);
-                if (unit instanceof Barracks) g2d.setColor(Color.PINK);
-                if (unit instanceof Berserker) g2d.setColor(new Color(150, 0, 0));
-            }
-            if (unit.getTeam() == 1)
-            {
-                g2d.setColor(Color.GREEN);
-                if (unit instanceof Barracks) g2d.setColor(Color.YELLOW);
-                if (unit instanceof Berserker) g2d.setColor(new Color(0, 120, 0));
-            }
-
-            int size = 3;
-            if (unit instanceof Knight || unit instanceof Berserker) size = 5;
-            if (unit instanceof Barracks) size = 10;
-            if (unit instanceof Peasant) size = 12;
-
-            if (unit instanceof Peasant)
-                g2d.drawImage(PEASANT, (x - size/2) - viewPortX, (y - size/2) - viewPortY, size, size, null);
-            else
-                g2d.fillRect(x - viewPortX, y - viewPortY, size, size);
-
-            if (selectedUnits.contains(unit)) drawHealthBar(g2d, unit, x, y);
-        }
-    }
-
-    private static void drawHealthBar(Graphics2D g2d, Unit unit, int x, int y)
-    {
-        double currentHpPercent = (unit.getCurrentHp() * 100) / unit.getMaxHp();
-        int hpBoxes = (int) (currentHpPercent / 10);
-
-        if (unit.getTeam() == 0)
-            g2d.setColor(Color.RED);
-        if (unit.getTeam() == 1)
-            g2d.setColor(Color.GREEN);
-        for (int i = 0; i < hpBoxes; i++)
-            g2d.drawRect((x - 8 + (i * 2)) - viewPortX, (y - 4) - viewPortY, 2, 2);
-    }
-
-    private static void drawVisionCircle(Graphics2D g2d, Unit unit)
-    {
-        int x = (int) unit.getLocation().getX();
-        int y = (int) unit.getLocation().getY();
-
-        g2d.setColor(Color.getHSBColor(.12f, .12f, .12f));
-
-        int size = unit.getSightRadius();
-
-        g2d.drawOval((x - size) - viewPortX, (y - size) - viewPortY, size * 2, size * 2);
     }
 
     public static void paintWorld(Graphics g)
@@ -228,8 +166,19 @@ public class GameCanvas extends Canvas
 
         g2d.drawImage(terrainImage, 0 - viewPortX, 0 - viewPortY, null);
 
-        drawUnits(g2d);
+        RTSDrawingLogic.drawUnits(g2d);
 
+        drawInterface(g2d);
+
+        if (drawSelectionRect) g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
+
+
+        Toolkit.getDefaultToolkit().sync();
+        g.dispose();
+    }
+
+    private static void drawInterface(Graphics2D g2d)
+    {
         int x = 10;
         int y = 0;
 
@@ -244,12 +193,6 @@ public class GameCanvas extends Canvas
         g2d.drawString("Team1: " + GameLogic.getUnitsOnTeam(units, 0), x, y += 15);
         g2d.setColor(Color.GREEN);
         g2d.drawString("Team2: " + GameLogic.getUnitsOnTeam(units, 1), x, y += 15);
-
-        if (drawSelectionRect) g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
-        if (pan) performPan();
-
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
     }
 
     public static void performPan()
@@ -315,7 +258,8 @@ public class GameCanvas extends Canvas
         //---------------
 
         Init.init();
-        terrainImage = MapBuilder.buildTerrainImage(WORLD_WIDTH, WORLD_HEIGHT);
+//        terrainImage = MapBuilder.buildTerrainImage(WORLD_WIDTH, WORLD_HEIGHT);
+        terrainImage = TileSet.buildMap();
 
         final int DELAY = 16666666; // (16 ms)
         long beforeTime = System.nanoTime();
@@ -334,6 +278,7 @@ public class GameCanvas extends Canvas
             Graphics2D frameBuffer = (Graphics2D) bufferStrategy.getDrawGraphics();
 
             paintWorld(frameBuffer);
+            if (pan) performPan();
 
             // Release the off screen buffer
             frameBuffer.dispose();
