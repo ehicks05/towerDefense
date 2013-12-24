@@ -59,13 +59,12 @@ public class TileSet
 
         BufferedImage terrain = new BufferedImage(Init.WORLD_WIDTH, Init.WORLD_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
-        int iterations = (Init.WORLD_WIDTH) / 32 * (Init.WORLD_HEIGHT / 32);
+        int iterations = (Init.WORLD_WIDTH / 32) * (Init.WORLD_HEIGHT / 32);
         int x = 0;
         int y = 0;
         int[] rgbArray = new int[32*32];
 
-        Random gen = new Random();
-
+        // fill map with grass
         for (int i = 0; i < iterations; i++)
         {
             if (x >= Init.WORLD_WIDTH)
@@ -74,13 +73,39 @@ public class TileSet
                 y += 32;
             }
 
-            BufferedImage tile = tiles.get(tileNames.get(gen.nextInt(tiles.size())));
-//            BufferedImage tile = tiles.get("CCCC");
-            int width = tile.getWidth();
-            int height = tile.getHeight();
+            BufferedImage tile = tiles.get("GGGG");
 
             rgbArray = tile.getRGB(0, 0, 32, 32, rgbArray, 0, 32);
             terrain.setRGB(x, y, 32, 32, rgbArray, 0, 32);
+
+            x += 32;
+        }
+
+        // add a path
+        int tileColumns = Init.WORLD_WIDTH / 32;
+        int tileRows    = Init.WORLD_HEIGHT / 32;
+        Random gen = new Random();
+
+        int randomColumn = gen.nextInt(tileColumns);
+
+        x = 0;
+        y = 0;
+        for (int i = 0; i < iterations; i++)
+        {
+            if (x >= Init.WORLD_WIDTH)
+            {
+                x = 0;
+                y += 32;
+                if (y == Init.WORLD_HEIGHT) break;
+            }
+
+            if (x == (randomColumn - 1) * 32)
+            {
+                BufferedImage tile = tiles.get("DDDD");
+
+                rgbArray = tile.getRGB(0, 0, 32, 32, rgbArray, 0, 32);
+                terrain.setRGB(x, y, 32, 32, rgbArray, 0, 32);
+            }
 
             x += 32;
         }
