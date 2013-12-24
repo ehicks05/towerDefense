@@ -35,8 +35,8 @@ public class GameCanvas extends Canvas
     private static boolean pan = false;
     public static int viewPortX = 0;
     public static int viewPortY = 0;
-    private static int viewPortW = 800;
-    private static int viewPortH = 600;
+    private static int viewPortW = 1024;
+    private static int viewPortH = 768;
     private static Set<String> directionKeysPressed = new HashSet<>();
 
     public GameCanvas()
