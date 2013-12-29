@@ -7,7 +7,6 @@ public class Init
 {
     public static int WORLD_WIDTH = 1024;
     public static int WORLD_HEIGHT = 768;
-    public static boolean heavyLogging = false;
 
     public static void init()
     {

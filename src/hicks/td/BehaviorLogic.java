@@ -16,11 +16,12 @@ public class BehaviorLogic
         {
             if (!unit.isAlive()) continue;
 
-            chooseBehavior(unit);
+            if (unit.getTeam() == 1) chooseTowerBehavior(unit);
+            if (unit.getTeam() == 2) performEnemyBehavior(unit);
         }
     }
 
-    private static void chooseBehavior(Unit unit)
+    private static void chooseTowerBehavior(Unit unit)
     {
         if (unit.getTarget() == null)
             performIdleBehavior(unit);
@@ -28,7 +29,13 @@ public class BehaviorLogic
             performHostileBehavior(unit);
     }
 
-    // hostile behavior is approach target, then hit target
+    private static void performIdleBehavior(Unit unit)
+    {
+        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit);
+        if (closestVisibleEnemy != null)
+            unit.setTarget(closestVisibleEnemy);
+    }
+
     private static void performHostileBehavior(Unit unit)
     {
         if (UnitLogic.isTargetInRange(unit) && unit.isReadyToAttack())
@@ -37,23 +44,8 @@ public class BehaviorLogic
             UnitLogic.moveTowardCoordinate(unit, unit.getTarget().getLocation(), true);
     }
 
-    // idle behavior is random wandering until we find an enemy
-    private static void performIdleBehavior(Unit unit)
+    private static void performEnemyBehavior(Unit unit)
     {
-        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit, GameState.getUnits());
-
-        if (closestVisibleEnemy == null)
-        {
-            if (unit.getDestination() == null)
-                unit.setDestination(GameState.getGameMap().getRandomPoint());
-
-            UnitLogic.moveTowardCoordinate(unit, unit.getDestination(), false);
-        }
-        else
-        {
-            unit.setDestination(null);
-            unit.setTarget(closestVisibleEnemy);
-            if (unit.getTarget() != null) Log.logInfo(unit + " has targeted " + unit.getTarget() + "!");
-        }
+        UnitLogic.moveAlongPath(unit);
     }
 }

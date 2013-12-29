@@ -209,7 +209,6 @@ public class GameCanvas extends Canvas
         //---------------
 
         Init.init();
-//        terrainImage = MapBuilder.buildTerrainImage(WORLD_WIDTH, WORLD_HEIGHT);
         terrainImage = TileSet.buildMap();
 
         final int DELAY = 16666666; // (16 ms)

@@ -5,6 +5,7 @@ import hicks.td.entities.Unit;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 public class UnitLogic
@@ -67,12 +68,12 @@ public class UnitLogic
         return distance <= unit.getAttackRange();
     }
 
-    public static Unit getClosestVisibleEnemy(Unit callingUnit, List<Unit> units)
+    public static Unit getClosestVisibleEnemy(Unit callingUnit)
     {
         Unit closestEnemy = null;
         double smallestDistance = Double.MAX_VALUE;
 
-        for (Unit unit : units)
+        for (Unit unit : GameState.getUnits())
         {
             if (unit == callingUnit || unit.getTeam() == callingUnit.getTeam())
                 continue;
@@ -94,5 +95,18 @@ public class UnitLogic
         int damageRange     = (unit.getMaxDamage() - unit.getMinDamage()) + 1;
         int randomPortion   = random.nextInt(damageRange);
         return randomPortion + unit.getMinDamage();
+    }
+
+    public static void moveAlongPath(Unit unit)
+    {
+        Queue<Point> path = unit.getPath();
+        Point currentPathOrder = path.peek();
+        if (currentPathOrder != null)
+        {
+            if (currentPathOrder.equals(unit.getLocation()))
+                path.remove();
+            else
+                moveTowardCoordinate(unit, currentPathOrder, false);
+        }
     }
 }

@@ -4,6 +4,8 @@ import hicks.td.GameLogic;
 import hicks.td.Point;
 
 import java.math.BigDecimal;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Unit
 {
@@ -18,6 +20,8 @@ public class Unit
     private boolean         m_moving;
     private Point           m_location;
     private Point           m_destination;
+    private Queue<Point>    m_path = new ArrayBlockingQueue<>(30);
+
     private int             m_currentHp;
     private int             m_maxHp;
     private int             m_armor;
@@ -137,6 +141,16 @@ public class Unit
     public void setDestination(Point destination)
     {
         m_destination = destination;
+    }
+
+    public Queue<Point> getPath()
+    {
+        return m_path;
+    }
+
+    public void setPath(Queue<Point> path)
+    {
+        m_path = path;
     }
 
     public int getCurrentHp()
