@@ -17,7 +17,7 @@ public class BehaviorLogic
         {
             Unit unit = new Footman(2);
             unit.setLocation(new Point(MapBuilder.xOffset - 16, 0));
-            unit.setPath(getPath());
+            unit.setPath(createPath());
             GameState.addUnit(unit);
             GameState.getSpawner().setTimeOfLastBuild(GameLogic.now());
         }
@@ -34,7 +34,7 @@ public class BehaviorLogic
         }
     }
 
-    private static Queue<Point> getPath()
+    private static Queue<Point> createPath()
     {
         Queue<Point> path = new ArrayBlockingQueue<>(2);
         path.add(new Point(MapBuilder.xOffset - 16, 0));
@@ -62,7 +62,7 @@ public class BehaviorLogic
         if (UnitLogic.isTargetInRange(unit) && unit.isReadyToAttack())
             CombatLogic.performAttack(unit);
         else
-            UnitLogic.moveTowardCoordinate(unit, unit.getTarget().getLocation(), true);
+            UnitLogic.moveTowardCoordinate(unit, unit.getTarget().getLocation());
     }
 
     private static void performEnemyBehavior(Unit unit)

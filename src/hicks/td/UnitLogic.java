@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class UnitLogic
 {
-    public static void moveTowardCoordinate(Unit unit, Point destination, boolean isDestinationAnEnemyTarget)
+    public static void moveTowardCoordinate(Unit unit, Point destination)
     {
         if (!unit.isMoving())
         {
@@ -23,8 +23,6 @@ public class UnitLogic
         BigDecimal currentDistance          = new BigDecimal(unit.getLocation().getDistance(destination)).setScale(0, RoundingMode.HALF_UP);
 
         BigDecimal desiredDistance = BigDecimal.ZERO;
-        if (isDestinationAnEnemyTarget)
-            desiredDistance = new BigDecimal(unit.getAttackRange());
 
         // if we are within our desired distance, stop.
         if (currentDistance.compareTo(desiredDistance) <= 0)
@@ -102,10 +100,11 @@ public class UnitLogic
         Point currentPathDestination = path.peek();
         if (currentPathDestination != null)
         {
-            if (currentPathDestination.equals(unit.getLocation()))
+            if (new BigDecimal(unit.getLocation().getDistance(currentPathDestination)).setScale(0, RoundingMode.HALF_UP).equals(BigDecimal.ZERO))
+//            if (currentPathDestination.equals(unit.getLocation()))  todo: come up with a comprehensive strategy for dealing with distances...what level of rounding do we use?...
                 path.remove();
             else
-                moveTowardCoordinate(unit, currentPathDestination, false);
+                moveTowardCoordinate(unit, currentPathDestination);
         }
     }
 }

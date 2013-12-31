@@ -141,12 +141,6 @@ public class GameCanvas extends Canvas
 
         drawInterface(g2d);
 
-        g2d.setColor(Color.RED);
-        for (int i = 0; i < Init.TOTAL_SCREEN_HEIGHT; i+=100)
-        {
-            g2d.drawRect(0, i, Init.WORLD_WIDTH, 1);
-        }
-
         g2d.setColor(Color.GREEN);
         if (drawSelectionRect) g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
 
@@ -165,9 +159,16 @@ public class GameCanvas extends Canvas
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, y, Init.WORLD_WIDTH, Init.INTERFACE_HEIGHT);
         g2d.setColor(Color.WHITE);
-        g2d.drawString("Gold: " + GameState.getPlayer().getGold(), x, y);
+
+        // info column 1
+        g2d.drawString("Gold: " + GameState.getPlayer().getGold(), x, y += 15);
         g2d.drawString("Round: " + GameState.getPlayer().getRound(), x, y += 15);
         g2d.drawString("Lives: " + GameState.getPlayer().getLives(), x, y += 15);
+
+        // info column 2
+        y -= 45;
+        x += 90;
+
         g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("FPS: " + fps, x, y += 15);
         g2d.drawString("Units: " + units.size(), x, y += 15);
