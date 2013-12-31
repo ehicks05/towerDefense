@@ -6,8 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class TileSet
+public class MapBuilder
 {
+    public static int xOffset;
+
     private static Map<String, BufferedImage> tiles = new HashMap<>();
 
     private static List<String> tileNames = Arrays.asList(
@@ -34,7 +36,7 @@ public class TileSet
     {
         BufferedImage tileSet = loadTileSet();
 
-        BufferedImage bi;
+        BufferedImage image;
         int x = 0;
         int y = 0;
 
@@ -46,8 +48,9 @@ public class TileSet
                 y += 33;
             }
 
-            bi = tileSet.getSubimage(x, y, 32, 32);
-            tiles.put(tileNames.get(i), bi);
+            image = tileSet.getSubimage(x, y, 32, 32);
+            tiles.put(tileNames.get(i), image);
+            GameState.addTileToTiles(new Tile(tileNames.get(i), 32, 32, image));
             x += 33;
 
         }
@@ -87,6 +90,7 @@ public class TileSet
         Random gen = new Random();
 
         int randomColumn = gen.nextInt(tileColumns);
+        xOffset = randomColumn * 32;
 
         x = 0;
         y = 0;

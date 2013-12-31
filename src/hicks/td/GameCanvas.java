@@ -154,6 +154,8 @@ public class GameCanvas extends Canvas
 
         BigDecimal fps = Metrics.calculateFPS();
 
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, Init.WORLD_WIDTH, 100);
         g2d.setColor(Color.WHITE);
         g2d.drawString("Gold: " + GameState.getPlayer().getGold(), x, y += 15);
         g2d.drawString("Round: " + GameState.getPlayer().getRound(), x, y += 15);
@@ -209,7 +211,7 @@ public class GameCanvas extends Canvas
         //---------------
 
         Init.init();
-        terrainImage = TileSet.buildMap();
+        terrainImage = MapBuilder.buildMap();
 
         final int DELAY = 16666666; // (16 ms)
         long beforeTime = System.nanoTime();

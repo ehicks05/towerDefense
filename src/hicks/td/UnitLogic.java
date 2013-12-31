@@ -4,7 +4,6 @@ import hicks.td.entities.Unit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
@@ -100,13 +99,13 @@ public class UnitLogic
     public static void moveAlongPath(Unit unit)
     {
         Queue<Point> path = unit.getPath();
-        Point currentPathOrder = path.peek();
-        if (currentPathOrder != null)
+        Point currentPathDestination = path.peek();
+        if (currentPathDestination != null)
         {
-            if (currentPathOrder.equals(unit.getLocation()))
+            if (currentPathDestination.equals(unit.getLocation()))
                 path.remove();
             else
-                moveTowardCoordinate(unit, currentPathOrder, false);
+                moveTowardCoordinate(unit, currentPathDestination, false);
         }
     }
 }
