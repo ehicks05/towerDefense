@@ -7,8 +7,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class Metrics
 {
-    private static final int FRAMES_TO_AVERAGE = 30;
-    private static Queue<BigDecimal> frameTimes = new ArrayBlockingQueue<>(30);
+    private static final int FRAMES_TO_AVERAGE = 60;
+    private static Queue<BigDecimal> frameTimes = new ArrayBlockingQueue<>(FRAMES_TO_AVERAGE);
     public static long timeDiff;
 
     public static BigDecimal calculateFPS()
@@ -24,7 +24,7 @@ public class Metrics
                 sum = sum.add(frameTime);
 
             BigDecimal averageFrameTime = sum.divide(new BigDecimal(FRAMES_TO_AVERAGE), 2, RoundingMode.HALF_UP);
-            fps = new BigDecimal("1000").divide(averageFrameTime, 2, RoundingMode.HALF_UP);
+            fps = new BigDecimal("1000").divide(averageFrameTime, 0, RoundingMode.HALF_UP);
 
             frameTimes.remove();
         }
