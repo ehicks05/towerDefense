@@ -141,9 +141,11 @@ public class GameCanvas extends Canvas
 
         drawInterface(g2d);
 
-        g2d.setColor(Color.GREEN);
-        if (drawSelectionRect) g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
-
+        if (drawSelectionRect)
+        {
+            g2d.setColor(Color.GREEN);
+            g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
+        }
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();

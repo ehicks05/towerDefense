@@ -16,16 +16,10 @@ public class UnitPainter
             int x = (int) unit.getLocation().getX();
             int y = (int) unit.getLocation().getY();
 
-            if (unit.getTeam() == 0)
-            {
-                g2d.setColor(Color.RED);
-                if (unit instanceof Berserker) g2d.setColor(new Color(150, 0, 0));
-            }
             if (unit.getTeam() == 1)
-            {
-                g2d.setColor(Color.GREEN);
-                if (unit instanceof Berserker) g2d.setColor(new Color(0, 120, 0));
-            }
+                g2d.setColor(Color.RED);
+            if (unit.getTeam() == 2)
+                g2d.setColor(Color.DARK_GRAY);
 
             int size = 3;
             if (unit instanceof Knight || unit instanceof Berserker) size = 5;
