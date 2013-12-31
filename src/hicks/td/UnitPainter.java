@@ -40,6 +40,7 @@ public class UnitPainter
             {
                 drawVisionCircle(g2d, unit);
                 drawHealthBar(g2d, unit);
+                drawCoordinates(g2d, unit);
             }
         }
     }
@@ -70,5 +71,16 @@ public class UnitPainter
         int size = unit.getSightRadius();
 
         g2d.drawOval((x - size), (y - size), size * 2, size * 2);
+    }
+
+    private static void drawCoordinates(Graphics2D g2d, Unit unit)
+    {
+        int x = (int) unit.getLocation().getX();
+        int y = (int) unit.getLocation().getY();
+
+        String coordinate = x + ", " + y;
+
+        g2d.setColor(Color.GREEN);
+        g2d.drawString(coordinate, x + 5, y);
     }
 }

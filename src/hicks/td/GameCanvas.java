@@ -29,7 +29,7 @@ public class GameCanvas extends Canvas
 
     public GameCanvas()
     {
-        setSize(Init.WORLD_WIDTH, Init.WORLD_HEIGHT);
+        setSize(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT);
 
         addKeyListener(new KeyAdapter()
         {
@@ -125,7 +125,8 @@ public class GameCanvas extends Canvas
             if (unitX >= selectionRectX && unitX <= (selectionRectX + selectionRectW) &&
                     unitY >= selectionRectY && unitY <= (selectionRectY + selectionRectH))
             {
-                if (unit.getTeam() == 1) selectedUnits.add(unit);
+//                if (unit.getTeam() == 1)
+                    selectedUnits.add(unit);
             }
         }
     }
@@ -140,6 +141,13 @@ public class GameCanvas extends Canvas
 
         drawInterface(g2d);
 
+        g2d.setColor(Color.RED);
+        for (int i = 0; i < Init.TOTAL_SCREEN_HEIGHT; i+=100)
+        {
+            g2d.drawRect(0, i, Init.WORLD_WIDTH, 1);
+        }
+
+        g2d.setColor(Color.GREEN);
         if (drawSelectionRect) g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
 
 
@@ -150,14 +158,14 @@ public class GameCanvas extends Canvas
     private static void drawInterface(Graphics2D g2d)
     {
         int x = 10;
-        int y = 0;
+        int y = Init.WORLD_HEIGHT;
 
         BigDecimal fps = Metrics.calculateFPS();
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, Init.WORLD_WIDTH, 100);
+        g2d.fillRect(0, y, Init.WORLD_WIDTH, Init.INTERFACE_HEIGHT);
         g2d.setColor(Color.WHITE);
-        g2d.drawString("Gold: " + GameState.getPlayer().getGold(), x, y += 15);
+        g2d.drawString("Gold: " + GameState.getPlayer().getGold(), x, y);
         g2d.drawString("Round: " + GameState.getPlayer().getRound(), x, y += 15);
         g2d.drawString("Lives: " + GameState.getPlayer().getLives(), x, y += 15);
         g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
@@ -168,7 +176,7 @@ public class GameCanvas extends Canvas
     public static void main(String[] args)
     {
         final JFrame frame = new JFrame("Eric's Tower Defense");
-        frame.getContentPane().setPreferredSize(new Dimension(Init.WORLD_WIDTH, Init.WORLD_HEIGHT));
+        frame.getContentPane().setPreferredSize(new Dimension(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT));
 
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         graphicsDevice.getDisplayMode();
@@ -195,11 +203,11 @@ public class GameCanvas extends Canvas
 
         JPanel panel = (JPanel) frame.getContentPane();
 
-        panel.setPreferredSize(new Dimension(Init.WORLD_WIDTH, Init.WORLD_HEIGHT));
+        panel.setPreferredSize(new Dimension(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT));
         panel.setLayout(null);
 
         GameCanvas gameCanvas = new GameCanvas();
-        gameCanvas.setBounds(0, 0, Init.WORLD_WIDTH, Init.WORLD_HEIGHT);
+        gameCanvas.setBounds(0, 0, Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT);
         panel.add(gameCanvas);
         gameCanvas.setIgnoreRepaint(true);
         frame.pack();
