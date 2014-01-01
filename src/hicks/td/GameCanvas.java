@@ -27,6 +27,9 @@ public class GameCanvas extends Canvas
     private static int selectionRectH;
     public static List<Unit> selectedUnits = new ArrayList<>();
 
+    private static boolean runningSimulation = true;
+    private static String stopSimulationReason = "";
+
     public GameCanvas()
     {
         setSize(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT);
@@ -147,6 +150,14 @@ public class GameCanvas extends Canvas
             g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
         }
 
+        if (!runningSimulation)
+        {
+            Font font = new Font("Helvetica", Font.PLAIN, 36);
+            g2d.setFont(font);
+            g2d.setColor(Color.RED);
+            g2d.drawString(stopSimulationReason, Init.WORLD_WIDTH / 2, Init.TOTAL_SCREEN_HEIGHT / 2);
+        }
+
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
@@ -229,10 +240,11 @@ public class GameCanvas extends Canvas
         long sleep;
 
         // run game loop
-        while (GameState.getPlayer().getLives() > 0)
+        while (true)
         {
             // loops through every unit on the map and updates their state
-            BehaviorLogic.updateState();
+            if (runningSimulation)
+                BehaviorLogic.updateState();
 
             units = GameState.getUnits();
 
@@ -264,6 +276,17 @@ public class GameCanvas extends Canvas
                 System.out.println("interrupted");
             }
 
+            // check stopping conditions
+            if (GameState.getPlayer().getLives() <= 0)
+            {
+                runningSimulation = false;
+                stopSimulationReason = "YOU LOSE!";
+            }
+            if (GameState.getPlayer().getRound() > 40)
+            {
+                runningSimulation = false;
+                stopSimulationReason = "YOU WIN!";
+            }
         }
         // if player wins
         // if player loses
