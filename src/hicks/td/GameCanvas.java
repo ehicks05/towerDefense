@@ -12,7 +12,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameCanvas extends Canvas
+public final class GameCanvas extends Canvas
 {
     public static List<Unit> units = new ArrayList<>();
     private static BufferedImage terrainImage;
@@ -182,7 +182,7 @@ public class GameCanvas extends Canvas
         y -= 45;
         x += 90;
 
-        g2d.drawString("Stopwatch: " + GameLogic.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
+        g2d.drawString("Stopwatch: " + Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("FPS: " + fps, x, y += 15);
         g2d.drawString("Units: " + units.size(), x, y += 15);
     }

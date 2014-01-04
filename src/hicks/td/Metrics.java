@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class Metrics
+public final class Metrics
 {
     private static final int FRAMES_TO_AVERAGE = 60;
     private static Queue<BigDecimal> frameTimes = new ArrayBlockingQueue<>(FRAMES_TO_AVERAGE);

@@ -1,6 +1,6 @@
 package hicks.td.entities;
 
-import hicks.td.GameLogic;
+import hicks.td.Util;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ public class Knight extends Unit
         setSizeRadius(50);
         setSightRadius(60);
         setMoveSpeed(100);
-        setTimeOfLastMove(GameLogic.now());
+        setTimeOfLastMove(Util.now());
 
         setCurrentHp(100);
         setMaxHp(100);
@@ -22,6 +22,6 @@ public class Knight extends Unit
         setAttackRange(10);
 
         setAttackSpeed(new BigDecimal(2));
-        setTimeOfLastAttack(GameLogic.now());
+        setTimeOfLastAttack(Util.now());
     }
 }

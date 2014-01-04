@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class BehaviorLogic
+public final class BehaviorLogic
 {
     public static void updateState()
     {
@@ -19,7 +19,7 @@ public class BehaviorLogic
             unit.setLocation(new Point(MapBuilder.xOffset - 16, 0));
             unit.setPath(createPath());
             GameState.addUnit(unit);
-            GameState.getSpawner().setTimeOfLastBuild(GameLogic.now());
+            GameState.getSpawner().setTimeOfLastBuild(Util.now());
         }
 
         // update units on the field

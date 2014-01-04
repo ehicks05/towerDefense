@@ -1,6 +1,6 @@
 package hicks.td;
 
-public class Player
+public final class Player
 {
     private int m_gold;
     private int m_lives;

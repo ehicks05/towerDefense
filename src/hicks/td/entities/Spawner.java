@@ -1,6 +1,6 @@
 package hicks.td.entities;
 
-import hicks.td.GameLogic;
+import hicks.td.Util;
 
 import java.math.BigDecimal;
 
@@ -14,12 +14,12 @@ public class Spawner extends Unit
         setTeam(team);
 
         setBuildSpeed(new BigDecimal(1));
-        setTimeOfLastBuild(GameLogic.now());
+        setTimeOfLastBuild(Util.now());
     }
 
     public boolean isReadyToBuild()
     {
-        return GameLogic.getElapsedTime(getTimeOfLastBuild()).compareTo(getBuildSpeed()) > 0;
+        return Util.getElapsedTime(getTimeOfLastBuild()).compareTo(getBuildSpeed()) > 0;
     }
 
     public BigDecimal getBuildSpeed()

@@ -1,6 +1,6 @@
 package hicks.td.entities;
 
-import hicks.td.GameLogic;
+import hicks.td.Util;
 import hicks.td.Point;
 
 import java.math.BigDecimal;
@@ -12,7 +12,6 @@ public class Unit
     private static int      m_seq = 0;
     private int             m_objectId;
     private int             m_team;
-    private String          m_name;
     private int             m_sizeRadius;
     private int             m_sightRadius;
     private int             m_moveSpeed;
@@ -30,7 +29,7 @@ public class Unit
     private int             m_attackRange;
     private BigDecimal      m_attackSpeed;
     private BigDecimal      m_timeOfLastAttack;
-    private Unit m_target;
+    private Unit            m_target;
     private int             m_kills;
 
     public Unit()
@@ -43,10 +42,17 @@ public class Unit
         return this.getClass().getSimpleName() + " (T" + m_team + ",ID:" + m_objectId + ")";
     }
 
+    public boolean isReadyToAttack()
+    {
+        return Util.getElapsedTime(m_timeOfLastAttack).compareTo(m_attackSpeed) > 0;
+    }
+
     public boolean isAlive()
     {
         return m_currentHp > 0;
     }
+
+    // -------- Properties
 
     public int getObjectId()
     {
@@ -56,11 +62,6 @@ public class Unit
     public void setObjectId(int objectId)
     {
         m_objectId = objectId;
-    }
-
-    public boolean isReadyToAttack()
-    {
-        return GameLogic.getElapsedTime(m_timeOfLastAttack).compareTo(m_attackSpeed) > 0;
     }
 
     public int getSizeRadius()

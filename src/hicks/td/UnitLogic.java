@@ -7,17 +7,17 @@ import java.math.RoundingMode;
 import java.util.Queue;
 import java.util.Random;
 
-public class UnitLogic
+public final class UnitLogic
 {
     public static void moveTowardCoordinate(Unit unit, Point destination)
     {
         if (!unit.isMoving())
         {
-            unit.setTimeOfLastMove(GameLogic.now());
+            unit.setTimeOfLastMove(Util.now());
             unit.setMoving(true);
         }
 
-        BigDecimal timeSinceLastMove        = GameLogic.getElapsedTime(unit.getTimeOfLastMove());
+        BigDecimal timeSinceLastMove        = Util.getElapsedTime(unit.getTimeOfLastMove());
         BigDecimal moveSpeed                = new BigDecimal(unit.getMoveSpeed());
         BigDecimal potentialDistanceToMove  = moveSpeed.multiply(timeSinceLastMove);
         BigDecimal currentDistance          = new BigDecimal(unit.getLocation().getDistance(destination)).setScale(0, RoundingMode.HALF_UP);
@@ -54,7 +54,7 @@ public class UnitLogic
         double newY = new BigDecimal(unit.getLocation().getY()).add((distanceToMoveY)).doubleValue();
 
         unit.setLocation(new Point(newX, newY));
-        unit.setTimeOfLastMove(GameLogic.now());
+        unit.setTimeOfLastMove(Util.now());
     }
 
     public static boolean isTargetInRange(Unit unit)

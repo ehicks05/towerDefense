@@ -3,7 +3,7 @@ package hicks.td;
 import java.io.File;
 import java.text.SimpleDateFormat;
 
-public class Init
+public final class Init
 {
     public final static int WORLD_WIDTH = 1024;
     public final static int WORLD_HEIGHT = 704;
@@ -17,7 +17,7 @@ public class Init
         if (new File("log.txt").delete())
             Log.logInfo("Deleting old logs...");
 
-        GameState.setStartTime(GameLogic.now());
+        GameState.setStartTime(Util.now());
         Log.logInfo("Simulation starting at " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(GameState.getStartTime()));
 
         GameMap map = new GameMap();

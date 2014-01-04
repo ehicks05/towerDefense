@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class MapBuilder
+public final class MapBuilder
 {
     public static int xOffset;
 

@@ -1,6 +1,6 @@
 package hicks.td.entities;
 
-import hicks.td.GameLogic;
+import hicks.td.Util;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ public class Footman extends Unit
         setSizeRadius(16);
         setSightRadius(40);
         setMoveSpeed(50);
-        setTimeOfLastMove(GameLogic.now());
+        setTimeOfLastMove(Util.now());
 
         setCurrentHp(60);
         setMaxHp(60);
@@ -22,6 +22,6 @@ public class Footman extends Unit
         setAttackRange(10);
 
         setAttackSpeed(new BigDecimal(1.5));
-        setTimeOfLastAttack(GameLogic.now());
+        setTimeOfLastAttack(Util.now());
     }
 }

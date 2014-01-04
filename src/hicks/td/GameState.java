@@ -7,14 +7,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState
+public final class GameState
 {
-    private static List<Unit> units = new ArrayList<>();
-    private static GameMap gameMap;
-    private static BigDecimal startTime;
-    private static Player player;
-    private static List<Tile> tiles = new ArrayList<>();
-    private static Spawner spawner = new Spawner(2);
+    private static List<Unit>   units = new ArrayList<>();
+    private static GameMap      gameMap;
+    private static BigDecimal   startTime;
+    private static Player       player;
+    private static List<Tile>   tiles = new ArrayList<>();
+    private static Spawner      spawner = new Spawner(2);
 
     public static void addUnit(Unit unit)
     {
@@ -26,7 +26,12 @@ public class GameState
         units.remove(unit);
     }
 
-    // ------------------------
+    public static void addTileToTiles(Tile tile)
+    {
+        GameState.tiles.add(tile);
+    }
+
+    // ------------------------ properties
 
     public static List<Unit> getUnits()
     {
@@ -76,11 +81,6 @@ public class GameState
     public static void setTiles(List<Tile> tiles)
     {
         GameState.tiles = tiles;
-    }
-
-    public static void addTileToTiles(Tile tile)
-    {
-        GameState.tiles.add(tile);
     }
 
     public static Spawner getSpawner()

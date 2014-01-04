@@ -5,7 +5,7 @@ import hicks.td.entities.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class UnitPainter
+public final class UnitPainter
 {
     private static final Image MOB1 = new ImageIcon("ass\\mob1.png").getImage();
 

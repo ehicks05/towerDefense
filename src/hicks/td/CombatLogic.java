@@ -4,7 +4,7 @@ import hicks.td.entities.Unit;
 
 import java.math.BigDecimal;
 
-public class CombatLogic
+public final class CombatLogic
 {
     public static void performAttack(Unit attacker)
     {
@@ -17,7 +17,7 @@ public class CombatLogic
 
         defender.setCurrentHp(defender.getCurrentHp() - unmitigatedDamage);
 
-        attacker.setTimeOfLastAttack(GameLogic.now());
+        attacker.setTimeOfLastAttack(Util.now());
 
         // update battle log
         Log.logInfo(attacker + " attacks " + attacker.getTarget() + " for " + unmitigatedDamage + " damage.");
@@ -38,7 +38,7 @@ public class CombatLogic
             if (unit.getTarget() != null && unit.getTarget().equals(defender))
             {
                 unit.setTarget(null);
-                unit.setTimeOfLastMove(GameLogic.now());
+                unit.setTimeOfLastMove(Util.now());
             }
 
         GameState.removeUnit(defender);

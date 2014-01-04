@@ -2,7 +2,7 @@ package hicks.td;
 
 import java.text.DecimalFormat;
 
-public class Point
+public final class Point
 {
     private double m_x;
     private double m_y;

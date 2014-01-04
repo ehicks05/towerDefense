@@ -1,6 +1,6 @@
 package hicks.td;
 
-public class GameMap
+public final class GameMap
 {
     private int m_width;
     private int m_height;

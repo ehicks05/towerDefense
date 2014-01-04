@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
-public class Log
+public final class Log
 {
     private static long lines;
     private static String messageQueue = "";
@@ -27,7 +27,7 @@ public class Log
         BigDecimal simulationStart = GameState.getStartTime();
         if (simulationStart != null)
         {
-            double elapsedTime = GameLogic.getElapsedTime(simulationStart).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            double elapsedTime = Util.getElapsedTime(simulationStart).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             elapsedString = timeFormat.format(elapsedTime);
         }
 

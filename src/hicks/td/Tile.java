@@ -2,7 +2,7 @@ package hicks.td;
 
 import java.awt.image.BufferedImage;
 
-public class Tile
+public final class Tile
 {
     private String m_code;
 
