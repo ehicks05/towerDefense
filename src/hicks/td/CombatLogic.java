@@ -18,6 +18,7 @@ public final class CombatLogic
         if (!defender.isAlive())
         {
             processDeath(defender);
+            GameState.getPlayer().addGold(10);
             attacker.setKills(attacker.getKills() + 1);
         }
     }

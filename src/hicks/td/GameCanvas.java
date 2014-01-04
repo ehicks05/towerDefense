@@ -74,9 +74,13 @@ public final class GameCanvas extends Canvas
                 }
                 if (e.getButton() == 3)
                 {
-                    Unit arrowTower = new ArrowTower(1);
-                    arrowTower.setLocation(new Point(eventX, eventY));
-                    GameState.addUnit(arrowTower);
+                    if (GameState.getPlayer().getGold() >= 50)
+                    {
+                        Unit arrowTower = new ArrowTower(1);
+                        arrowTower.setLocation(new Point(eventX, eventY));
+                        GameState.addUnit(arrowTower);
+                        GameState.getPlayer().removeGold(50);
+                    }
                 }
             }
         });
@@ -240,7 +244,5 @@ public final class GameCanvas extends Canvas
                 stopSimulationReason = "YOU WIN!";
             }
         }
-        // if player wins
-        // if player loses
     }
 }

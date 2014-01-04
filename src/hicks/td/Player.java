@@ -6,9 +6,22 @@ public final class Player
     private int m_lives;
     private int m_round;
 
+    public void addLife()
+    {
+        m_lives += 1;
+    }
     public void removeLife()
     {
-        m_lives = m_lives - 1;
+        m_lives -= 1;
+    }
+
+    public void addGold(int amount)
+    {
+        m_gold += amount;
+    }
+    public void removeGold(int amount)
+    {
+        m_gold -= amount;
     }
 
     // -------------- properties

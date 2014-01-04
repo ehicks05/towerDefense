@@ -27,7 +27,7 @@ public final class Init
         map.setHeight(WORLD_HEIGHT);
 
         Player player = new Player();
-        player.setGold(100);
+        player.setGold(300);
         player.setLives(20);
         player.setRound(1);
         GameState.setPlayer(player);
