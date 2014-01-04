@@ -9,7 +9,7 @@ public class Footman extends Unit
     public Footman(int team)
     {
         setTeam(team);
-        setSizeRadius(8);
+        setSizeRadius(16);
         setSightRadius(40);
         setMoveSpeed(50);
         setTimeOfLastMove(GameLogic.now());

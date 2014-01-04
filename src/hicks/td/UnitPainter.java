@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class UnitPainter
 {
-    private static final Image PEASANT = new ImageIcon("ass\\wc2h_peasant.gif").getImage();
+    private static final Image MOB1 = new ImageIcon("ass\\mob1.png").getImage();
 
     public static void drawUnits(Graphics2D g2d)
     {
@@ -15,18 +15,14 @@ public class UnitPainter
         {
             int x = (int) unit.getLocation().getX();
             int y = (int) unit.getLocation().getY();
+            int size = unit.getSizeRadius();
 
             if (unit.getTeam() == 1)
                 g2d.setColor(Color.RED);
             if (unit.getTeam() == 2)
                 g2d.setColor(Color.DARK_GRAY);
 
-            int size = unit.getSizeRadius();
-
-            if (unit instanceof Peasant)
-                g2d.drawImage(PEASANT, (x - size / 2), (y - size / 2), size, size, null);
-            else
-                g2d.fillOval(x - size, y - size, size * 2, size * 2);
+            g2d.drawImage(MOB1, (x - size / 2), (y - size / 2), size, size, null);
 
             if (GameCanvas.selectedUnits.contains(unit))
             {
