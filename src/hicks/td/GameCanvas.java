@@ -1,5 +1,6 @@
 package hicks.td;
 
+import hicks.td.entities.ArrowTower;
 import hicks.td.entities.Unit;
 
 import javax.swing.*;
@@ -18,14 +19,7 @@ public final class GameCanvas extends Canvas
     private static BufferedImage terrainImage;
 
     // -------- SELECTION LASSO
-    private static boolean drawSelectionRect;
-    private static int selectionRectStartingX;
-    private static int selectionRectStartingY;
-    private static int selectionRectX;
-    private static int selectionRectY;
-    private static int selectionRectW;
-    private static int selectionRectH;
-    public static List<Unit> selectedUnits = new ArrayList<>();
+    public static Unit selectedUnit = new Unit();
 
     private static boolean runningSimulation = true;
     private static String stopSimulationReason = "";
@@ -54,45 +48,35 @@ public final class GameCanvas extends Canvas
 
         addMouseListener(new MouseAdapter()
         {
-            public void mousePressed(MouseEvent e)
-            {
-                super.mousePressed(e);
-                int eventX = e.getX();
-                int eventY = e.getY();
-
-                selectionRectX = eventX;
-                selectionRectY = eventY;
-                selectionRectStartingX = eventX;
-                selectionRectStartingY = eventY;
-                drawSelectionRect = true;
-            }
-
-            public void mouseReleased(MouseEvent e)
-            {
-                super.mouseReleased(e);
-
-                if (e.getButton() == 1) highlightSelectedUnits();
-
-                drawSelectionRect = false;
-                selectionRectW = 0;
-                selectionRectH = 0;
-            }
-
             public void mouseClicked(MouseEvent e)
             {
                 super.mouseClicked(e);
                 int eventX = e.getX();
                 int eventY = e.getY();
 
+                selectedUnit = null;
                 if (e.getButton() == 1)
-                    selectedUnits = new ArrayList<>();
+                {
+                    for (Unit unit : units)
+                    {
+                        int unitX = (int) unit.getLocation().getX();
+                        int unitY = (int) unit.getLocation().getY();
+                        int unitSize = unit.getSizeRadius();
+
+                        int minX = unitX - unitSize;
+                        int maxX = unitX + unitSize;
+                        int minY = unitY - unitSize;
+                        int maxY = unitY + unitSize;
+
+                        if (eventX >= minX && eventX <= maxX && eventY >= minY && eventY <= maxY)
+                            selectedUnit = unit;
+                    }
+                }
                 if (e.getButton() == 3)
                 {
-                    Point newDestination = new Point(eventX, eventY);
-                    for (Unit unit : selectedUnits)
-                    {
-                        unit.setDestination(newDestination);
-                    }
+                    Unit arrowTower = new ArrowTower(1);
+                    arrowTower.setLocation(new Point(eventX, eventY));
+                    GameState.addUnit(arrowTower);
                 }
             }
         });
@@ -104,34 +88,8 @@ public final class GameCanvas extends Canvas
                 super.mouseDragged(e);
                 int eventX = e.getX();
                 int eventY = e.getY();
-
-                if (eventX < selectionRectStartingX) selectionRectX = eventX;
-                else                                   selectionRectX = selectionRectStartingX;
-
-                if (eventY < selectionRectStartingY) selectionRectY = eventY;
-                else                                   selectionRectY = selectionRectStartingY;
-
-                selectionRectW = Math.abs(selectionRectStartingX - eventX);
-                selectionRectH = Math.abs(selectionRectStartingY - eventY);
             }
         });
-    }
-
-    private static void highlightSelectedUnits()
-    {
-        selectedUnits = new ArrayList<>();
-        for (Unit unit : units)
-        {
-            int unitX = (int) unit.getLocation().getX();
-            int unitY = (int) unit.getLocation().getY();
-
-            if (unitX >= selectionRectX && unitX <= (selectionRectX + selectionRectW) &&
-                    unitY >= selectionRectY && unitY <= (selectionRectY + selectionRectH))
-            {
-//                if (unit.getTeam() == 1)
-                    selectedUnits.add(unit);
-            }
-        }
     }
 
     public static void paintWorld(Graphics g)
@@ -143,12 +101,6 @@ public final class GameCanvas extends Canvas
         UnitPainter.drawUnits(g2d);
 
         drawInterface(g2d);
-
-        if (drawSelectionRect)
-        {
-            g2d.setColor(Color.GREEN);
-            g2d.drawRect(selectionRectX, selectionRectY, selectionRectW, selectionRectH);
-        }
 
         if (!runningSimulation)
         {

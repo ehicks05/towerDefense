@@ -24,11 +24,11 @@ public final class UnitPainter
 
             g2d.drawImage(MOB1, (x - size / 2), (y - size / 2), size, size, null);
 
-            if (GameCanvas.selectedUnits.contains(unit))
+            if (unit.getCurrentHp() != unit.getMaxHp()) drawHealthBar(g2d, unit);
+
+            if (GameCanvas.selectedUnit != null && GameCanvas.selectedUnit.equals(unit))
             {
                 drawVisionCircle(g2d, unit);
-                drawHealthBar(g2d, unit);
-//                drawCoordinates(g2d, unit);
             }
         }
     }

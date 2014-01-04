@@ -5,42 +5,29 @@ import hicks.td.entities.Unit;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Queue;
-import java.util.Random;
 
 public final class UnitLogic
 {
-    public static void moveTowardCoordinate(Unit unit, Point destination)
+    public static void move(Unit unit, Point destination)
     {
-        if (!unit.isMoving())
-        {
-            unit.setTimeOfLastMove(Util.now());
-            unit.setMoving(true);
-        }
-
-        BigDecimal timeSinceLastMove        = Util.getElapsedTime(unit.getTimeOfLastMove());
         BigDecimal moveSpeed                = new BigDecimal(unit.getMoveSpeed());
+        BigDecimal timeSinceLastMove        = Util.getElapsedTime(unit.getTimeOfLastMove());
         BigDecimal potentialDistanceToMove  = moveSpeed.multiply(timeSinceLastMove);
         BigDecimal currentDistance          = new BigDecimal(unit.getLocation().getDistance(destination)).setScale(0, RoundingMode.HALF_UP);
 
         BigDecimal desiredDistance = BigDecimal.ZERO;
 
         // if we are within our desired distance, stop.
-        if (currentDistance.compareTo(desiredDistance) <= 0)
+        if (currentDistance.equals(desiredDistance))
         {
             unit.setDestination(null);
             return;
         }
 
-        // move as far as necessary, and no further.
-        BigDecimal expectedNewDistance = currentDistance.subtract(potentialDistanceToMove);
-        BigDecimal actualDistanceToMove = potentialDistanceToMove;
-        if (expectedNewDistance.compareTo(desiredDistance) == -1)
-        {
-            BigDecimal excessMovement = desiredDistance.subtract(expectedNewDistance);
-            actualDistanceToMove = potentialDistanceToMove.subtract(excessMovement);
-        }
+        // prevent overshooting the destination
+        BigDecimal actualDistanceToMove = trimOvershoot(potentialDistanceToMove, currentDistance, desiredDistance);
 
-        // calculate the weighting for x and y terms
+        // calculate x,y weighting
         BigDecimal deltaX = new BigDecimal(destination.getDeltaX(unit.getLocation()));
         BigDecimal deltaY = new BigDecimal(destination.getDeltaY(unit.getLocation()));
 
@@ -57,12 +44,16 @@ public final class UnitLogic
         unit.setTimeOfLastMove(Util.now());
     }
 
-    public static boolean isTargetInRange(Unit unit)
+    private static BigDecimal trimOvershoot(BigDecimal potentialDistanceToMove, BigDecimal currentDistance, BigDecimal desiredDistance)
     {
-        Point location = unit.getLocation();
-        Point targetLocation = unit.getTarget().getLocation();
-        double distance = new BigDecimal(location.getDistance(targetLocation)).setScale(0, RoundingMode.HALF_UP).doubleValue();
-        return distance <= unit.getAttackRange();
+        BigDecimal expectedNewDistance = currentDistance.subtract(potentialDistanceToMove);
+        BigDecimal actualDistanceToMove = potentialDistanceToMove;
+        if (expectedNewDistance.compareTo(desiredDistance) == -1)
+        {
+            BigDecimal excessMovement = desiredDistance.subtract(expectedNewDistance);
+            actualDistanceToMove = potentialDistanceToMove.subtract(excessMovement);
+        }
+        return actualDistanceToMove;
     }
 
     public static Unit getClosestVisibleEnemy(Unit callingUnit)
@@ -86,25 +77,18 @@ public final class UnitLogic
         return closestEnemy;
     }
 
-    public static int getAttackDamage(Unit unit)
-    {
-        Random random       = new Random();
-        int damageRange     = (unit.getMaxDamage() - unit.getMinDamage()) + 1;
-        int randomPortion   = random.nextInt(damageRange);
-        return randomPortion + unit.getMinDamage();
-    }
-
     public static void moveAlongPath(Unit unit)
     {
         Queue<Point> path = unit.getPath();
-        Point currentPathDestination = path.peek();
-        if (currentPathDestination != null)
+        Point pathPoint = path.peek();
+
+        if (pathPoint != null)
         {
-            if (new BigDecimal(unit.getLocation().getDistance(currentPathDestination)).setScale(0, RoundingMode.HALF_UP).equals(BigDecimal.ZERO))
-//            if (currentPathDestination.equals(unit.getLocation()))  todo: come up with a comprehensive strategy for dealing with distances...what level of rounding do we use?...
+            BigDecimal currentDistance = new BigDecimal(unit.getLocation().getDistance(pathPoint)).setScale(0, RoundingMode.HALF_UP);
+            if (currentDistance.equals(BigDecimal.ZERO))
                 path.remove();
             else
-                moveTowardCoordinate(unit, currentPathDestination);
+                move(unit, pathPoint);
         }
     }
 }

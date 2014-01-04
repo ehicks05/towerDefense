@@ -4,7 +4,7 @@ import hicks.td.Util;
 
 import java.math.BigDecimal;
 
-public class Peasant extends Unit implements Builder
+public class Peasant extends Unit
 {
     private BigDecimal m_buildSpeed;
     private BigDecimal m_timeOfLastBuild;

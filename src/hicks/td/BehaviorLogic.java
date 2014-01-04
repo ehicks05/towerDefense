@@ -23,7 +23,7 @@ public final class BehaviorLogic
         }
 
         // update units on the field
-        List<Unit> unitsToProcess = new ArrayList<>(GameState.getUnits());  // copy list to try to avoid concurrentModificationExceptions
+        List<Unit> unitsToProcess = new ArrayList<>(GameState.getUnits());  // copy list to avoid concurrentModificationExceptions
 
         for (Unit unit : unitsToProcess)
         {
@@ -44,13 +44,11 @@ public final class BehaviorLogic
 
     private static void chooseTowerBehavior(Unit unit)
     {
-        if (unit.getTarget() == null)
-            performIdleBehavior(unit);
-        if (unit.getTarget() != null)
-            performHostileBehavior(unit);
+        if (unit.getTarget() == null) lookForTarget(unit);
+        if (unit.getTarget() != null) performHostileBehavior(unit);
     }
 
-    private static void performIdleBehavior(Unit unit)
+    private static void lookForTarget(Unit unit)
     {
         Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(unit);
         if (closestVisibleEnemy != null)
@@ -59,10 +57,10 @@ public final class BehaviorLogic
 
     private static void performHostileBehavior(Unit unit)
     {
-        if (UnitLogic.isTargetInRange(unit) && unit.isReadyToAttack())
+        if (unit.isTargetInRange() && unit.isReadyToAttack())
             CombatLogic.performAttack(unit);
-        else
-            UnitLogic.moveTowardCoordinate(unit, unit.getTarget().getLocation());
+
+        if (unit.getTarget() != null && !unit.isTargetInRange()) unit.setTarget(null);
     }
 
     private static void performEnemyBehavior(Unit unit)

@@ -4,7 +4,9 @@ import hicks.td.Util;
 import hicks.td.Point;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Unit
@@ -32,6 +34,8 @@ public class Unit
     private Unit            m_target;
     private int             m_kills;
 
+    // -------------------------------- basics
+
     public Unit()
     {
         setObjectId(m_seq++);
@@ -41,6 +45,8 @@ public class Unit
     {
         return this.getClass().getSimpleName() + " (T" + m_team + ",ID:" + m_objectId + ")";
     }
+
+    // -------------------------------- logic
 
     public boolean isReadyToAttack()
     {
@@ -52,7 +58,23 @@ public class Unit
         return m_currentHp > 0;
     }
 
-    // -------- Properties
+    public boolean isTargetInRange()
+    {
+        Point targetLocation = m_target.getLocation();
+        double distance = new BigDecimal(m_location.getDistance(targetLocation)).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        return distance <= m_attackRange;
+    }
+
+    public int getAttackDamage()
+    {
+        Random random       = new Random();
+        int damageRange     = m_maxDamage - m_minDamage + 1;
+        int randomPortion   = random.nextInt(damageRange);
+
+        return m_minDamage + randomPortion;
+    }
+
+    // -------------------------------- Properties
 
     public int getObjectId()
     {
