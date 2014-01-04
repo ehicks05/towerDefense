@@ -21,20 +21,18 @@ public class UnitPainter
             if (unit.getTeam() == 2)
                 g2d.setColor(Color.DARK_GRAY);
 
-            int size = 3;
-            if (unit instanceof Knight || unit instanceof Berserker) size = 5;
-            if (unit instanceof Peasant) size = 12;
+            int size = unit.getSizeRadius();
 
             if (unit instanceof Peasant)
-                g2d.drawImage(PEASANT, (x - size/2), (y - size/2), size, size, null);
+                g2d.drawImage(PEASANT, (x - size / 2), (y - size / 2), size, size, null);
             else
-                g2d.fillRect(x, y, size, size);
+                g2d.fillOval(x - size, y - size, size * 2, size * 2);
 
             if (GameCanvas.selectedUnits.contains(unit))
             {
                 drawVisionCircle(g2d, unit);
                 drawHealthBar(g2d, unit);
-                drawCoordinates(g2d, unit);
+//                drawCoordinates(g2d, unit);
             }
         }
     }
@@ -52,19 +50,23 @@ public class UnitPainter
         if (unit.getTeam() == 1)
             g2d.setColor(Color.GREEN);
         for (int i = 0; i < hpBoxes; i++)
-            g2d.drawRect((x - 8 + (i * 2)), (y - 4), 2, 2);
+            g2d.drawRect((x - unit.getSizeRadius() + (i * 2)), (y - 12), 2, 2);
     }
 
     private static void drawVisionCircle(Graphics2D g2d, Unit unit)
     {
         int x = (int) unit.getLocation().getX();
         int y = (int) unit.getLocation().getY();
-
-        g2d.setColor(Color.GREEN);
-
         int size = unit.getSightRadius();
 
+        g2d.setColor(Color.BLACK);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 2 * .1f));
+        g2d.fillOval((x - size), (y - size), size * 2, size * 2);
+
+        g2d.setColor(Color.DARK_GRAY);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         g2d.drawOval((x - size), (y - size), size * 2, size * 2);
+
     }
 
     private static void drawCoordinates(Graphics2D g2d, Unit unit)

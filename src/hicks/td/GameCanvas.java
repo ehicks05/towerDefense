@@ -154,7 +154,7 @@ public class GameCanvas extends Canvas
         {
             Font font = new Font("Helvetica", Font.PLAIN, 36);
             g2d.setFont(font);
-            g2d.setColor(Color.RED);
+            g2d.setColor(Color.BLACK);
             g2d.drawString(stopSimulationReason, Init.WORLD_WIDTH / 2, Init.TOTAL_SCREEN_HEIGHT / 2);
         }
 
