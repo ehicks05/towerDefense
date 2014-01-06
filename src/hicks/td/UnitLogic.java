@@ -1,5 +1,7 @@
 package hicks.td;
 
+import hicks.td.entities.Arrow;
+import hicks.td.entities.Projectile;
 import hicks.td.entities.Unit;
 
 import java.math.BigDecimal;
@@ -26,6 +28,11 @@ public final class UnitLogic
 
         // prevent overshooting the destination
         BigDecimal actualDistanceToMove = trimOvershoot(potentialDistanceToMove, currentDistance, desiredDistance);
+        if (unit instanceof Arrow)
+        {
+            Arrow arrow = (Arrow) unit;
+            arrow.setDistanceTravelled(arrow.getDistanceTravelled() + actualDistanceToMove.doubleValue());
+        }
 
         // calculate x,y weighting
         BigDecimal deltaX = new BigDecimal(destination.getDeltaX(unit.getLocation()));

@@ -8,6 +8,8 @@ import java.awt.*;
 public final class UnitPainter
 {
     private static final Image MOB1 = new ImageIcon("ass\\mob1.png").getImage();
+    private static final Image ARCHER_TOWER = new ImageIcon("ass\\arrowTower.png").getImage();
+    private static final Image ARROW = new ImageIcon("ass\\arrow.png").getImage();
 
     public static void drawUnits(Graphics2D g2d)
     {
@@ -22,7 +24,12 @@ public final class UnitPainter
             if (unit.getTeam() == 2)
                 g2d.setColor(Color.DARK_GRAY);
 
-            g2d.drawImage(MOB1, (x - size / 2), (y - size / 2), size, size, null);
+            if (unit instanceof Tower)
+                g2d.drawImage(ARCHER_TOWER, (x - size / 2), (y - size / 2), size, size, null);
+            if (unit instanceof Projectile)
+                g2d.drawImage(ARROW, (x - size / 2), (y - size / 2), size, size, null);
+            if (!(unit instanceof Tower) && !(unit instanceof Projectile))
+                g2d.drawImage(MOB1, (x - size / 2), (y - size / 2), size, size, null);
 
             if (unit.getCurrentHp() != unit.getMaxHp()) drawHealthBar(g2d, unit);
 

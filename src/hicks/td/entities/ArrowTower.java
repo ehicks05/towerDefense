@@ -4,20 +4,20 @@ import hicks.td.Util;
 
 import java.math.BigDecimal;
 
-public class ArrowTower extends Unit
+public class ArrowTower extends Unit implements Tower
 {
     public ArrowTower(int team)
     {
         setTeam(team);
         setSizeRadius(16);
-        setSightRadius(40);
+        setSightRadius(256);
 
         setCurrentHp(1);
         setMaxHp(1);
         setArmor(1);
         setMinDamage(12);
         setMaxDamage(18);
-        setAttackRange(40);
+        setAttackRange(256);
 
         setAttackSpeed(new BigDecimal(1.5));
         setTimeOfLastAttack(Util.now());

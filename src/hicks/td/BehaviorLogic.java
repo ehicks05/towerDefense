@@ -1,8 +1,9 @@
 package hicks.td;
 
-import hicks.td.entities.Footman;
-import hicks.td.entities.Unit;
+import hicks.td.entities.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -29,7 +30,11 @@ public final class BehaviorLogic
         {
             if (!unit.isAlive()) continue;
 
-            if (unit.getTeam() == 1) chooseTowerBehavior(unit);
+            if (unit.getTeam() == 1)
+            {
+                if (unit instanceof Tower) chooseTowerBehavior(unit);
+                if (unit instanceof Projectile) performProjectileBehavior(unit);
+            }
             if (unit.getTeam() == 2) performEnemyBehavior(unit);
         }
     }
@@ -58,9 +63,62 @@ public final class BehaviorLogic
     private static void performHostileBehavior(Unit unit)
     {
         if (unit.isTargetInRange() && unit.isReadyToAttack())
-            CombatLogic.performAttack(unit);
+            shootArrow(unit);
 
         if (unit.getTarget() != null && !unit.isTargetInRange()) unit.setTarget(null);
+    }
+
+    private static void shootArrow(Unit unit)
+    {
+        Arrow arrow = new Arrow(1);
+        arrow.setLocation(unit.getLocation());
+//        arrow.setDestination(getProjectileDestination(arrow, unit.getTarget().getLocation()));
+        arrow.setTarget(unit.getTarget());
+        GameState.addUnit(arrow);
+
+        unit.setTimeOfLastAttack(Util.now());
+    }
+
+    private static Point getProjectileDestination(Arrow arrow, Point targetLocation)
+    {
+        BigDecimal projectileRange = new BigDecimal(arrow.getMaximumRange()).setScale(0, RoundingMode.HALF_UP);
+
+        // calculate x,y weighting
+        BigDecimal deltaX = new BigDecimal(targetLocation.getDeltaX(arrow.getLocation()));
+        BigDecimal deltaY = new BigDecimal(targetLocation.getDeltaY(arrow.getLocation()));
+
+        BigDecimal factorX = deltaX.divide(projectileRange, 16, RoundingMode.HALF_UP);
+        BigDecimal factorY = deltaY.divide(projectileRange, 16, RoundingMode.HALF_UP);
+
+//        BigDecimal distanceToMoveX = actualDistanceToMove.multiply(factorX);
+//        BigDecimal distanceToMoveY = actualDistanceToMove.multiply(factorY);
+
+        return null;
+    }
+
+    private static void performProjectileBehavior(Unit unit)
+    {
+        Unit target = unit.getTarget();
+
+        if (target != null)
+        {
+            Point targetLocation = target.getLocation();
+            UnitLogic.move(unit, targetLocation);
+
+            if (unit.getLocation().getDistance(targetLocation) < target.getSizeRadius())
+                performProjectileHit(unit);
+        }
+        Arrow arrow = (Arrow) unit;
+        if (arrow.getDistanceTravelled() >= arrow.getMaximumRange())
+        {
+            GameState.removeUnit(arrow);
+        }
+    }
+
+    private static void performProjectileHit(Unit unit)
+    {
+        CombatLogic.performAttack(unit);
+        GameState.removeUnit(unit);
     }
 
     private static void performEnemyBehavior(Unit unit)
