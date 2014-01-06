@@ -72,8 +72,7 @@ public final class BehaviorLogic
     {
         Arrow arrow = new Arrow(1);
         arrow.setLocation(unit.getLocation());
-//        arrow.setDestination(getProjectileDestination(arrow, unit.getTarget().getLocation()));
-        arrow.setTarget(unit.getTarget());
+        arrow.setDestination(getProjectileDestination(arrow, unit.getTarget().getLocation()));
         GameState.addUnit(arrow);
 
         unit.setTimeOfLastAttack(Util.now());
@@ -81,43 +80,50 @@ public final class BehaviorLogic
 
     private static Point getProjectileDestination(Arrow arrow, Point targetLocation)
     {
-        BigDecimal projectileRange = new BigDecimal(arrow.getMaximumRange()).setScale(0, RoundingMode.HALF_UP);
-
         // calculate x,y weighting
-        BigDecimal deltaX = new BigDecimal(targetLocation.getDeltaX(arrow.getLocation()));
-        BigDecimal deltaY = new BigDecimal(targetLocation.getDeltaY(arrow.getLocation()));
+        double deltaXDouble = targetLocation.getDeltaX(arrow.getLocation());
+        double deltaYDouble = targetLocation.getDeltaY(arrow.getLocation());
+        BigDecimal deltaX = new BigDecimal(deltaXDouble);
+        BigDecimal deltaY = new BigDecimal(deltaYDouble);
 
-        BigDecimal factorX = deltaX.divide(projectileRange, 16, RoundingMode.HALF_UP);
-        BigDecimal factorY = deltaY.divide(projectileRange, 16, RoundingMode.HALF_UP);
+        BigDecimal distanceFromTarget = bigSqrt(deltaX.pow(2).add(deltaY.pow(2)));
 
-//        BigDecimal distanceToMoveX = actualDistanceToMove.multiply(factorX);
-//        BigDecimal distanceToMoveY = actualDistanceToMove.multiply(factorY);
+        BigDecimal factorX = deltaX.divide(distanceFromTarget, 16, RoundingMode.HALF_UP);
+        BigDecimal factorY = deltaY.divide(distanceFromTarget, 16, RoundingMode.HALF_UP);
 
-        return null;
+        BigDecimal projectileRange = new BigDecimal(arrow.getMaximumRange()).setScale(0, RoundingMode.HALF_UP).add(new BigDecimal(10));
+        BigDecimal distanceToMoveX = projectileRange.multiply(factorX);
+        BigDecimal distanceToMoveY = projectileRange.multiply(factorY);
+
+        double resultX = arrow.getLocation().getX() + distanceToMoveX.doubleValue();
+        double resultY = arrow.getLocation().getY() + distanceToMoveY.doubleValue();
+
+        return new Point(resultX, resultY);
     }
 
     private static void performProjectileBehavior(Unit unit)
     {
-        Unit target = unit.getTarget();
-
-        if (target != null)
-        {
-            Point targetLocation = target.getLocation();
-            UnitLogic.move(unit, targetLocation);
-
-            if (unit.getLocation().getDistance(targetLocation) < target.getSizeRadius())
-                performProjectileHit(unit);
-        }
+        // check that we haven't run out of steam
         Arrow arrow = (Arrow) unit;
-        if (arrow.getDistanceTravelled() >= arrow.getMaximumRange())
-        {
+        if (Math.round(arrow.getDistanceTravelled()) >= arrow.getMaximumRange())
             GameState.removeUnit(arrow);
+
+        Point destination = unit.getDestination();
+        UnitLogic.move(unit, destination);
+
+        // see if we have hit anyone
+        for (Unit otherUnit : new ArrayList<>(GameState.getUnits()))
+        {
+            if (otherUnit.getTeam() != 2) continue;
+
+            if (unit.getLocation().getDistance(otherUnit.getLocation()) <= otherUnit.getSizeRadius())
+                performProjectileHit(unit, otherUnit);
         }
     }
 
-    private static void performProjectileHit(Unit unit)
+    private static void performProjectileHit(Unit unit, Unit unitThatGotHit)
     {
-        CombatLogic.performAttack(unit);
+        CombatLogic.performAttack(unit, unitThatGotHit);
         GameState.removeUnit(unit);
     }
 
@@ -129,5 +135,34 @@ public final class BehaviorLogic
             GameState.removeUnit(unit);
             GameState.getPlayer().removeLife();
         }
+    }
+
+    // ------------------
+
+    private static final BigDecimal SQRT_DIG = new BigDecimal(150);
+    private static final BigDecimal SQRT_PRE = new BigDecimal(10).pow(SQRT_DIG.intValue());
+
+    /**
+     * Private utility method used to compute the square root of a BigDecimal.
+     */
+    private static BigDecimal sqrtNewtonRaphson  (BigDecimal c, BigDecimal xn, BigDecimal precision){
+        BigDecimal fx = xn.pow(2).add(c.negate());
+        BigDecimal fpx = xn.multiply(new BigDecimal(2));
+        BigDecimal xn1 = fx.divide(fpx,2*SQRT_DIG.intValue(),RoundingMode.HALF_DOWN);
+        xn1 = xn.add(xn1.negate());
+        BigDecimal currentSquare = xn1.pow(2);
+        BigDecimal currentPrecision = currentSquare.subtract(c);
+        currentPrecision = currentPrecision.abs();
+        if (currentPrecision.compareTo(precision) <= -1){
+            return xn1;
+        }
+        return sqrtNewtonRaphson(c, xn1, precision);
+    }
+
+    /**
+     * Uses Newton Raphson to compute the square root of a BigDecimal.
+     */
+    public static BigDecimal bigSqrt(BigDecimal c){
+        return sqrtNewtonRaphson(c,new BigDecimal(1),new BigDecimal(1).divide(SQRT_PRE));
     }
 }

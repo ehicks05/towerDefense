@@ -8,7 +8,11 @@ public final class CombatLogic
 {
     public static void performAttack(Unit attacker)
     {
-        Unit defender           = attacker.getTarget();
+        performAttack(attacker, attacker.getTarget());
+    }
+
+    public static void performAttack(Unit attacker, Unit defender)
+    {
         int rawDamage           = attacker.getAttackDamage();
         int unmitigatedDamage   = getUnmitigatedDamage(rawDamage, defender.getArmor());
 

@@ -4,6 +4,7 @@ import hicks.td.entities.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public final class UnitPainter
 {
@@ -13,7 +14,7 @@ public final class UnitPainter
 
     public static void drawUnits(Graphics2D g2d)
     {
-        for (Unit unit : GameCanvas.units)
+        for (Unit unit : new ArrayList<>(GameCanvas.units))
         {
             int x = (int) unit.getLocation().getX();
             int y = (int) unit.getLocation().getY();
@@ -48,10 +49,8 @@ public final class UnitPainter
         double currentHpPercent = (unit.getCurrentHp() * 100) / unit.getMaxHp();
         int hpBoxes = (int) (currentHpPercent / 10);
 
-        if (unit.getTeam() == 0)
-            g2d.setColor(Color.RED);
-        if (unit.getTeam() == 1)
-            g2d.setColor(Color.GREEN);
+        g2d.setColor(Color.GREEN);
+
         for (int i = 0; i < hpBoxes; i++)
             g2d.drawRect((x - unit.getSizeRadius() + (i * 2)), (y - 12), 2, 2);
     }
