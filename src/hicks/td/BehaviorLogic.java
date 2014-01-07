@@ -19,8 +19,20 @@ public final class BehaviorLogic
             Unit unit = new Footman(2);
             unit.setLocation(new Point(MapBuilder.xOffset - 16, 0));
             unit.setPath(createPath());
+
+            if (GameState.getPlayer().getRound() > 1)
+            {
+                unit.setCurrentHp(unit.getCurrentHp() + 10 * GameState.getPlayer().getRound());
+            }
+
             GameState.addUnit(unit);
             GameState.getSpawner().setTimeOfLastBuild(Util.now());
+            GameState.getSpawner().increaseUnitsCreated();
+
+            if (GameState.getSpawner().getUnitsCreated() % 30 == 0)
+            {
+                GameState.getPlayer().setRound(GameState.getPlayer().getRound() + 1);
+            }
         }
 
         // update units on the field

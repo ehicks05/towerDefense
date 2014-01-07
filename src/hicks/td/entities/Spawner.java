@@ -8,6 +8,7 @@ public class Spawner extends Unit
 {
     private BigDecimal m_buildSpeed;
     private BigDecimal m_timeOfLastBuild;
+    private int m_unitsCreated;
 
     public Spawner(int team)
     {
@@ -21,6 +22,13 @@ public class Spawner extends Unit
     {
         return Util.getElapsedTime(getTimeOfLastBuild()).compareTo(getBuildSpeed()) > 0;
     }
+
+    public void increaseUnitsCreated()
+    {
+        m_unitsCreated++;
+    }
+
+    // -------------------- properties
 
     public BigDecimal getBuildSpeed()
     {
@@ -40,5 +48,15 @@ public class Spawner extends Unit
     public void setTimeOfLastBuild(BigDecimal m_timeOfLastBuild)
     {
         this.m_timeOfLastBuild = m_timeOfLastBuild;
+    }
+
+    public int getUnitsCreated()
+    {
+        return m_unitsCreated;
+    }
+
+    public void setUnitsCreated(int unitsCreated)
+    {
+        m_unitsCreated = unitsCreated;
     }
 }

@@ -5,11 +5,11 @@ import java.text.SimpleDateFormat;
 
 public final class Init
 {
-    public final static int WORLD_WIDTH = 1024;
-    public final static int WORLD_HEIGHT = 704;
+    public static int WORLD_WIDTH;
+    public static int WORLD_HEIGHT;
 
-    public final static int INTERFACE_HEIGHT = 64;
-    public final static int TOTAL_SCREEN_HEIGHT = WORLD_HEIGHT + INTERFACE_HEIGHT;
+    public static int INTERFACE_HEIGHT = 64;
+    public static int TOTAL_SCREEN_HEIGHT = WORLD_HEIGHT + INTERFACE_HEIGHT;
 
     public static void init()
     {

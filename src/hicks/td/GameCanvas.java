@@ -145,11 +145,14 @@ public final class GameCanvas extends Canvas
 
     public static void main(String[] args)
     {
+        GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        DisplayMode displayMode = graphicsDevice.getDisplayMode();
+        Init.WORLD_WIDTH = displayMode.getWidth() - displayMode.getWidth() % 32 - 128;
+        Init.WORLD_HEIGHT = displayMode.getHeight() - displayMode.getHeight() % 32 - 64 - 128;
+        Init.TOTAL_SCREEN_HEIGHT = Init.WORLD_HEIGHT + 64;
+
         final JFrame frame = new JFrame("Eric's Tower Defense");
         frame.getContentPane().setPreferredSize(new Dimension(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT));
-
-        GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        graphicsDevice.getDisplayMode();
 
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.setLocation(32, 32);
