@@ -35,25 +35,15 @@ public final class UnitPainter
                 g2d.drawImage(ARCHER_TOWER, (x - size / 2), (y - size / 2), size, size, null);
             if (unit instanceof Projectile)
             {
-                // Rotation information
-                double rotationRequired = Math.toRadians(65);
-                double locationX = ARROW.getWidth(null) / 2;
-                double locationY = ARROW.getHeight(null) / 2;
-                AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
-                AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+                double rotationRequired = ((Arrow) unit).getTheta();
+                g2d.rotate(rotationRequired, x, y);
 
-                try
-                {
-                    BufferedImage ARROW_BUFFERED = ImageIO.read(new File("ass\\arrow.png"));
-                    // Drawing the rotated image at the required drawing locations
-                    g2d.drawImage(op.filter(ARROW_BUFFERED, null), x, y, null);
-                }
-                catch (IOException e)
-                {
-                    Log.logInfo("DANGER WILL ROBINSON");
-                }
+                g2d.drawImage(ARROW, (x - size / 2), (y - size / 2), size, size, null);
 
-//                g2d.drawImage(ARROW, (x - size / 2), (y - size / 2), size, size, null);
+                // reset the transform
+                AffineTransform reset = new AffineTransform();
+                reset.rotate(0,0,0);
+                g2d.setTransform(reset);
             }
             if (!(unit instanceof Tower) && !(unit instanceof Projectile))
                 g2d.drawImage(MOB1, (x - size / 2), (y - size / 2), size, size, null);

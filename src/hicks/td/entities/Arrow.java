@@ -6,13 +6,14 @@ public class Arrow extends Unit implements Projectile
 {
     double m_maximumRange;
     double m_distanceTravelled;
+    double m_theta;
 
     public Arrow(int team)
     {
         setTeam(team);
         setSizeRadius(20);
         setSightRadius(1);
-        setMoveSpeed(200);
+        setMoveSpeed(300);
         setTimeOfLastMove(Util.now());
 
         setCurrentHp(1);
@@ -40,5 +41,15 @@ public class Arrow extends Unit implements Projectile
     public void setDistanceTravelled(double distanceTravelled)
     {
         m_distanceTravelled = distanceTravelled;
+    }
+
+    public double getTheta()
+    {
+        return m_theta;
+    }
+
+    public void setTheta(double theta)
+    {
+        m_theta = theta;
     }
 }

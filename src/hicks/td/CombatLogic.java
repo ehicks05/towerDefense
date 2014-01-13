@@ -3,6 +3,7 @@ package hicks.td;
 import hicks.td.entities.Unit;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public final class CombatLogic
 {
@@ -29,7 +30,7 @@ public final class CombatLogic
 
     private static void processDeath(Unit defender)
     {
-        for (Unit unit : GameState.getUnits())
+        for (Unit unit : new ArrayList<>(GameState.getUnits()))
         {
             if (unit.getTarget() != null && unit.getTarget().equals(defender))
                 unit.setTarget(null);

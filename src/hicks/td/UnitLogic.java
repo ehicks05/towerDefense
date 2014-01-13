@@ -6,6 +6,7 @@ import hicks.td.entities.Unit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Queue;
 
 public final class UnitLogic
@@ -68,7 +69,7 @@ public final class UnitLogic
         Unit closestEnemy = null;
         double smallestDistance = Double.MAX_VALUE;
 
-        for (Unit unit : GameState.getUnits())
+        for (Unit unit : new ArrayList<>(GameState.getUnits()))
         {
             if (unit == callingUnit || unit.getTeam() == callingUnit.getTeam())
                 continue;

@@ -241,7 +241,7 @@ public final class GameCanvas extends Canvas
                 runningSimulation = false;
                 stopSimulationReason = "YOU LOSE!";
             }
-            if (GameState.getPlayer().getRound() > 40)
+            if (GameState.getPlayer().getRound() > 5)
             {
                 runningSimulation = false;
                 stopSimulationReason = "YOU WIN!";

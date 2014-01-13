@@ -85,8 +85,14 @@ public final class BehaviorLogic
         Arrow arrow = new Arrow(1);
         arrow.setLocation(unit.getLocation());
         arrow.setDestination(getProjectileDestination(arrow, unit.getTarget().getLocation()));
-        GameState.addUnit(arrow);
 
+        double unitX = unit.getLocation().getX();
+        double unitY = unit.getLocation().getY();
+        double targetX = unit.getTarget().getLocation().getX();
+        double targetY = unit.getTarget().getLocation().getY();
+        arrow.setTheta(Math.atan2(targetY - unitY, targetX - unitX) + .8);
+
+        GameState.addUnit(arrow);
         unit.setTimeOfLastAttack(Util.now());
     }
 
