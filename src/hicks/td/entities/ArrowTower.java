@@ -9,7 +9,7 @@ public class ArrowTower extends Unit implements Tower
     public ArrowTower(int team)
     {
         setTeam(team);
-        setSizeRadius(16);
+        setSizeRadius(48);
         setSightRadius(256);
 
         setCurrentHp(1);

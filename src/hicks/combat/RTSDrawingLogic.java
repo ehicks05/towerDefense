@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class RTSDrawingLogic
 {
-    private static final Image PEASANT = new ImageIcon("ass\\wc2h_peasant.gif").getImage();
+    private static final Image PEASANT = new ImageIcon("ass\\peasant.gif").getImage();
 
     public static void drawUnits(Graphics2D g2d)
     {

@@ -23,6 +23,7 @@ public final class BehaviorLogic
             if (GameState.getPlayer().getRound() > 1)
             {
                 unit.setCurrentHp(unit.getCurrentHp() + 10 * GameState.getPlayer().getRound());
+                unit.setMaxHp(unit.getMaxHp() + 10 * GameState.getPlayer().getRound());
             }
 
             GameState.addUnit(unit);

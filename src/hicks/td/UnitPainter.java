@@ -14,9 +14,10 @@ import java.util.ArrayList;
 
 public final class UnitPainter
 {
-    private static final Image MOB1 = new ImageIcon("ass\\mob1.png").getImage();
-    private static final Image ARCHER_TOWER = new ImageIcon("ass\\arrowTower.png").getImage();
-    private static final Image ARROW = new ImageIcon("ass\\arrow.png").getImage();
+    private static final Image ARCHER_TOWER = new ImageIcon("ass\\guardTower.png").getImage();
+    private static final Image ARROW        = new ImageIcon("ass\\arrow.png").getImage();
+    private static final Image MOB1         = new ImageIcon("ass\\mob1.png").getImage();
+    private static final Image PEASANT      = new ImageIcon("ass\\peasant.gif").getImage();
 
     public static void drawUnits(Graphics2D g2d)
     {
@@ -46,15 +47,25 @@ public final class UnitPainter
                 g2d.setTransform(reset);
             }
             if (!(unit instanceof Tower) && !(unit instanceof Projectile))
-                g2d.drawImage(MOB1, (x - size / 2), (y - size / 2), size, size, null);
+                g2d.drawImage(PEASANT, (x - size / 2), (y - size / 2), size, size, null);
 
-            if (unit.getCurrentHp() != unit.getMaxHp()) drawHealthBar(g2d, unit);
+            if (!isFullHealth(unit) || isSelected(unit)) drawHealthBar(g2d, unit);
 
-            if (GameCanvas.selectedUnit != null && GameCanvas.selectedUnit.equals(unit))
+            if (isSelected(unit))
             {
                 drawVisionCircle(g2d, unit);
             }
         }
+    }
+
+    private static boolean isFullHealth(Unit unit)
+    {
+        return unit.getCurrentHp() == unit.getMaxHp();
+    }
+
+    private static boolean isSelected(Unit unit)
+    {
+        return GameCanvas.selectedUnit != null && GameCanvas.selectedUnit.equals(unit);
     }
 
     private static void drawHealthBar(Graphics2D g2d, Unit unit)
