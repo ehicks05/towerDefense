@@ -147,9 +147,13 @@ public final class GameCanvas extends Canvas
     {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         DisplayMode displayMode = graphicsDevice.getDisplayMode();
+
         Init.WORLD_WIDTH = displayMode.getWidth() - displayMode.getWidth() % 32 - 128;
         Init.WORLD_HEIGHT = displayMode.getHeight() - displayMode.getHeight() % 32 - 64 - 128;
         Init.TOTAL_SCREEN_HEIGHT = Init.WORLD_HEIGHT + 64;
+
+        Init.WORLD_WIDTH_IN_TILES = Init.WORLD_WIDTH / 32;
+        Init.WORLD_HEIGHT_IN_TILES = Init.WORLD_HEIGHT / 32;
 
         final JFrame frame = new JFrame("Eric's Tower Defense");
         frame.getContentPane().setPreferredSize(new Dimension(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT));
@@ -241,7 +245,7 @@ public final class GameCanvas extends Canvas
                 runningSimulation = false;
                 stopSimulationReason = "YOU LOSE!";
             }
-            if (GameState.getPlayer().getRound() > 5)
+            if (GameState.getPlayer().getRound() > 5 && UnitLogic.getUnitsOnTeam(2) == 0)
             {
                 runningSimulation = false;
                 stopSimulationReason = "YOU WIN!";

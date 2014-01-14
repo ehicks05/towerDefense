@@ -8,6 +8,9 @@ public final class Init
     public static int WORLD_WIDTH;
     public static int WORLD_HEIGHT;
 
+    public static int WORLD_WIDTH_IN_TILES;
+    public static int WORLD_HEIGHT_IN_TILES;
+
     public static int INTERFACE_HEIGHT = 64;
     public static int TOTAL_SCREEN_HEIGHT = WORLD_HEIGHT + INTERFACE_HEIGHT;
 

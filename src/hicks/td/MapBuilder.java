@@ -1,71 +1,20 @@
 package hicks.td;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.Random;
 
 public final class MapBuilder
 {
-    public static int xOffset;
-
-    private static Map<String, BufferedImage> tiles = new HashMap<>();
-
-    private static List<String> tileNames = Arrays.asList(
-            "CCCC", "DDDD", "GGGG", "WWWW", "XXX1", "XXX2", "XXX3", "XXX4", "GGDD", "GDDD",
-            "RRR1", "RRGG", "GGRR", "RRR2", "GRGR", "RGRG", "OIL1", "DDGG", "DGDG", "DDDG",
-            "CGCC", "GCCC", "CCCG", "CCGC", "GGCC", "CCGG", "CGCG", "GCGC", "DGDD", "DDGD",
-            "WGWG", "GWGW", "WWGG", "GGWW", "WGWW", "GWWW", "WWWG", "WWGW", "GDGD", "NULL");
-
-    private static BufferedImage loadTileSet()
-    {
-        try
-        {
-            return ImageIO.read(new File("ass\\tiles.bmp"));
-        }
-        catch (IOException e)
-        {
-            Log.logInfo(e.getMessage());
-        }
-
-        return null;
-    }
-
-    private static void createTilesList()
-    {
-        BufferedImage tileSet = loadTileSet();
-
-        BufferedImage image;
-        int x = 0;
-        int y = 0;
-
-        for (int i = 0; i < 40; i++)
-        {
-            if (i > 0 && i % 10 == 0)
-            {
-                x = 0;
-                y += 33;
-            }
-
-            image = tileSet.getSubimage(x, y, 32, 32);
-            tiles.put(tileNames.get(i), image);
-            GameState.addTileToTiles(new Tile(tileNames.get(i), 32, 32, image));
-            x += 33;
-
-        }
-    }
-
     public static BufferedImage buildMap()
     {
-        createTilesList();
+        TileLoader.createTileList();
 
         BufferedImage terrain = new BufferedImage(Init.WORLD_WIDTH, Init.WORLD_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
         int iterations = (Init.WORLD_WIDTH / 32) * (Init.WORLD_HEIGHT / 32);
         int x = 0;
         int y = 0;
-        int[] rgbArray = new int[32*32];
+        int[] rgbArray = new int[32 * 32];
 
         // fill map with grass
         for (int i = 0; i < iterations; i++)
@@ -76,7 +25,7 @@ public final class MapBuilder
                 y += 32;
             }
 
-            BufferedImage tile = tiles.get("GGGG");
+            BufferedImage tile = TileLoader.tiles.get("GGGG");
 
             rgbArray = tile.getRGB(0, 0, 32, 32, rgbArray, 0, 32);
             terrain.setRGB(x, y, 32, 32, rgbArray, 0, 32);
@@ -86,11 +35,11 @@ public final class MapBuilder
 
         // add a path
         int tileColumns = Init.WORLD_WIDTH / 32;
-        int tileRows    = Init.WORLD_HEIGHT / 32;
+        int tileRows = Init.WORLD_HEIGHT / 32;
         Random gen = new Random();
 
-        int randomColumn = gen.nextInt(tileColumns);
-        xOffset = randomColumn * 32;
+        int randomColumn = gen.nextInt(tileColumns / 2) + tileColumns / 4; // keep road in the middle area of the map...
+        TileLoader.roadOffset = randomColumn * 32;
 
         x = 0;
         y = 0;
@@ -105,7 +54,7 @@ public final class MapBuilder
 
             if (x == (randomColumn - 1) * 32)
             {
-                BufferedImage tile = tiles.get("DDDD");
+                BufferedImage tile = TileLoader.tiles.get("DDDD");
 
                 rgbArray = tile.getRGB(0, 0, 32, 32, rgbArray, 0, 32);
                 terrain.setRGB(x, y, 32, 32, rgbArray, 0, 32);

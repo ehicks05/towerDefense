@@ -7,6 +7,8 @@ import hicks.td.entities.Unit;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
 
 public final class UnitLogic
@@ -98,5 +100,18 @@ public final class UnitLogic
             else
                 move(unit, pathPoint);
         }
+    }
+
+    public static int getUnitsOnTeam(int team)
+    {
+        List<Unit> units = new ArrayList<>(GameState.getUnits());
+
+        for (Iterator<Unit> i = units.iterator(); i.hasNext();)
+        {
+            Unit unit = i.next();
+            if (unit.getTeam() != team) i.remove();
+        }
+
+        return units.size();
     }
 }

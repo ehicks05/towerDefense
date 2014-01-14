@@ -14,10 +14,10 @@ public final class BehaviorLogic
     public static void updateState()
     {
         // spawn units
-        if (GameState.getSpawner().isReadyToBuild())
+        if (GameState.getSpawner().isReadyToBuild() && GameState.getPlayer().getRound() < 6)
         {
             Unit unit = new Footman(2);
-            unit.setLocation(new Point(MapBuilder.xOffset - 16, 0));
+            unit.setLocation(new Point(TileLoader.roadOffset - 16, 0));
             unit.setPath(createPath());
 
             if (GameState.getPlayer().getRound() > 1)
@@ -30,7 +30,7 @@ public final class BehaviorLogic
             GameState.getSpawner().setTimeOfLastBuild(Util.now());
             GameState.getSpawner().increaseUnitsCreated();
 
-            if (GameState.getSpawner().getUnitsCreated() % 30 == 0)
+            if (GameState.getSpawner().getUnitsCreated() % 20 == 0)
             {
                 GameState.getPlayer().setRound(GameState.getPlayer().getRound() + 1);
             }
@@ -55,8 +55,8 @@ public final class BehaviorLogic
     private static Queue<Point> createPath()
     {
         Queue<Point> path = new ArrayBlockingQueue<>(2);
-        path.add(new Point(MapBuilder.xOffset - 16, 0));
-        path.add(new Point(MapBuilder.xOffset - 16, Init.WORLD_HEIGHT - 1));
+        path.add(new Point(TileLoader.roadOffset - 16, 0));
+        path.add(new Point(TileLoader.roadOffset - 16, Init.WORLD_HEIGHT - 1));
         return path;
     }
 
