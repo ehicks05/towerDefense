@@ -76,14 +76,14 @@ public final class BehaviorLogic
     private static void performHostileBehavior(Unit unit)
     {
         if (unit.isTargetInRange() && unit.isReadyToAttack())
-            shootArrow(unit);
+            shoot(unit);
 
         if (unit.getTarget() != null && !unit.isTargetInRange()) unit.setTarget(null);
     }
 
-    private static void shootArrow(Unit unit)
+    private static void shoot(Unit unit)
     {
-        Arrow arrow = new Arrow(1);
+        Projectile arrow = new Arrow(1);
         arrow.setLocation(unit.getLocation());
         arrow.setDestination(getProjectileDestination(arrow, unit.getTarget().getLocation()));
 
@@ -93,11 +93,11 @@ public final class BehaviorLogic
         double targetY = unit.getTarget().getLocation().getY();
         arrow.setTheta(Math.atan2(targetY - unitY, targetX - unitX) + .8);
 
-        GameState.addUnit(arrow);
+        GameState.addUnit((Unit) arrow);
         unit.setTimeOfLastAttack(Util.now());
     }
 
-    private static Point getProjectileDestination(Arrow arrow, Point targetLocation)
+    private static Point getProjectileDestination(Projectile arrow, Point targetLocation)
     {
         // calculate x,y weighting
         double deltaXDouble = targetLocation.getDeltaX(arrow.getLocation());
