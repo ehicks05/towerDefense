@@ -34,5 +34,7 @@ public final class Init
         player.setLives(20);
         player.setRound(1);
         GameState.setPlayer(player);
+
+        SoundManager.init();
     }
 }

@@ -93,6 +93,7 @@ public final class BehaviorLogic
         double targetY = unit.getTarget().getLocation().getY();
         arrow.setTheta(Math.atan2(targetY - unitY, targetX - unitX) + .8);
 
+        SoundManager.playShootSFX();
         GameState.addUnit((Unit) arrow);
         unit.setTimeOfLastAttack(Util.now());
     }
@@ -142,6 +143,7 @@ public final class BehaviorLogic
 
     private static void performProjectileHit(Unit unit, Unit unitThatGotHit)
     {
+        SoundManager.playHitSFX();
         CombatLogic.performAttack(unit, unitThatGotHit);
         GameState.removeUnit(unit);
     }
