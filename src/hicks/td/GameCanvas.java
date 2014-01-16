@@ -172,7 +172,7 @@ public final class GameCanvas extends Canvas
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
                 {
-                    Log.logInfo("Game was manually terminated...", true);
+                    Log.info("Game was manually terminated...", true);
                     System.exit(0);
                 }
             }

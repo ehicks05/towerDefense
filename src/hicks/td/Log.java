@@ -14,12 +14,12 @@ public final class Log
     private static DecimalFormat timeFormat = new DecimalFormat("000.00");
     private static DecimalFormat lineFormat = new DecimalFormat("000");
 
-    public static void logInfo(String message)
+    public static void info(String message)
     {
-        logInfo(message, false);
+        info(message, false);
     }
 
-    public static void logInfo(String message, boolean flush)
+    public static void info(String message, boolean flush)
     {
         lines++;
         String elapsedString = "000.00";

@@ -18,10 +18,10 @@ public final class Init
     {
         // delete previous log
         if (new File("log.txt").delete())
-            Log.logInfo("Deleting old logs...");
+            Log.info("Deleting old logs...");
 
         GameState.setStartTime(Util.now());
-        Log.logInfo("Simulation starting at " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(GameState.getStartTime()));
+        Log.info("Simulation starting at " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(GameState.getStartTime()));
 
         GameMap map = new GameMap();
         GameState.setGameMap(map);

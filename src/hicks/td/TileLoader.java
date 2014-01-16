@@ -24,7 +24,7 @@ public class TileLoader
         }
         catch (IOException e)
         {
-            Log.logInfo(e.getMessage());
+            Log.info(e.getMessage());
         }
 
         return null;
