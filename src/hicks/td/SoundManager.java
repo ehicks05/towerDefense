@@ -1,40 +1,47 @@
 package hicks.td;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 import javax.sound.sampled.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class SoundManager
 {
+    private static Mixer mixer;
+    private static AudioFormat format = new AudioFormat(44100, 16, 2, false, true);
+    private static Line.Info targetLineInfo = new DataLine.Info(TargetDataLine.class, format);
+
     private static Clip bowFire;
     private static Clip bowHit;
 
     private static AudioInputStream bowFireStream;
     private static AudioInputStream bowHitStream;
 
-    private static List<Clip> clips = new ArrayList<>();
-
     public static void init()
     {
+
         try
         {
-            Mixer.Info[] mixerInfoArray = AudioSystem.getMixerInfo();
-            Mixer.Info mixerInfo = mixerInfoArray[0];
+//            Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
+//            Mixer mixer = AudioSystem.getMixer(mixerInfo[0]);
+//            mixer.open();
 
-            Mixer mixer = AudioSystem.getMixer(mixerInfo);
+            new MediaThread().start();
 
-            DataLine.Info info = new DataLine.Info(Clip.class, new AudioFormat(44100, 16, 2, true, true));
-            Line line = AudioSystem.getLine(info);
 
-            bowFireStream  = AudioSystem.getAudioInputStream(new File("ass\\bowFire.wav"));
-            bowHitStream   = AudioSystem.getAudioInputStream(new File("ass\\bowHit.wav"));
-
-            bowFire = AudioSystem.getClip();
-            bowFire.open(bowFireStream);
-
-            bowHit = AudioSystem.getClip();
-            bowHit.open(bowHitStream);
+//            Clip clip = AudioSystem.getClip();
+//            clip.open(soundtrack);
+//            clip.setFramePosition(0);
+//            clip.start();
+//            bowFireStream = AudioSystem.getAudioInputStream(new File("ass\\bowFire.wav"));
+//            bowHitStream  = AudioSystem.getAudioInputStream(new File("ass\\bowHit.wav"));
+//            bowFire = AudioSystem.getClip();
+//            bowFire.open(bowFireStream);
+//            bowHit = AudioSystem.getClip();
+//            bowHit.open(bowHitStream);
 
         }
         catch (Exception e)
@@ -47,11 +54,22 @@ public class SoundManager
     {
         try
         {
-            Clip tempClip = AudioSystem.getClip();
-            tempClip.open(bowFireStream);
-            clips.add(tempClip);
+            bowFireStream = AudioSystem.getAudioInputStream(new File("ass\\bowFire.wav"));
 
-            tempClip.start();
+            Clip clip = AudioSystem.getClip();
+
+            clip.open(bowFireStream);
+
+            FloatControl masterGain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            masterGain.setValue(masterGain.getValue() - 10f);
+
+            clip.stop();
+            clip.setFramePosition(0);
+            clip.start();
+
+//            bowFire.stop();
+//            bowFire.setFramePosition(0);
+//            bowFire.start();
         }
         catch (Exception e)
         {
@@ -63,15 +81,28 @@ public class SoundManager
     {
         try
         {
-            Clip tempClip = AudioSystem.getClip();
-            tempClip.open(bowHitStream);
-            clips.add(tempClip);
+            bowHitStream = AudioSystem.getAudioInputStream(new File("ass\\bowHit.wav"));
+            Clip clip = AudioSystem.getClip();
 
-            tempClip.start();
+            clip.open(bowHitStream);
+
+            FloatControl masterGain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            masterGain.setValue(masterGain.getValue() - 10f);
+
+            clip.stop();
+            clip.setFramePosition(0);
+            clip.start();
+//            bowFire.stop();
+//            bowFire.setFramePosition(0);
+//            bowFire.start();
         }
         catch (Exception e)
         {
-            Log.info(e.getMessage());
+
         }
+
+//        bowHit.stop();
+//        bowHit.setFramePosition(0);
+//        bowHit.start();
     }
 }
