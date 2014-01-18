@@ -23,23 +23,27 @@ public final class UnitPainter
     {
         for (Unit unit : new ArrayList<>(GameCanvas.units))
         {
+            int size = unit.getSizeRadius();
+            int diameter = size * 2;
             int x = (int) unit.getLocation().getX();
             int y = (int) unit.getLocation().getY();
-            int size = unit.getSizeRadius();
+            int drawX = x - size;
+            int drawY = y - size;
 
             if (unit.getTeam() == 1)
                 g2d.setColor(Color.RED);
             if (unit.getTeam() == 2)
                 g2d.setColor(Color.DARK_GRAY);
 
+            // draw the unit
             if (unit instanceof Tower)
-                g2d.drawImage(ARCHER_TOWER, (x - size / 2), (y - size / 2), size, size, null);
+                g2d.drawImage(ARCHER_TOWER, drawX, drawY, diameter, diameter, null);
             if (unit instanceof Projectile)
             {
                 double rotationRequired = ((Arrow) unit).getTheta();
                 g2d.rotate(rotationRequired, x, y);
 
-                g2d.drawImage(ARROW, (x - size / 2), (y - size / 2), size, size, null);
+                g2d.drawImage(ARROW, drawX, drawY, diameter, diameter, null);
 
                 // reset the transform
                 AffineTransform reset = new AffineTransform();
@@ -47,8 +51,9 @@ public final class UnitPainter
                 g2d.setTransform(reset);
             }
             if (!(unit instanceof Tower) && !(unit instanceof Projectile))
-                g2d.drawImage(PEASANT, (x - size / 2), (y - size / 2), size, size, null);
+                g2d.drawImage(PEASANT, drawX, drawY, diameter, diameter, null);
 
+            // draw additional UI elements connected to the unit
             if (!isFullHealth(unit) || isSelected(unit)) drawHealthBar(g2d, unit);
 
             if (isSelected(unit))
@@ -71,8 +76,9 @@ public final class UnitPainter
 
     private static void drawHealthBar(Graphics2D g2d, Unit unit)
     {
-        int x = (int) unit.getLocation().getX();
-        int y = (int) unit.getLocation().getY();
+        int unitX = (int) unit.getLocation().getX();
+        int unitY = (int) unit.getLocation().getY();
+        int widthOfSlice = 1;
 
         double currentHpPercent = (unit.getCurrentHp() * 100) / unit.getMaxHp();
         int hpBoxes = (int) (currentHpPercent / 5);
@@ -84,8 +90,9 @@ public final class UnitPainter
         if (currentHpPercent <= 33.3)
             g2d.setColor(Color.RED);
 
+        // the health bar can be considered 20px wide. so start 10 pixels to the left of the vertex...
         for (int i = 0; i < hpBoxes; i++)
-            g2d.drawRect((x - unit.getSizeRadius() + (i * 1)), (y - 12), 1, 2);
+            g2d.drawRect((unitX - 10 + (i * widthOfSlice)), (unitY - unit.getSizeRadius()), 1, 2);
     }
 
     private static void drawVisionCircle(Graphics2D g2d, Unit unit)

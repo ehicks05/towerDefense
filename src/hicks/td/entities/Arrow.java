@@ -11,7 +11,7 @@ public class Arrow extends Unit implements Projectile
     public Arrow(int team)
     {
         setTeam(team);
-        setSizeRadius(20);
+        setSizeRadius(10);
         setSightRadius(1);
         setMoveSpeed(300);
         setTimeOfLastMove(Util.now());

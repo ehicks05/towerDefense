@@ -12,7 +12,7 @@ public class Peasant extends Unit
     public Peasant(int team)
     {
         setTeam(team);
-        setSizeRadius(40);
+        setSizeRadius(24);
         setSightRadius(40);
         setMoveSpeed(50);
         setTimeOfLastMove(Util.now());
