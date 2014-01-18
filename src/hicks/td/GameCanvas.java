@@ -74,7 +74,10 @@ public final class GameCanvas extends Canvas
                 }
                 if (e.getButton() == 3)
                 {
-                    if (GameState.getPlayer().getGold() >= 50)
+                    boolean canAffordGoldCost = GameState.getPlayer().getGold() >= 50;
+                    boolean isCollisionFree = performCollisionCheck(eventX, eventY, new ArrowTower(2).getSizeRadius());
+
+                    if (canAffordGoldCost && isCollisionFree)
                     {
                         Unit arrowTower = new ArrowTower(1);
                         arrowTower.setLocation(new Point(eventX, eventY));
@@ -94,6 +97,22 @@ public final class GameCanvas extends Canvas
                 int eventY = e.getY();
             }
         });
+    }
+
+    public boolean performCollisionCheck(int x, int y, int radiusOfNewBuilding)
+    {
+        Point attemptedBuildLocation = new Point(x, y);
+        List<Unit> units = new ArrayList<>(GameState.getUnits());
+
+        for (Unit unit : units)
+        {
+            Point unitLocation = unit.getLocation();
+            double distance = attemptedBuildLocation.getDistance(unitLocation);
+            if (distance < unit.getSizeRadius() + radiusOfNewBuilding)
+                return false;
+        }
+
+        return true;
     }
 
     public static void paintWorld(Graphics g)
