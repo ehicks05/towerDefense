@@ -1,7 +1,7 @@
 package hicks.td.entities;
 
-import hicks.td.Util;
 import hicks.td.Point;
+import hicks.td.Util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

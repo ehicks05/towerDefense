@@ -54,6 +54,7 @@ public final class UnitPainter
             if (isSelected(unit))
             {
                 drawVisionCircle(g2d, unit);
+                drawObjectId(g2d, unit);
             }
         }
     }
@@ -95,7 +96,16 @@ public final class UnitPainter
         g2d.setColor(Color.DARK_GRAY);
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         g2d.drawOval((x - size), (y - size), size * 2, size * 2);
+    }
 
+    private static void drawObjectId(Graphics2D g2d, Unit unit)
+    {
+        int x = (int) unit.getLocation().getX();
+        int y = (int) unit.getLocation().getY();
+        int size = unit.getSightRadius();
+
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(String.valueOf(unit.getObjectId()), x + size + 5, y);
     }
 
     private static void drawCoordinates(Graphics2D g2d, Unit unit)

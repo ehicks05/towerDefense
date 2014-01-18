@@ -13,6 +13,28 @@ import java.util.Queue;
 
 public final class UnitLogic
 {
+    public static Unit getUnitByObjectId(int id)
+    {
+        List<Unit> units = new ArrayList<>(GameState.getUnits());
+
+        for (Unit unit : units)
+            if (unit.getObjectId() == id)
+                return unit;
+
+        return null;
+    }
+
+    public static Unit removeUnitAsTarget(Unit formerTarget)
+    {
+        List<Unit> units = new ArrayList<>(GameState.getUnits());
+
+        for (Unit unit : units)
+            if (unit.getTarget() != null && unit.getTarget().equals(formerTarget))
+                unit.setTarget(null);
+
+        return null;
+    }
+
     public static void move(Unit unit, Point destination)
     {
         BigDecimal moveSpeed                = new BigDecimal(unit.getMoveSpeed());

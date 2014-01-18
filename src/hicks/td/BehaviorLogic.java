@@ -153,6 +153,7 @@ public final class BehaviorLogic
         UnitLogic.moveAlongPath(unit);
         if (unit.getPath().size() == 0)
         {
+            UnitLogic.removeUnitAsTarget(unit);
             GameState.removeUnit(unit);
             GameState.getPlayer().removeLife();
         }
