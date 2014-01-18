@@ -75,12 +75,17 @@ public final class UnitPainter
         int y = (int) unit.getLocation().getY();
 
         double currentHpPercent = (unit.getCurrentHp() * 100) / unit.getMaxHp();
-        int hpBoxes = (int) (currentHpPercent / 10);
+        int hpBoxes = (int) (currentHpPercent / 5);
 
-        g2d.setColor(Color.GREEN);
+        if (currentHpPercent > 66.6)
+            g2d.setColor(Color.GREEN);
+        if (currentHpPercent <= 66.6 && currentHpPercent > 33.3)
+            g2d.setColor(Color.YELLOW);
+        if (currentHpPercent <= 33.3)
+            g2d.setColor(Color.RED);
 
         for (int i = 0; i < hpBoxes; i++)
-            g2d.drawRect((x - unit.getSizeRadius() + (i * 2)), (y - 12), 2, 2);
+            g2d.drawRect((x - unit.getSizeRadius() + (i * 1)), (y - 12), 1, 2);
     }
 
     private static void drawVisionCircle(Graphics2D g2d, Unit unit)
