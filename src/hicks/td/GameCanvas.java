@@ -15,11 +15,8 @@ import java.util.List;
 
 public final class GameCanvas extends Canvas
 {
-    public static List<Unit> units = new ArrayList<>();
     private static BufferedImage terrainImage;
-
-    // -------- SELECTION LASSO
-    public static Unit selectedUnit = new Unit();
+    private static Unit selectedUnit = new Unit();
 
     private static boolean runningSimulation = true;
     private static String stopSimulationReason = "";
@@ -54,10 +51,10 @@ public final class GameCanvas extends Canvas
                 int eventX = e.getX();
                 int eventY = e.getY();
 
-                selectedUnit = null;
+                setSelectedUnit(null);
                 if (e.getButton() == 1)
                 {
-                    for (Unit unit : units)
+                    for (Unit unit : GameState.getUnits())
                     {
                         int unitX = (int) unit.getLocation().getX();
                         int unitY = (int) unit.getLocation().getY();
@@ -69,7 +66,7 @@ public final class GameCanvas extends Canvas
                         int maxY = unitY + unitSize;
 
                         if (eventX >= minX && eventX <= maxX && eventY >= minY && eventY <= maxY)
-                            selectedUnit = unit;
+                            setSelectedUnit(unit);
                     }
                 }
                 if (e.getButton() == 3)
@@ -159,7 +156,7 @@ public final class GameCanvas extends Canvas
 
         g2d.drawString("Stopwatch: " + Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP), x, y += 15);
         g2d.drawString("FPS: " + fps, x, y += 15);
-        g2d.drawString("Units: " + units.size(), x, y += 15);
+        g2d.drawString("Units: " + GameState.getUnits().size(), x, y += 15);
     }
 
     public static void main(String[] args)
@@ -228,8 +225,6 @@ public final class GameCanvas extends Canvas
             if (runningSimulation)
                 BehaviorLogic.updateState();
 
-            units = GameState.getUnits();
-
             // Grab the current non visible frame (Memory on the graphics card)
             // getDrawGraphics actually creates a new off screen buffer; it doesn't get something that already exists.
             Graphics2D frameBuffer = (Graphics2D) bufferStrategy.getDrawGraphics();
@@ -270,5 +265,15 @@ public final class GameCanvas extends Canvas
                 stopSimulationReason = "YOU WIN!";
             }
         }
+    }
+
+    public static Unit getSelectedUnit()
+    {
+        return selectedUnit;
+    }
+
+    public static void setSelectedUnit(Unit selectedUnit)
+    {
+        GameCanvas.selectedUnit = selectedUnit;
     }
 }

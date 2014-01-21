@@ -11,6 +11,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public final class BehaviorLogic
 {
+    private static final int PLAYER_TEAM = 1;
+    private static final int ENEMY_TEAM  = 2;
+
     public static void updateState()
     {
         // spawn units
@@ -37,18 +40,16 @@ public final class BehaviorLogic
         }
 
         // update units on the field
-        List<Unit> unitsToProcess = new ArrayList<>(GameState.getUnits());  // copy list to avoid concurrentModificationExceptions
-
-        for (Unit unit : unitsToProcess)
+        for (Unit unit : new ArrayList<>(GameState.getUnits()))
         {
             if (!unit.isAlive()) continue;
 
-            if (unit.getTeam() == 1)
+            if (unit.getTeam() == PLAYER_TEAM)
             {
                 if (unit instanceof Tower) chooseTowerBehavior(unit);
                 if (unit instanceof Projectile) performProjectileBehavior(unit);
             }
-            if (unit.getTeam() == 2) performEnemyBehavior(unit);
+            if (unit.getTeam() == ENEMY_TEAM) performEnemyBehavior(unit);
         }
     }
 
@@ -78,7 +79,8 @@ public final class BehaviorLogic
         if (unit.isTargetInRange() && unit.isReadyToAttack())
             shoot(unit);
 
-        if (unit.getTarget() != null && !unit.isTargetInRange()) unit.setTarget(null);
+        if (unit.getTarget() != null && !unit.isTargetInRange())
+            unit.setTarget(null);
     }
 
     private static void shoot(Unit unit)
@@ -106,7 +108,7 @@ public final class BehaviorLogic
         BigDecimal deltaX = new BigDecimal(deltaXDouble);
         BigDecimal deltaY = new BigDecimal(deltaYDouble);
 
-        BigDecimal distanceFromTarget = bigSqrt(deltaX.pow(2).add(deltaY.pow(2)));
+        BigDecimal distanceFromTarget = NewtonRaphson.bigSqrt(deltaX.pow(2).add(deltaY.pow(2)));
 
         BigDecimal factorX = deltaX.divide(distanceFromTarget, 16, RoundingMode.HALF_UP);
         BigDecimal factorY = deltaY.divide(distanceFromTarget, 16, RoundingMode.HALF_UP);
@@ -134,17 +136,17 @@ public final class BehaviorLogic
         // see if we have hit anyone
         for (Unit otherUnit : new ArrayList<>(GameState.getUnits()))
         {
-            if (otherUnit.getTeam() != 2) continue;
+            if (otherUnit.getTeam() != ENEMY_TEAM) continue;
 
-            if (unit.getLocation().getDistance(otherUnit.getLocation()) <= otherUnit.getSizeRadius())
+            if (unit.getLocation().getDistance(otherUnit.getLocation()) <= unit.getSizeRadius() + otherUnit.getSizeRadius())
                 performProjectileHit(unit, otherUnit);
         }
     }
 
-    private static void performProjectileHit(Unit unit, Unit unitThatGotHit)
+    private static void performProjectileHit(Unit unit, Unit victim)
     {
         SoundManager.playHitSFX();
-        CombatLogic.performAttack(unit, unitThatGotHit);
+        CombatLogic.performAttack(unit, victim);
         GameState.removeUnit(unit);
     }
 
@@ -157,34 +159,5 @@ public final class BehaviorLogic
             GameState.removeUnit(unit);
             GameState.getPlayer().removeLife();
         }
-    }
-
-    // ------------------
-
-    private static final BigDecimal SQRT_DIG = new BigDecimal(150);
-    private static final BigDecimal SQRT_PRE = new BigDecimal(10).pow(SQRT_DIG.intValue());
-
-    /**
-     * Private utility method used to compute the square root of a BigDecimal.
-     */
-    private static BigDecimal sqrtNewtonRaphson  (BigDecimal c, BigDecimal xn, BigDecimal precision){
-        BigDecimal fx = xn.pow(2).add(c.negate());
-        BigDecimal fpx = xn.multiply(new BigDecimal(2));
-        BigDecimal xn1 = fx.divide(fpx,2*SQRT_DIG.intValue(),RoundingMode.HALF_DOWN);
-        xn1 = xn.add(xn1.negate());
-        BigDecimal currentSquare = xn1.pow(2);
-        BigDecimal currentPrecision = currentSquare.subtract(c);
-        currentPrecision = currentPrecision.abs();
-        if (currentPrecision.compareTo(precision) <= -1){
-            return xn1;
-        }
-        return sqrtNewtonRaphson(c, xn1, precision);
-    }
-
-    /**
-     * Uses Newton Raphson to compute the square root of a BigDecimal.
-     */
-    public static BigDecimal bigSqrt(BigDecimal c){
-        return sqrtNewtonRaphson(c,new BigDecimal(1),new BigDecimal(1).divide(SQRT_PRE));
     }
 }

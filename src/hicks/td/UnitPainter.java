@@ -21,7 +21,7 @@ public final class UnitPainter
 
     public static void drawUnits(Graphics2D g2d)
     {
-        for (Unit unit : new ArrayList<>(GameCanvas.units))
+        for (Unit unit : new ArrayList<>(GameState.getUnits()))
         {
             int size = unit.getSizeRadius();
             int diameter = size * 2;
@@ -71,7 +71,8 @@ public final class UnitPainter
 
     private static boolean isSelected(Unit unit)
     {
-        return GameCanvas.selectedUnit != null && GameCanvas.selectedUnit.equals(unit);
+        Unit selectedUnit = GameCanvas.getSelectedUnit();
+        return selectedUnit != null && unit.equals(selectedUnit);
     }
 
     private static void drawHealthBar(Graphics2D g2d, Unit unit)
