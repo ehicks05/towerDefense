@@ -1,11 +1,11 @@
 package hicks.td;
 
+import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -31,7 +31,7 @@ public final class BehaviorLogic
 
             GameState.addUnit(unit);
             GameState.getSpawner().setTimeOfLastBuild(Util.now());
-            GameState.getSpawner().increaseUnitsCreated();
+            GameState.getSpawner().incrementUnitsCreated();
 
             if (GameState.getSpawner().getUnitsCreated() % 20 == 0)
             {

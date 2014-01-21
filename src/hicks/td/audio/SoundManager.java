@@ -1,4 +1,6 @@
-package hicks.td;
+package hicks.td.audio;
+
+import hicks.td.Log;
 
 import javax.sound.sampled.*;
 import java.io.File;

@@ -1,5 +1,7 @@
 package hicks.td;
 
+import hicks.td.audio.SoundManager;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 

@@ -23,7 +23,7 @@ public class Spawner extends Unit
         return Util.getElapsedTime(getTimeOfLastBuild()).compareTo(getBuildSpeed()) > 0;
     }
 
-    public void increaseUnitsCreated()
+    public void incrementUnitsCreated()
     {
         m_unitsCreated++;
     }
