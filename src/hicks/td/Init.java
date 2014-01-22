@@ -5,6 +5,7 @@ import hicks.td.entities.Player;
 import hicks.td.util.Log;
 import hicks.td.util.Util;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 public final class Init
@@ -13,6 +14,7 @@ public final class Init
     {
         GameState.setStartTime(Util.now());
         Log.info("Clearing logs...");
+        new File("log.txt").delete();
         Log.info("Initializing " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(GameState.getStartTime()));
 
         GameState.setPlayer(new Player(300, 20, 1));
