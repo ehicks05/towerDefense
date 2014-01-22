@@ -1,4 +1,4 @@
-package hicks.td;
+package hicks.td.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

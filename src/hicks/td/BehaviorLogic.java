@@ -2,6 +2,9 @@ package hicks.td;
 
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
+import hicks.td.util.NewtonRaphson;
+import hicks.td.util.TileLoader;
+import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -57,7 +60,7 @@ public final class BehaviorLogic
     {
         Queue<Point> path = new ArrayBlockingQueue<>(2);
         path.add(new Point(TileLoader.roadOffset - 16, 0));
-        path.add(new Point(TileLoader.roadOffset - 16, Init.WORLD_HEIGHT - 1));
+        path.add(new Point(TileLoader.roadOffset - 16, GameState.getGameMap().getHeight() - 1));
         return path;
     }
 

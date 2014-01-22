@@ -1,10 +1,17 @@
-package hicks.td;
+package hicks.td.entities;
 
 public final class Player
 {
     private int m_gold;
     private int m_lives;
     private int m_round;
+
+    public Player(int gold, int lives, int round)
+    {
+        m_gold = gold;
+        m_lives = lives;
+        m_round = round;
+    }
 
     public void addLife()
     {

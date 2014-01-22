@@ -1,6 +1,6 @@
 package hicks.td.audio;
 
-import hicks.td.Log;
+import hicks.td.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;

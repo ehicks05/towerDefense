@@ -1,8 +1,9 @@
 package hicks.td;
 
 import hicks.td.entities.Arrow;
-import hicks.td.entities.Projectile;
+import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
+import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

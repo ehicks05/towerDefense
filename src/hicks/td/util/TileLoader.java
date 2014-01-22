@@ -1,4 +1,7 @@
-package hicks.td;
+package hicks.td.util;
+
+import hicks.td.GameState;
+import hicks.td.entities.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

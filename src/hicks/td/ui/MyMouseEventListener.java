@@ -1,4 +1,4 @@
-package hicks.td;
+package hicks.td.ui;
 
 import java.awt.event.MouseAdapter;
 

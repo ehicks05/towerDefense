@@ -1,4 +1,6 @@
-package hicks.td;
+package hicks.td.util;
+
+import hicks.td.GameState;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

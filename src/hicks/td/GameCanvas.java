@@ -1,7 +1,11 @@
 package hicks.td;
 
-import hicks.td.entities.ArrowTower;
-import hicks.td.entities.Unit;
+import hicks.td.entities.*;
+import hicks.td.ui.DisplayInfo;
+import hicks.td.util.Log;
+import hicks.td.util.MapBuilder;
+import hicks.td.util.Metrics;
+import hicks.td.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +27,7 @@ public final class GameCanvas extends Canvas
 
     public GameCanvas()
     {
-        setSize(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT);
+        setSize(GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight());
 
         addKeyListener(new KeyAdapter()
         {
@@ -77,7 +81,7 @@ public final class GameCanvas extends Canvas
                     if (canAffordGoldCost && isCollisionFree)
                     {
                         Unit arrowTower = new ArrowTower(1);
-                        arrowTower.setLocation(new Point(eventX, eventY));
+                        arrowTower.setLocation(new hicks.td.entities.Point(eventX, eventY));
                         GameState.addUnit(arrowTower);
                         GameState.getPlayer().removeGold(50);
                     }
@@ -98,12 +102,12 @@ public final class GameCanvas extends Canvas
 
     public boolean performCollisionCheck(int x, int y, int radiusOfNewBuilding)
     {
-        Point attemptedBuildLocation = new Point(x, y);
+        hicks.td.entities.Point attemptedBuildLocation = new hicks.td.entities.Point(x, y);
         List<Unit> units = new ArrayList<>(GameState.getUnits());
 
         for (Unit unit : units)
         {
-            Point unitLocation = unit.getLocation();
+            hicks.td.entities.Point unitLocation = unit.getLocation();
             double distance = attemptedBuildLocation.getDistance(unitLocation);
             if (distance < unit.getSizeRadius() + radiusOfNewBuilding)
                 return false;
@@ -127,7 +131,7 @@ public final class GameCanvas extends Canvas
             Font font = new Font("Helvetica", Font.PLAIN, 36);
             g2d.setFont(font);
             g2d.setColor(Color.BLACK);
-            g2d.drawString(stopSimulationReason, Init.WORLD_WIDTH / 2, Init.TOTAL_SCREEN_HEIGHT / 2);
+            g2d.drawString(stopSimulationReason, GameState.getGameMap().getWidth() / 2, DisplayInfo.getTotalScreenHeight() / 2);
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -137,12 +141,12 @@ public final class GameCanvas extends Canvas
     private static void drawInterface(Graphics2D g2d)
     {
         int x = 10;
-        int y = Init.WORLD_HEIGHT;
+        int y = GameState.getGameMap().getHeight();
 
         BigDecimal fps = Metrics.calculateFPS();
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, y, Init.WORLD_WIDTH, Init.INTERFACE_HEIGHT);
+        g2d.fillRect(0, y, GameState.getGameMap().getWidth(), DisplayInfo.getInterfaceHeight());
         g2d.setColor(Color.WHITE);
 
         // info column 1
@@ -164,45 +168,21 @@ public final class GameCanvas extends Canvas
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         DisplayMode displayMode = graphicsDevice.getDisplayMode();
 
-        Init.WORLD_WIDTH = displayMode.getWidth() - displayMode.getWidth() % 32 - 128;
-        Init.WORLD_HEIGHT = displayMode.getHeight() - displayMode.getHeight() % 32 - 64 - 128;
-        Init.TOTAL_SCREEN_HEIGHT = Init.WORLD_HEIGHT + 64;
+        GameState.setGameMap(new GameMap(displayMode.getWidth() - displayMode.getWidth() % 32 - 128, displayMode.getHeight() - displayMode.getHeight() % 32 - 64 - 128));
+        GameState.getGameMap().setWorldWidthInTiles(GameState.getGameMap().getWidth() / 32);
+        GameState.getGameMap().setWorldHeightInTiles(GameState.getGameMap().getHeight() / 32);
+        DisplayInfo.setTotalScreenHeight(GameState.getGameMap().getHeight() + 64);
 
-        Init.WORLD_WIDTH_IN_TILES = Init.WORLD_WIDTH / 32;
-        Init.WORLD_HEIGHT_IN_TILES = Init.WORLD_HEIGHT / 32;
+        final JFrame frame = getJFrame();
+        final JPanel panel = (JPanel) frame.getContentPane();
 
-        final JFrame frame = new JFrame("Eric's Tower Defense");
-        frame.getContentPane().setPreferredSize(new Dimension(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT));
-
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        frame.setLocation(32, 32);
-        frame.setResizable(false);
-        frame.setVisible(true);
-
-        frame.addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent windowEvent)
-            {
-                if (JOptionPane.showConfirmDialog(frame,
-                        "Are you sure you want to exit?", "Exit?",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
-                {
-                    Log.info("Game was manually terminated...", true);
-                    System.exit(0);
-                }
-            }
-        });
-
-        JPanel panel = (JPanel) frame.getContentPane();
-
-        panel.setPreferredSize(new Dimension(Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT));
+        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight()));
         panel.setLayout(null);
 
         GameCanvas gameCanvas = new GameCanvas();
-        gameCanvas.setBounds(0, 0, Init.WORLD_WIDTH, Init.TOTAL_SCREEN_HEIGHT);
-        panel.add(gameCanvas);
+        gameCanvas.setBounds(0, 0, GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight());
         gameCanvas.setIgnoreRepaint(true);
+        panel.add(gameCanvas);
         frame.pack();
 
         // Let our Canvas know we want to do Double Buffering
@@ -265,6 +245,33 @@ public final class GameCanvas extends Canvas
                 stopSimulationReason = "YOU WIN!";
             }
         }
+    }
+
+    private static JFrame getJFrame()
+    {
+        final JFrame frame = new JFrame("Eric's Tower Defense");
+        frame.getContentPane().setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight()));
+
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        frame.setLocation(32, 32);
+        frame.setResizable(false);
+        frame.setVisible(true);
+
+        frame.addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent windowEvent)
+            {
+                if (JOptionPane.showConfirmDialog(frame,
+                        "Are you sure you want to exit?", "Exit?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+                {
+                    Log.info("Game was manually terminated...", true);
+                    System.exit(0);
+                }
+            }
+        });
+        return frame;
     }
 
     public static Unit getSelectedUnit()

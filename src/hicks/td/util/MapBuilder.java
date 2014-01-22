@@ -1,4 +1,8 @@
-package hicks.td;
+package hicks.td.util;
+
+import hicks.td.GameState;
+import hicks.td.Init;
+import hicks.td.util.TileLoader;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -9,9 +13,9 @@ public final class MapBuilder
     {
         TileLoader.createTileList();
 
-        BufferedImage terrain = new BufferedImage(Init.WORLD_WIDTH, Init.WORLD_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        BufferedImage terrain = new BufferedImage(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        int iterations = (Init.WORLD_WIDTH / 32) * (Init.WORLD_HEIGHT / 32);
+        int iterations = (GameState.getGameMap().getWidth() / 32) * (GameState.getGameMap().getHeight() / 32);
         int x = 0;
         int y = 0;
         int[] rgbArray = new int[32 * 32];
@@ -19,7 +23,7 @@ public final class MapBuilder
         // fill map with grass
         for (int i = 0; i < iterations; i++)
         {
-            if (x >= Init.WORLD_WIDTH)
+            if (x >= GameState.getGameMap().getWidth())
             {
                 x = 0;
                 y += 32;
@@ -34,8 +38,8 @@ public final class MapBuilder
         }
 
         // add a path
-        int tileColumns = Init.WORLD_WIDTH / 32;
-        int tileRows = Init.WORLD_HEIGHT / 32;
+        int tileColumns = GameState.getGameMap().getWidth() / 32;
+        int tileRows = GameState.getGameMap().getHeight() / 32;
         Random gen = new Random();
 
         int randomColumn = gen.nextInt(tileColumns / 2) + tileColumns / 4; // keep road in the middle area of the map...
@@ -45,11 +49,11 @@ public final class MapBuilder
         y = 0;
         for (int i = 0; i < iterations; i++)
         {
-            if (x >= Init.WORLD_WIDTH)
+            if (x >= GameState.getGameMap().getWidth())
             {
                 x = 0;
                 y += 32;
-                if (y == Init.WORLD_HEIGHT) break;
+                if (y == GameState.getGameMap().getHeight()) break;
             }
 
             if (x == (randomColumn - 1) * 32)

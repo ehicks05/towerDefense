@@ -1,7 +1,5 @@
 package hicks.td.entities;
 
-import hicks.td.Point;
-
 public interface Projectile
 {
     public double getMaximumRange();

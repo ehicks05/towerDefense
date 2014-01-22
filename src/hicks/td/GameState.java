@@ -1,7 +1,6 @@
 package hicks.td;
 
-import hicks.td.entities.Spawner;
-import hicks.td.entities.Unit;
+import hicks.td.entities.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -10,9 +9,9 @@ import java.util.List;
 public final class GameState
 {
     private static List<Unit>   units = new ArrayList<>();
-    private static GameMap      gameMap;
+    private static GameMap gameMap;
     private static BigDecimal   startTime;
-    private static Player       player;
+    private static Player player;
     private static List<Tile>   tiles = new ArrayList<>();
     private static Spawner      spawner = new Spawner(2);
 

@@ -1,4 +1,4 @@
-package hicks.td;
+package hicks.td.entities;
 
 
 public class Round

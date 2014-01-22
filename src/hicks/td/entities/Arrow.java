@@ -1,6 +1,6 @@
 package hicks.td.entities;
 
-import hicks.td.Util;
+import hicks.td.util.Util;
 
 public class Arrow extends Unit implements Projectile
 {
