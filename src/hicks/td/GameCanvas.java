@@ -1,6 +1,7 @@
 package hicks.td;
 
 import hicks.td.entities.*;
+import hicks.td.entities.Point;
 import hicks.td.ui.DisplayInfo;
 import hicks.td.util.Log;
 import hicks.td.util.MapBuilder;
@@ -76,12 +77,12 @@ public final class GameCanvas extends Canvas
                 if (e.getButton() == 3)
                 {
                     boolean canAffordGoldCost = GameState.getPlayer().getGold() >= 50;
-                    boolean isCollisionFree = performCollisionCheck(eventX, eventY, new ArrowTower(2).getSizeRadius());
+                    boolean validLocation = isValidLocation(eventX, eventY, new ArrowTower(2).getSizeRadius());
 
-                    if (canAffordGoldCost && isCollisionFree)
+                    if (canAffordGoldCost && validLocation)
                     {
                         Unit arrowTower = new ArrowTower(1);
-                        arrowTower.setLocation(new hicks.td.entities.Point(eventX, eventY));
+                        arrowTower.setLocation(new Point(eventX, eventY));
                         GameState.addUnit(arrowTower);
                         GameState.getPlayer().removeGold(50);
                     }
@@ -100,20 +101,33 @@ public final class GameCanvas extends Canvas
         });
     }
 
-    public boolean performCollisionCheck(int x, int y, int radiusOfNewBuilding)
+    public boolean isValidLocation(int x, int y, int radiusOfNewBuilding)
     {
-        hicks.td.entities.Point attemptedBuildLocation = new hicks.td.entities.Point(x, y);
+        Point attemptedBuildLocation = new Point(x, y);
         List<Unit> units = new ArrayList<>(GameState.getUnits());
 
+        // check against existing units
         for (Unit unit : units)
         {
-            hicks.td.entities.Point unitLocation = unit.getLocation();
+            Point unitLocation = unit.getLocation();
             double distance = attemptedBuildLocation.getDistance(unitLocation);
             if (distance < unit.getSizeRadius() + radiusOfNewBuilding)
                 return false;
         }
 
+        // check against edge of map
+        if (!isObjectInBounds(x, y, radiusOfNewBuilding)) return false;
+
+        // check against terrain
+        // todo
+
         return true;
+    }
+
+    private boolean isObjectInBounds(int x, int y, int radius)
+    {
+        return (x - radius >= 0 && x + radius < GameState.getGameMap().getWidth() &&
+                y - radius >= 0 && y + radius < GameState.getGameMap().getHeight());
     }
 
     public static void paintWorld(Graphics g)
