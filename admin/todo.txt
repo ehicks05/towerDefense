@@ -1,1 +1,5 @@
-Find and incorporate an arrow graphic.
+implement a main menu.
+    - visual representation
+    - game doesn't start immediately.
+
+start adding ui elements.
