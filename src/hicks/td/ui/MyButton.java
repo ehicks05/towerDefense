@@ -1,59 +1,36 @@
 package hicks.td.ui;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class MyButton extends JButton
+public class MyButton
 {
-    private static final long serialVersionUID = 1L;
+    private String label;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
 
-    private Color circleColor = Color.BLACK;
-
-    public MyButton(String label)
+    public MyButton(String label, int x, int y, int width, int height)
     {
-        super(label);
+        this.label = label;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
-    @Override
-    protected void paintComponent(Graphics g)
+    public void draw(Graphics2D g2d)
     {
-        super.paintComponent(g);
+        FontMetrics fontMetrics = g2d.getFontMetrics();
+        int stringWidth = fontMetrics.stringWidth(label);
+        int extraSpace = width - stringWidth;
+        int textX = x + extraSpace / 2;
 
-        Dimension originalSize = super.getPreferredSize();
-        int gap = (int) (originalSize.height * 0.2);
-        int x = originalSize.width + gap;
-        int y = gap;
-        int diameter = originalSize.height - (gap * 2);
-
-        x = 300;
-        y = 300;
-
-
-        g.setColor(circleColor);
-        g.fillOval(x, y, diameter, diameter);
-    }
-
-    @Override
-    public Dimension getPreferredSize()
-    {
-        Dimension size = super.getPreferredSize();
-        size.width += size.height;
-        return size;
-    }
-
-    /*Test the button*/
-    public static void main(String[] args)
-    {
-        MyButton button = new MyButton("Hello, World!");
-
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-
-        Container contentPane = frame.getContentPane();
-        contentPane.setLayout(new FlowLayout());
-        contentPane.add(button);
-
-        frame.setVisible(true);
+        g2d.setColor(Color.BLACK);
+        g2d.drawRoundRect(x, y, width, height, 5, 5);
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fillRoundRect(x, y, width, height, 5, 5);
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(label, textX, y);
     }
 }

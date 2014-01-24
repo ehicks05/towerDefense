@@ -3,6 +3,7 @@ package hicks.td;
 import hicks.td.entities.*;
 import hicks.td.entities.Point;
 import hicks.td.ui.DisplayInfo;
+import hicks.td.ui.MyButton;
 import hicks.td.util.Log;
 import hicks.td.util.MapBuilder;
 import hicks.td.util.Metrics;
@@ -139,6 +140,9 @@ public final class GameCanvas extends Canvas
         UnitPainter.drawUnits(g2d);
 
         drawInterface(g2d);
+
+        MyButton myButton = new MyButton("test", 500, 500, 100, 50);
+        myButton.draw(g2d);
 
         if (!runningSimulation)
         {
