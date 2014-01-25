@@ -3,11 +3,14 @@ package hicks.td;
 import hicks.td.entities.GameMap;
 import hicks.td.entities.Unit;
 import hicks.td.ui.*;
+import hicks.td.util.Log;
 import hicks.td.util.MapBuilder;
 import hicks.td.util.Metrics;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -18,6 +21,8 @@ public final class GameCanvas extends Canvas
 
     private static boolean runningSimulation = true;
     private static String stopSimulationReason = "";
+
+    static JButton button;
 
     public GameCanvas()
     {
@@ -35,7 +40,6 @@ public final class GameCanvas extends Canvas
         g2d.drawImage(terrainImage, 0, 0, null);
 
         UnitPainter.drawUnits(g2d);
-
         InterfacePainter.drawInterface(g2d);
 
         MyButton myButton = new MyButton("test", 500, 500, 100, 25);
@@ -58,7 +62,7 @@ public final class GameCanvas extends Canvas
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         DisplayMode displayMode = graphicsDevice.getDisplayMode();
 
-        GameState.setGameMap(new GameMap(displayMode.getWidth() - displayMode.getWidth() % 32 - 128, displayMode.getHeight() - displayMode.getHeight() % 32 - 64 - 128));
+        GameState.setGameMap(new GameMap(displayMode.getWidth() - displayMode.getWidth() % 32 - 256, displayMode.getHeight() - displayMode.getHeight() % 32 - 64 - 256));
         GameState.getGameMap().setWorldWidthInTiles(GameState.getGameMap().getWidth() / 32);
         GameState.getGameMap().setWorldHeightInTiles(GameState.getGameMap().getHeight() / 32);
         DisplayInfo.setTotalScreenHeight(GameState.getGameMap().getHeight() + 64);
@@ -66,13 +70,36 @@ public final class GameCanvas extends Canvas
         final JFrame frame = new MyFrame();
         final JPanel panel = (JPanel) frame.getContentPane();
 
-        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight()));
+        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight() + 100));
         panel.setLayout(null);
 
         GameCanvas gameCanvas = new GameCanvas();
         gameCanvas.setBounds(0, 0, GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight());
         gameCanvas.setIgnoreRepaint(true);
         panel.add(gameCanvas);
+
+        JLabel label = new JLabel();
+
+        button = new JButton("Arrow Tower");
+        button.setVisible(true);
+        panel.setLayout(new FlowLayout());
+        panel.add(button);
+
+        button.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to exit?", "Exit?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+                {
+                    Log.info("Game was manually terminated...", true);
+                    System.exit(0);
+                }
+            }
+        });
+
         frame.pack();
 
         // Let our Canvas know we want to do Double Buffering
