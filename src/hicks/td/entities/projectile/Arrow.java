@@ -1,4 +1,4 @@
-package hicks.td.entities;
+package hicks.td.entities.projectile;
 
 import hicks.td.util.Util;
 

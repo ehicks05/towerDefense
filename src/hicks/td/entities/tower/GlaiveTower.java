@@ -1,4 +1,4 @@
-package hicks.td.entities;
+package hicks.td.entities.tower;
 
 import hicks.td.util.Util;
 
@@ -10,9 +10,10 @@ public class GlaiveTower extends Tower
     {
         setTeam(team);
         setSizeRadius(30);
-        setAttackRange(192);
+        setAttackRange(160);
 
-        setAttackSpeed(new BigDecimal(1.5));
+        setPrice(100);
+        setAttackSpeed(new BigDecimal(1));
         setTimeOfLastAttack(Util.now());
     }
 }

@@ -1,8 +1,6 @@
-package hicks.td.entities;
+package hicks.td.entities.mob;
 
 import hicks.td.util.Util;
-
-import java.math.BigDecimal;
 
 public class Peasant extends Mob
 {

@@ -1,15 +1,13 @@
-package hicks.td.entities;
+package hicks.td.entities.mob;
 
 import hicks.td.util.Util;
 
-import java.math.BigDecimal;
-
-public class Footman extends Mob
+public class Berserker extends Mob
 {
-    public Footman(int team)
+    public Berserker(int team)
     {
         setTeam(team);
-        setSizeRadius(12);
+        setSizeRadius(40);
         setMoveSpeed(50);
         setTimeOfLastMove(Util.now());
 

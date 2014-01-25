@@ -2,10 +2,10 @@ package hicks.td.ui;
 
 import hicks.td.GameCanvas;
 import hicks.td.GameState;
-import hicks.td.entities.ArrowTower;
-import hicks.td.entities.GlaiveTower;
-import hicks.td.entities.Point;
-import hicks.td.entities.Unit;
+import hicks.td.entities.*;
+import hicks.td.entities.tower.ArrowTower;
+import hicks.td.entities.tower.GlaiveTower;
+import hicks.td.entities.tower.Tower;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -43,7 +43,7 @@ public class MyMouseListener extends MouseAdapter
 
             if (canAffordGoldCost && validLocation)
             {
-                Unit tower = null;
+                Tower tower = null;
                 if (GameCanvas.getTowerToggle().equals("Arrow"))
                     tower = new ArrowTower(1);
                 if (GameCanvas.getTowerToggle().equals("Glaive"))
@@ -53,7 +53,7 @@ public class MyMouseListener extends MouseAdapter
 
                 tower.setLocation(new Point(eventX, eventY));
                 GameState.addUnit(tower);
-                GameState.getPlayer().removeGold(50);
+                GameState.getPlayer().removeGold(tower.getPrice());
             }
         }
     }

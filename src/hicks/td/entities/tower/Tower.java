@@ -1,8 +1,12 @@
-package hicks.td.entities;
+package hicks.td.entities.tower;
 
 import hicks.td.GameState;
 import hicks.td.UnitLogic;
 import hicks.td.audio.SoundManager;
+import hicks.td.entities.*;
+import hicks.td.entities.projectile.Arrow;
+import hicks.td.entities.projectile.Glaive;
+import hicks.td.entities.projectile.Projectile;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -10,6 +14,7 @@ import java.math.RoundingMode;
 
 public class Tower extends Unit
 {
+    private int             m_price;
     private int             m_attackRange;
     private BigDecimal      m_attackSpeed;
     private BigDecimal      m_timeOfLastAttack;
@@ -72,6 +77,17 @@ public class Tower extends Unit
     }
 
     // ------------ Properties
+
+
+    public int getPrice()
+    {
+        return m_price;
+    }
+
+    public void setPrice(int price)
+    {
+        m_price = price;
+    }
 
     public int getAttackRange()
     {

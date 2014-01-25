@@ -1,5 +1,6 @@
-package hicks.td.entities;
+package hicks.td.entities.mob;
 
+import hicks.td.entities.Unit;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;

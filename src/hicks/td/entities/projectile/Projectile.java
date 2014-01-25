@@ -1,9 +1,13 @@
-package hicks.td.entities;
+package hicks.td.entities.projectile;
 
 import hicks.td.CombatLogic;
 import hicks.td.GameState;
 import hicks.td.UnitLogic;
 import hicks.td.audio.SoundManager;
+import hicks.td.entities.mob.Mob;
+import hicks.td.entities.Point;
+import hicks.td.entities.Unit;
+import hicks.td.entities.tower.Tower;
 import hicks.td.util.NewtonRaphson;
 
 import java.math.BigDecimal;

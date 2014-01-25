@@ -1,10 +1,9 @@
 package hicks.td;
 
-import hicks.td.entities.Mob;
-import hicks.td.entities.Projectile;
-import hicks.td.entities.Tower;
+import hicks.td.entities.mob.Mob;
+import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.tower.Tower;
 import hicks.td.entities.Unit;
-import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,7 +1,9 @@
-package hicks.td.entities;
+package hicks.td.entities.mob;
 
 import hicks.td.GameState;
 import hicks.td.UnitLogic;
+import hicks.td.entities.Point;
+import hicks.td.entities.Unit;
 
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;

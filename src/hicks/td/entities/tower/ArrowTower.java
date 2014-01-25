@@ -1,4 +1,4 @@
-package hicks.td.entities;
+package hicks.td.entities.tower;
 
 import hicks.td.util.Util;
 
@@ -12,6 +12,7 @@ public class ArrowTower extends Tower
         setSizeRadius(30);
         setAttackRange(256);
 
+        setPrice(50);
         setAttackSpeed(new BigDecimal(1.5));
         setTimeOfLastAttack(Util.now());
     }
