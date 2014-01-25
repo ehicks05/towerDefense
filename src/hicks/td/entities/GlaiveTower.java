@@ -10,7 +10,7 @@ public class GlaiveTower extends Tower
     {
         setTeam(team);
         setSizeRadius(30);
-        setAttackRange(256);
+        setAttackRange(192);
 
         setAttackSpeed(new BigDecimal(1.5));
         setTimeOfLastAttack(Util.now());

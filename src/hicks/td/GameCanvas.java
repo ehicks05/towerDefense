@@ -3,9 +3,9 @@ package hicks.td;
 import hicks.td.entities.GameMap;
 import hicks.td.entities.Unit;
 import hicks.td.ui.*;
-import hicks.td.util.Log;
 import hicks.td.util.MapBuilder;
 import hicks.td.util.Metrics;
+import hicks.td.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public final class GameCanvas extends Canvas
 {
@@ -22,12 +24,12 @@ public final class GameCanvas extends Canvas
     private static boolean runningSimulation = true;
     private static String stopSimulationReason = "";
 
-    private static JToggleButton button;
+    private static JLabel label;
     private static String towerToggle = "Arrow";
 
     public GameCanvas()
     {
-        setSize(GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight());
+        setSize(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight());
 
         addKeyListener(new MyKeyListener());
         addMouseListener(new MyMouseListener());
@@ -41,7 +43,8 @@ public final class GameCanvas extends Canvas
         g2d.drawImage(terrainImage, 0, 0, null);
 
         UnitPainter.drawUnits(g2d);
-        InterfacePainter.drawInterface(g2d);
+//        InterfacePainter.drawInterface(g2d);
+        label.setText(getLabelText());
 
         if (!runningSimulation)
         {
@@ -55,6 +58,25 @@ public final class GameCanvas extends Canvas
         g.dispose();
     }
 
+    private static String getLabelText()
+    {
+        String labelText = "<html><table><tr>";
+        // info column 1
+        labelText += "<td>Gold: " + GameState.getPlayer().getGold()   + "</td>";
+        labelText += "<td>Round: " + GameState.getPlayer().getRound() + "</td>";
+        labelText += "<td>Lives: " + GameState.getPlayer().getLives() + "</td>";
+        labelText += "</tr><tr>";
+
+        BigDecimal elapsed = Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP);
+
+        labelText += "<td>Stopwatch: " + elapsed                 + "</td>";
+        labelText += "<td>FPS: " + Metrics.calculateFPS()        + "</td>";
+        labelText += "<td>Units: " + GameState.getUnits().size() + "</td>";
+
+        labelText += "</tr></table></html>";
+        return labelText;
+    }
+
     public static void main(String[] args)
     {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -63,37 +85,61 @@ public final class GameCanvas extends Canvas
         GameState.setGameMap(new GameMap(displayMode.getWidth() - displayMode.getWidth() % 32 - 256, displayMode.getHeight() - displayMode.getHeight() % 32 - 64 - 256));
         GameState.getGameMap().setWorldWidthInTiles(GameState.getGameMap().getWidth() / 32);
         GameState.getGameMap().setWorldHeightInTiles(GameState.getGameMap().getHeight() / 32);
-        DisplayInfo.setTotalScreenHeight(GameState.getGameMap().getHeight() + 64);
+        DisplayInfo.setTotalScreenHeight(GameState.getGameMap().getHeight());
 
         final JFrame frame = new MyFrame();
         final JPanel panel = (JPanel) frame.getContentPane();
 
-        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight() + 100));
+        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight() + 100));
         panel.setLayout(null);
 
         GameCanvas gameCanvas = new GameCanvas();
-        gameCanvas.setBounds(0, 0, GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight());
+        gameCanvas.setBounds(0, 0, GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight());
         gameCanvas.setIgnoreRepaint(true);
         panel.add(gameCanvas);
 
-        JLabel label = new JLabel();
+        label = new JLabel();
+        label.setVisible(true);
 
-        button = new JToggleButton("Arrow Tower");
-        button.setVisible(true);
+        final JToggleButton arrowButton = new JToggleButton("Arrow Tower");
+        arrowButton.setVisible(true);
+        arrowButton.setSelected(true);
+        final JToggleButton glaiveButton = new JToggleButton("Glaive Tower");
+        glaiveButton.setVisible(true);
+
         panel.setLayout(new FlowLayout());
-        panel.add(button);
+        panel.add(label);
+        panel.add(arrowButton);
+        panel.add(glaiveButton);
 
-        button.addActionListener(new ActionListener()
+        arrowButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                if (button.isSelected())
+                if (arrowButton.isSelected())
                 {
                     towerToggle = "Arrow";
+                    glaiveButton.setSelected(false);
                 }
                 else
                 {
                     towerToggle = "Glaive";
+                }
+            }
+        });
+
+        glaiveButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (glaiveButton.isSelected())
+                {
+                    towerToggle = "Glaive";
+                    arrowButton.setSelected(false);
+                }
+                else
+                {
+                    towerToggle = "Arrow";
                 }
             }
         });

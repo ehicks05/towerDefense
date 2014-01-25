@@ -22,7 +22,7 @@ public class Glaive extends Projectile
 
         setMinDamage(12);
         setMaxDamage(18);
-        setMaximumRange(600);
+        setMaximumRange(300);
     }
 
     public void performProjectileHit(Mob victim)
