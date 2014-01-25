@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public final class UnitPainter
 {
-    private static final Image ARCHER_TOWER = new ImageIcon("ass\\guardTower.png").getImage();
+    private static final Image GUARD_TOWER  = new ImageIcon("ass\\guardTower.gif").getImage();
+    private static final Image CANNON_TOWER = new ImageIcon("ass\\cannonTower.gif").getImage();
     private static final Image ARROW        = new ImageIcon("ass\\arrow.png").getImage();
     private static final Image GLAIVE       = new ImageIcon("ass\\glaive.png").getImage();
-    private static final Image MOB1         = new ImageIcon("ass\\mob1.png").getImage();
     private static final Image PEASANT      = new ImageIcon("ass\\peasant.gif").getImage();
 
     public static void drawUnits(Graphics2D g2d)
@@ -29,16 +29,23 @@ public final class UnitPainter
             // draw the unit
             if (unit instanceof Tower)
             {
-                g2d.drawImage(ARCHER_TOWER, drawX, drawY, diameter, diameter, null);
+                if (unit instanceof ArrowTower) g2d.drawImage(GUARD_TOWER, drawX, drawY, diameter, diameter, null);
+                if (unit instanceof GlaiveTower) g2d.drawImage(CANNON_TOWER, drawX, drawY, diameter, diameter, null);
                 if (isSelected(unit)) drawVisionCircle(g2d, (Tower) unit);
             }
             if (unit instanceof Projectile)
             {
-                double rotationRequired = ((Arrow) unit).getTheta();
+                double rotationRequired = ((Projectile) unit).getTheta();
                 g2d.rotate(rotationRequired, x, y);
 
-                g2d.drawImage(ARROW, drawX, drawY, diameter, diameter, null);
-
+                if (unit instanceof Arrow)
+                    g2d.drawImage(ARROW, drawX, drawY, diameter, diameter, null);
+                if (unit instanceof Glaive)
+                {
+                    g2d.drawImage(GLAIVE, drawX, drawY, diameter, diameter, null);
+                    Glaive glaive = (Glaive) unit;
+                    glaive.setTheta(glaive.getTheta() + .1);
+                }
                 // reset the transform
                 AffineTransform reset = new AffineTransform();
                 reset.rotate(0,0,0);
@@ -113,16 +120,5 @@ public final class UnitPainter
 
         g2d.setColor(Color.BLACK);
         g2d.drawString(String.valueOf(unit.getObjectId()), x + size + 5, y);
-    }
-
-    private static void drawCoordinates(Graphics2D g2d, Unit unit)
-    {
-        int x = (int) unit.getLocation().getX();
-        int y = (int) unit.getLocation().getY();
-
-        String coordinate = x + ", " + y;
-
-        g2d.setColor(Color.GREEN);
-        g2d.drawString(coordinate, x + 5, y);
     }
 }

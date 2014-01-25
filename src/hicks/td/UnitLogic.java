@@ -57,10 +57,10 @@ public final class UnitLogic
 
         // prevent overshooting the destination
         BigDecimal actualDistanceToMove = trimOvershoot(potentialDistanceToMove, currentDistance, desiredDistance);
-        if (unit instanceof Arrow)
+        if (unit instanceof Projectile)
         {
-            Arrow arrow = (Arrow) unit;
-            arrow.setDistanceTravelled(arrow.getDistanceTravelled() + actualDistanceToMove.doubleValue());
+            Projectile projectile = (Projectile) unit;
+            projectile.setDistanceTravelled(projectile.getDistanceTravelled() + actualDistanceToMove.doubleValue());
         }
 
         // calculate x,y weighting
@@ -92,18 +92,26 @@ public final class UnitLogic
         return actualDistanceToMove;
     }
 
-    public static Unit getClosestVisibleEnemy(Tower tower)
+
+    public static Unit getClosestVisibleEnemy(Unit callingUnit, int attackRange)
+    {
+        return getClosestVisibleEnemy(callingUnit, attackRange, null);
+    }
+
+    public static Unit getClosestVisibleEnemy(Unit callingUnit, int attackRange, Mob exception)
     {
         Unit closestEnemy = null;
         double smallestDistance = Double.MAX_VALUE;
 
         for (Unit unit : new ArrayList<>(GameState.getUnits()))
         {
-            if (unit == tower || unit.getTeam() == tower.getTeam())
+            if (unit == callingUnit || unit.getTeam() == callingUnit.getTeam())
                 continue;
 
-            double distance = tower.getLocation().getDistance(unit.getLocation());
-            if (distance <= tower.getAttackRange() && distance < smallestDistance)
+            if (exception != null && unit == exception) continue;
+
+            double distance = callingUnit.getLocation().getDistance(unit.getLocation());
+            if (distance <= attackRange && distance < smallestDistance)
             {
                 closestEnemy = unit;
                 smallestDistance = distance;

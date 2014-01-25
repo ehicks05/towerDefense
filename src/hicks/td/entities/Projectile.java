@@ -68,6 +68,12 @@ public class Projectile extends Unit
         // see if we have hit anyone
         for (Unit potentialVictim : new ArrayList<>(GameState.getUnits()))
         {
+            if (this instanceof Glaive)
+            {
+                Glaive glaive = (Glaive) this;
+                if (potentialVictim == glaive.getLastUnitHit()) continue;
+            }
+
             if (potentialVictim instanceof Mob)
             {
                 if (getLocation().getDistance(potentialVictim.getLocation()) <= getSizeRadius() + potentialVictim.getSizeRadius())
@@ -76,7 +82,7 @@ public class Projectile extends Unit
         }
     }
 
-    private void performProjectileHit(Mob victim)
+    public void performProjectileHit(Mob victim)
     {
         SoundManager.playHitSFX();
         CombatLogic.performAttack(this, victim);

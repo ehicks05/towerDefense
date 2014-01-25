@@ -22,7 +22,8 @@ public final class GameCanvas extends Canvas
     private static boolean runningSimulation = true;
     private static String stopSimulationReason = "";
 
-    static JToggleButton button;
+    private static JToggleButton button;
+    private static String towerToggle = "Arrow";
 
     public GameCanvas()
     {
@@ -41,9 +42,6 @@ public final class GameCanvas extends Canvas
 
         UnitPainter.drawUnits(g2d);
         InterfacePainter.drawInterface(g2d);
-
-        MyButton myButton = new MyButton("test", 500, 500, 100, 25);
-        myButton.draw(g2d);
 
         if (!runningSimulation)
         {
@@ -89,13 +87,13 @@ public final class GameCanvas extends Canvas
         {
             public void actionPerformed(ActionEvent e)
             {
-                if (JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to exit?", "Exit?",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+                if (button.isSelected())
                 {
-                    Log.info("Game was manually terminated...", true);
-                    System.exit(0);
+                    towerToggle = "Arrow";
+                }
+                else
+                {
+                    towerToggle = "Glaive";
                 }
             }
         });
@@ -172,5 +170,15 @@ public final class GameCanvas extends Canvas
     public static void setSelectedUnit(Unit selectedUnit)
     {
         GameCanvas.selectedUnit = selectedUnit;
+    }
+
+    public static String getTowerToggle()
+    {
+        return towerToggle;
+    }
+
+    public static void setTowerToggle(String towerToggle)
+    {
+        GameCanvas.towerToggle = towerToggle;
     }
 }

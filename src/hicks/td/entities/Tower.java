@@ -32,7 +32,7 @@ public class Tower extends Unit
 
     public void lookForTarget()
     {
-        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(this);
+        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(this, m_attackRange);
         if (closestVisibleEnemy != null)
             m_target = closestVisibleEnemy;
     }
@@ -48,7 +48,14 @@ public class Tower extends Unit
 
     public void shoot()
     {
-        Projectile projectile = new Arrow(1);
+        Projectile projectile = null;
+        if (this instanceof ArrowTower)
+            projectile = new Arrow(1);
+        if (this instanceof GlaiveTower)
+            projectile = new Glaive(1);
+
+        if (projectile == null) projectile = new Glaive(1);
+
         projectile.setOriginator(this);
         projectile.setLocation(getLocation());
         projectile.setDestination(projectile.getProjectileDestination(m_target.getLocation()));
