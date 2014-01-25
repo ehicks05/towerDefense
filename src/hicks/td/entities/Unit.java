@@ -1,12 +1,6 @@
 package hicks.td.entities;
 
-import hicks.td.util.Util;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Queue;
-import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public class Unit
 {
@@ -14,24 +8,11 @@ public class Unit
     private int             m_objectId;
     private int             m_team;
     private int             m_sizeRadius;
-    private int             m_sightRadius;
     private int             m_moveSpeed;
     private BigDecimal      m_timeOfLastMove;
     private boolean         m_moving;
     private Point           m_location;
     private Point           m_destination;
-    private Queue<Point>    m_path = new ArrayBlockingQueue<>(30);
-
-    private int             m_currentHp;
-    private int             m_maxHp;
-    private int             m_armor;
-    private int             m_minDamage;
-    private int             m_maxDamage;
-    private int             m_attackRange;
-    private BigDecimal      m_attackSpeed;
-    private BigDecimal      m_timeOfLastAttack;
-    private Unit            m_target;
-    private int             m_kills;
 
     // -------------------------------- basics
 
@@ -43,34 +24,6 @@ public class Unit
     public String toString()
     {
         return this.getClass().getSimpleName() + " (T" + m_team + ",ID:" + m_objectId + ")";
-    }
-
-    // -------------------------------- logic
-
-    public boolean isReadyToAttack()
-    {
-        return Util.getElapsedTime(m_timeOfLastAttack).compareTo(m_attackSpeed) > 0;
-    }
-
-    public boolean isAlive()
-    {
-        return m_currentHp > 0;
-    }
-
-    public boolean isTargetInRange()
-    {
-        Point targetLocation = m_target.getLocation();
-        double distance = new BigDecimal(m_location.getDistance(targetLocation)).setScale(0, RoundingMode.HALF_UP).doubleValue();
-        return distance <= m_attackRange;
-    }
-
-    public int getAttackDamage()
-    {
-        Random random       = new Random();
-        int damageRange     = m_maxDamage - m_minDamage + 1;
-        int randomPortion   = random.nextInt(damageRange);
-
-        return m_minDamage + randomPortion;
     }
 
     // -------------------------------- Properties
@@ -103,16 +56,6 @@ public class Unit
     public void setTeam(int team)
     {
         m_team = team;
-    }
-
-    public int getSightRadius()
-    {
-        return m_sightRadius;
-    }
-
-    public void setSightRadius(int sightRadius)
-    {
-        m_sightRadius = sightRadius;
     }
 
     public int getMoveSpeed()
@@ -163,115 +106,5 @@ public class Unit
     public void setDestination(Point destination)
     {
         m_destination = destination;
-    }
-
-    public Queue<Point> getPath()
-    {
-        return m_path;
-    }
-
-    public void setPath(Queue<Point> path)
-    {
-        m_path = path;
-    }
-
-    public int getCurrentHp()
-    {
-        return m_currentHp;
-    }
-
-    public void setCurrentHp(int currentHp)
-    {
-        m_currentHp = currentHp;
-    }
-
-    public int getMaxHp()
-    {
-        return m_maxHp;
-    }
-
-    public void setMaxHp(int maxHp)
-    {
-        m_maxHp = maxHp;
-    }
-
-    public int getArmor()
-    {
-        return m_armor;
-    }
-
-    public void setArmor(int armor)
-    {
-        m_armor = armor;
-    }
-
-    public void setMinDamage(int minDamage)
-    {
-        m_minDamage = minDamage;
-    }
-
-    public void setMaxDamage(int maxDamage)
-    {
-        m_maxDamage = maxDamage;
-    }
-
-    public int getAttackRange()
-    {
-        return m_attackRange;
-    }
-
-    public void setAttackRange(int attackRange)
-    {
-        m_attackRange = attackRange;
-    }
-
-    public BigDecimal getAttackSpeed()
-    {
-        return m_attackSpeed;
-    }
-
-    public void setAttackSpeed(BigDecimal attackSpeed)
-    {
-        m_attackSpeed = attackSpeed;
-    }
-
-    public BigDecimal getTimeOfLastAttack()
-    {
-        return m_timeOfLastAttack;
-    }
-
-    public void setTimeOfLastAttack(BigDecimal timeOfLastAttack)
-    {
-        m_timeOfLastAttack = timeOfLastAttack;
-    }
-
-    public Unit getTarget()
-    {
-        return m_target;
-    }
-
-    public void setTarget(Unit target)
-    {
-        m_target = target;
-    }
-
-    public int getKills()
-    {
-        return m_kills;
-    }
-
-    public void setKills(int kills)
-    {
-        m_kills = kills;
-    }
-
-    public int getMinDamage()
-    {
-        return m_minDamage;
-    }
-
-    public int getMaxDamage()
-    {
-        return m_maxDamage;
     }
 }

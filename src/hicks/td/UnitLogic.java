@@ -1,8 +1,6 @@
 package hicks.td;
 
-import hicks.td.entities.Arrow;
-import hicks.td.entities.Point;
-import hicks.td.entities.Unit;
+import hicks.td.entities.*;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -30,9 +28,14 @@ public final class UnitLogic
         List<Unit> units = new ArrayList<>(GameState.getUnits());
 
         for (Unit unit : units)
-            if (unit.getTarget() != null && unit.getTarget().equals(formerTarget))
-                unit.setTarget(null);
-
+        {
+            if (unit instanceof Tower)
+            {
+                Tower tower = (Tower) unit;
+                if (tower.getTarget() != null && tower.getTarget().equals(formerTarget))
+                    tower.setTarget(null);
+            }
+        }
         return null;
     }
 
@@ -89,18 +92,18 @@ public final class UnitLogic
         return actualDistanceToMove;
     }
 
-    public static Unit getClosestVisibleEnemy(Unit callingUnit)
+    public static Unit getClosestVisibleEnemy(Tower tower)
     {
         Unit closestEnemy = null;
         double smallestDistance = Double.MAX_VALUE;
 
         for (Unit unit : new ArrayList<>(GameState.getUnits()))
         {
-            if (unit == callingUnit || unit.getTeam() == callingUnit.getTeam())
+            if (unit == tower || unit.getTeam() == tower.getTeam())
                 continue;
 
-            double distance = callingUnit.getLocation().getDistance(unit.getLocation());
-            if (distance <= callingUnit.getSightRadius() && distance < smallestDistance)
+            double distance = tower.getLocation().getDistance(unit.getLocation());
+            if (distance <= tower.getAttackRange() && distance < smallestDistance)
             {
                 closestEnemy = unit;
                 smallestDistance = distance;
@@ -110,18 +113,18 @@ public final class UnitLogic
         return closestEnemy;
     }
 
-    public static void moveAlongPath(Unit unit)
+    public static void moveAlongPath(Mob mob)
     {
-        Queue<Point> path = unit.getPath();
+        Queue<Point> path = mob.getPath();
         Point pathPoint = path.peek();
 
         if (pathPoint != null)
         {
-            BigDecimal currentDistance = new BigDecimal(unit.getLocation().getDistance(pathPoint)).setScale(0, RoundingMode.HALF_UP);
+            BigDecimal currentDistance = new BigDecimal(mob.getLocation().getDistance(pathPoint)).setScale(0, RoundingMode.HALF_UP);
             if (currentDistance.equals(BigDecimal.ZERO))
                 path.remove();
             else
-                move(unit, pathPoint);
+                move(mob, pathPoint);
         }
     }
 

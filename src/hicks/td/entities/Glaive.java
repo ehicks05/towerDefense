@@ -2,9 +2,9 @@ package hicks.td.entities;
 
 import hicks.td.util.Util;
 
-public class Arrow extends Projectile
+public class Glaive extends Projectile
 {
-    public Arrow(int team)
+    public Glaive(int team)
     {
         setTeam(team);
         setSizeRadius(10);
@@ -13,6 +13,6 @@ public class Arrow extends Projectile
 
         setMinDamage(12);
         setMaxDamage(18);
-        setMaximumRange(800);
+        setMaximumRange(600);
     }
 }

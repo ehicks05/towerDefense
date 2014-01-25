@@ -1,5 +1,8 @@
 package hicks.td;
 
+import hicks.td.entities.Mob;
+import hicks.td.entities.Projectile;
+import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
 import hicks.td.util.Util;
 
@@ -8,33 +11,31 @@ import java.util.ArrayList;
 
 public final class CombatLogic
 {
-    public static void performAttack(Unit attacker)
+    public static void performAttack(Projectile damageSource, Mob damageRecipient)
     {
-        performAttack(attacker, attacker.getTarget());
-    }
+        int rawDamage           = damageSource.getAttackDamage();
+        int unmitigatedDamage   = getUnmitigatedDamage(rawDamage, damageRecipient.getArmor());
 
-    public static void performAttack(Unit attacker, Unit defender)
-    {
-        int rawDamage           = attacker.getAttackDamage();
-        int unmitigatedDamage   = getUnmitigatedDamage(rawDamage, defender.getArmor());
+        damageRecipient.setCurrentHp(damageRecipient.getCurrentHp() - unmitigatedDamage);
 
-        defender.setCurrentHp(defender.getCurrentHp() - unmitigatedDamage);
-        attacker.setTimeOfLastAttack(Util.now());
-
-        if (!defender.isAlive())
+        if (!damageRecipient.isAlive())
         {
-            processDeath(defender);
+            processDeath(damageRecipient);
             GameState.getPlayer().addGold(10);
-            attacker.setKills(attacker.getKills() + 1);
+            damageSource.getOriginator().setKills(damageSource.getOriginator().getKills() + 1);
         }
     }
 
-    private static void processDeath(Unit defender)
+    private static void processDeath(Mob defender)
     {
         for (Unit unit : new ArrayList<>(GameState.getUnits()))
         {
-            if (unit.getTarget() != null && unit.getTarget().equals(defender))
-                unit.setTarget(null);
+            if (unit instanceof Tower)
+            {
+                Tower tower = (Tower) unit;
+                if (tower.getTarget() != null && tower.getTarget().equals(defender))
+                    tower.setTarget(null);
+            }
         }
 
         GameState.removeUnit(defender);

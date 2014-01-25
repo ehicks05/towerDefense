@@ -22,7 +22,7 @@ public final class GameCanvas extends Canvas
     private static boolean runningSimulation = true;
     private static String stopSimulationReason = "";
 
-    static JButton button;
+    static JToggleButton button;
 
     public GameCanvas()
     {
@@ -80,7 +80,7 @@ public final class GameCanvas extends Canvas
 
         JLabel label = new JLabel();
 
-        button = new JButton("Arrow Tower");
+        button = new JToggleButton("Arrow Tower");
         button.setVisible(true);
         panel.setLayout(new FlowLayout());
         panel.add(button);

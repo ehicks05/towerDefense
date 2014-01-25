@@ -2,20 +2,16 @@ package hicks.td;
 
 import hicks.td.entities.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public final class UnitPainter
 {
     private static final Image ARCHER_TOWER = new ImageIcon("ass\\guardTower.png").getImage();
     private static final Image ARROW        = new ImageIcon("ass\\arrow.png").getImage();
+    private static final Image GLAIVE       = new ImageIcon("ass\\glaive.png").getImage();
     private static final Image MOB1         = new ImageIcon("ass\\mob1.png").getImage();
     private static final Image PEASANT      = new ImageIcon("ass\\peasant.gif").getImage();
 
@@ -30,14 +26,12 @@ public final class UnitPainter
             int drawX = x - size;
             int drawY = y - size;
 
-            if (unit.getTeam() == 1)
-                g2d.setColor(Color.RED);
-            if (unit.getTeam() == 2)
-                g2d.setColor(Color.DARK_GRAY);
-
             // draw the unit
             if (unit instanceof Tower)
+            {
                 g2d.drawImage(ARCHER_TOWER, drawX, drawY, diameter, diameter, null);
+                if (isSelected(unit)) drawVisionCircle(g2d, (Tower) unit);
+            }
             if (unit instanceof Projectile)
             {
                 double rotationRequired = ((Arrow) unit).getTheta();
@@ -50,23 +44,23 @@ public final class UnitPainter
                 reset.rotate(0,0,0);
                 g2d.setTransform(reset);
             }
-            if (!(unit instanceof Tower) && !(unit instanceof Projectile))
+            if (unit instanceof Mob)
+            {
                 g2d.drawImage(PEASANT, drawX, drawY, diameter, diameter, null);
 
-            // draw additional UI elements connected to the unit
-            if (!isFullHealth(unit) || isSelected(unit)) drawHealthBar(g2d, unit);
-
-            if (isSelected(unit))
-            {
-                drawVisionCircle(g2d, unit);
-                drawObjectId(g2d, unit);
+                Mob mob = (Mob) unit;
+                if (!isFullHealth(mob) || isSelected(unit)) drawHealthBar(g2d, mob);
             }
+
+            // draw additional UI elements connected to the unit
+            if (isSelected(unit))
+                drawObjectId(g2d, unit);
         }
     }
 
-    private static boolean isFullHealth(Unit unit)
+    private static boolean isFullHealth(Mob mob)
     {
-        return unit.getCurrentHp() == unit.getMaxHp();
+        return mob.getCurrentHp() == mob.getMaxHp();
     }
 
     private static boolean isSelected(Unit unit)
@@ -75,13 +69,13 @@ public final class UnitPainter
         return selectedUnit != null && unit.equals(selectedUnit);
     }
 
-    private static void drawHealthBar(Graphics2D g2d, Unit unit)
+    private static void drawHealthBar(Graphics2D g2d, Mob mob)
     {
-        int unitX = (int) unit.getLocation().getX();
-        int unitY = (int) unit.getLocation().getY();
+        int unitX = (int) mob.getLocation().getX();
+        int unitY = (int) mob.getLocation().getY();
         int widthOfSlice = 1;
 
-        double currentHpPercent = (unit.getCurrentHp() * 100) / unit.getMaxHp();
+        double currentHpPercent = (mob.getCurrentHp() * 100) / mob.getMaxHp();
         int hpBoxes = (int) (currentHpPercent / 5);
 
         if (currentHpPercent > 66.6)
@@ -93,14 +87,14 @@ public final class UnitPainter
 
         // the health bar can be considered 20px wide. so start 10 pixels to the left of the vertex...
         for (int i = 0; i < hpBoxes; i++)
-            g2d.drawRect((unitX - 10 + (i * widthOfSlice)), (unitY - unit.getSizeRadius()), 1, 2);
+            g2d.drawRect((unitX - 10 + (i * widthOfSlice)), (unitY - mob.getSizeRadius()), 1, 2);
     }
 
-    private static void drawVisionCircle(Graphics2D g2d, Unit unit)
+    private static void drawVisionCircle(Graphics2D g2d, Tower tower)
     {
-        int x = (int) unit.getLocation().getX();
-        int y = (int) unit.getLocation().getY();
-        int size = unit.getSightRadius();
+        int x = (int) tower.getLocation().getX();
+        int y = (int) tower.getLocation().getY();
+        int size = tower.getAttackRange();
 
         g2d.setColor(Color.BLACK);
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 2 * .1f));
@@ -115,7 +109,7 @@ public final class UnitPainter
     {
         int x = (int) unit.getLocation().getX();
         int y = (int) unit.getLocation().getY();
-        int size = unit.getSightRadius();
+        int size = unit.getSizeRadius();
 
         g2d.setColor(Color.BLACK);
         g2d.drawString(String.valueOf(unit.getObjectId()), x + size + 5, y);

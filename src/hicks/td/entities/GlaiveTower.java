@@ -4,9 +4,9 @@ import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 
-public class ArrowTower extends Tower
+public class GlaiveTower extends Tower
 {
-    public ArrowTower(int team)
+    public GlaiveTower(int team)
     {
         setTeam(team);
         setSizeRadius(30);

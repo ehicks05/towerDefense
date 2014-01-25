@@ -1,8 +1,12 @@
 package hicks.td.entities;
 
+import hicks.td.GameState;
+import hicks.td.util.TileLoader;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Spawner extends Unit
 {
@@ -16,6 +20,14 @@ public class Spawner extends Unit
 
         setBuildSpeed(new BigDecimal(1));
         setTimeOfLastBuild(Util.now());
+    }
+
+    public Queue<Point> createPath()
+    {
+        Queue<Point> path = new ArrayBlockingQueue<>(2);
+        path.add(new Point(TileLoader.roadOffset - 16, 0));
+        path.add(new Point(TileLoader.roadOffset - 16, GameState.getGameMap().getHeight() - 1));
+        return path;
     }
 
     public boolean isReadyToBuild()
