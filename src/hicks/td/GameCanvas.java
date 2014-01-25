@@ -150,8 +150,11 @@ public final class GameCanvas extends Canvas
         gameCanvas.createBufferStrategy(2);
         BufferStrategy bufferStrategy = gameCanvas.getBufferStrategy();
 
-        //---------------
+        runGameLoop(bufferStrategy);
+    }
 
+    private static void runGameLoop(BufferStrategy bufferStrategy)
+    {
         Init.init();
         terrainImage = MapBuilder.buildMap();
 
