@@ -19,9 +19,19 @@ public class SoundManager
         }
     }
 
+    public static void playDeathSFX()
+    {
+        playSound(new File("ass\\humanDeath.wav"), -10f);
+    }
+
     public static void playShootSFX()
     {
         playSound(new File("ass\\bowFire.wav"), -10f);
+    }
+
+    public static void playShootAxeSFX()
+    {
+        playSound(new File("ass\\axeThrow.wav"), -16f);
     }
 
     public static void playHitSFX()

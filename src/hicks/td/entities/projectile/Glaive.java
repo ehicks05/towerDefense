@@ -47,7 +47,7 @@ public class Glaive extends Projectile
 
                 glaive.setDestination(glaive.getProjectileDestination(closestVisibleEnemy.getLocation()));
 
-                SoundManager.playShootSFX();
+                SoundManager.playShootAxeSFX();
 
                 GameState.addUnit(glaive);
             }
