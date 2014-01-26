@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 public final class UnitPainter
 {
-    private static final Image GUARD_TOWER  = new ImageIcon("ass\\guardTower.gif").getImage();
-    private static final Image CANNON_TOWER = new ImageIcon("ass\\cannonTower.gif").getImage();
-    private static final Image ARROW        = new ImageIcon("ass\\arrow.png").getImage();
-    private static final Image GLAIVE       = new ImageIcon("ass\\glaive.png").getImage();
-    private static final Image PEASANT      = new ImageIcon("ass\\peasant.gif").getImage();
+    private static final Image GUARD_TOWER  = new ImageIcon("ass\\img\\guardTower.gif").getImage();
+    private static final Image CANNON_TOWER = new ImageIcon("ass\\img\\cannonTower.gif").getImage();
+    private static final Image ARROW        = new ImageIcon("ass\\img\\arrow.png").getImage();
+    private static final Image GLAIVE       = new ImageIcon("ass\\img\\glaive.png").getImage();
+    private static final Image PEASANT      = new ImageIcon("ass\\img\\peasant.gif").getImage();
 
     public static void drawUnits(Graphics2D g2d)
     {

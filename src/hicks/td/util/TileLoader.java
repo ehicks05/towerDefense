@@ -23,7 +23,7 @@ public class TileLoader
     {
         try
         {
-            return ImageIO.read(new File("ass\\tiles.bmp"));
+            return ImageIO.read(new File("ass\\img\\tiles.bmp"));
         }
         catch (IOException e)
         {

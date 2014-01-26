@@ -1,0 +1,34 @@
+<project name="ericTD" default="build">
+    <target name="build">
+
+        <!-- Clean out the build destination directory -->
+        <delete dir="out"/>
+        <mkdir dir="out"/>
+        <mkdir dir="out/classes"/>
+
+        <!-- Clean out any windows thumbs.db files from the source tree -->
+        <delete>
+            <fileset dir="ass" includes="**/Thumbs.db"/>
+        </delete>
+
+        <!-- Compile Genesis -->
+        <javac srcdir="src" destdir="out/classes" debug="true" includeantruntime="false">
+            <classpath>
+                <pathelement location="C:/javalib/JLayer1.0.1/jl1.0.1.jar"/>
+            </classpath>
+        </javac>
+
+        <mkdir dir="out/jar"/>
+        <jar destfile="out/jar/ericTD.jar" basedir="out/classes">
+            <manifest>
+                <attribute name="Main-Class" value="hicks.td.GameCanvas"/>
+            </manifest>
+        </jar>
+
+        <!-- Copy all of the ___ to the target directory -->
+        <copy todir="out/jar/ass">
+            <fileset dir="ass"/>
+        </copy>
+
+    </target>
+</project>

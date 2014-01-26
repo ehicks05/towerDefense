@@ -13,7 +13,7 @@ public class MediaThread extends Thread
     {
         try
         {
-            InputStream soundtrack = new FileInputStream(new File("ass\\main.mp3"));
+            InputStream soundtrack = new FileInputStream(new File("ass\\aud\\main.mp3"));
             Player player = new Player(soundtrack);
 
 //            player.play();
