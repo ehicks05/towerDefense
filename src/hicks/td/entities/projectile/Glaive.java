@@ -13,7 +13,7 @@ public class Glaive extends Projectile
     private int m_hitsPossible = 4;
     private int m_hitsPerformed;
     private int m_bounceRange = 300;
-    private Unit lastUnitHit;
+    private Unit m_lastUnitHit;
 
     public Glaive(int team)
     {
@@ -78,11 +78,11 @@ public class Glaive extends Projectile
 
     public Unit getLastUnitHit()
     {
-        return lastUnitHit;
+        return m_lastUnitHit;
     }
 
     public void setLastUnitHit(Unit lastUnitHit)
     {
-        this.lastUnitHit = lastUnitHit;
+        this.m_lastUnitHit = lastUnitHit;
     }
 }
