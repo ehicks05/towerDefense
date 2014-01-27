@@ -1,19 +1,18 @@
 package hicks.td.entities.projectile;
 
-import hicks.td.CombatLogic;
 import hicks.td.GameState;
 import hicks.td.UnitLogic;
 import hicks.td.audio.SoundManager;
-import hicks.td.entities.mob.Mob;
 import hicks.td.entities.Unit;
+import hicks.td.entities.mob.Mob;
 import hicks.td.util.Util;
 
 public class Glaive extends Projectile
 {
     private int m_hitsPossible = 4;
     private int m_hitsPerformed;
-    private int m_bounceRange = 300;
     private Unit m_lastUnitHit;
+    private int m_bounceRange = 300;
 
     public Glaive(int team)
     {
@@ -29,9 +28,7 @@ public class Glaive extends Projectile
 
     public void performProjectileHit(Mob victim)
     {
-        SoundManager.playHitSFX();
-        CombatLogic.performAttack(this, victim);
-        GameState.removeUnit(this);
+        super.performProjectileHit(victim);
 
         if (m_hitsPerformed < m_hitsPossible)
         {
@@ -48,7 +45,6 @@ public class Glaive extends Projectile
                 glaive.setDestination(glaive.getProjectileDestination(closestVisibleEnemy.getLocation()));
 
                 SoundManager.playShootAxeSFX();
-
                 GameState.addUnit(glaive);
             }
         }
@@ -84,5 +80,15 @@ public class Glaive extends Projectile
     public void setLastUnitHit(Unit lastUnitHit)
     {
         this.m_lastUnitHit = lastUnitHit;
+    }
+
+    public int getBounceRange()
+    {
+        return m_bounceRange;
+    }
+
+    public void setBounceRange(int bounceRange)
+    {
+        m_bounceRange = bounceRange;
     }
 }

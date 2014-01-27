@@ -17,11 +17,11 @@ import java.util.Random;
 
 public class Projectile extends Unit
 {
-    Tower originator;
+    private Tower originator;
 
-    double m_maximumRange;
-    double m_distanceTravelled;
-    double m_theta;
+    private double m_maximumRange;
+    private double m_distanceTravelled;
+    private double m_theta;
 
     private int m_minDamage;
     private int m_maxDamage;
