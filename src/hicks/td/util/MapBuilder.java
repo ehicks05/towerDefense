@@ -17,7 +17,9 @@ public final class MapBuilder
         int iterations = (GameState.getGameMap().getWidth() / 32) * (GameState.getGameMap().getHeight() / 32);
         int x = 0;
         int y = 0;
-        int[] rgbArray = new int[32 * 32];
+
+        int[] grassRGBArray = tiles.get("GGGG").getRGB(0, 0, 32, 32, null, 0, 32);
+        int[] roadRGBArray  = tiles.get("DDDD").getRGB(0, 0, 32, 32, null, 0, 32);
 
         // fill map with grass
         for (int i = 0; i < iterations; i++)
@@ -28,10 +30,7 @@ public final class MapBuilder
                 y += 32;
             }
 
-            BufferedImage tile = tiles.get("GGGG");
-
-            rgbArray = tile.getRGB(0, 0, 32, 32, rgbArray, 0, 32);
-            terrain.setRGB(x, y, 32, 32, rgbArray, 0, 32);
+            terrain.setRGB(x, y, 32, 32, grassRGBArray, 0, 32);
 
             x += 32;
         }
@@ -56,12 +55,7 @@ public final class MapBuilder
             }
 
             if (x == (randomColumn - 1) * 32)
-            {
-                BufferedImage tile = tiles.get("DDDD");
-
-                rgbArray = tile.getRGB(0, 0, 32, 32, rgbArray, 0, 32);
-                terrain.setRGB(x, y, 32, 32, rgbArray, 0, 32);
-            }
+                terrain.setRGB(x, y, 32, 32, roadRGBArray, 0, 32);
 
             x += 32;
         }
