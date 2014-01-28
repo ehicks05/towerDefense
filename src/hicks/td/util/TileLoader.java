@@ -12,14 +12,13 @@ import java.util.*;
 public class TileLoader
 {
     public static int roadOffset;
-    static Map<String, BufferedImage> tiles = new HashMap<String, BufferedImage>();
-    static List<String> tileNames = Arrays.asList(
+    private static List<String> tileNames = Arrays.asList(
             "CCCC", "DDDD", "GGGG", "WWWW", "XXX1", "XXX2", "XXX3", "XXX4", "GGDD", "GDDD",
             "RRR1", "RRGG", "GGRR", "RRR2", "GRGR", "RGRG", "OIL1", "DDGG", "DGDG", "DDDG",
             "CGCC", "GCCC", "CCCG", "CCGC", "GGCC", "CCGG", "CGCG", "GCGC", "DGDD", "DDGD",
             "WGWG", "GWGW", "WWGG", "GGWW", "WGWW", "GWWW", "WWWG", "WWGW", "GDGD", "NULL");
 
-    static BufferedImage loadTileSet()
+    private static BufferedImage loadTileSet()
     {
         try
         {
@@ -33,8 +32,10 @@ public class TileLoader
         return null;
     }
 
-    static void createTileList()
+    public static Map<String, BufferedImage> createTileList()
     {
+        Map<String, BufferedImage> tiles = new HashMap<>();
+
         BufferedImage tileSet = loadTileSet();
 
         BufferedImage image;
@@ -53,8 +54,8 @@ public class TileLoader
             tiles.put(tileNames.get(i), image);
             GameState.addTileToTiles(new Tile(tileNames.get(i), 32, 32, image));
             x += 33;
-
         }
-    }
 
+        return tiles;
+    }
 }

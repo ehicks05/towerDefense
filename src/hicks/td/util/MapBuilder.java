@@ -1,17 +1,16 @@
 package hicks.td.util;
 
 import hicks.td.GameState;
-import hicks.td.Init;
-import hicks.td.util.TileLoader;
 
 import java.awt.image.BufferedImage;
+import java.util.Map;
 import java.util.Random;
 
 public final class MapBuilder
 {
     public static BufferedImage buildMap()
     {
-        TileLoader.createTileList();
+        Map<String, BufferedImage> tiles = TileLoader.createTileList();
 
         BufferedImage terrain = new BufferedImage(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight(), BufferedImage.TYPE_INT_RGB);
 
@@ -29,7 +28,7 @@ public final class MapBuilder
                 y += 32;
             }
 
-            BufferedImage tile = TileLoader.tiles.get("GGGG");
+            BufferedImage tile = tiles.get("GGGG");
 
             rgbArray = tile.getRGB(0, 0, 32, 32, rgbArray, 0, 32);
             terrain.setRGB(x, y, 32, 32, rgbArray, 0, 32);
@@ -58,7 +57,7 @@ public final class MapBuilder
 
             if (x == (randomColumn - 1) * 32)
             {
-                BufferedImage tile = TileLoader.tiles.get("DDDD");
+                BufferedImage tile = tiles.get("DDDD");
 
                 rgbArray = tile.getRGB(0, 0, 32, 32, rgbArray, 0, 32);
                 terrain.setRGB(x, y, 32, 32, rgbArray, 0, 32);
