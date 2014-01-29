@@ -1,5 +1,6 @@
-package hicks.td;
+package hicks.td.entities;
 
+import hicks.td.GameState;
 import hicks.td.entities.*;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;

@@ -1,7 +1,7 @@
 package hicks.td.entities.mob;
 
 import hicks.td.GameState;
-import hicks.td.UnitLogic;
+import hicks.td.entities.UnitLogic;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 

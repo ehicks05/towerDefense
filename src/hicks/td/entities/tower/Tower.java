@@ -1,6 +1,6 @@
 package hicks.td.entities.tower;
 
-import hicks.td.UnitLogic;
+import hicks.td.entities.UnitLogic;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 import hicks.td.entities.projectile.Projectile;

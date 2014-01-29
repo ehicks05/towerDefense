@@ -2,6 +2,7 @@ package hicks.td;
 
 import hicks.td.entities.GameMap;
 import hicks.td.entities.Unit;
+import hicks.td.entities.UnitLogic;
 import hicks.td.ui.*;
 import hicks.td.util.MapBuilder;
 import hicks.td.util.Metrics;
