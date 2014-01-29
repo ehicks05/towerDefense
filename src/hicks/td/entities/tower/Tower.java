@@ -1,18 +1,16 @@
 package hicks.td.entities.tower;
 
-import hicks.td.GameState;
 import hicks.td.UnitLogic;
-import hicks.td.audio.SoundManager;
-import hicks.td.entities.*;
-import hicks.td.entities.projectile.Arrow;
-import hicks.td.entities.projectile.Glaive;
+import hicks.td.entities.Point;
+import hicks.td.entities.Unit;
 import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Tower extends Unit
+public abstract class Tower extends Unit
 {
     private int             m_price;
     private int             m_attackRange;
@@ -33,6 +31,8 @@ public class Tower extends Unit
         return distance <= m_attackRange;
     }
 
+    public abstract Projectile getProjectile();
+
     // ------------ Behavior
 
     public void lookForTarget()
@@ -45,39 +45,18 @@ public class Tower extends Unit
     public void performHostileBehavior()
     {
         if (isTargetInRange() && isReadyToAttack())
-            shoot();
+        {
+            Projectile newProjectile = this.getProjectile();
+            newProjectile.setOriginator(this);
+            ProjectileLogic.shootProjectile(this, newProjectile, this.getTarget().getLocation());
+            this.setTimeOfLastAttack(Util.now());
+        }
 
         if (m_target != null && !isTargetInRange())
             m_target = null;
     }
 
-    public void shoot()
-    {
-        Projectile projectile = null;
-        if (this instanceof ArrowTower)
-            projectile = new Arrow(1);
-        if (this instanceof GlaiveTower)
-            projectile = new Glaive(1);
-
-        if (projectile == null) projectile = new Glaive(1);
-
-        projectile.setOriginator(this);
-        projectile.setLocation(getLocation());
-        projectile.setDestination(projectile.getProjectileDestination(m_target.getLocation()));
-
-        double unitX   = getLocation().getX();
-        double unitY   = getLocation().getY();
-        double targetX = getTarget().getLocation().getX();
-        double targetY = getTarget().getLocation().getY();
-        projectile.setTheta(Math.atan2(targetY - unitY, targetX - unitX) + .8);
-
-        SoundManager.playShootSFX();
-        GameState.addUnit(projectile);
-        m_timeOfLastAttack = Util.now();
-    }
-
     // ------------ Properties
-
 
     public int getPrice()
     {

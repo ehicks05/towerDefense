@@ -96,27 +96,28 @@ public final class UnitLogic
     }
 
 
-    public static Unit getClosestVisibleEnemy(Unit callingUnit, int attackRange)
+    public static Mob getClosestVisibleEnemy(Unit callingUnit, int attackRange)
     {
         return getClosestVisibleEnemy(callingUnit, attackRange, null);
     }
 
-    public static Unit getClosestVisibleEnemy(Unit callingUnit, int attackRange, Mob exception)
+    public static Mob getClosestVisibleEnemy(Unit callingUnit, int attackRange, List<Mob> exceptions)
     {
-        Unit closestEnemy = null;
+        Mob closestEnemy = null;
         double smallestDistance = Double.MAX_VALUE;
 
-        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        for (Mob mob : new ArrayList<>(GameState.getMobs()))
         {
-            if (unit == callingUnit || unit.getTeam() == callingUnit.getTeam())
+            if (mob == callingUnit || mob.getTeam() == callingUnit.getTeam())
                 continue;
 
-            if (exception != null && unit == exception) continue;
+            if (exceptions != null && exceptions.size() > 0 && exceptions.contains(mob))
+                continue;
 
-            double distance = callingUnit.getLocation().getDistance(unit.getLocation());
+            double distance = callingUnit.getLocation().getDistance(mob.getLocation());
             if (distance <= attackRange && distance < smallestDistance)
             {
-                closestEnemy = unit;
+                closestEnemy = mob;
                 smallestDistance = distance;
             }
         }

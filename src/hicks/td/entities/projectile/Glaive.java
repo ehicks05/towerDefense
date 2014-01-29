@@ -7,11 +7,14 @@ import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Mob;
 import hicks.td.util.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Glaive extends Projectile
 {
     private int m_hitsPossible = 4;
     private int m_hitsPerformed;
-    private Unit m_lastUnitHit;
+    private List<Mob> m_mobsHit = new ArrayList<>();
     private int m_bounceRange = 300;
 
     public Glaive(int team)
@@ -30,19 +33,23 @@ public class Glaive extends Projectile
     {
         super.performProjectileHit(victim);
 
+        // attempt to bounce to another mob
         if (m_hitsPerformed < m_hitsPossible)
         {
-            Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(this, m_bounceRange, victim);
+            List<Mob> mobsHit = this.getMobsHit();
+            mobsHit.add(victim);
+
+            Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(this, m_bounceRange, mobsHit);
 
             if (closestVisibleEnemy != null)
             {
                 Glaive glaive = new Glaive(getTeam());
-                glaive.setLocation(getLocation());
-                glaive.setOriginator(getOriginator());
-                glaive.setHitsPerformed(getHitsPerformed() + 1);
-                glaive.setLastUnitHit(victim);
+                glaive.setLocation(this.getLocation());
+                glaive.setOriginator(this.getOriginator());
+                glaive.setHitsPerformed(this.getHitsPerformed() + 1);
+                glaive.setMobsHit(mobsHit);
 
-                glaive.setDestination(glaive.getProjectileDestination(closestVisibleEnemy.getLocation()));
+                glaive.setDestination(ProjectileLogic.getProjectileDestination(glaive, closestVisibleEnemy.getLocation()));
 
                 SoundManager.playShootAxeSFX();
                 GameState.addUnit(glaive);
@@ -72,14 +79,14 @@ public class Glaive extends Projectile
         this.m_hitsPerformed = hitsPerformed;
     }
 
-    public Unit getLastUnitHit()
+    public List<Mob> getMobsHit()
     {
-        return m_lastUnitHit;
+        return m_mobsHit;
     }
 
-    public void setLastUnitHit(Unit lastUnitHit)
+    public void setMobsHit(List<Mob> mobsHit)
     {
-        this.m_lastUnitHit = lastUnitHit;
+        m_mobsHit = mobsHit;
     }
 
     public int getBounceRange()

@@ -1,6 +1,9 @@
 package hicks.td;
 
 import hicks.td.entities.*;
+import hicks.td.entities.mob.Mob;
+import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.tower.Tower;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,6 +17,37 @@ public final class GameState
     private static Player       player;
     private static List<Tile>   tiles = new ArrayList<>();
     private static Spawner      spawner = new Spawner(2);
+
+    public static List<Tower> getTowers()
+    {
+        List<Tower> towers = new ArrayList<>();
+
+        for (Unit unit : new ArrayList<>(units))
+            if (unit instanceof Tower) towers.add((Tower) unit);
+
+        return towers;
+    }
+
+    public static List<Projectile> getProjectiles()
+    {
+        List<Projectile> projectiles = new ArrayList<>();
+
+        for (Unit unit : new ArrayList<>(units))
+            if (unit instanceof Projectile) projectiles.add((Projectile) unit);
+
+        return projectiles;
+    }
+
+    public static List<Mob> getMobs()
+    {
+        List<Mob> mobs = new ArrayList<>();
+
+        for (Unit unit : new ArrayList<>(units))
+            if (unit instanceof Mob) mobs.add((Mob) unit);
+
+        return mobs;
+    }
+
 
     public static void addUnit(Unit unit)
     {
