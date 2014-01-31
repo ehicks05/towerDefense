@@ -2,26 +2,61 @@ package hicks.td.ui;
 
 public class DisplayInfo
 {
-    private static int INTERFACE_HEIGHT = 64;
-    private static int TOTAL_SCREEN_HEIGHT; //= WORLD_HEIGHT + INTERFACE_HEIGHT;
+    private static int interfaceHeight = 64;
+    private static int totalScreenHeight; //= WORLD_HEIGHT + interfaceHeight;
+    private static int displayWidth;
+    private static int displayHeight;
+
+    public static double getScalingFactor()
+    {
+        double scaleWidth = 1024 / displayWidth;
+        double scaleHeight = 800 / displayHeight;
+
+        String scaleBy = scaleWidth < scaleHeight ? "width" : "height";
+
+        if (scaleBy.equals("width"))
+            return scaleWidth;
+        else
+            return scaleHeight;
+    }
 
     public static int getInterfaceHeight()
     {
-        return INTERFACE_HEIGHT;
+        return interfaceHeight;
     }
 
     public static void setInterfaceHeight(int interfaceHeight)
     {
-        INTERFACE_HEIGHT = interfaceHeight;
+        DisplayInfo.interfaceHeight = interfaceHeight;
     }
 
     public static int getTotalScreenHeight()
     {
-        return TOTAL_SCREEN_HEIGHT;
+        return totalScreenHeight;
     }
 
     public static void setTotalScreenHeight(int totalScreenHeight)
     {
-        DisplayInfo.TOTAL_SCREEN_HEIGHT = totalScreenHeight;
+        DisplayInfo.totalScreenHeight = totalScreenHeight;
+    }
+
+    public static int getDisplayWidth()
+    {
+        return displayWidth;
+    }
+
+    public static void setDisplayWidth(int displayWidth)
+    {
+        DisplayInfo.displayWidth = displayWidth;
+    }
+
+    public static int getDisplayHeight()
+    {
+        return displayHeight;
+    }
+
+    public static void setDisplayHeight(int displayHeight)
+    {
+        DisplayInfo.displayHeight = displayHeight;
     }
 }

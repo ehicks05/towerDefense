@@ -41,6 +41,9 @@ public final class GameCanvas extends Canvas
     {
         Graphics2D g2d = (Graphics2D) g;
 
+        double scalingFactor = DisplayInfo.getScalingFactor();
+        g2d.scale(scalingFactor, scalingFactor);
+
         g2d.drawImage(terrainImage, 0, 0, null);
 
         UnitPainter.drawUnits(g2d);
@@ -82,8 +85,10 @@ public final class GameCanvas extends Canvas
     {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         DisplayMode displayMode = graphicsDevice.getDisplayMode();
+        DisplayInfo.setDisplayWidth(displayMode.getWidth());
+        DisplayInfo.setDisplayHeight(displayMode.getHeight());
 
-        GameState.setGameMap(new GameMap(displayMode.getWidth() - displayMode.getWidth() % 32 - 256, displayMode.getHeight() - displayMode.getHeight() % 32 - 64 - 256));
+        GameState.setGameMap(new GameMap(1024, 768));
         GameState.getGameMap().setWorldWidthInTiles(GameState.getGameMap().getWidth() / 32);
         GameState.getGameMap().setWorldHeightInTiles(GameState.getGameMap().getHeight() / 32);
         DisplayInfo.setTotalScreenHeight(GameState.getGameMap().getHeight());
@@ -91,7 +96,7 @@ public final class GameCanvas extends Canvas
         final JFrame frame = new MyFrame();
         final JPanel panel = (JPanel) frame.getContentPane();
 
-        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight() + 100));
+        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight() + 32));
         panel.setLayout(null);
 
         GameCanvas gameCanvas = new GameCanvas();

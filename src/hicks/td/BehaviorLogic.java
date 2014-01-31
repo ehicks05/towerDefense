@@ -16,7 +16,12 @@ public final class BehaviorLogic
     public static void updateState()
     {
         performSpawningPhase();
+        performUpdatePhase();
 
+    }
+
+    private static void performUpdatePhase()
+    {
         for (Unit unit : new ArrayList<>(GameState.getUnits()))
         {
             if (unit instanceof Mob)
@@ -29,7 +34,10 @@ public final class BehaviorLogic
                 mob.performMobBehavior();
             }
 
-            if (unit instanceof Tower) chooseTowerBehavior((Tower) unit);
+            if (unit instanceof Tower)
+            {
+                chooseTowerBehavior((Tower) unit);
+            }
             if (unit instanceof Projectile)
             {
                 Projectile projectile = (Projectile) unit;

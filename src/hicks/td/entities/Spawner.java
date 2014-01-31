@@ -22,14 +22,6 @@ public class Spawner extends Unit
         setTimeOfLastBuild(Util.now());
     }
 
-    public Queue<Point> createPath()
-    {
-        Queue<Point> path = new ArrayBlockingQueue<>(2);
-        path.add(new Point(TileLoader.roadOffset - 16, 0));
-        path.add(new Point(TileLoader.roadOffset - 16, GameState.getGameMap().getHeight() - 1));
-        return path;
-    }
-
     public boolean isReadyToBuild()
     {
         return Util.getElapsedTime(getTimeOfLastBuild()).compareTo(getBuildSpeed()) > 0;

@@ -14,7 +14,7 @@ public final class Init
     {
         GameState.setStartTime(Util.now());
         boolean deleteSuccess = new File("log.txt").delete();
-        Log.info("Clearing logs..." + (deleteSuccess ? "done" : "no log found"));
+        Log.info("Clearing logs..." + (deleteSuccess ? "done." : "log not found."));
         Log.info("Initializing " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(GameState.getStartTime()));
 
         GameState.setPlayer(new Player(300, 20, 1));
