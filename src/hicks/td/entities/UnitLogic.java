@@ -16,17 +16,6 @@ import java.util.Queue;
 
 public final class UnitLogic
 {
-    public static Unit getUnitByObjectId(int id)
-    {
-        List<Unit> units = new ArrayList<>(GameState.getUnits());
-
-        for (Unit unit : units)
-            if (unit.getObjectId() == id)
-                return unit;
-
-        return null;
-    }
-
     public static Unit removeUnitAsTarget(Unit formerTarget)
     {
         List<Unit> units = new ArrayList<>(GameState.getUnits());
@@ -96,7 +85,6 @@ public final class UnitLogic
         return actualDistanceToMove;
     }
 
-
     public static Mob getClosestVisibleEnemy(Unit callingUnit, int attackRange)
     {
         return getClosestVisibleEnemy(callingUnit, attackRange, null);
@@ -124,21 +112,6 @@ public final class UnitLogic
         }
 
         return closestEnemy;
-    }
-
-    public static void moveAlongPath(Mob mob)
-    {
-        Queue<Point> path = mob.getPath();
-        Point pathPoint = path.peek();
-
-        if (pathPoint != null)
-        {
-            BigDecimal currentDistance = new BigDecimal(mob.getLocation().getDistance(pathPoint)).setScale(0, RoundingMode.HALF_UP);
-            if (currentDistance.equals(BigDecimal.ZERO))
-                path.remove();
-            else
-                move(mob, pathPoint);
-        }
     }
 
     public static int getUnitsOnTeam(int team)

@@ -9,8 +9,8 @@ public class DisplayInfo
 
     public static double getScalingFactor()
     {
-        double scaleWidth = 1024 / displayWidth;
-        double scaleHeight = 800 / displayHeight;
+        double scaleWidth = (double) 1024 / displayWidth;
+        double scaleHeight = (double) 800 / displayHeight;
 
         String scaleBy = scaleWidth < scaleHeight ? "width" : "height";
 

@@ -55,8 +55,8 @@ public final class BehaviorLogic
         if (spawner.isReadyToBuild() && player.getRound() < 6)
         {
             Mob mob = new Footman(2);
-            mob.setLocation(new Point(TileLoader.roadOffset - 16, 0));
-            mob.setPath(spawner.createPath());
+            mob.setLocation(new Point(32, 32));
+            mob.setPath(mob.createPath());
 
             if (player.getRound() > 1)
             {

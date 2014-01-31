@@ -42,7 +42,7 @@ public final class GameCanvas extends Canvas
         Graphics2D g2d = (Graphics2D) g;
 
         double scalingFactor = DisplayInfo.getScalingFactor();
-        g2d.scale(scalingFactor, scalingFactor);
+//        g2d.scale(scalingFactor, scalingFactor);
 
         g2d.drawImage(terrainImage, 0, 0, null);
 
@@ -96,7 +96,7 @@ public final class GameCanvas extends Canvas
         final JFrame frame = new MyFrame();
         final JPanel panel = (JPanel) frame.getContentPane();
 
-        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight() + 32));
+        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight() + 96));
         panel.setLayout(null);
 
         GameCanvas gameCanvas = new GameCanvas();

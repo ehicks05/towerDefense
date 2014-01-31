@@ -1,10 +1,9 @@
 package hicks.td.entities.mob;
 
 import hicks.td.GameState;
-import hicks.td.entities.UnitLogic;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
-import hicks.td.util.TileLoader;
+import hicks.td.entities.UnitLogic;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -17,7 +16,7 @@ public class Mob extends Unit
     private int m_currentHp;
     private int m_maxHp;
     private int m_armor;
-    private Queue<Point> m_path = new ArrayBlockingQueue<>(30);
+    private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
 
     public boolean isAlive()
     {
@@ -26,7 +25,7 @@ public class Mob extends Unit
 
     public void performMobBehavior()
     {
-        UnitLogic.moveAlongPath(this);
+        MobLogic.moveAlongPath(this);
         if (m_path.size() == 0)
         {
             UnitLogic.removeUnitAsTarget(this);
@@ -37,9 +36,11 @@ public class Mob extends Unit
 
     public Queue<Point> createPath()
     {
-        Queue<Point> path = new ArrayBlockingQueue<>(2);
-        path.add(new Point(TileLoader.roadOffset - 16, 0));
-        path.add(new Point(TileLoader.roadOffset - 16, GameState.getGameMap().getHeight() - 1));
+        Queue<Point> path = new ArrayBlockingQueue<>(4);
+        path.add(new Point(32, 32));
+        path.add(new Point(32, GameState.getGameMap().getHeight() - 32));
+        path.add(new Point(GameState.getGameMap().getWidth() - 32, GameState.getGameMap().getHeight() - 32));
+        path.add(new Point(GameState.getGameMap().getWidth() - 32, 32));
         return path;
     }
 
