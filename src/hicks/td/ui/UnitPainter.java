@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public final class UnitPainter
 {
-    private static final Image GUARD_TOWER  = new ImageIcon("ass\\img\\guardTower.gif").getImage();
-    private static final Image CANNON_TOWER = new ImageIcon("ass\\img\\cannonTower.gif").getImage();
+    public static final Image GUARD_TOWER  = new ImageIcon("ass\\img\\guardTower.gif").getImage();
+    public static final Image CANNON_TOWER = new ImageIcon("ass\\img\\cannonTower.gif").getImage();
     private static final Image ARROW        = new ImageIcon("ass\\img\\arrow.png").getImage();
     private static final Image GLAIVE       = new ImageIcon("ass\\img\\glaive.png").getImage();
     private static final Image PEASANT      = new ImageIcon("ass\\img\\peasant.gif").getImage();

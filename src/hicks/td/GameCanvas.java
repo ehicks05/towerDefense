@@ -107,10 +107,9 @@ public final class GameCanvas extends Canvas
         label = new JLabel();
         label.setVisible(true);
 
-        final JToggleButton arrowButton = new JToggleButton("Arrow Tower");
+        final JToggleButton arrowButton = new JToggleButton("Arrow Tower", new ImageIcon(UnitPainter.GUARD_TOWER), true);
         arrowButton.setVisible(true);
-        arrowButton.setSelected(true);
-        final JToggleButton glaiveButton = new JToggleButton("Glaive Tower");
+        final JToggleButton glaiveButton = new JToggleButton("Glaive Tower", new ImageIcon(UnitPainter.CANNON_TOWER));
         glaiveButton.setVisible(true);
 
         panel.setLayout(new FlowLayout());
