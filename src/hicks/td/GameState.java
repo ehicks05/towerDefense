@@ -5,49 +5,20 @@ import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.tower.Tower;
 
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class GameState
 {
-    private static List<Unit>   units = new ArrayList<>();
-    private static GameMap      gameMap;
-    private static BigDecimal   startTime;
-    private static Player       player;
-    private static List<Tile>   tiles = new ArrayList<>();
-    private static Spawner      spawner = new Spawner(2);
-
-    public static List<Tower> getTowers()
-    {
-        List<Tower> towers = new ArrayList<>();
-
-        for (Unit unit : new ArrayList<>(units))
-            if (unit instanceof Tower) towers.add((Tower) unit);
-
-        return towers;
-    }
-
-    public static List<Projectile> getProjectiles()
-    {
-        List<Projectile> projectiles = new ArrayList<>();
-
-        for (Unit unit : new ArrayList<>(units))
-            if (unit instanceof Projectile) projectiles.add((Projectile) unit);
-
-        return projectiles;
-    }
-
-    public static List<Mob> getMobs()
-    {
-        List<Mob> mobs = new ArrayList<>();
-
-        for (Unit unit : new ArrayList<>(units))
-            if (unit instanceof Mob) mobs.add((Mob) unit);
-
-        return mobs;
-    }
-
+    private static List<Unit>    units = new ArrayList<>();
+    private static GameMap       gameMap;
+    private static BigDecimal    startTime;
+    private static Player        player;
+    private static List<Tile>    tiles = new ArrayList<>();
+    private static Spawner       spawner = new Spawner(2);
+    private static BufferedImage terrainImage;
 
     public static void addUnit(Unit unit)
     {
@@ -62,6 +33,11 @@ public final class GameState
     public static void addTileToTiles(Tile tile)
     {
         GameState.tiles.add(tile);
+    }
+
+    public static void adjustStartTime(BigDecimal offset)
+    {
+        setStartTime(getStartTime().add(offset));
     }
 
     // ------------------------ properties
@@ -124,5 +100,15 @@ public final class GameState
     public static void setSpawner(Spawner spawner)
     {
         GameState.spawner = spawner;
+    }
+
+    public static BufferedImage getTerrainImage()
+    {
+        return terrainImage;
+    }
+
+    public static void setTerrainImage(BufferedImage terrainImage)
+    {
+        GameState.terrainImage = terrainImage;
     }
 }

@@ -1,6 +1,5 @@
 package hicks.td.ui;
 
-import hicks.td.GameState;
 import hicks.td.util.Log;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ public class MyFrame extends JFrame
     public MyFrame()
     {
         super("Eric's Tower Defense");
-        getContentPane().setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), DisplayInfo.getTotalScreenHeight()));
+        getContentPane().setPreferredSize(new Dimension(DisplayInfo.getWindowWidth(), DisplayInfo.getWindowHeight()));
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(32, 32);

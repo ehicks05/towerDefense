@@ -1,40 +1,50 @@
 package hicks.td;
 
-import hicks.td.entities.GameMap;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
+import hicks.td.entities.mob.Mob;
+import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.tower.Tower;
 import hicks.td.ui.*;
-import hicks.td.util.MapBuilder;
 import hicks.td.util.Metrics;
 import hicks.td.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public final class GameCanvas extends Canvas
 {
-    private static BufferedImage terrainImage;
     private static Unit selectedUnit = new Unit();
 
-    private static boolean runningSimulation = true;
+    private static boolean runningSimulation = false;
+    private static boolean displayMenu = true;
     private static String stopSimulationReason = "";
 
-    private static JLabel label;
+    private static JFrame frame;
+    private static JPanel gamePanel;
+    private static JPanel mainMenuPanel;
+    private static JPanel cards;
+    private static CardLayout cardLayout;
+
+    private static BigDecimal timePaused;
+    private static BigDecimal timeResumed;
+
+    private static JLabel infoLabel;
     private static String towerToggle = "Arrow";
 
     public GameCanvas()
     {
-        setSize(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight());
+        this.setSize(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight());
 
-        addKeyListener(new MyKeyListener());
-        addMouseListener(new MyMouseListener());
-        addMouseMotionListener(new MyMouseMotionListener());
+        this.addKeyListener(new MyKeyListener());
+        this.addMouseListener(new MyMouseListener());
+        this.addMouseMotionListener(new MyMouseMotionListener());
+
+        this.setBounds(0, 0, GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight());
+        this.setIgnoreRepaint(true);
     }
 
     public static void paintWorld(Graphics g)
@@ -42,20 +52,19 @@ public final class GameCanvas extends Canvas
         Graphics2D g2d = (Graphics2D) g;
 
         double scalingFactor = DisplayInfo.getScalingFactor();
-//        g2d.scale(scalingFactor, scalingFactor);
+        g2d.scale(scalingFactor, scalingFactor);
 
-        g2d.drawImage(terrainImage, 0, 0, null);
+        g2d.drawImage(GameState.getTerrainImage(), 0, 0, null);
 
         UnitPainter.drawUnits(g2d);
-//        InterfacePainter.drawInterface(g2d);
-        label.setText(getLabelText());
+        infoLabel.setText(getLabelText());
 
         if (!runningSimulation)
         {
             Font font = new Font("Helvetica", Font.PLAIN, 36);
             g2d.setFont(font);
             g2d.setColor(Color.BLACK);
-            g2d.drawString(stopSimulationReason, GameState.getGameMap().getWidth() / 2, DisplayInfo.getTotalScreenHeight() / 2);
+            g2d.drawString(stopSimulationReason, DisplayInfo.getWindowWidth() / 2, DisplayInfo.getWindowHeight() / 2);
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -64,90 +73,49 @@ public final class GameCanvas extends Canvas
 
     private static String getLabelText()
     {
-        String labelText = "<html><table><tr>";
-        // info column 1
-        labelText += "<td>Gold: " + GameState.getPlayer().getGold()   + "</td>";
-        labelText += "<td>Round: " + GameState.getPlayer().getRound() + "</td>";
-        labelText += "<td>Lives: " + GameState.getPlayer().getLives() + "</td>";
-        labelText += "</tr><tr>";
-
         BigDecimal elapsed = Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP);
 
-        labelText += "<td>Stopwatch: " + elapsed                 + "</td>";
-        labelText += "<td>FPS: " + Metrics.calculateFPS()        + "</td>";
-        labelText += "<td>Units: " + GameState.getUnits().size() + "</td>";
+        String labelText = "<html><table><tr>";
 
+        labelText += "<td>Gold:</td><td>" + GameState.getPlayer().getGold()   + "</td>";
+        labelText += "<td>Round:</td><td>" + GameState.getPlayer().getRound() + "</td>";
+        labelText += "<td>Lives:</td><td>" + GameState.getPlayer().getLives() + "</td>";
+        labelText += "</tr><tr>";
+
+        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
+        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
+        labelText += "<td>Units:</td><td>" + GameState.getUnits().size() + "</td>";
         labelText += "</tr></table></html>";
+
         return labelText;
     }
 
     public static void main(String[] args)
     {
-        GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        DisplayMode displayMode = graphicsDevice.getDisplayMode();
-        DisplayInfo.setDisplayWidth(displayMode.getWidth());
-        DisplayInfo.setDisplayHeight(displayMode.getHeight());
+        Init.init();
 
-        GameState.setGameMap(new GameMap(1024, 768));
-        GameState.getGameMap().setWorldWidthInTiles(GameState.getGameMap().getWidth() / 32);
-        GameState.getGameMap().setWorldHeightInTiles(GameState.getGameMap().getHeight() / 32);
-        DisplayInfo.setTotalScreenHeight(GameState.getGameMap().getHeight());
-
-        final JFrame frame = new MyFrame();
-        final JPanel panel = (JPanel) frame.getContentPane();
-
-        panel.setPreferredSize(new Dimension(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight() + 96));
-        panel.setLayout(null);
+        frame = new MyFrame();
+        gamePanel = new MyGamePanel();
 
         GameCanvas gameCanvas = new GameCanvas();
-        gameCanvas.setBounds(0, 0, GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight());
-        gameCanvas.setIgnoreRepaint(true);
-        panel.add(gameCanvas);
 
-        label = new JLabel();
-        label.setVisible(true);
+        gamePanel.add(gameCanvas);
 
-        final JToggleButton arrowButton = new JToggleButton("Arrow Tower", new ImageIcon(UnitPainter.GUARD_TOWER), true);
-        arrowButton.setVisible(true);
-        final JToggleButton glaiveButton = new JToggleButton("Glaive Tower", new ImageIcon(UnitPainter.CANNON_TOWER));
-        glaiveButton.setVisible(true);
+        infoLabel = new JLabel();
+        infoLabel.setVisible(true);
+        gamePanel.add(infoLabel);
 
-        panel.setLayout(new FlowLayout());
-        panel.add(label);
-        panel.add(arrowButton);
-        panel.add(glaiveButton);
+        mainMenuPanel = new MainMenuPanel();
 
-        arrowButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (arrowButton.isSelected())
-                {
-                    towerToggle = "Arrow";
-                    glaiveButton.setSelected(false);
-                }
-                else
-                {
-                    towerToggle = "Glaive";
-                }
-            }
-        });
+        cards = new JPanel(new CardLayout());
+        frame.add(cards);
+        cards.add(gamePanel);
+        cards.add(mainMenuPanel);
 
-        glaiveButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (glaiveButton.isSelected())
-                {
-                    towerToggle = "Glaive";
-                    arrowButton.setSelected(false);
-                }
-                else
-                {
-                    towerToggle = "Arrow";
-                }
-            }
-        });
+        cardLayout = (CardLayout) cards.getLayout();
+        cardLayout.addLayoutComponent(gamePanel, "gamePanel");
+        cardLayout.addLayoutComponent(mainMenuPanel, "mainMenuPanel");
+        cardLayout.show(cards, mainMenuPanel.getName());
 
         frame.pack();
 
@@ -160,9 +128,6 @@ public final class GameCanvas extends Canvas
 
     private static void runGameLoop(BufferStrategy bufferStrategy)
     {
-        Init.init();
-        terrainImage = MapBuilder.buildMap();
-
         final int DELAY = 16666666; // (16 ms)
         long beforeTime = System.nanoTime();
         long sleep;
@@ -213,6 +178,46 @@ public final class GameCanvas extends Canvas
                 runningSimulation = false;
                 stopSimulationReason = "YOU WIN!";
             }
+        }
+    }
+
+    public static void displayMenu()
+    {
+        pauseGame();
+        cardLayout.show(cards, mainMenuPanel.getName());
+    }
+
+    public static void closeMenu()
+    {
+        cardLayout.show(cards, gamePanel.getName());
+        resumeGame();
+    }
+
+    private static void pauseGame()
+    {
+        runningSimulation = false;
+        timePaused = Util.now();
+    }
+
+    private static void resumeGame()
+    {
+        runningSimulation = true;
+        timeResumed = Util.now();
+
+        if (timePaused != null)
+        {
+            BigDecimal timeDeltaSeconds = Util.getElapsedTime(timePaused, timeResumed);
+            BigDecimal timeDeltaMillis = timeDeltaSeconds.multiply(new BigDecimal("1000"));
+            GameState.adjustStartTime(timeDeltaMillis);
+
+            for (Tower tower : Util.getTowers())
+                tower.setTimeOfLastAttack(tower.getTimeOfLastAttack().add(timeDeltaMillis));
+
+            for (Projectile projectile : Util.getProjectiles())
+                projectile.setTimeOfLastMove(projectile.getTimeOfLastMove().add(timeDeltaMillis));
+
+            for (Mob mob : Util.getMobs())
+                mob.setTimeOfLastMove(mob.getTimeOfLastMove().add(timeDeltaMillis));
         }
     }
 

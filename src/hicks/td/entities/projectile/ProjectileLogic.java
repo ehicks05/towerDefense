@@ -7,6 +7,7 @@ import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Mob;
 import hicks.td.util.NewtonRaphson;
+import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -64,7 +65,7 @@ public class ProjectileLogic
         UnitLogic.move(projectile, projectile.getDestination());
 
         // see if we have hit anyone
-        for (Mob mob : new ArrayList<>(GameState.getMobs()))
+        for (Mob mob : new ArrayList<>(Util.getMobs()))
         {
             // don't hit the guy you just hit - glaives are more fun when they bounce around
             if (projectile instanceof Glaive)

@@ -1,12 +1,14 @@
 package hicks.td;
 
-import hicks.td.entities.*;
+import hicks.td.entities.Player;
+import hicks.td.entities.Point;
+import hicks.td.entities.Spawner;
+import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Footman;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.entities.tower.Tower;
-import hicks.td.util.TileLoader;
 import hicks.td.util.Util;
 
 import java.util.ArrayList;

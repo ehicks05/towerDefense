@@ -16,7 +16,7 @@ public class MediaThread extends Thread
             InputStream soundtrack = new FileInputStream(new File("ass\\aud\\main.mp3"));
             Player player = new Player(soundtrack);
 
-//            player.play();
+            player.play();
         }
         catch(Exception e)
         {

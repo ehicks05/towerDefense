@@ -95,7 +95,7 @@ public final class UnitLogic
         Mob closestEnemy = null;
         double smallestDistance = Double.MAX_VALUE;
 
-        for (Mob mob : new ArrayList<>(GameState.getMobs()))
+        for (Mob mob : new ArrayList<>(Util.getMobs()))
         {
             if (mob == callingUnit || mob.getTeam() == callingUnit.getTeam())
                 continue;
