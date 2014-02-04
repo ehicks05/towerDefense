@@ -1,5 +1,6 @@
 package hicks.td;
 
+import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
@@ -38,7 +39,7 @@ public final class CombatLogic
             }
         }
 
-        SoundManager.playDeathSFX();
+        SoundManager.playSFX(SoundEffect.DEATH);
         GameState.removeUnit(defender);
     }
 

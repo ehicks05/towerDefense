@@ -1,6 +1,7 @@
 package hicks.td.entities.projectile;
 
 import hicks.td.GameState;
+import hicks.td.audio.SoundEffect;
 import hicks.td.entities.UnitLogic;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Point;
@@ -26,7 +27,7 @@ public class ProjectileLogic
         double targetY = destination.getY();
         projectile.setTheta(Math.atan2(targetY - unitY, targetX - unitX) + .8); // todo deal with this magic bullshit
 
-        SoundManager.playShootSFX();
+        SoundManager.playSFX(SoundEffect.SHOOT_ARROW);
         GameState.addUnit(projectile);
     }
 

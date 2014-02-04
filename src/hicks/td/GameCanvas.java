@@ -193,32 +193,31 @@ public final class GameCanvas extends Canvas
         resumeGame();
     }
 
-    private static void pauseGame()
+    public static void pauseGame()
     {
         runningSimulation = false;
         timePaused = Util.now();
     }
 
-    private static void resumeGame()
+    public static void resumeGame()
     {
         runningSimulation = true;
         timeResumed = Util.now();
 
-        if (timePaused != null)
-        {
-            BigDecimal timeDeltaSeconds = Util.getElapsedTime(timePaused, timeResumed);
-            BigDecimal timeDeltaMillis = timeDeltaSeconds.multiply(new BigDecimal("1000"));
-            GameState.adjustStartTime(timeDeltaMillis);
+        if (timePaused == null) timePaused = Util.now();
 
-            for (Tower tower : Util.getTowers())
-                tower.setTimeOfLastAttack(tower.getTimeOfLastAttack().add(timeDeltaMillis));
+        BigDecimal timeDeltaSeconds = Util.getElapsedTime(timePaused, timeResumed);
+        BigDecimal timeDeltaMillis = timeDeltaSeconds.multiply(new BigDecimal("1000"));
+        GameState.adjustStartTime(timeDeltaMillis);
 
-            for (Projectile projectile : Util.getProjectiles())
-                projectile.setTimeOfLastMove(projectile.getTimeOfLastMove().add(timeDeltaMillis));
+        for (Tower tower : Util.getTowers())
+            tower.setTimeOfLastAttack(tower.getTimeOfLastAttack().add(timeDeltaMillis));
 
-            for (Mob mob : Util.getMobs())
-                mob.setTimeOfLastMove(mob.getTimeOfLastMove().add(timeDeltaMillis));
-        }
+        for (Projectile projectile : Util.getProjectiles())
+            projectile.setTimeOfLastMove(projectile.getTimeOfLastMove().add(timeDeltaMillis));
+
+        for (Mob mob : Util.getMobs())
+            mob.setTimeOfLastMove(mob.getTimeOfLastMove().add(timeDeltaMillis));
     }
 
     public static Unit getSelectedUnit()

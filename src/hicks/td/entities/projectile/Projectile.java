@@ -2,6 +2,7 @@ package hicks.td.entities.projectile;
 
 import hicks.td.CombatLogic;
 import hicks.td.GameState;
+import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Mob;
@@ -35,7 +36,7 @@ public abstract class Projectile extends Unit
     {
         CombatLogic.performAttack(this, victim);
         GameState.removeUnit(this);
-        SoundManager.playHitSFX();
+        SoundManager.playSFX(SoundEffect.WEAPON_HIT);
     }
 
     // ---------- Properties

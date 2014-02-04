@@ -19,24 +19,9 @@ public class SoundManager
         }
     }
 
-    public static void playDeathSFX()
+    public static void playSFX(SoundEffect soundEffect)
     {
-        playSound(new File("ass\\aud\\humanDeath.wav"), -10f);
-    }
-
-    public static void playShootSFX()
-    {
-        playSound(new File("ass\\aud\\bowFire.wav"), -10f);
-    }
-
-    public static void playShootAxeSFX()
-    {
-        playSound(new File("ass\\aud\\axeThrow.wav"), -16f);
-    }
-
-    public static void playHitSFX()
-    {
-        playSound(new File("ass\\aud\\bowHit.wav"), -10f);
+        playSound(new File(soundEffect.getPath()), -10f);
     }
 
     private static void playSound(File soundFile, float gainAdjustment)

@@ -18,6 +18,8 @@ public class MyGamePanel extends JPanel
         arrowButton.setVisible(true);
         final JToggleButton glaiveButton = new JToggleButton(new ImageIcon(UnitPainter.CANNON_TOWER));
         glaiveButton.setVisible(true);
+        final JToggleButton pauseButton = new JToggleButton("Pause");
+        pauseButton.setVisible(true);
 
         arrowButton.addActionListener(new ActionListener()
         {
@@ -47,6 +49,23 @@ public class MyGamePanel extends JPanel
                 else
                 {
                     GameCanvas.setTowerToggle("Arrow");
+                }
+            }
+        });
+
+        pauseButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (pauseButton.isSelected())
+                {
+                    GameCanvas.pauseGame();
+                    pauseButton.setText("Resume");
+                }
+                else
+                {
+                    GameCanvas.resumeGame();
+                    pauseButton.setText("Pause");
                 }
             }
         });
