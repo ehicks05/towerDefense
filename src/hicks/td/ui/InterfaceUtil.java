@@ -9,6 +9,18 @@ import java.util.List;
 
 public class InterfaceUtil
 {
+    public static int snapToGrid(int input)
+    {
+        int snappedNumber;
+
+        if (input % 32 >= 16)
+            snappedNumber = input + input % 32;
+        else
+            snappedNumber = input - input % 32;
+
+        return snappedNumber;
+    }
+
     public static boolean isValidLocation(int x, int y, int radiusOfNewBuilding)
     {
         Point attemptedBuildLocation = new Point(x, y);

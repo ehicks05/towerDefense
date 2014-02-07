@@ -38,6 +38,10 @@ public class MyMouseListener extends MouseAdapter
         }
         if (e.getButton() == 3)
         {
+            // snap to grid
+            eventX = InterfaceUtil.snapToGrid(eventX);
+            eventY = InterfaceUtil.snapToGrid(eventY);
+
             boolean canAffordGoldCost = GameState.getPlayer().getGold() >= 50;
             boolean validLocation = InterfaceUtil.isValidLocation(eventX, eventY, new ArrowTower(2).getSizeRadius());
 

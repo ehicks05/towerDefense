@@ -1,12 +1,8 @@
 package hicks.td.entities;
 
-import hicks.td.GameState;
-import hicks.td.util.TileLoader;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public class Spawner extends Unit
 {

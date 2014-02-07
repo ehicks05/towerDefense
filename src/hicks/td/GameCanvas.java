@@ -73,21 +73,23 @@ public final class GameCanvas extends Canvas
 
     private static String getLabelText()
     {
-        BigDecimal elapsed = Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP);
+        return "test";
 
-        String labelText = "<html><table><tr>";
-
-        labelText += "<td>Gold:</td><td>" + GameState.getPlayer().getGold()   + "</td>";
-        labelText += "<td>Round:</td><td>" + GameState.getPlayer().getRound() + "</td>";
-        labelText += "<td>Lives:</td><td>" + GameState.getPlayer().getLives() + "</td>";
-        labelText += "</tr><tr>";
-
-        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
-        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-        labelText += "<td>Units:</td><td>" + GameState.getUnits().size() + "</td>";
-        labelText += "</tr></table></html>";
-
-        return labelText;
+//        BigDecimal elapsed = Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP);
+//
+//        String labelText = "<html><table><tr>";
+//
+//        labelText += "<td>Gold:</td><td>" + GameState.getPlayer().getGold()   + "</td>";
+//        labelText += "<td>Round:</td><td>" + GameState.getPlayer().getRound() + "</td>";
+//        labelText += "<td>Lives:</td><td>" + GameState.getPlayer().getLives() + "</td>";
+//        labelText += "</tr><tr>";
+//
+//        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
+//        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
+//        labelText += "<td>Units:</td><td>" + GameState.getUnits().size() + "</td>";
+//        labelText += "</tr></table></html>";
+//
+//        return labelText;
     }
 
     public static void main(String[] args)
