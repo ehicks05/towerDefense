@@ -1,14 +1,14 @@
 package hicks.td.entities.tower;
 
-import hicks.td.entities.UnitLogic;
-import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
+import hicks.td.entities.UnitLogic;
+import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.List;
 
 public abstract class Tower extends Unit
 {
@@ -16,44 +16,39 @@ public abstract class Tower extends Unit
     private int             m_attackRange;
     private BigDecimal      m_attackSpeed;
     private BigDecimal      m_timeOfLastAttack;
-    private Unit            m_target;
+    private List<Mob>      m_targets;
     private int             m_kills;
+    private int             m_numberOfTargets;
+
+    public void performTowerBehavior()
+    {
+        // set targets
+        this.setTargets(UnitLogic.getClosestVisibleEnemies(this, m_attackRange, null, this.getNumberOfTargets()));
+
+        if (this.getTargets().size() > 0) this.performHostileBehavior();
+    }
 
     public boolean isReadyToAttack()
     {
         return Util.getElapsedTime(m_timeOfLastAttack).compareTo(m_attackSpeed) > 0;
     }
 
-    public boolean isTargetInRange()
-    {
-        Point targetLocation = m_target.getLocation();
-        double distance = new BigDecimal(getLocation().getDistance(targetLocation)).setScale(0, RoundingMode.HALF_UP).doubleValue();
-        return distance <= m_attackRange;
-    }
-
     public abstract Projectile getProjectile();
 
     // ------------ Behavior
 
-    public void lookForTarget()
-    {
-        Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(this, m_attackRange);
-        if (closestVisibleEnemy != null)
-            m_target = closestVisibleEnemy;
-    }
-
     public void performHostileBehavior()
     {
-        if (isTargetInRange() && isReadyToAttack())
+        if (isReadyToAttack())
         {
-            Projectile newProjectile = this.getProjectile();
-            newProjectile.setOriginator(this);
-            ProjectileLogic.shootProjectile(this, newProjectile, this.getTarget().getLocation());
-            this.setTimeOfLastAttack(Util.now());
+            for (Mob target : this.getTargets())
+            {
+                Projectile newProjectile = this.getProjectile();
+                newProjectile.setOriginator(this);
+                ProjectileLogic.shootProjectile(this, newProjectile, target.getLocation());
+                this.setTimeOfLastAttack(Util.now());
+            }
         }
-
-        if (m_target != null && !isTargetInRange())
-            m_target = null;
     }
 
     // ------------ Properties
@@ -98,14 +93,14 @@ public abstract class Tower extends Unit
         m_timeOfLastAttack = timeOfLastAttack;
     }
 
-    public Unit getTarget()
+    public List<Mob> getTargets()
     {
-        return m_target;
+        return m_targets;
     }
 
-    public void setTarget(Unit target)
+    public void setTargets(List<Mob> targets)
     {
-        m_target = target;
+        m_targets = targets;
     }
 
     public int getKills()
@@ -116,5 +111,15 @@ public abstract class Tower extends Unit
     public void setKills(int kills)
     {
         m_kills = kills;
+    }
+
+    public int getNumberOfTargets()
+    {
+        return m_numberOfTargets;
+    }
+
+    public void setNumberOfTargets(int numberOfTargets)
+    {
+        m_numberOfTargets = numberOfTargets;
     }
 }

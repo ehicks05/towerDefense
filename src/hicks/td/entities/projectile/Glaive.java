@@ -40,7 +40,10 @@ public class Glaive extends Projectile
             List<Mob> mobsHit = this.getMobsHit();
             mobsHit.add(victim);
 
-            Unit closestVisibleEnemy = UnitLogic.getClosestVisibleEnemy(this, m_bounceRange, mobsHit);
+            List<Mob> closestVisibleEnemies = UnitLogic.getClosestVisibleEnemies(this, m_bounceRange, mobsHit, 1);
+            Mob closestVisibleEnemy = null;
+            if (closestVisibleEnemies.size() > 0)
+                closestVisibleEnemy = closestVisibleEnemies.get(0);
 
             if (closestVisibleEnemy != null)
             {

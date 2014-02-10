@@ -17,6 +17,7 @@ public class ArrowTower extends Tower
         setPrice(50);
         setAttackSpeed(new BigDecimal(1.5));
         setTimeOfLastAttack(Util.now());
+        setNumberOfTargets(1);
     }
 
     public Projectile getProjectile()

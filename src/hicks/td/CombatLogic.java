@@ -34,8 +34,8 @@ public final class CombatLogic
             if (unit instanceof Tower)
             {
                 Tower tower = (Tower) unit;
-                if (tower.getTarget() != null && tower.getTarget().equals(defender))
-                    tower.setTarget(null);
+                if (tower.getTargets() != null && tower.getTargets().equals(defender))
+                    tower.setTargets(null);
             }
         }
 

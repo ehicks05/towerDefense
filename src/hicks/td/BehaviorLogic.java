@@ -38,7 +38,8 @@ public final class BehaviorLogic
 
             if (unit instanceof Tower)
             {
-                chooseTowerBehavior((Tower) unit);
+                Tower tower = (Tower) unit;
+                tower.performTowerBehavior();
             }
             if (unit instanceof Projectile)
             {
@@ -75,11 +76,5 @@ public final class BehaviorLogic
                 player.setRound(player.getRound() + 1);
             }
         }
-    }
-
-    private static void chooseTowerBehavior(Tower tower)
-    {
-        if (tower.getTarget() == null) tower.lookForTarget();
-        if (tower.getTarget() != null) tower.performHostileBehavior();
     }
 }

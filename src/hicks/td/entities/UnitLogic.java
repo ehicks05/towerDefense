@@ -1,7 +1,6 @@
 package hicks.td.entities;
 
 import hicks.td.GameState;
-import hicks.td.entities.*;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.tower.Tower;
@@ -9,10 +8,7 @@ import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public final class UnitLogic
 {
@@ -25,8 +21,8 @@ public final class UnitLogic
             if (unit instanceof Tower)
             {
                 Tower tower = (Tower) unit;
-                if (tower.getTarget() != null && tower.getTarget().equals(formerTarget))
-                    tower.setTarget(null);
+                if (tower.getTargets() != null && tower.getTargets().equals(formerTarget))
+                    tower.setTargets(null);
             }
         }
         return null;
@@ -85,16 +81,23 @@ public final class UnitLogic
         return actualDistanceToMove;
     }
 
-    public static Mob getClosestVisibleEnemy(Unit callingUnit, int attackRange)
+    public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange)
     {
-        return getClosestVisibleEnemy(callingUnit, attackRange, null);
+        return getClosestVisibleEnemies(callingUnit, attackRange, null);
     }
 
-    public static Mob getClosestVisibleEnemy(Unit callingUnit, int attackRange, List<Mob> exceptions)
+    public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange, List<Mob> exceptions)
     {
-        Mob closestEnemy = null;
-        double smallestDistance = Double.MAX_VALUE;
+        return getClosestVisibleEnemies(callingUnit, attackRange, null, 1);
 
+    }
+
+    public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange, List<Mob> exceptions, int sizeToReturn)
+    {
+        final Point callingUnitLocation = callingUnit.getLocation();
+
+        // filter out unwanted mobs: calling unit, same team units, exception units, and out of range units
+        List<Mob> mobsToProcess = new ArrayList<>();
         for (Mob mob : new ArrayList<>(Util.getMobs()))
         {
             if (mob == callingUnit || mob.getTeam() == callingUnit.getTeam())
@@ -103,15 +106,35 @@ public final class UnitLogic
             if (exceptions != null && exceptions.size() > 0 && exceptions.contains(mob))
                 continue;
 
-            double distance = callingUnit.getLocation().getDistance(mob.getLocation());
-            if (distance <= attackRange && distance < smallestDistance)
-            {
-                closestEnemy = mob;
-                smallestDistance = distance;
-            }
+            double distance = new BigDecimal(mob.getLocation().getDistance(callingUnitLocation)).setScale(0, RoundingMode.HALF_UP).doubleValue();
+            if (distance > attackRange)
+                continue;
+
+            mobsToProcess.add(mob);
         }
 
-        return closestEnemy;
+        // sort remaining mobs by distance
+        Collections.sort(mobsToProcess, new Comparator<Mob>()
+        {
+            @Override
+            public int compare(Mob o1, Mob o2)
+            {
+                double o1Distance = o1.getLocation().getDistance(callingUnitLocation);
+                double o2Distance = o2.getLocation().getDistance(callingUnitLocation);
+
+                if (o1Distance < o2Distance) return -1;
+                if (o1Distance > o2Distance) return 1;
+
+                return 0;
+            }
+        });
+
+        List<Mob> results = mobsToProcess;
+
+        if (results.size() > sizeToReturn)
+            results = mobsToProcess.subList(0, sizeToReturn);
+
+        return results;
     }
 
     public static int getUnitsOnTeam(int team)

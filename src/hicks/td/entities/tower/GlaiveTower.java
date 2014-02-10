@@ -17,6 +17,7 @@ public class GlaiveTower extends Tower
         setPrice(100);
         setAttackSpeed(new BigDecimal(1));
         setTimeOfLastAttack(Util.now());
+        setNumberOfTargets(1);
     }
 
     public Projectile getProjectile()
