@@ -73,5 +73,6 @@ public class MyGamePanel extends JPanel
         this.setLayout(new FlowLayout());
         this.add(arrowButton);
         this.add(glaiveButton);
+        this.add(pauseButton);
     }
 }
