@@ -1,7 +1,6 @@
 package hicks.td.ui;
 
 import hicks.td.GameCanvas;
-import javafx.scene.input.KeyCode;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
