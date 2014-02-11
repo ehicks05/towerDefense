@@ -16,9 +16,11 @@ public abstract class Tower extends Unit
     private int             m_attackRange;
     private BigDecimal      m_attackSpeed;
     private BigDecimal      m_timeOfLastAttack;
-    private List<Mob>      m_targets;
+    private List<Mob>       m_targets;
     private int             m_kills;
     private int             m_numberOfTargets;
+
+    public abstract Projectile getProjectile();
 
     public void performTowerBehavior()
     {
@@ -32,10 +34,6 @@ public abstract class Tower extends Unit
     {
         return Util.getElapsedTime(m_timeOfLastAttack).compareTo(m_attackSpeed) > 0;
     }
-
-    public abstract Projectile getProjectile();
-
-    // ------------ Behavior
 
     public void performHostileBehavior()
     {

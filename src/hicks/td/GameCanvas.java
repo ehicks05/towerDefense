@@ -220,6 +220,8 @@ public final class GameCanvas extends Canvas
 
         for (Mob mob : Util.getMobs())
             mob.setTimeOfLastMove(mob.getTimeOfLastMove().add(timeDeltaMillis));
+
+        GameState.getSpawner().setTimeOfLastBuild(GameState.getSpawner().getTimeOfLastMove().add(timeDeltaMillis));
     }
 
     public static Unit getSelectedUnit()
