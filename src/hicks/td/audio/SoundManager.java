@@ -7,6 +7,8 @@ import java.io.File;
 
 public class SoundManager
 {
+    private static final float GLOBAL_VOLUME_OFFSET = -10f;
+
     public static void init()
     {
         try
@@ -21,7 +23,7 @@ public class SoundManager
 
     public static void playSFX(SoundEffect soundEffect)
     {
-        playSound(new File(soundEffect.getPath()), -10f);
+        playSound(new File(soundEffect.getPath()), GLOBAL_VOLUME_OFFSET + soundEffect.getVolumeOffset());
     }
 
     private static void playSound(File soundFile, float gainAdjustment)

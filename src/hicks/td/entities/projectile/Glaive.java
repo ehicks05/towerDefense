@@ -28,6 +28,7 @@ public class Glaive extends Projectile
         setMinDamage(9);
         setMaxDamage(12);
         setMaximumRange(300);
+        setFireSound(SoundEffect.SHOOT_GLAIVE);
     }
 
     public void performProjectileHit(Mob victim)

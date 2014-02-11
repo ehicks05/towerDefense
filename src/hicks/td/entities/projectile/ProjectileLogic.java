@@ -27,7 +27,7 @@ public class ProjectileLogic
         double targetY = destination.getY();
         projectile.setTheta(Math.atan2(targetY - unitY, targetX - unitX) + .8); // todo deal with this magic bullshit
 
-        SoundManager.playSFX(SoundEffect.SHOOT_ARROW);
+        SoundManager.playSFX(projectile.getFireSound());
         GameState.addUnit(projectile);
     }
 

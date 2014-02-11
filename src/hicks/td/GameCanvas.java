@@ -221,7 +221,7 @@ public final class GameCanvas extends Canvas
         for (Mob mob : Util.getMobs())
             mob.setTimeOfLastMove(mob.getTimeOfLastMove().add(timeDeltaMillis));
 
-        GameState.getSpawner().setTimeOfLastBuild(GameState.getSpawner().getTimeOfLastMove().add(timeDeltaMillis));
+        GameState.getSpawner().setTimeOfLastBuild(GameState.getSpawner().getTimeOfLastBuild().add(timeDeltaMillis));
     }
 
     public static Unit getSelectedUnit()
@@ -242,5 +242,15 @@ public final class GameCanvas extends Canvas
     public static void setTowerToggle(String towerToggle)
     {
         GameCanvas.towerToggle = towerToggle;
+    }
+
+    public static boolean isRunningSimulation()
+    {
+        return runningSimulation;
+    }
+
+    public static void setRunningSimulation(boolean runningSimulation)
+    {
+        GameCanvas.runningSimulation = runningSimulation;
     }
 }

@@ -4,6 +4,7 @@ import hicks.td.GameCanvas;
 import hicks.td.GameState;
 import hicks.td.entities.*;
 import hicks.td.entities.tower.ArrowTower;
+import hicks.td.entities.tower.CannonTower;
 import hicks.td.entities.tower.GlaiveTower;
 import hicks.td.entities.tower.Tower;
 
@@ -52,6 +53,8 @@ public class MyMouseListener extends MouseAdapter
                     tower = new ArrowTower(1);
                 if (GameCanvas.getTowerToggle().equals("Glaive"))
                     tower = new GlaiveTower(1);
+                if (GameCanvas.getTowerToggle().equals("Cannon"))
+                    tower = new CannonTower(1);
 
                 if (tower == null) tower = new ArrowTower(1);
 

@@ -11,7 +11,6 @@ import java.util.*;
 
 public class TileLoader
 {
-    public static int roadOffset;
     private static List<String> tileNames = Arrays.asList(
             "CCCC", "DDDD", "GGGG", "WWWW", "XXX1", "XXX2", "XXX3", "XXX4", "GGDD", "GDDD",
             "RRR1", "RRGG", "GGRR", "RRR2", "GRGR", "RGRG", "OIL1", "DDGG", "DGDG", "DDDG",

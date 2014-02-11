@@ -13,6 +13,7 @@ import java.util.Random;
 public abstract class Projectile extends Unit
 {
     private Tower m_originator;
+    private SoundEffect m_fireSound;
 
     private double m_maximumRange;
     private double m_distanceTravelled;
@@ -49,6 +50,16 @@ public abstract class Projectile extends Unit
     public void setOriginator(Tower originator)
     {
         this.m_originator = originator;
+    }
+
+    public SoundEffect getFireSound()
+    {
+        return m_fireSound;
+    }
+
+    public void setFireSound(SoundEffect fireSound)
+    {
+        m_fireSound = fireSound;
     }
 
     public double getMaximumRange()

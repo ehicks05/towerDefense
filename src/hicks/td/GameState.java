@@ -19,6 +19,7 @@ public final class GameState
     private static List<Tile>    tiles = new ArrayList<>();
     private static Spawner       spawner = new Spawner(2);
     private static BufferedImage terrainImage;
+    private static List<BufferedImage> explosionTiles;
 
     public static void addUnit(Unit unit)
     {

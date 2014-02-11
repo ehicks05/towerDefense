@@ -1,9 +1,6 @@
 package hicks.td;
 
-import hicks.td.entities.Player;
-import hicks.td.entities.Point;
-import hicks.td.entities.Spawner;
-import hicks.td.entities.Unit;
+import hicks.td.entities.*;
 import hicks.td.entities.mob.Footman;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
@@ -45,6 +42,13 @@ public final class BehaviorLogic
             {
                 Projectile projectile = (Projectile) unit;
                 ProjectileLogic.performProjectileBehavior(projectile);
+            }
+
+            if (unit instanceof Explosion)
+            {
+                Explosion explosion = (Explosion) unit;
+                if (explosion.getFrame() > 73)
+                    GameState.removeUnit(unit);
             }
         }
     }

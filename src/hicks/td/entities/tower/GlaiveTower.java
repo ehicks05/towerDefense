@@ -11,7 +11,7 @@ public class GlaiveTower extends Tower
     public GlaiveTower(int team)
     {
         setTeam(team);
-        setSizeRadius(30);
+        setSizeRadius(16);
         setAttackRange(160);
 
         setPrice(100);

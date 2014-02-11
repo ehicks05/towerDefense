@@ -5,11 +5,14 @@ import hicks.td.GameState;
 import hicks.td.entities.*;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Arrow;
+import hicks.td.entities.projectile.Cannonball;
 import hicks.td.entities.projectile.Glaive;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.tower.ArrowTower;
+import hicks.td.entities.tower.CannonTower;
 import hicks.td.entities.tower.GlaiveTower;
 import hicks.td.entities.tower.Tower;
+import hicks.td.util.ExplosionTileLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,11 +21,13 @@ import java.util.ArrayList;
 
 public final class UnitPainter
 {
-    public static final Image GUARD_TOWER  = new ImageIcon("ass\\img\\guardTower.gif").getImage();
-    public static final Image CANNON_TOWER = new ImageIcon("ass\\img\\cannonTower.gif").getImage();
+    public static final Image SCOUT_TOWER   = new ImageIcon("ass\\img\\scoutTower.gif").getImage();
+    public static final Image GUARD_TOWER   = new ImageIcon("ass\\img\\guardTower.gif").getImage();
+    public static final Image CANNON_TOWER  = new ImageIcon("ass\\img\\cannonTower.gif").getImage();
     private static final Image ARROW        = new ImageIcon("ass\\img\\arrow.png").getImage();
     private static final Image GLAIVE       = new ImageIcon("ass\\img\\glaive.png").getImage();
     private static final Image PEASANT      = new ImageIcon("ass\\img\\peasant.gif").getImage();
+    private static final Image CANNON_BALL  = new ImageIcon("ass\\img\\rock.png").getImage();
 
     public static void drawUnits(Graphics2D g2d)
     {
@@ -39,7 +44,8 @@ public final class UnitPainter
             if (unit instanceof Tower)
             {
                 if (unit instanceof ArrowTower) g2d.drawImage(GUARD_TOWER, drawX, drawY, diameter, diameter, null);
-                if (unit instanceof GlaiveTower) g2d.drawImage(CANNON_TOWER, drawX, drawY, diameter, diameter, null);
+                if (unit instanceof GlaiveTower) g2d.drawImage(SCOUT_TOWER, drawX, drawY, diameter, diameter, null);
+                if (unit instanceof CannonTower) g2d.drawImage(CANNON_TOWER, drawX, drawY, diameter, diameter, null);
                 if (isSelected(unit)) drawVisionCircle(g2d, (Tower) unit);
             }
             if (unit instanceof Projectile)
@@ -53,8 +59,19 @@ public final class UnitPainter
                 {
                     g2d.drawImage(GLAIVE, drawX, drawY, diameter, diameter, null);
                     Glaive glaive = (Glaive) unit;
-                    glaive.setTheta(glaive.getTheta() + .1);
+
+                    if (GameCanvas.isRunningSimulation())
+                        glaive.setTheta(glaive.getTheta() + .1);
                 }
+                if (unit instanceof Cannonball)
+                {
+                    g2d.drawImage(CANNON_BALL, drawX, drawY, diameter, diameter, null);
+                    Cannonball cannonball = (Cannonball) unit;
+
+                    if (GameCanvas.isRunningSimulation())
+                        cannonball.setTheta(cannonball.getTheta() + .05);
+                }
+
                 // reset the transform
                 AffineTransform reset = new AffineTransform();
                 reset.rotate(0,0,0);
@@ -66,6 +83,15 @@ public final class UnitPainter
 
                 Mob mob = (Mob) unit;
                 if (!isFullHealth(mob) || isSelected(unit)) drawHealthBar(g2d, mob);
+            }
+            if (unit instanceof Explosion)
+            {
+                Explosion explosion = (Explosion) unit;
+                int frameIndex = explosion.getFrame();
+                g2d.drawImage(ExplosionTileLoader.getTile(frameIndex), drawX, drawY, diameter, diameter, null);
+
+                if (GameCanvas.isRunningSimulation())
+                    explosion.setFrame(frameIndex + 1);
             }
 
             // draw additional UI elements connected to the unit

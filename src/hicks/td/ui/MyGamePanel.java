@@ -16,8 +16,10 @@ public class MyGamePanel extends JPanel
 
         final JToggleButton arrowButton = new JToggleButton(new ImageIcon(UnitPainter.GUARD_TOWER), true);
         arrowButton.setVisible(true);
-        final JToggleButton glaiveButton = new JToggleButton(new ImageIcon(UnitPainter.CANNON_TOWER));
+        final JToggleButton glaiveButton = new JToggleButton(new ImageIcon(UnitPainter.SCOUT_TOWER));
         glaiveButton.setVisible(true);
+        final JToggleButton cannonButton = new JToggleButton(new ImageIcon(UnitPainter.CANNON_TOWER));
+        cannonButton.setVisible(true);
         final JToggleButton pauseButton = new JToggleButton("Pause");
         pauseButton.setVisible(true);
 
@@ -29,6 +31,7 @@ public class MyGamePanel extends JPanel
                 {
                     GameCanvas.setTowerToggle("Arrow");
                     glaiveButton.setSelected(false);
+                    cannonButton.setSelected(false);
                 }
                 else
                 {
@@ -45,6 +48,24 @@ public class MyGamePanel extends JPanel
                 {
                     GameCanvas.setTowerToggle("Glaive");
                     arrowButton.setSelected(false);
+                    cannonButton.setSelected(false);
+                }
+                else
+                {
+                    GameCanvas.setTowerToggle("Arrow");
+                }
+            }
+        });
+
+        cannonButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (cannonButton.isSelected())
+                {
+                    GameCanvas.setTowerToggle("Cannon");
+                    arrowButton.setSelected(false);
+                    glaiveButton.setSelected(false);
                 }
                 else
                 {
@@ -73,6 +94,7 @@ public class MyGamePanel extends JPanel
         this.setLayout(new FlowLayout());
         this.add(arrowButton);
         this.add(glaiveButton);
+        this.add(cannonButton);
         this.add(pauseButton);
     }
 }
