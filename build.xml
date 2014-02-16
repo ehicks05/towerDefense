@@ -22,8 +22,12 @@
         <jar destfile="out/jar/ericTD.jar" basedir="out/classes">
             <manifest>
                 <attribute name="Main-Class" value="hicks.td.GameCanvas"/>
+                <attribute name="Class-Path" value="lib/jl1.0.1.jar"/>
             </manifest>
         </jar>
+
+        <!-- Copy required 3rd party JARs -->
+        <copy file="C:/javalib/JLayer1.0.1/jl1.0.1.jar" todir="out/jar/lib"/>
 
         <!-- Copy art assets to the target directory -->
         <copy todir="out/jar/ass">
