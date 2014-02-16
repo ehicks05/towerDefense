@@ -17,6 +17,7 @@ public class Mob extends Unit
     private int m_maxHp;
     private int m_armor;
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
+    private int m_frame;
 
     public boolean isAlive()
     {
@@ -93,5 +94,15 @@ public class Mob extends Unit
     public void setPath(Queue<Point> path)
     {
         m_path = path;
+    }
+
+    public int getFrame()
+    {
+        return m_frame;
+    }
+
+    public void setFrame(int frame)
+    {
+        m_frame = frame;
     }
 }

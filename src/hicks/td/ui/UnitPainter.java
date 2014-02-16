@@ -3,6 +3,7 @@ package hicks.td.ui;
 import hicks.td.GameCanvas;
 import hicks.td.GameState;
 import hicks.td.entities.*;
+import hicks.td.entities.Point;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Arrow;
 import hicks.td.entities.projectile.Cannonball;
@@ -13,6 +14,7 @@ import hicks.td.entities.tower.CannonTower;
 import hicks.td.entities.tower.GlaiveTower;
 import hicks.td.entities.tower.Tower;
 import hicks.td.util.ExplosionTileLoader;
+import hicks.td.util.HumanTileLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,10 +81,26 @@ public final class UnitPainter
             }
             if (unit instanceof Mob)
             {
-                g2d.drawImage(PEASANT, drawX, drawY, diameter, diameter, null);
-
                 Mob mob = (Mob) unit;
+                int frameIndex = mob.getFrame() / 10;
+
+                Point destination = mob.getPath().peek();
+                String direction = "";
+                if (destination.equals(new Point(32, 32))) direction = "left";
+                if (destination.equals(new Point(32, GameState.getGameMap().getHeight() - 32))) direction = "down";
+                if (destination.equals(new Point(GameState.getGameMap().getWidth() - 32, GameState.getGameMap().getHeight() - 32))) direction = "right";
+                if (destination.equals(new Point(GameState.getGameMap().getWidth() - 32, 32))) direction = "up";
+
+                g2d.drawImage(HumanTileLoader.getTile(frameIndex, direction, "body"), drawX, drawY, diameter, diameter, null);
+                g2d.drawImage(HumanTileLoader.getTile(frameIndex, direction, "torso"), drawX, drawY, diameter, diameter, null);
                 if (!isFullHealth(mob) || isSelected(unit)) drawHealthBar(g2d, mob);
+
+                if (GameCanvas.isRunningSimulation())
+                {
+                    mob.setFrame(mob.getFrame() + 1);
+                    if (mob.getFrame() > 80)
+                        mob.setFrame(0);
+                }
             }
             if (unit instanceof Explosion)
             {

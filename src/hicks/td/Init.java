@@ -4,6 +4,7 @@ import hicks.td.audio.SoundManager;
 import hicks.td.entities.GameMap;
 import hicks.td.entities.Player;
 import hicks.td.ui.DisplayInfo;
+import hicks.td.util.HumanTileLoader;
 import hicks.td.util.Log;
 import hicks.td.util.MapBuilder;
 import hicks.td.util.Util;
@@ -22,6 +23,7 @@ public final class Init
 
         DisplayInfo.setDisplayProperties();
         SoundManager.init();
+        HumanTileLoader.init();
 
         GameState.setPlayer(new Player(300, 20, 1));
         GameState.setGameMap(new GameMap(1024, 768));

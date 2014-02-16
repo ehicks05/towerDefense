@@ -7,7 +7,7 @@ public class Peasant extends Mob
     public Peasant(int team)
     {
         setTeam(team);
-        setSizeRadius(24);
+        setSizeRadius(32);
         setMoveSpeed(50);
         setTimeOfLastMove(Util.now());
 
