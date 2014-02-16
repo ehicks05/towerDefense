@@ -93,6 +93,7 @@ public final class UnitPainter
 
                 g2d.drawImage(HumanTileLoader.getTile(frameIndex, direction, "body"), drawX, drawY, diameter, diameter, null);
                 g2d.drawImage(HumanTileLoader.getTile(frameIndex, direction, "torso"), drawX, drawY, diameter, diameter, null);
+                g2d.drawImage(HumanTileLoader.getTile(frameIndex, direction, "head"), drawX, drawY, diameter, diameter, null);
                 if (!isFullHealth(mob) || isSelected(unit)) drawHealthBar(g2d, mob);
 
                 if (GameCanvas.isRunningSimulation())

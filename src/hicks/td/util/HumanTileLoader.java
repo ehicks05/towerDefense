@@ -13,11 +13,11 @@ public class HumanTileLoader
 {
     private static Map<String, List<BufferedImage>> body = new HashMap<>();
     private static Map<String, List<BufferedImage>> torso = new HashMap<>();
+    private static Map<String, List<BufferedImage>> head = new HashMap<>();
     private static Map<String, List<BufferedImage>> belt = new HashMap<>();
     private static Map<String, List<BufferedImage>> back = new HashMap<>();
     private static Map<String, List<BufferedImage>> feet = new HashMap<>();
     private static Map<String, List<BufferedImage>> hands = new HashMap<>();
-    private static Map<String, List<BufferedImage>> head = new HashMap<>();
     private static Map<String, List<BufferedImage>> legs = new HashMap<>();
 
     private static final int TILE_SIZE = 64;
@@ -41,6 +41,7 @@ public class HumanTileLoader
     {
         body.put("body", null);
         torso.put("torso", null);
+        head.put("head", null);
 
         directionMap = new HashMap<>();
         directionMap.put(0, "up");
@@ -51,6 +52,7 @@ public class HumanTileLoader
         List<Map<String, List<BufferedImage>>> tileSets = new ArrayList<>();
         tileSets.add(body);
         tileSets.add(torso);
+        tileSets.add(head);
 
         for (String direction : directionMap.values())
             for (Map<String, List<BufferedImage>> tileSet : tileSets)
@@ -59,6 +61,7 @@ public class HumanTileLoader
         Map<Map<String, List<BufferedImage>>, String> tileSetFilenames = new HashMap<>();
         tileSetFilenames.put(body, "maleBody.png");
         tileSetFilenames.put(torso, "torso.png");
+        tileSetFilenames.put(head, "headPlate.png");
 
         for (Map<String, List<BufferedImage>> tileSet : tileSets)
             createTileMap(tileSet, tileSetFilenames.get(tileSet));
@@ -85,6 +88,8 @@ public class HumanTileLoader
             tileMap = body;
         if (type.equals("torso"))
             tileMap = torso;
+        if (type.equals("head"))
+            tileMap = head;
 
         List<BufferedImage> images = tileMap.get(direction);
 
