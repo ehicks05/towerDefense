@@ -73,23 +73,21 @@ public final class GameCanvas extends Canvas
 
     private static String getLabelText()
     {
-        return "test";
+        BigDecimal elapsed = Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP);
 
-//        BigDecimal elapsed = Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP);
-//
-//        String labelText = "<html><table><tr>";
-//
-//        labelText += "<td>Gold:</td><td>" + GameState.getPlayer().getGold()   + "</td>";
-//        labelText += "<td>Round:</td><td>" + GameState.getPlayer().getRound() + "</td>";
-//        labelText += "<td>Lives:</td><td>" + GameState.getPlayer().getLives() + "</td>";
-//        labelText += "</tr><tr>";
-//
-//        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
-//        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-//        labelText += "<td>Units:</td><td>" + GameState.getUnits().size() + "</td>";
-//        labelText += "</tr></table></html>";
-//
-//        return labelText;
+        String labelText = "<html><table><tr>";
+
+        labelText += "<td>Gold:</td><td>" + GameState.getPlayer().getGold()   + "</td>";
+        labelText += "<td>Round:</td><td>" + GameState.getPlayer().getRound() + "</td>";
+        labelText += "<td>Lives:</td><td>" + GameState.getPlayer().getLives() + "</td>";
+        labelText += "</tr><tr>";
+
+        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
+        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
+        labelText += "<td>Units:</td><td>" + GameState.getUnits().size() + "</td>";
+        labelText += "</tr></table></html>";
+
+        return labelText;
     }
 
     public static void main(String[] args)
@@ -99,20 +97,19 @@ public final class GameCanvas extends Canvas
         frame = new MyFrame();
         gamePanel = new MyGamePanel();
 
-        GameCanvas gameCanvas = new GameCanvas();
-
-        gamePanel.add(gameCanvas);
-
         infoLabel = new JLabel();
         infoLabel.setVisible(true);
         gamePanel.add(infoLabel);
 
+        GameCanvas gameCanvas = new GameCanvas();
+        gamePanel.add(gameCanvas);
+
         mainMenuPanel = new MainMenuPanel();
 
         cards = new JPanel(new CardLayout());
-        frame.add(cards);
         cards.add(gamePanel);
         cards.add(mainMenuPanel);
+        frame.add(cards);
 
         cardLayout = (CardLayout) cards.getLayout();
         cardLayout.addLayoutComponent(gamePanel, "gamePanel");
