@@ -57,7 +57,8 @@ public final class GameCanvas extends Canvas
         g2d.drawImage(GameState.getTerrainImage(), 0, 0, null);
 
         UnitPainter.drawUnits(g2d);
-        infoLabel.setText(getLabelText());
+        if (runningSimulation)
+            infoLabel.setText(getLabelText());
 
         if (!runningSimulation)
         {

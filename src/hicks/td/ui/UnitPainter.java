@@ -14,7 +14,8 @@ import hicks.td.entities.tower.CannonTower;
 import hicks.td.entities.tower.GlaiveTower;
 import hicks.td.entities.tower.Tower;
 import hicks.td.util.ExplosionTileLoader;
-import hicks.td.util.HumanTileLoader;
+import hicks.td.util.MobLoaderType;
+import hicks.td.util.MobTileLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -91,9 +92,10 @@ public final class UnitPainter
                 if (destination.equals(new Point(GameState.getGameMap().getWidth() - 32, GameState.getGameMap().getHeight() - 32))) direction = "right";
                 if (destination.equals(new Point(GameState.getGameMap().getWidth() - 32, 32))) direction = "up";
 
-                g2d.drawImage(HumanTileLoader.getTile(frameIndex, direction, "body"), drawX, drawY, diameter, diameter, null);
-                g2d.drawImage(HumanTileLoader.getTile(frameIndex, direction, "torso"), drawX, drawY, diameter, diameter, null);
-                g2d.drawImage(HumanTileLoader.getTile(frameIndex, direction, "head"), drawX, drawY, diameter, diameter, null);
+                g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, MobLoaderType.BODY_SKELETON), drawX, drawY, diameter, diameter, null);
+                g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, MobLoaderType.HEAD_ROBE), drawX, drawY, diameter, diameter, null);
+                g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, MobLoaderType.LEGS_ROBE), drawX, drawY, diameter, diameter, null);
+                g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, MobLoaderType.TORSO_ROBE), drawX, drawY, diameter, diameter, null);
                 if (!isFullHealth(mob) || isSelected(unit)) drawHealthBar(g2d, mob);
 
                 if (GameCanvas.isRunningSimulation())
