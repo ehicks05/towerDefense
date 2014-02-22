@@ -101,8 +101,8 @@ public final class UnitPainter
                 if (GameCanvas.isRunningSimulation())
                 {
                     mob.setFrame(mob.getFrame() + 1);
-                    if (mob.getFrame() > 80)
-                        mob.setFrame(0);
+                    if (mob.getFrame() > 89)
+                        mob.setFrame(10); // start on frame index 1 because index 0 is the idle position...
                 }
             }
             if (unit instanceof Explosion)
