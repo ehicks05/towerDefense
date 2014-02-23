@@ -4,6 +4,7 @@ import hicks.td.GameState;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
+import hicks.td.util.MobBodyPartCollection;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ public class Mob extends Unit
     private int m_armor;
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
     private int m_frame;
+    private MobBodyPartCollection m_mobBodyPartCollection;
 
     public boolean isAlive()
     {
@@ -104,5 +106,15 @@ public class Mob extends Unit
     public void setFrame(int frame)
     {
         m_frame = frame;
+    }
+
+    public MobBodyPartCollection getMobBodyPartCollection()
+    {
+        return m_mobBodyPartCollection;
+    }
+
+    public void setMobBodyPartCollection(MobBodyPartCollection mobBodyPartCollection)
+    {
+        m_mobBodyPartCollection = mobBodyPartCollection;
     }
 }

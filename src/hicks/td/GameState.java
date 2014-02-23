@@ -19,7 +19,7 @@ public final class GameState
     private static List<Tile>    tiles = new ArrayList<>();
     private static Spawner       spawner = new Spawner(2);
     private static BufferedImage terrainImage;
-    private static List<BufferedImage> explosionTiles;
+    private static List<Round>   rounds;
 
     public static void addUnit(Unit unit)
     {
@@ -39,6 +39,15 @@ public final class GameState
     public static void adjustStartTime(BigDecimal offset)
     {
         setStartTime(getStartTime().add(offset));
+    }
+
+    public static Round getRound(int roundNumber)
+    {
+        for (Round round : rounds)
+            if (round.getRoundNumber() == roundNumber)
+                return round;
+
+        return null;
     }
 
     // ------------------------ properties
@@ -111,5 +120,15 @@ public final class GameState
     public static void setTerrainImage(BufferedImage terrainImage)
     {
         GameState.terrainImage = terrainImage;
+    }
+
+    public static List<Round> getRounds()
+    {
+        return rounds;
+    }
+
+    public static void setRounds(List<Round> rounds)
+    {
+        GameState.rounds = rounds;
     }
 }

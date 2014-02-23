@@ -79,7 +79,7 @@ public final class GameCanvas extends Canvas
         String labelText = "<html><table><tr>";
 
         labelText += "<td>Gold:</td><td>" + GameState.getPlayer().getGold()   + "</td>";
-        labelText += "<td>Round:</td><td>" + GameState.getPlayer().getRound() + "</td>";
+        labelText += "<td>Round:</td><td>" + GameState.getPlayer().getRoundNumber() + "</td>";
         labelText += "<td>Lives:</td><td>" + GameState.getPlayer().getLives() + "</td>";
         labelText += "</tr><tr>";
 
@@ -173,7 +173,7 @@ public final class GameCanvas extends Canvas
                 runningSimulation = false;
                 stopSimulationReason = "YOU LOSE!";
             }
-            if (GameState.getPlayer().getRound() > 5 && UnitLogic.getUnitsOnTeam(2) == 0)
+            if (GameState.getPlayer().getRoundNumber() > 5 && UnitLogic.getUnitsOnTeam(2) == 0)
             {
                 runningSimulation = false;
                 stopSimulationReason = "YOU WIN!";

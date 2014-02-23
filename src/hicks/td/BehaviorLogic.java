@@ -57,18 +57,22 @@ public final class BehaviorLogic
     {
         Spawner spawner = GameState.getSpawner();
         Player player   = GameState.getPlayer();
+        Round round     = GameState.getRound(player.getRoundNumber());
 
         // spawn units
-        if (spawner.isReadyToBuild() && player.getRound() < 6)
+        if (spawner.isReadyToBuild() && player.getRoundNumber() < 6)
         {
             Mob mob = new Footman(2);
             mob.setLocation(new Point(32, 32));
             mob.setPath(mob.createPath());
+            mob.setMobBodyPartCollection(round.getMobBodyPartCollection());
 
-            if (player.getRound() > 1)
+            if (player.getRoundNumber() > 1)
             {
-                mob.setCurrentHp(mob.getCurrentHp() + 10 * player.getRound());
-                mob.setMaxHp(mob.getMaxHp() + 10 * player.getRound());
+                mob.setCurrentHp(mob.getCurrentHp() + 10 * player.getRoundNumber());
+                mob.setMaxHp(mob.getMaxHp() + 10 * player.getRoundNumber());
+
+                mob.setArmor(mob.getArmor() + 2 * player.getRoundNumber());
             }
 
             GameState.addUnit(mob);
@@ -77,7 +81,7 @@ public final class BehaviorLogic
 
             if (spawner.getUnitsCreated() % 20 == 0)
             {
-                player.setRound(player.getRound() + 1);
+                player.setRoundNumber(player.getRoundNumber() + 1);
             }
         }
     }

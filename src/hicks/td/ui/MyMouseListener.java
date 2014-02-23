@@ -43,21 +43,24 @@ public class MyMouseListener extends MouseAdapter
             eventX = InterfaceUtil.snapToGrid(eventX);
             eventY = InterfaceUtil.snapToGrid(eventY);
 
-            boolean canAffordGoldCost = GameState.getPlayer().getGold() >= 50;
+            String towerToggle = GameCanvas.getTowerToggle();
+
+            Tower tower = null;
+            if (towerToggle.equals("Arrow"))
+                tower = new ArrowTower(1);
+            if (towerToggle.equals("Glaive"))
+                tower = new GlaiveTower(1);
+            if (towerToggle.equals("Cannon"))
+                tower = new CannonTower(1);
+            if (tower == null) tower = new ArrowTower(1);
+
+            int goldCost = tower.getPrice();
+
+            boolean canAffordGoldCost = GameState.getPlayer().getGold() >= goldCost;
             boolean validLocation = InterfaceUtil.isValidLocation(eventX, eventY, new ArrowTower(2).getSizeRadius());
 
             if (canAffordGoldCost && validLocation)
             {
-                Tower tower = null;
-                if (GameCanvas.getTowerToggle().equals("Arrow"))
-                    tower = new ArrowTower(1);
-                if (GameCanvas.getTowerToggle().equals("Glaive"))
-                    tower = new GlaiveTower(1);
-                if (GameCanvas.getTowerToggle().equals("Cannon"))
-                    tower = new CannonTower(1);
-
-                if (tower == null) tower = new ArrowTower(1);
-
                 tower.setLocation(new Point(eventX, eventY));
                 GameState.addUnit(tower);
                 GameState.getPlayer().removeGold(tower.getPrice());

@@ -19,7 +19,7 @@ public class MediaThread extends Thread
             InputStream soundtrack = new FileInputStream(musicFile);
             Player player = new Player(soundtrack);
 
-            player.play();
+//            player.play();
         }
         catch(Exception e)
         {

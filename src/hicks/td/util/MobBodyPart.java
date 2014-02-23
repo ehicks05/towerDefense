@@ -1,6 +1,6 @@
 package hicks.td.util;
 
-public enum MobLoaderType
+public enum MobBodyPart
 {
     BODY_HUMAN,
     BODY_SKELETON,

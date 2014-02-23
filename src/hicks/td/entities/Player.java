@@ -4,13 +4,13 @@ public final class Player
 {
     private int m_gold;
     private int m_lives;
-    private int m_round;
+    private int m_roundNumber;
 
-    public Player(int gold, int lives, int round)
+    public Player(int gold, int lives, int roundNumber)
     {
         m_gold = gold;
         m_lives = lives;
-        m_round = round;
+        m_roundNumber = roundNumber;
     }
 
     public void addLife()
@@ -53,13 +53,13 @@ public final class Player
         this.m_lives = lives;
     }
 
-    public int getRound()
+    public int getRoundNumber()
     {
-        return m_round;
+        return m_roundNumber;
     }
 
-    public void setRound(int round)
+    public void setRoundNumber(int roundNumber)
     {
-        this.m_round = round;
+        this.m_roundNumber = roundNumber;
     }
 }
