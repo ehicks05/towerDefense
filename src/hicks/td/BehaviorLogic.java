@@ -60,7 +60,7 @@ public final class BehaviorLogic
         Round round     = GameState.getRound(player.getRoundNumber());
 
         // spawn units
-        if (spawner.isReadyToBuild() && player.getRoundNumber() < 6)
+        if (spawner.isReadyToBuild() && player.getRoundNumber() < 7)
         {
             Mob mob = new Footman(2);
             mob.setLocation(new Point(32, 32));

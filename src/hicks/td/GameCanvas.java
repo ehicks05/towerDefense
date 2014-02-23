@@ -173,7 +173,7 @@ public final class GameCanvas extends Canvas
                 runningSimulation = false;
                 stopSimulationReason = "YOU LOSE!";
             }
-            if (GameState.getPlayer().getRoundNumber() > 5 && UnitLogic.getUnitsOnTeam(2) == 0)
+            if (GameState.getPlayer().getRoundNumber() > 6 && UnitLogic.getUnitsOnTeam(2) == 0)
             {
                 runningSimulation = false;
                 stopSimulationReason = "YOU WIN!";
