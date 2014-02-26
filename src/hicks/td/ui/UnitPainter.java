@@ -29,7 +29,6 @@ public final class UnitPainter
     public static final Image CANNON_TOWER  = new ImageIcon("ass\\img\\cannonTower.gif").getImage();
     private static final Image ARROW        = new ImageIcon("ass\\img\\arrow.png").getImage();
     private static final Image GLAIVE       = new ImageIcon("ass\\img\\glaive.png").getImage();
-    private static final Image PEASANT      = new ImageIcon("ass\\img\\peasant.gif").getImage();
     private static final Image CANNON_BALL  = new ImageIcon("ass\\img\\rock.png").getImage();
 
     public static void drawUnits(Graphics2D g2d)
@@ -94,8 +93,6 @@ public final class UnitPainter
 
                 drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getMobBodyPartCollection());
 
-                if (!isFullHealth(mob) || isSelected(unit)) drawHealthBar(g2d, mob);
-
                 if (GameCanvas.isRunningSimulation())
                 {
                     mob.setFrame(mob.getFrame() + 1);
@@ -112,26 +109,38 @@ public final class UnitPainter
                 if (GameCanvas.isRunningSimulation())
                     explosion.setFrame(frameIndex + 1);
             }
+        }
+
+        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        {
+            if (unit instanceof Mob)
+            {
+                Mob mob = (Mob) unit;
+                if (!isFullHealth(mob) || isSelected(unit)) drawHealthBar(g2d, mob);
+            }
 
             // draw additional UI elements connected to the unit
             if (isSelected(unit))
-                drawObjectId(g2d, unit);
+            {
+//                drawObjectId(g2d, unit);
+                // todo
+            }
         }
     }
 
     private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, MobBodyPartCollection bodyParts)
     {
-        if (bodyParts.getBody() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBody()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getBack() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBack()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getBelt() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBelt()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getFeet() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getFeet()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getHands() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getHands()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getHead() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getHead()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getLegs() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getLegs()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getBody() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBody()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getBack() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBack()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getBelt() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBelt()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getFeet() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getFeet()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getHands() != null)            g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getHands()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getHead() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getHead()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getLegs() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getLegs()), drawX, drawY, diameter, diameter, null);
         if (bodyParts.getTorsoBottomLayer() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoBottomLayer()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getTorsoTopLayer() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoTopLayer()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getTorsoShoulders() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoShoulders()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getTorsoBracers() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoBracers()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getTorsoTopLayer() != null)    g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoTopLayer()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getTorsoShoulders() != null)   g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoShoulders()), drawX, drawY, diameter, diameter, null);
+        if (bodyParts.getTorsoBracers() != null)     g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoBracers()), drawX, drawY, diameter, diameter, null);
     }
 
     private static boolean isFullHealth(Mob mob)
@@ -179,15 +188,5 @@ public final class UnitPainter
         g2d.setColor(Color.DARK_GRAY);
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         g2d.drawOval((x - size), (y - size), size * 2, size * 2);
-    }
-
-    private static void drawObjectId(Graphics2D g2d, Unit unit)
-    {
-        int x = (int) unit.getLocation().getX();
-        int y = (int) unit.getLocation().getY();
-        int size = unit.getSizeRadius();
-
-        g2d.setColor(Color.BLACK);
-        g2d.drawString(String.valueOf(unit.getObjectId()), x + size + 5, y);
     }
 }
