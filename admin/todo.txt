@@ -11,8 +11,6 @@ start adding ui elements.
 
 low:
 
-play / pause
-
 2x speed up
 
 varied waves of enemies.
