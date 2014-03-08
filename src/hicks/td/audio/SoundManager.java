@@ -2,7 +2,9 @@ package hicks.td.audio;
 
 import hicks.td.util.Log;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.io.File;
 
 public class SoundManager

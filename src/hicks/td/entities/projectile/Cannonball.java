@@ -5,8 +5,6 @@ import hicks.td.GameState;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Explosion;
-import hicks.td.entities.Unit;
-import hicks.td.entities.UnitLogic;
 import hicks.td.entities.mob.Mob;
 import hicks.td.util.Util;
 

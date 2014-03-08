@@ -2,7 +2,8 @@ package hicks.td.ui;
 
 import hicks.td.GameCanvas;
 import hicks.td.GameState;
-import hicks.td.entities.*;
+import hicks.td.entities.Point;
+import hicks.td.entities.Unit;
 import hicks.td.entities.tower.ArrowTower;
 import hicks.td.entities.tower.CannonTower;
 import hicks.td.entities.tower.GlaiveTower;

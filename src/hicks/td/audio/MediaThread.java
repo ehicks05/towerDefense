@@ -1,11 +1,7 @@
 package hicks.td.audio;
 
 import hicks.td.util.Log;
-import javazoom.jl.player.Player;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import org.kc7bfi.jflac.apps.Player;
 
 public class MediaThread extends Thread
 {
@@ -13,11 +9,8 @@ public class MediaThread extends Thread
     {
         try
         {
-            File musicFile = new File("ass\\aud\\main.mp3");
-            InputStream soundtrack = new FileInputStream(musicFile);
-            Player player = new Player(soundtrack);
-
-            player.play();
+            Player flacPlayer = new Player();
+            flacPlayer.decode("ass\\aud\\DunMorogh.flac");
         }
         catch(Exception e)
         {

@@ -2,10 +2,10 @@ package hicks.td;
 
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
+import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.tower.Tower;
-import hicks.td.entities.Unit;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

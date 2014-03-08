@@ -1,9 +1,6 @@
 package hicks.td;
 
 import hicks.td.entities.*;
-import hicks.td.entities.mob.Mob;
-import hicks.td.entities.projectile.Projectile;
-import hicks.td.entities.tower.Tower;
 
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;

@@ -2,8 +2,9 @@ package hicks.td.ui;
 
 import hicks.td.GameCanvas;
 import hicks.td.GameState;
-import hicks.td.entities.*;
+import hicks.td.entities.Explosion;
 import hicks.td.entities.Point;
+import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Arrow;
 import hicks.td.entities.projectile.Cannonball;
