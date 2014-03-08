@@ -16,6 +16,7 @@
             <classpath>
                 <pathelement location="C:/javalib/JLayer1.0.1/jl1.0.1.jar"/>
                 <pathelement location="C:/javalib/artemis.jar"/>
+                <pathelement location="C:/javalib/jflac-1.3/dist/jflac-1.3.jar"/>
             </classpath>
         </javac>
 
@@ -24,12 +25,15 @@
             <manifest>
                 <attribute name="Main-Class" value="hicks.td.GameCanvas"/>
                 <attribute name="Class-Path" value="lib/jl1.0.1.jar"/>
+                <attribute name="Class-Path" value="lib/artemis.jar"/>
+                <attribute name="Class-Path" value="lib/jflac-1.3.jar"/>
             </manifest>
         </jar>
 
         <!-- Copy required 3rd party JARs -->
         <copy file="C:/javalib/JLayer1.0.1/jl1.0.1.jar" todir="out/jar/lib"/>
         <copy file="C:/javalib/artemis.jar" todir="out/jar/lib"/>
+        <copy file="C:/javalib/jflac-1.3/dist/jflac-1.3.jar" todir="out/jar/lib"/>
 
         <!-- Copy art assets to the target directory -->
         <copy todir="out/jar/ass">
