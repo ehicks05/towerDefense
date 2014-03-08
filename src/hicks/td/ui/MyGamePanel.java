@@ -9,8 +9,11 @@ import java.awt.event.ActionListener;
 
 public class MyGamePanel extends JPanel
 {
+    private final JButton startRoundButton;
+
     public MyGamePanel()
     {
+        super();
         this.setName("gamePanel");
         this.setPreferredSize(new Dimension(DisplayInfo.getWindowWidth(), DisplayInfo.getWindowHeight()));
 
@@ -22,6 +25,9 @@ public class MyGamePanel extends JPanel
         cannonButton.setVisible(true);
         final JToggleButton pauseButton = new JToggleButton("Pause");
         pauseButton.setVisible(true);
+
+        startRoundButton = new JButton("Start Round");
+        startRoundButton.setVisible(true);
 
         arrowButton.addActionListener(new ActionListener()
         {
@@ -91,10 +97,25 @@ public class MyGamePanel extends JPanel
             }
         });
 
+        startRoundButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                GameCanvas.startNextRound();
+                startRoundButton.setVisible(false);
+            }
+        });
+
         this.setLayout(new FlowLayout());
         this.add(arrowButton);
         this.add(glaiveButton);
         this.add(cannonButton);
         this.add(pauseButton);
+        this.add(startRoundButton);
+    }
+
+    public void showNextRoundButton()
+    {
+        startRoundButton.setVisible(true);
     }
 }

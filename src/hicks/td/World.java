@@ -7,13 +7,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class GameState
+public final class World
 {
     private static List<Unit>    units = new ArrayList<>();
     private static GameMap       gameMap;
     private static BigDecimal    startTime;
     private static Player        player;
-    private static List<Tile>    tiles = new ArrayList<>();
     private static Spawner       spawner = new Spawner(2);
     private static BufferedImage terrainImage;
     private static List<Round>   rounds;
@@ -26,11 +25,6 @@ public final class GameState
     public static void removeUnit(Unit unit)
     {
         units.remove(unit);
-    }
-
-    public static void addTileToTiles(Tile tile)
-    {
-        GameState.tiles.add(tile);
     }
 
     public static void adjustStartTime(BigDecimal offset)
@@ -56,7 +50,7 @@ public final class GameState
 
     public static void setUnits(List<Unit> units)
     {
-        GameState.units = units;
+        World.units = units;
     }
 
     public static GameMap getGameMap()
@@ -66,7 +60,7 @@ public final class GameState
 
     public static void setGameMap(GameMap gameMap)
     {
-        GameState.gameMap = gameMap;
+        World.gameMap = gameMap;
     }
 
     public static BigDecimal getStartTime()
@@ -76,7 +70,7 @@ public final class GameState
 
     public static void setStartTime(BigDecimal startTime)
     {
-        GameState.startTime = startTime;
+        World.startTime = startTime;
     }
 
     public static Player getPlayer()
@@ -86,17 +80,7 @@ public final class GameState
 
     public static void setPlayer(Player player)
     {
-        GameState.player = player;
-    }
-
-    public static List<Tile> getTiles()
-    {
-        return tiles;
-    }
-
-    public static void setTiles(List<Tile> tiles)
-    {
-        GameState.tiles = tiles;
+        World.player = player;
     }
 
     public static Spawner getSpawner()
@@ -106,7 +90,7 @@ public final class GameState
 
     public static void setSpawner(Spawner spawner)
     {
-        GameState.spawner = spawner;
+        World.spawner = spawner;
     }
 
     public static BufferedImage getTerrainImage()
@@ -116,7 +100,7 @@ public final class GameState
 
     public static void setTerrainImage(BufferedImage terrainImage)
     {
-        GameState.terrainImage = terrainImage;
+        World.terrainImage = terrainImage;
     }
 
     public static List<Round> getRounds()
@@ -126,6 +110,6 @@ public final class GameState
 
     public static void setRounds(List<Round> rounds)
     {
-        GameState.rounds = rounds;
+        World.rounds = rounds;
     }
 }

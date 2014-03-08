@@ -1,6 +1,6 @@
 package hicks.td.entities.projectile;
 
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
@@ -27,7 +27,7 @@ public class ProjectileLogic
         projectile.setTheta(Math.atan2(targetY - unitY, targetX - unitX) + .8); // todo deal with this magic bullshit
 
         SoundManager.playSFX(projectile.getFireSound());
-        GameState.addUnit(projectile);
+        World.addUnit(projectile);
     }
 
     public static Point getProjectileDestination(Projectile projectile, Point destination)
@@ -58,7 +58,7 @@ public class ProjectileLogic
         // check that we haven't run out of steam
         if (Math.round(projectile.getDistanceTravelled()) >= projectile.getMaximumRange())
         {
-            GameState.removeUnit(projectile);
+            World.removeUnit(projectile);
             return;
         }
 

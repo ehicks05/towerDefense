@@ -1,6 +1,6 @@
 package hicks.td.util;
 
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
@@ -31,7 +31,7 @@ public final class Util
     {
         List<Tower> towers = new ArrayList<>();
 
-        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        for (Unit unit : new ArrayList<>(World.getUnits()))
             if (unit instanceof Tower) towers.add((Tower) unit);
 
         return towers;
@@ -41,7 +41,7 @@ public final class Util
     {
         List<Projectile> projectiles = new ArrayList<>();
 
-        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        for (Unit unit : new ArrayList<>(World.getUnits()))
             if (unit instanceof Projectile) projectiles.add((Projectile) unit);
 
         return projectiles;
@@ -51,7 +51,7 @@ public final class Util
     {
         List<Mob> mobs = new ArrayList<>();
 
-        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        for (Unit unit : new ArrayList<>(World.getUnits()))
             if (unit instanceof Mob) mobs.add((Mob) unit);
 
         return mobs;

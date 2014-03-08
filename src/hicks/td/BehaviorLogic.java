@@ -21,7 +21,7 @@ public final class BehaviorLogic
 
     private static void performUpdatePhase()
     {
-        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             if (unit instanceof Mob)
             {
@@ -48,19 +48,19 @@ public final class BehaviorLogic
             {
                 Explosion explosion = (Explosion) unit;
                 if (explosion.getFrame() > 73)
-                    GameState.removeUnit(unit);
+                    World.removeUnit(unit);
             }
         }
     }
 
     private static void performSpawningPhase()
     {
-        Spawner spawner = GameState.getSpawner();
-        Player player   = GameState.getPlayer();
-        Round round     = GameState.getRound(player.getRoundNumber());
+        Spawner spawner = World.getSpawner();
+        Player player   = World.getPlayer();
+        Round round     = World.getRound(player.getRoundNumber());
 
         // spawn units
-        if (spawner.isReadyToBuild() && player.getRoundNumber() < 7)
+        if (GameCanvas.isActiveRound() && spawner.isReadyToBuild() && player.getRoundNumber() < 7)
         {
             Mob mob = new Footman(2);
             mob.setLocation(new Point(32, 32));
@@ -73,15 +73,18 @@ public final class BehaviorLogic
                 mob.setMaxHp(mob.getMaxHp() + 10 * player.getRoundNumber());
 
                 mob.setArmor(mob.getArmor() + 2 * player.getRoundNumber());
+
+                mob.setBounty(mob.getBounty() + 1);
             }
 
-            GameState.addUnit(mob);
+            World.addUnit(mob);
             spawner.setTimeOfLastBuild(Util.now());
             spawner.incrementUnitsCreated();
 
-            if (spawner.getUnitsCreated() % 20 == 0)
+            if (spawner.getUnitsCreated() == 20)
             {
-                player.setRoundNumber(player.getRoundNumber() + 1);
+                GameCanvas.setActiveRound(false);
+                GameCanvas.getGamePanel().showNextRoundButton();
             }
         }
     }

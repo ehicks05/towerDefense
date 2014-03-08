@@ -20,30 +20,29 @@ public final class GameCanvas extends Canvas
     private static Unit selectedUnit = new Unit();
 
     private static boolean runningSimulation = false;
-    private static boolean displayMenu = true;
     private static String stopSimulationReason = "";
 
-    private static JFrame frame;
-    private static JPanel gamePanel;
+    private static MyGamePanel gamePanel;
     private static JPanel mainMenuPanel;
     private static JPanel cards;
     private static CardLayout cardLayout;
 
     private static BigDecimal timePaused;
-    private static BigDecimal timeResumed;
 
     private static JLabel infoLabel;
     private static String towerToggle = "Arrow";
 
+    private static boolean activeRound = false;
+
     public GameCanvas()
     {
-        this.setSize(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight());
+        this.setSize(World.getGameMap().getWidth(), World.getGameMap().getHeight());
 
         this.addKeyListener(new MyKeyListener());
         this.addMouseListener(new MyMouseListener());
         this.addMouseMotionListener(new MyMouseMotionListener());
 
-        this.setBounds(0, 0, GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight());
+        this.setBounds(0, 0, World.getGameMap().getWidth(), World.getGameMap().getHeight());
         this.setIgnoreRepaint(true);
     }
 
@@ -54,7 +53,7 @@ public final class GameCanvas extends Canvas
         double scalingFactor = DisplayInfo.getScalingFactor();
         g2d.scale(scalingFactor, scalingFactor);
 
-        g2d.drawImage(GameState.getTerrainImage(), 0, 0, null);
+        g2d.drawImage(World.getTerrainImage(), 0, 0, null);
 
         UnitPainter.drawUnits(g2d);
         if (runningSimulation)
@@ -74,18 +73,18 @@ public final class GameCanvas extends Canvas
 
     private static String getLabelText()
     {
-        BigDecimal elapsed = Util.getElapsedTime(GameState.getStartTime()).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal elapsed = Util.getElapsedTime(World.getStartTime()).setScale(2, RoundingMode.HALF_UP);
 
         String labelText = "<html><table><tr>";
 
-        labelText += "<td>Gold:</td><td>" + GameState.getPlayer().getGold()   + "</td>";
-        labelText += "<td>Round:</td><td>" + GameState.getPlayer().getRoundNumber() + "</td>";
-        labelText += "<td>Lives:</td><td>" + GameState.getPlayer().getLives() + "</td>";
+        labelText += "<td>Gold:</td><td>" + World.getPlayer().getGold()   + "</td>";
+        labelText += "<td>Round:</td><td>" + World.getPlayer().getRoundNumber() + "</td>";
+        labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
         labelText += "</tr><tr>";
 
         labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
         labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-        labelText += "<td>Units:</td><td>" + GameState.getUnits().size() + "</td>";
+        labelText += "<td>Units:</td><td>" + World.getUnits().size() + "</td>";
         labelText += "</tr></table></html>";
 
         return labelText;
@@ -95,7 +94,7 @@ public final class GameCanvas extends Canvas
     {
         Init.init();
 
-        frame = new MyFrame();
+        JFrame frame = new MyFrame();
         gamePanel = new MyGamePanel();
 
         infoLabel = new JLabel();
@@ -168,12 +167,12 @@ public final class GameCanvas extends Canvas
             }
 
             // check stopping conditions
-            if (GameState.getPlayer().getLives() <= 0)
+            if (World.getPlayer().getLives() <= 0)
             {
                 runningSimulation = false;
                 stopSimulationReason = "YOU LOSE!";
             }
-            if (GameState.getPlayer().getRoundNumber() > 6 && UnitLogic.getUnitsOnTeam(2) == 0)
+            if (World.getPlayer().getRoundNumber() > 6 && UnitLogic.getUnitsOnTeam(2) == 0)
             {
                 runningSimulation = false;
                 stopSimulationReason = "YOU WIN!";
@@ -202,13 +201,13 @@ public final class GameCanvas extends Canvas
     public static void resumeGame()
     {
         runningSimulation = true;
-        timeResumed = Util.now();
+        BigDecimal timeResumed = Util.now();
 
         if (timePaused == null) timePaused = Util.now();
 
         BigDecimal timeDeltaSeconds = Util.getElapsedTime(timePaused, timeResumed);
         BigDecimal timeDeltaMillis = timeDeltaSeconds.multiply(new BigDecimal("1000"));
-        GameState.adjustStartTime(timeDeltaMillis);
+        World.adjustStartTime(timeDeltaMillis);
 
         for (Tower tower : Util.getTowers())
             tower.setTimeOfLastAttack(tower.getTimeOfLastAttack().add(timeDeltaMillis));
@@ -219,7 +218,7 @@ public final class GameCanvas extends Canvas
         for (Mob mob : Util.getMobs())
             mob.setTimeOfLastMove(mob.getTimeOfLastMove().add(timeDeltaMillis));
 
-        GameState.getSpawner().setTimeOfLastBuild(GameState.getSpawner().getTimeOfLastBuild().add(timeDeltaMillis));
+        World.getSpawner().setTimeOfLastBuild(World.getSpawner().getTimeOfLastBuild().add(timeDeltaMillis));
     }
 
     public static Unit getSelectedUnit()
@@ -250,5 +249,34 @@ public final class GameCanvas extends Canvas
     public static void setRunningSimulation(boolean runningSimulation)
     {
         GameCanvas.runningSimulation = runningSimulation;
+    }
+
+    public static boolean isActiveRound()
+    {
+        return activeRound;
+    }
+
+    public static void setActiveRound(boolean activeRound)
+    {
+        GameCanvas.activeRound = activeRound;
+    }
+
+    public static void startNextRound()
+    {
+        World.getSpawner().setTimeOfLastBuild(Util.now());
+        World.getSpawner().setUnitsCreated(0);
+
+        World.getPlayer().setRoundNumber(World.getPlayer().getRoundNumber() + 1);
+        setActiveRound(true);
+    }
+
+    public static MyGamePanel getGamePanel()
+    {
+        return gamePanel;
+    }
+
+    public static void setGamePanel(MyGamePanel gamePanel)
+    {
+        GameCanvas.gamePanel = gamePanel;
     }
 }

@@ -1,6 +1,6 @@
 package hicks.td.entities;
 
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.tower.Tower;
@@ -14,7 +14,7 @@ public final class UnitLogic
 {
     public static Unit removeUnitAsTarget(Unit formerTarget)
     {
-        List<Unit> units = new ArrayList<>(GameState.getUnits());
+        List<Unit> units = new ArrayList<>(World.getUnits());
 
         for (Unit unit : units)
         {
@@ -139,7 +139,7 @@ public final class UnitLogic
 
     public static int getUnitsOnTeam(int team)
     {
-        List<Unit> units = new ArrayList<>(GameState.getUnits());
+        List<Unit> units = new ArrayList<>(World.getUnits());
 
         for (Iterator<Unit> i = units.iterator(); i.hasNext();)
         {

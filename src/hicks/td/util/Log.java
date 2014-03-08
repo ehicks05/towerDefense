@@ -1,6 +1,6 @@
 package hicks.td.util;
 
-import hicks.td.GameState;
+import hicks.td.World;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -26,7 +26,7 @@ public final class Log
         lines++;
         String elapsedString = "000.00";
 
-        BigDecimal simulationStart = GameState.getStartTime();
+        BigDecimal simulationStart = World.getStartTime();
         if (simulationStart != null)
         {
             double elapsedTime = Util.getElapsedTime(simulationStart).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();

@@ -14,5 +14,6 @@ public class Footman extends Mob
         setCurrentHp(60);
         setMaxHp(60);
         setArmor(8);
+        setBounty(10);
     }
 }

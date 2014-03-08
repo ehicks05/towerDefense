@@ -1,7 +1,7 @@
 package hicks.td.entities.projectile;
 
 import hicks.td.CombatLogic;
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Explosion;
@@ -47,10 +47,10 @@ public class Cannonball extends Projectile
         // add a visual explosion
         Explosion explosion = new Explosion();
         explosion.setLocation(this.getLocation());
-        GameState.addUnit(explosion);
+        World.addUnit(explosion);
 
         SoundManager.playSFX(SoundEffect.CANNON_HIT);
-        GameState.removeUnit(this);
+        World.removeUnit(this);
 
     }
 

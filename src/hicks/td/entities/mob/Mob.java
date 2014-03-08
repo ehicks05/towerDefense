@@ -1,6 +1,6 @@
 package hicks.td.entities.mob;
 
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
@@ -20,6 +20,7 @@ public class Mob extends Unit
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
     private int m_frame;
     private MobBodyPartCollection m_mobBodyPartCollection;
+    private int m_bounty;
 
     public boolean isAlive()
     {
@@ -32,8 +33,8 @@ public class Mob extends Unit
         if (m_path.size() == 0)
         {
             UnitLogic.removeUnitAsTarget(this);
-            GameState.removeUnit(this);
-            GameState.getPlayer().removeLife();
+            World.removeUnit(this);
+            World.getPlayer().removeLife();
         }
     }
 
@@ -41,9 +42,9 @@ public class Mob extends Unit
     {
         Queue<Point> path = new ArrayBlockingQueue<>(4);
         path.add(new Point(32, 32));
-        path.add(new Point(32, GameState.getGameMap().getHeight() - 32));
-        path.add(new Point(GameState.getGameMap().getWidth() - 32, GameState.getGameMap().getHeight() - 32));
-        path.add(new Point(GameState.getGameMap().getWidth() - 32, 32));
+        path.add(new Point(32, World.getGameMap().getHeight() - 32));
+        path.add(new Point(World.getGameMap().getWidth() - 32, World.getGameMap().getHeight() - 32));
+        path.add(new Point(World.getGameMap().getWidth() - 32, 32));
         return path;
     }
 
@@ -116,5 +117,15 @@ public class Mob extends Unit
     public void setMobBodyPartCollection(MobBodyPartCollection mobBodyPartCollection)
     {
         m_mobBodyPartCollection = mobBodyPartCollection;
+    }
+
+    public int getBounty()
+    {
+        return m_bounty;
+    }
+
+    public void setBounty(int bounty)
+    {
+        m_bounty = bounty;
     }
 }

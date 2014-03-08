@@ -1,6 +1,6 @@
 package hicks.td.entities.projectile;
 
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.UnitLogic;
@@ -56,7 +56,7 @@ public class Glaive extends Projectile
                 glaive.setDestination(ProjectileLogic.getProjectileDestination(glaive, closestVisibleEnemy.getLocation()));
 
                 SoundManager.playSFX(SoundEffect.SHOOT_GLAIVE);
-                GameState.addUnit(glaive);
+                World.addUnit(glaive);
             }
         }
     }

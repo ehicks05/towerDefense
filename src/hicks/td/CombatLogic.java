@@ -22,14 +22,14 @@ public final class CombatLogic
         if (!damageRecipient.isAlive())
         {
             processDeath(damageRecipient);
-            GameState.getPlayer().addGold(10);
+            World.getPlayer().addGold(damageRecipient.getBounty());
             damageSource.getOriginator().setKills(damageSource.getOriginator().getKills() + 1);
         }
     }
 
     private static void processDeath(Mob defender)
     {
-        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             if (unit instanceof Tower)
             {
@@ -40,7 +40,7 @@ public final class CombatLogic
         }
 
         SoundManager.playSFX(SoundEffect.DEATH);
-        GameState.removeUnit(defender);
+        World.removeUnit(defender);
     }
 
     private static int getUnmitigatedDamage(int damage, int armor)

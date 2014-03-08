@@ -1,7 +1,7 @@
 package hicks.td.ui;
 
 import hicks.td.GameCanvas;
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 import hicks.td.entities.tower.ArrowTower;
@@ -23,7 +23,7 @@ public class MyMouseListener extends MouseAdapter
         GameCanvas.setSelectedUnit(null);
         if (e.getButton() == 1)
         {
-            for (Unit unit : GameState.getUnits())
+            for (Unit unit : World.getUnits())
             {
                 int unitX = (int) unit.getLocation().getX();
                 int unitY = (int) unit.getLocation().getY();
@@ -57,14 +57,14 @@ public class MyMouseListener extends MouseAdapter
 
             int goldCost = tower.getPrice();
 
-            boolean canAffordGoldCost = GameState.getPlayer().getGold() >= goldCost;
+            boolean canAffordGoldCost = World.getPlayer().getGold() >= goldCost;
             boolean validLocation = InterfaceUtil.isValidLocation(eventX, eventY, new ArrowTower(2).getSizeRadius());
 
             if (canAffordGoldCost && validLocation)
             {
                 tower.setLocation(new Point(eventX, eventY));
-                GameState.addUnit(tower);
-                GameState.getPlayer().removeGold(tower.getPrice());
+                World.addUnit(tower);
+                World.getPlayer().removeGold(tower.getPrice());
             }
         }
     }

@@ -1,6 +1,6 @@
 package hicks.td.ui;
 
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 
@@ -24,7 +24,7 @@ public class InterfaceUtil
     public static boolean isValidLocation(int x, int y, int radiusOfNewBuilding)
     {
         Point attemptedBuildLocation = new Point(x, y);
-        List<Unit> units = new ArrayList<>(GameState.getUnits());
+        List<Unit> units = new ArrayList<>(World.getUnits());
 
         // check against existing units
         for (Unit unit : units)
@@ -46,7 +46,7 @@ public class InterfaceUtil
 
     private static boolean isObjectInBounds(int x, int y, int radius)
     {
-        return (x - radius >= 0 && x + radius < GameState.getGameMap().getWidth() &&
-                y - radius >= 0 && y + radius < GameState.getGameMap().getHeight());
+        return (x - radius >= 0 && x + radius < World.getGameMap().getWidth() &&
+                y - radius >= 0 && y + radius < World.getGameMap().getHeight());
     }
 }

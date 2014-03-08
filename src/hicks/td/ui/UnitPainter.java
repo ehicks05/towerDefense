@@ -1,7 +1,7 @@
 package hicks.td.ui;
 
 import hicks.td.GameCanvas;
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.entities.Explosion;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
@@ -34,7 +34,7 @@ public final class UnitPainter
 
     public static void drawUnits(Graphics2D g2d)
     {
-        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             int size = unit.getSizeRadius();
             int diameter = size * 2;
@@ -88,9 +88,9 @@ public final class UnitPainter
                 Point destination = mob.getPath().peek();
                 String direction = "";
                 if (destination.equals(new Point(32, 32))) direction = "left";
-                if (destination.equals(new Point(32, GameState.getGameMap().getHeight() - 32))) direction = "down";
-                if (destination.equals(new Point(GameState.getGameMap().getWidth() - 32, GameState.getGameMap().getHeight() - 32))) direction = "right";
-                if (destination.equals(new Point(GameState.getGameMap().getWidth() - 32, 32))) direction = "up";
+                if (destination.equals(new Point(32, World.getGameMap().getHeight() - 32))) direction = "down";
+                if (destination.equals(new Point(World.getGameMap().getWidth() - 32, World.getGameMap().getHeight() - 32))) direction = "right";
+                if (destination.equals(new Point(World.getGameMap().getWidth() - 32, 32))) direction = "up";
 
                 drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getMobBodyPartCollection());
 
@@ -112,7 +112,7 @@ public final class UnitPainter
             }
         }
 
-        for (Unit unit : new ArrayList<>(GameState.getUnits()))
+        for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             if (unit instanceof Mob)
             {

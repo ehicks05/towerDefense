@@ -1,6 +1,6 @@
 package hicks.td.util;
 
-import hicks.td.GameState;
+import hicks.td.World;
 
 import java.awt.image.BufferedImage;
 import java.util.Map;
@@ -13,7 +13,7 @@ public final class MapBuilder
         int[] grassRGB = tiles.get("GGGG").getRGB(0, 0, 32, 32, null, 0, 32);
         int[] roadRGB  = tiles.get("DDDD").getRGB(0, 0, 32, 32, null, 0, 32);
 
-        BufferedImage terrain = new BufferedImage(GameState.getGameMap().getWidth(), GameState.getGameMap().getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage terrain = new BufferedImage(World.getGameMap().getWidth(), World.getGameMap().getHeight(), BufferedImage.TYPE_INT_RGB);
 
         for (int row = 0; row < 24; row++)
         {

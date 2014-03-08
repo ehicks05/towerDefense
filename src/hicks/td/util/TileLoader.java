@@ -1,6 +1,6 @@
 package hicks.td.util;
 
-import hicks.td.GameState;
+import hicks.td.World;
 import hicks.td.entities.Tile;
 
 import javax.imageio.ImageIO;
@@ -54,7 +54,6 @@ public class TileLoader
 
             image = tileSet.getSubimage(x, y, 32, 32);
             tiles.put(tileNames.get(i), image);
-            GameState.addTileToTiles(new Tile(tileNames.get(i), 32, 32, image));
             x += 33;
         }
 

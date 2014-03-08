@@ -16,8 +16,8 @@ public final class Init
 {
     public static void init()
     {
-        GameState.setStartTime(Util.now());
-        Log.info("Initializing " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(GameState.getStartTime()));
+        World.setStartTime(Util.now());
+        Log.info("Initializing " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(World.getStartTime()));
 
         deleteLogs();
 
@@ -25,11 +25,11 @@ public final class Init
         SoundManager.init();
         MobTileLoader.init();
 
-        GameState.setPlayer(new Player(300, 20, 1));
-        GameState.setGameMap(new GameMap(1024, 768));
-        GameState.getGameMap().setWorldWidthInTiles(GameState.getGameMap().getWidth() / 32);
-        GameState.getGameMap().setWorldHeightInTiles(GameState.getGameMap().getHeight() / 32);
-        GameState.setTerrainImage(MapBuilder.buildMap());
+        World.setPlayer(new Player(300, 20, 0));
+        World.setGameMap(new GameMap(1024, 768));
+        World.getGameMap().setWorldWidthInTiles(World.getGameMap().getWidth() / 32);
+        World.getGameMap().setWorldHeightInTiles(World.getGameMap().getHeight() / 32);
+        World.setTerrainImage(MapBuilder.buildMap());
 
         List<Round> rounds = new ArrayList<>();
         rounds.add(new Round(1, new MobBodyPartCollection(MobBodyPart.BODY_HUMAN, null, null, null, null, null, MobBodyPart.LEGS_ROBE, MobBodyPart.TORSO_ROBE, null, null, null)));
@@ -38,7 +38,7 @@ public final class Init
         rounds.add(new Round(4, new MobBodyPartCollection(MobBodyPart.BODY_HUMAN, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_CHAIN_ARMOR, MobBodyPart.TORSO_CHAIN_JACKET, null, null)));
         rounds.add(new Round(5, new MobBodyPartCollection(MobBodyPart.BODY_HUMAN, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_PLATE, MobBodyPart.LEGS_PLATE, MobBodyPart.TORSO_PLATE, null, MobBodyPart.TORSO_PLATE_SHOULDERS, null)));
         rounds.add(new Round(6, new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, null, null, null, MobBodyPart.LEGS_ROBE, MobBodyPart.TORSO_ROBE, null, null, null)));
-        GameState.setRounds(rounds);
+        World.setRounds(rounds);
     }
 
     private static void deleteLogs()
