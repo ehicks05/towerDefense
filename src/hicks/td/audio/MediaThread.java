@@ -1,12 +1,10 @@
 package hicks.td.audio;
 
 import hicks.td.util.Log;
-import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class MediaThread extends Thread
@@ -19,7 +17,7 @@ public class MediaThread extends Thread
             InputStream soundtrack = new FileInputStream(musicFile);
             Player player = new Player(soundtrack);
 
-//            player.play();
+            player.play();
         }
         catch(Exception e)
         {

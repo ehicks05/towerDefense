@@ -107,7 +107,7 @@ public final class UnitPainter
                 g2d.drawImage(ExplosionTileLoader.getTile(frameIndex), drawX, drawY, diameter, diameter, null);
 
                 if (GameCanvas.isRunningSimulation())
-                    explosion.setFrame(frameIndex + 1);
+                    explosion.setFrame(frameIndex + 2);
             }
         }
 

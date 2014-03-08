@@ -25,10 +25,10 @@ public class Cannonball extends Projectile
         setTimeOfLastMove(Util.now());
 
         setMinDamage(24);
-        setMaxDamage(30);
+        setMaxDamage(48);
         setMaximumRange(600);
         setFireSound(SoundEffect.CANNON_FIRE);
-        setSplashRadius(64);
+        setSplashRadius(96);
     }
 
     public void performProjectileHit(Mob victim)

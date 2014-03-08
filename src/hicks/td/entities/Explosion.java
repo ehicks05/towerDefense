@@ -7,7 +7,7 @@ public class Explosion extends Unit
     public Explosion()
     {
         setFrame(0);
-        setSizeRadius(64);
+        setSizeRadius(96);
     }
 
     public int getFrame()
