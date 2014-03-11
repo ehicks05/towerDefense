@@ -62,6 +62,8 @@ public final class GameCanvas extends Canvas
         if (runningSimulation)
             infoLabel.setText(getLabelText());
 
+        infoLabel.setPreferredSize(new Dimension(250,80));
+
         if (!runningSimulation)
         {
             Font font = new Font("Helvetica", Font.PLAIN, 36);
