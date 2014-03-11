@@ -41,8 +41,8 @@ public class MyMouseListener extends MouseAdapter
         if (e.getButton() == 3)
         {
             // snap to grid
-            eventX = InterfaceUtil.snapToGrid(eventX);
-            eventY = InterfaceUtil.snapToGrid(eventY);
+            eventX = InterfaceUtil.snapToMiddleOfTile(eventX);
+            eventY = InterfaceUtil.snapToMiddleOfTile(eventY);
 
             String towerToggle = GameCanvas.getTowerToggle();
 

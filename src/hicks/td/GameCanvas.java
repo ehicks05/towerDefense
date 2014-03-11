@@ -34,6 +34,9 @@ public final class GameCanvas extends Canvas
 
     private static boolean activeRound = false;
 
+    private static int mouseX;
+    private static int mouseY;
+
     public GameCanvas()
     {
         this.setSize(World.getGameMap().getWidth(), World.getGameMap().getHeight());
@@ -66,6 +69,22 @@ public final class GameCanvas extends Canvas
             g2d.setColor(Color.BLACK);
             g2d.drawString(stopSimulationReason, DisplayInfo.getWindowWidth() / 2, DisplayInfo.getWindowHeight() / 2);
         }
+
+        // draw
+        if (selectedUnit == null)
+        {
+            g2d.setColor(Color.DARK_GRAY);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 2 * .1f));
+            g2d.fillOval(InterfaceUtil.snapToMiddleOfTile(mouseX) - 16, InterfaceUtil.snapToMiddleOfTile(mouseY) - 16, 32, 32);
+            g2d.setColor(Color.BLACK);
+        }
+
+        // draw tile grid
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 3 * .1f));
+        for (int width = 0; width < 1024; width += 32)
+            g2d.drawLine( width, 0, width, 768);
+        for (int height = 0; height < 768; height += 32)
+            g2d.drawLine( 0, height, 1024, height);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -278,5 +297,25 @@ public final class GameCanvas extends Canvas
     public static void setGamePanel(MyGamePanel gamePanel)
     {
         GameCanvas.gamePanel = gamePanel;
+    }
+
+    public static int getMouseY()
+    {
+        return mouseY;
+    }
+
+    public static void setMouseY(int mouseY)
+    {
+        GameCanvas.mouseY = mouseY;
+    }
+
+    public static int getMouseX()
+    {
+        return mouseX;
+    }
+
+    public static void setMouseX(int mouseX)
+    {
+        GameCanvas.mouseX = mouseX;
     }
 }

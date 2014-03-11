@@ -14,6 +14,9 @@ public final class GameMap
     {
         m_width = width;
         m_height = height;
+
+        m_worldWidthInTiles = width / 32;
+        m_worldHeightInTiles = height / 32;
     }
 
     public int getWorldWidthInTiles()

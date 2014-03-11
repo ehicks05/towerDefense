@@ -27,10 +27,12 @@ public final class Init
 
         World.setPlayer(new Player(300, 20, 0));
         World.setGameMap(new GameMap(1024, 768));
-        World.getGameMap().setWorldWidthInTiles(World.getGameMap().getWidth() / 32);
-        World.getGameMap().setWorldHeightInTiles(World.getGameMap().getHeight() / 32);
         World.setTerrainImage(MapBuilder.buildMap());
+        World.setRounds(getRounds());
+    }
 
+    private static List<Round> getRounds()
+    {
         List<Round> rounds = new ArrayList<>();
         rounds.add(new Round(1, new MobBodyPartCollection(MobBodyPart.BODY_HUMAN, null, null, null, null, null, MobBodyPart.LEGS_ROBE, MobBodyPart.TORSO_ROBE, null, null, null)));
         rounds.add(new Round(2, new MobBodyPartCollection(MobBodyPart.BODY_HUMAN, null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, null, MobBodyPart.HEAD_HAIR, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS)));
@@ -38,7 +40,7 @@ public final class Init
         rounds.add(new Round(4, new MobBodyPartCollection(MobBodyPart.BODY_HUMAN, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_CHAIN_ARMOR, MobBodyPart.TORSO_CHAIN_JACKET, null, null)));
         rounds.add(new Round(5, new MobBodyPartCollection(MobBodyPart.BODY_HUMAN, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_PLATE, MobBodyPart.LEGS_PLATE, MobBodyPart.TORSO_PLATE, null, MobBodyPart.TORSO_PLATE_SHOULDERS, null)));
         rounds.add(new Round(6, new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, null, null, null, MobBodyPart.LEGS_ROBE, MobBodyPart.TORSO_ROBE, null, null, null)));
-        World.setRounds(rounds);
+        return rounds;
     }
 
     private static void deleteLogs()
