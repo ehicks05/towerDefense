@@ -1,0 +1,45 @@
+@font-face
+{
+    font-family: clickerFont;
+    src: url(OpenSans-Regular.ttf);
+}
+
+body {margin:auto; font-family: clickerFont, sans-serif;}
+td {margin: auto; padding: 4px;}
+img {height: 40px; vertical-align: middle;}
+
+input[type=button]
+{
+    padding: 1px 8px;
+    margin: 2px 0;
+    font-size: 9pt;
+    font-weight: 600;
+    background-color: #EEE;
+    border: 1px solid #005500;
+    border-radius: 8px;
+}
+
+input[type=button]:hover {background-color: #DDD; cursor: pointer;}
+input[type=button]:active {background-color: #BBB; cursor: pointer;}
+
+#outerDiv {margin: auto; width: 800px; height: 100%;}
+#mainTitle {margin: auto; text-align: center;}
+#clickCount {padding: 1px; border: 1px solid black;}
+
+.hidden {display: none;}
+
+#tabs {width: 100%}
+.navTab {border: solid 1px black; text-align: center; cursor: pointer;}
+.selected {border-bottom: none; border-left: solid 1px black; font-weight: bold;}
+
+#buildingsTable {border: solid 1px black; border-top: none;}
+#villagersTable {border: solid 1px black; border-top: none;}
+#researchTable {border: solid 1px black; border-top: none;}
+
+.list {border-spacing: 0; border-collapse: collapse; margin: auto; }
+.listHeader td {font-weight: bold;}
+
+.cellRight {text-align: right;}
+.cellCenter {text-align: center;}
+
+.mainMenu {cursor: pointer;}
