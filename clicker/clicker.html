@@ -27,9 +27,9 @@
                 <table class="list" style="text-align: center;">
                     <tr class="listHeader"><td colspan="5">Resources</td></tr>
                     <tr class="listHeader">
-                        <td colspan="2">Resource</td><td>Quantity</td><td>Rate</td><td></td>
+                        <td colspan="2">Resource</td><td style="width: 100px;">Quantity</td><td>Rate</td><td></td>
                     </tr>
-                    <tr id="foodRow" class="listRowOdd">
+                    <tr id="foodRow">
                         <td><img src="ico/chicken.svg"/></td>
                         <td>Food</td>
                         <td class="cellRight">
@@ -38,7 +38,7 @@
                         <td id="foodRate" class="cellRight">0</td>
                         <td><input type="button" value="Harvest" onclick="updateResource('food', .1);"/></td>
                     </tr>
-                    <tr id="lumberRow" class="listRowEven">
+                    <tr id="lumberRow">
                         <td><img src="ico/tree.svg"/></td>
                         <td>Lumber</td>
                         <td class="cellRight">
@@ -47,21 +47,21 @@
                         <td id="lumberRate" class="cellRight">0</td>
                         <td></td>
                     </tr>
-                    <tr id="stoneRow" class="listRowOdd hidden">
+                    <tr id="stoneRow" class="hidden">
                         <td><img src="ico/stones.svg"/></td>
                         <td>Stone</td>
                         <td id="stone" class="cellRight">0</td>
                         <td id="stoneRate" class="cellRight">0</td>
                         <td></td>
                     </tr>
-                    <tr id="leatherRow" class="listRowEven hidden">
+                    <tr id="leatherRow" class="hidden">
                         <td><img src="ico/leather.svg"/></td>
                         <td>Leather</td>
                         <td id="leather" class="cellRight">0</td>
                         <td id="leatherRate" class="cellRight">0</td>
                         <td></td>
                     </tr>
-                    <tr id="researchRow" class="listRowOdd hidden">
+                    <tr id="researchRow" class="hidden">
                         <td><img src="ico/lightbulb.svg"/></td>
                         <td>Research</td>
                         <td class="cellRight">
@@ -70,7 +70,7 @@
                         <td id="researchRate" class="cellRight">0</td>
                         <td></td>
                     </tr>
-                    <tr id="villagersRow" class="listRowOdd hidden">
+                    <tr id="villagersRow" class="hidden">
                         <td><img src="ico/person.svg"/></td>
                         <td>Villagers</td>
                         <td class="cellRight">
@@ -91,48 +91,55 @@
                 </table>
                 <table id="buildingsTable" class="list hidden">
                     <tr class="listHeader">
-                        <td>Structure</td><td>Quantity</td><td>Price</td><td></td>
+                        <td>Structure</td><td>Quantity</td><td>Price</td><td></td><td></td>
                     </tr>
-                    <tr id="farmsRow" class="listRowOdd hidden">
-                        <td>Farms</td>
-                        <td id="farms" class="cellRight">0</td>
-                        <td id="farmPrice" class="cellRight"></td>
-                        <td><input type="button" value="Build" onclick="buildFarm();"/></td>
-                    </tr>
-                    <tr id="lumberMillsRow" class="listRowOdd hidden">
-                        <td>Lumber Mills</td>
-                        <td id="lumberMills" class="cellRight">0</td>
-                        <td id="lumberMillPrice" class="cellRight"></td>
-                        <td><input type="button" value="Build" onclick="buildLumberMill();"/></td>
-                    </tr>
-                    <tr id="huntingCampsRow" class="listRowEven hidden">
-                        <td>Hunting Camps</td>
-                        <td id="huntingCamps" class="cellRight">0</td>
-                        <td id="huntingCampPrice" class="cellRight"></td>
-                        <td><input type="button" value="Build" onclick="buildHuntingCamp();"/></td>
-                    </tr>
-                    <tr id="quarriesRow" class="listRowEven hidden">
-                        <td>Quarries</td>
-                        <td id="quarries" class="cellRight">0</td>
-                        <td id="quarryPrice" class="cellRight"></td>
-                        <td><input type="button" value="Build" onclick="buildQuarry();"/></td>
-                    </tr>
-                    <tr id="smithiesRow" class="listRowOdd hidden">
-                        <td>Smithies</td>
-                        <td id="smithies" class="cellRight">0</td>
-                        <td id="smithyPrice" class="cellRight"></td>
-                        <td><input type="button" value="Build" onclick="buildSmithy();"/></td>
-                    </tr>
-                    <tr id="hutsRow" class="listRowEven hidden">
+                    <tr id="hutsRow" class="hidden">
                         <td>Huts</td>
                         <td id="huts" class="cellRight">0</td>
                         <td id="hutPrice" class="cellRight"></td>
+                        <td><img src="ico/chicken.svg"/></td>
                         <td><input type="button" value="Build" onclick="buildHut();"/></td>
                     </tr>
-                    <tr id="storeroomsRow" class="listRowEven hidden">
+                    <tr id="farmsRow" class="hidden">
+                        <td>Farms</td>
+                        <td id="farms" class="cellRight">0</td>
+                        <td id="farmPrice" class="cellRight"></td>
+                        <td><img src="ico/tree.svg"/></td>
+                        <td><input type="button" value="Build" onclick="buildFarm();"/></td>
+                    </tr>
+                    <tr id="lumberMillsRow" class="hidden">
+                        <td>Lumber Mills</td>
+                        <td id="lumberMills" class="cellRight">0</td>
+                        <td id="lumberMillPrice" class="cellRight"></td>
+                        <td><img src="ico/tree.svg"/></td>
+                        <td><input type="button" value="Build" onclick="buildLumberMill();"/></td>
+                    </tr>
+                    <tr id="huntingCampsRow" class="hidden">
+                        <td>Hunting Camps</td>
+                        <td id="huntingCamps" class="cellRight">0</td>
+                        <td id="huntingCampPrice" class="cellRight"></td>
+                        <td><img src="ico/tree.svg"/></td>
+                        <td><input type="button" value="Build" onclick="buildHuntingCamp();"/></td>
+                    </tr>
+                    <tr id="quarriesRow" class="hidden">
+                        <td>Quarries</td>
+                        <td id="quarries" class="cellRight">0</td>
+                        <td id="quarryPrice" class="cellRight"></td>
+                        <td><img src="ico/tree.svg"/></td>
+                        <td><input type="button" value="Build" onclick="buildQuarry();"/></td>
+                    </tr>
+                    <tr id="smithiesRow" class="hidden">
+                        <td>Smithies</td>
+                        <td id="smithies" class="cellRight">0</td>
+                        <td id="smithyPrice" class="cellRight"></td>
+                        <td><img src="ico/tree.svg"/></td>
+                        <td><input type="button" value="Build" onclick="buildSmithy();"/></td>
+                    </tr>
+                    <tr id="storeroomsRow" class="hidden">
                         <td>Storerooms</td>
                         <td id="storerooms" class="cellRight">0</td>
                         <td id="storeroomPrice" class="cellRight"></td>
+                        <td><img src="ico/tree.svg"/></td>
                         <td><input type="button" value="Build" onclick="buildStoreroom();"/></td>
                     </tr>
                 </table>
@@ -140,43 +147,43 @@
                     <tr class="listHeader">
                         <td>Villagers</td><td>Quantity</td><td></td><td></td>
                     </tr>
-                    <tr id="idlersRow" class="listRowOdd hidden">
+                    <tr id="idlersRow" class="hidden">
                         <td>Idle Villagers</td>
                         <td id="idlers" class="cellRight">0</td>
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr id="farmersRow" class="listRowOdd hidden">
+                    <tr id="farmersRow" class="hidden">
                         <td>Farmer</td>
                         <td id="farmers" class="cellRight">0</td>
                         <td><input type="button" value="+" onclick="assignWorker('farmers');"/></td>
                         <td><input type="button" value="-" onclick="unAssignWorker('farmers');"/></td>
                     </tr>
-                    <tr id="huntersRow" class="listRowEven hidden">
+                    <tr id="huntersRow" class="hidden">
                         <td>Hunter</td>
                         <td id="hunters" class="cellRight">0</td>
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr id="forestersRow" class="listRowOdd hidden">
+                    <tr id="forestersRow" class="hidden">
                         <td>Forester</td>
                         <td id="foresters" class="cellRight">0</td>
                         <td><input type="button" value="+" onclick="assignWorker('foresters');"/></td>
                         <td><input type="button" value="-" onclick="unAssignWorker('foresters');"/></td>
                     </tr>
-                    <tr id="thinkersRow" class="listRowOdd hidden">
+                    <tr id="thinkersRow" class="hidden">
                         <td>Thinker</td>
                         <td id="thinkers" class="cellRight">0</td>
                         <td><input type="button" value="+" onclick="assignWorker('thinkers');"/></td>
                         <td><input type="button" value="-" onclick="unAssignWorker('thinkers');"/></td>
                     </tr>
-                    <tr id="minersRow" class="listRowEven hidden">
+                    <tr id="minersRow" class="hidden">
                         <td>Miner</td>
                         <td id="miners" class="cellRight">0</td>
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr id="buildersRow" class="listRowOdd hidden">
+                    <tr id="buildersRow" class="hidden">
                         <td>Builder</td>
                         <td id="builders" class="cellRight">0</td>
                         <td></td>
@@ -187,12 +194,12 @@
                     <tr class="listHeader">
                         <td>Technology</td><td>Price</td><td></td>
                     </tr>
-                    <tr id="farmingRow" class="listRowOdd hidden">
+                    <tr id="farmingRow" class="hidden">
                         <td>Farming</td>
                         <td id="farmingPrice" class="cellRight"></td>
                         <td><input type="button" id="farmingButton" value="Research" onclick="makeDiscovery('farming');"/></td>
                     </tr>
-                    <tr id="basicConstructionRow" class="listRowEven hidden">
+                    <tr id="basicConstructionRow" class="hidden">
                         <td>Basic Construction</td>
                         <td id="basicConstructionPrice" class="cellRight"></td>
                         <td><input type="button" id="basicConstructionButton" value="Research" onclick="makeDiscovery('basicConstruction');"/></td>

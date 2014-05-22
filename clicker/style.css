@@ -6,7 +6,7 @@
 
 body {margin:auto; font-family: clickerFont, sans-serif;}
 td {margin: auto; padding: 4px;}
-img {height: 40px; vertical-align: middle;}
+img {height: 24px; vertical-align: middle;}
 
 input[type=button]
 {
