@@ -1,7 +1,7 @@
 function buildBuilding(priceType, priceAmount, buildingName)
 {
-    var priceIncreaseMultiplier = 1.06;
-    if (buildingName === 'huts') priceIncreaseMultiplier = 1.04;
+    var priceIncreaseMultiplier = 1.07;
+    if (buildingName === 'huts') priceIncreaseMultiplier = 1.05;
 
     var canAfford = game[priceType] >= game[priceAmount];
     if (canAfford)
@@ -19,3 +19,8 @@ function buildHut(){buildBuilding('food', 'hutPrice', 'huts');}
 function buildFarm(){buildBuilding('lumber', 'farmPrice', 'farms');}
 function buildLumberMill(){buildBuilding('lumber', 'lumberMillPrice', 'lumberMills');}
 function buildStoreroom(){buildBuilding('lumber', 'storeroomPrice', 'storerooms');}
+function buildQuarry()
+{
+    buildBuilding('lumber', 'quarryPrice', 'quarries');
+    game.minersUnlocked = true;
+}

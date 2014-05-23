@@ -35,7 +35,7 @@ function setGameDefaults()
         // Progress Unlocks
         unlockFoodSurplus : false, unlockHuts : false, unlockVillagers : false, unlockResearch : false,
         // Technologies
-        farming : false, basicConstruction : false,
+        farming : false, basicConstruction : false, minersUnlocked : false,
         // Technology Prices
         farmingPrice : 5, basicConstructionPrice : 5,
         // System
@@ -75,8 +75,19 @@ function determineVillagerCreation()
         if (create)
         {
             // create villager
-            addVillager(1);
-            assignIdler(true);
+            var spacesAvailable = game.villagerLimit - game.villagers;
+
+            var villagersToCreate = Math.floor(Math.sqrt(game.villagers)) - 3;
+            if (villagersToCreate > (spacesAvailable))
+                villagersToCreate = spacesAvailable;
+            if (villagersToCreate < 1)
+                villagersToCreate = 1;
+
+            for (var i = 0; i < villagersToCreate; i++)
+            {
+                addVillager(1);
+                assignIdler(true);
+            }
 
             game.creatingAVillager = false;
         }
@@ -86,7 +97,7 @@ function determineVillagerCreation()
 function updateResources()
 {
     // Food
-    var foodBonusMultiplier = 1 + (0.1 * game.farms);
+    var foodBonusMultiplier = 1 + (0.05 * game.farms);
     var foodRate = (0.5 * game.farmers) * foodBonusMultiplier;  // add up basic elements
     foodRate = foodRate - .45 * game.villagers;                 // account for eating
     foodRate = 0.1 * foodRate * (game.msPerTick / 1000);        // apply arbitrary global multiplier and gameSpeed multiplier
@@ -97,7 +108,7 @@ function updateResources()
     $('#foodRate').text(foodRate);
 
     // Lumber
-    var lumberBonusMultiplier = 1 + (0.2 * game.lumberMills);
+    var lumberBonusMultiplier = 1 + (0.1 * game.lumberMills);
     var lumberRate = (0.3 * game.foresters) * lumberBonusMultiplier;    // add up basic elements
     lumberRate = 0.1 * lumberRate * (game.msPerTick / 1000);            // apply arbitrary global multiplier and gameSpeed multiplier
     lumberRate = myRound(lumberRate, 3);                                // round it
@@ -105,6 +116,16 @@ function updateResources()
     updateResource('lumber', lumberRate);
     if (lumberRate > 0) lumberRate = '+' + lumberRate;
     $('#lumberRate').text(lumberRate);
+
+    // Stone
+    var stoneBonusMultiplier = 1 + (0.06 * game.quarries);
+    var stoneRate = (0.1 * game.miners) * stoneBonusMultiplier;     // add up basic elements
+    stoneRate = 0.1 * stoneRate * (game.msPerTick / 1000);          // apply arbitrary global multiplier and gameSpeed multiplier
+    stoneRate = myRound(stoneRate, 3);                              // round it
+
+    updateResource('stone', stoneRate);
+    if (stoneRate > 0) stoneRate = '+' + stoneRate;
+    $('#stoneRate').text(stoneRate);
 
     // Research
     var researchBonusMultiplier = 1 + (0.06 * game.schools);
@@ -127,17 +148,35 @@ function updateResources()
 
 function updateResourceLimits()
 {
-    game.foodLimit = 20 + (20 * game.storerooms);
+    game.foodLimit = (40 + (40 * game.storerooms)) * (1 + 0.05 * game.storerooms);
+    game.foodLimit = myRound(game.foodLimit, 0);
     $('#foodLimit').text(game.foodLimit);
-    game.lumberLimit = 10 + (20 * game.storerooms);
+
+    game.lumberLimit = (24 + (24 * game.storerooms)) * (1 + 0.05 * game.storerooms);
+    game.lumberLimit = myRound(game.lumberLimit, 0);
     $('#lumberLimit').text(game.lumberLimit);
-    game.leatherLimit = 10 + (20 * game.storerooms);
+
+    game.leatherLimit = (20 + (20 * game.storerooms)) * (1 + 0.05 * game.storerooms);
+    game.leatherLimit = myRound(game.leatherLimit, 0);
     $('#leatherLimit').text(game.leatherLimit);
-    game.stoneLimit = 5 + (20 * game.storerooms);
+
+    game.stoneLimit = (10 + (10 * game.storerooms)) * (1 + 0.05 * game.storerooms);
+    game.stoneLimit = myRound(game.stoneLimit, 0);
     $('#stoneLimit').text(game.stoneLimit);
+
     game.villagerLimit = 2 * game.huts;
     $('#villagerLimit').text(game.villagerLimit);
 }
+
+//food
+//cotton
+//wood
+//leather
+//stone
+//bronze
+//iron
+//steel
+
 
 function killWorkersFromStarvation()
 {
