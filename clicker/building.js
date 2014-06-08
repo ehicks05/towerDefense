@@ -8,10 +8,7 @@ function buildBuilding(priceType, priceAmount, buildingName)
     {
         updateResource(priceType, -game[priceAmount]);
         game[priceAmount] = myRound(game[priceAmount] * priceIncreaseMultiplier, 2);
-        $('#' + priceAmount).text(game[priceAmount].toString());
-
         game[buildingName] += 1;
-        $('#' + buildingName).text(game[buildingName].toString());
     }
 }
 

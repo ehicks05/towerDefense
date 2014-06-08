@@ -1,7 +1,4 @@
-function enableDebugging()
-{
-    $('*').removeClass('hidden');
-}
+function enableDebugging(){$('*').removeClass('hidden');}
 
 function myRound(value, places)
 {
@@ -18,7 +15,7 @@ function updateDisplayValues()
         if (game.hasOwnProperty(gameVar))
         {
             if ($('#' + gameVar).length)  // does the element exist?
-                $('#' + gameVar).text(game[gameVar]);
+                $('#' + gameVar).text(myRound(game[gameVar], 2));
         }
     }
 }

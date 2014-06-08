@@ -1,18 +1,13 @@
 // Villager
-function addVillager(amount)
+function updateVillagerCount(amount)
 {
     game.villagers += amount;
-    $('#villagers').text(game.villagers.toString());
 }
 
 // Worker
-function assignIdler(status)
+function assignIdler(amount)
 {
-    if (status)
-        game.idlers += 1;
-    if (!status)
-        game.idlers -= 1;
-    $('#idlers').text(game.idlers.toString());
+    game.idlers += amount;
 }
 
 function assignWorker(job)
@@ -22,9 +17,6 @@ function assignWorker(job)
         game[job] += 1;
         game.idlers -= 1;
     }
-
-    $('#' + job).text(game[job].toString());
-    $('#idlers').text(game.idlers.toString());
 }
 function unAssignWorker(job)
 {
@@ -33,14 +25,10 @@ function unAssignWorker(job)
         game[job] -= 1;
         game.idlers += 1;
     }
-    $('#' + job).text(game[job].toString());
-    $('#idlers').text(game.idlers.toString());
 }
 
 function killWorker(job)
 {
     if (game[job] > 0)
         game[job] -= 1;
-
-    $('#' + job).text(game[job].toString());
 }

@@ -30,9 +30,8 @@ function reHideUIElementsOnClear()
     reHide('storeroomsRow');
     reHide('stoneRow');
     reHide('quarriesRow');
-    enable('basicConstructionButton');
-
     reHide('minersRow');
+    enable('basicConstructionButton');
 }
 
 function UnHideUIElementsOnStartup()
@@ -72,11 +71,8 @@ function UnHideUIElementsOnStartup()
         unHide('storeroomsRow');
         unHide('stoneRow');
         unHide('quarriesRow');
-        disable('basicConstructionButton');
-    }
-    if (game.minersUnlocked === true)
-    {
         unHide('minersRow');
+        disable('basicConstructionButton');
     }
 }
 
@@ -122,9 +118,6 @@ function UnHideUIElements()
         unHide('stoneRow');
         unHide('quarriesRow');
         disable('basicConstructionButton');
-    }
-    if (game.minersUnlocked === true && $('#minersRow').hasClass('hidden'))
-    {
         unHide('minersRow');
     }
 }
