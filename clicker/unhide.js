@@ -36,7 +36,7 @@ function reHideUIElementsOnClear()
 
 function UnHideUIElementsOnStartup()
 {
-    if (game.unlockFoodSurplus === true)
+    if (game.unlockBuildings === true)
     {
         $('#buildingsTabButton').addClass('selected');
 
@@ -78,9 +78,9 @@ function UnHideUIElementsOnStartup()
 
 function UnHideUIElements()
 {
-    if (game.unlockFoodSurplus === false && game.food > 2.2)
+    if (game.unlockBuildings === false && game.food > 2.2)
     {
-        game.unlockFoodSurplus = true;
+        game.unlockBuildings = true;
         $('#buildingsTabButton').addClass('selected');
 
         unHide('buildingsTabButton');

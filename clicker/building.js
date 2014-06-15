@@ -1,7 +1,7 @@
 function buildBuilding(priceType, priceAmount, buildingName)
 {
     var priceIncreaseMultiplier = 1.07;
-    if (buildingName === 'huts') priceIncreaseMultiplier = 1.05;
+    if (buildingName === 'huts') priceIncreaseMultiplier = 1.14;
 
     var canAfford = game[priceType] >= game[priceAmount];
     if (canAfford)

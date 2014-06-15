@@ -31,7 +31,7 @@ function setGameDefaults()
         // Villager Assignments
         idlers : 0, farmers : 0, foresters : 0, hunters : 0, miners : 0, builders : 0, thinkers : 0,
         // Progress Unlocks
-        unlockFoodSurplus : false, unlockHuts : false, unlockVillagers : false, unlockResearch : false,
+        unlockBuildings : false, unlockVillagers : false, unlockResearch : false,
         // Technologies
         farming : false, basicConstruction : false, minersUnlocked : false,
         // Technology Prices
@@ -140,16 +140,16 @@ function updateResources()
 
 function updateResourceLimits()
 {
-    game.foodLimit = (40 + (40 * game.storerooms)) * (1 + 0.05 * game.storerooms);
+    game.foodLimit = (40 + (10 * game.storerooms)) * (1 + 0.05 * game.storerooms);
     game.foodLimit = myRound(game.foodLimit, 0);
 
-    game.lumberLimit = (24 + (24 * game.storerooms)) * (1 + 0.05 * game.storerooms);
+    game.lumberLimit = (24 + (6 * game.storerooms)) * (1 + 0.05 * game.storerooms);
     game.lumberLimit = myRound(game.lumberLimit, 0);
 
-    game.leatherLimit = (20 + (20 * game.storerooms)) * (1 + 0.05 * game.storerooms);
+    game.leatherLimit = (20 + (5 * game.storerooms)) * (1 + 0.05 * game.storerooms);
     game.leatherLimit = myRound(game.leatherLimit, 0);
 
-    game.stoneLimit = (10 + (10 * game.storerooms)) * (1 + 0.05 * game.storerooms);
+    game.stoneLimit = (10 + (2 * game.storerooms)) * (1 + 0.05 * game.storerooms);
     game.stoneLimit = myRound(game.stoneLimit, 0);
 
     game.villagerLimit = 2 * game.huts;

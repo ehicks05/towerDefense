@@ -29,13 +29,13 @@ input[type=button]:active {background-color: #BBB; cursor: pointer;}
 .hidden {display: none;}
 
 #tabs {width: 100%}
-.navTab {border: solid 1px black; text-align: center; cursor: pointer;}
-.selected {border-bottom: none; border-left: solid 1px black; font-weight: bold;}
+.navTab {text-align: center; cursor: pointer;}
+.selected {background-color: gainsboro; font-weight: bold;}
 
-#resourcesTable {border: solid 1px black;}
-#buildingsTable {border: solid 1px black; border-top: none;}
-#villagersTable {border: solid 1px black; border-top: none;}
-#researchTable {border: solid 1px black; border-top: none;}
+#resourcesTable {}
+#buildingsTable {border-top: none; width: 400px;}
+#villagersTable {border-top: none; width: 400px;}
+#researchTable  {border-top: none; width: 400px;}
 
 .list {border-spacing: 0; border-collapse: collapse; margin: auto; }
 .listHeader td {font-weight: bold;}
