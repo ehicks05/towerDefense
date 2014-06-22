@@ -8,7 +8,7 @@ public class Arrow extends Projectile
     public Arrow(int team)
     {
         setTeam(team);
-        setSizeRadius(10);
+        setSizeRadius(12);
         setMoveSpeed(300);
         setTimeOfLastMove(Util.now());
 

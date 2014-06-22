@@ -2,25 +2,36 @@ package hicks.td.entities;
 
 import hicks.td.util.MobBodyPartCollection;
 
-public class Round
+public class Wave
 {
-    private int m_roundNumber;
+    private int m_waveNumber;
+    private int m_powerBudget;
     private MobBodyPartCollection m_mobBodyPartCollection;
 
-    public Round(int roundNumber, MobBodyPartCollection mobBodyPartCollection)
+    public Wave(int waveNumber, MobBodyPartCollection mobBodyPartCollection)
     {
-        m_roundNumber = roundNumber;
+        m_waveNumber = waveNumber;
         m_mobBodyPartCollection = mobBodyPartCollection;
     }
 
-    public int getRoundNumber()
+    public int getWaveNumber()
     {
-        return m_roundNumber;
+        return m_waveNumber;
     }
 
-    public void setRoundNumber(int roundNumber)
+    public void setWaveNumber(int waveNumber)
     {
-        m_roundNumber = roundNumber;
+        m_waveNumber = waveNumber;
+    }
+
+    public int getPowerBudget()
+    {
+        return m_powerBudget;
+    }
+
+    public void setPowerBudget(int powerBudget)
+    {
+        m_powerBudget = powerBudget;
     }
 
     public MobBodyPartCollection getMobBodyPartCollection()

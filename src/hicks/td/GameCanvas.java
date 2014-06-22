@@ -100,13 +100,13 @@ public final class GameCanvas extends Canvas
         String labelText = "<html><table><tr>";
 
         labelText += "<td>Gold:</td><td>" + World.getPlayer().getGold()   + "</td>";
-        labelText += "<td>Round:</td><td>" + World.getPlayer().getRoundNumber() + "</td>";
+        labelText += "<td>Wave:</td><td>" + World.getPlayer().getRoundNumber() + "</td>";
         labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
         labelText += "</tr><tr>";
 
-        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
-        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-        labelText += "<td>Units:</td><td>" + World.getUnits().size() + "</td>";
+//        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
+//        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
+//        labelText += "<td>Units:</td><td>" + World.getUnits().size() + "</td>";
         labelText += "</tr></table></html>";
 
         return labelText;
@@ -283,7 +283,7 @@ public final class GameCanvas extends Canvas
         GameCanvas.activeRound = activeRound;
     }
 
-    public static void startNextRound()
+    public static void startNextWave()
     {
         World.getSpawner().setTimeOfLastBuild(Util.now());
         World.getSpawner().setUnitsCreated(0);

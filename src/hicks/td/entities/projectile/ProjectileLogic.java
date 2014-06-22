@@ -76,7 +76,7 @@ public class ProjectileLogic
             }
 
             if (projectile.getLocation().getDistance(mob.getLocation()) <= projectile.getSizeRadius() + mob.getSizeRadius())
-                projectile.performProjectileHit(mob);
+                projectile.onHit(mob);
         }
     }
 }

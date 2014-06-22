@@ -57,7 +57,7 @@ public final class BehaviorLogic
     {
         Spawner spawner = World.getSpawner();
         Player player   = World.getPlayer();
-        Round round     = World.getRound(player.getRoundNumber());
+        Wave wave       = World.getWave(player.getRoundNumber());
 
         // spawn units
         if (GameCanvas.isActiveRound() && spawner.isReadyToBuild() && player.getRoundNumber() < 7)
@@ -65,7 +65,7 @@ public final class BehaviorLogic
             Mob mob = new Footman(2);
             mob.setLocation(new Point(32, 32));
             mob.setPath(mob.createPath());
-            mob.setMobBodyPartCollection(round.getMobBodyPartCollection());
+            mob.setMobBodyPartCollection(wave.getMobBodyPartCollection());
 
             if (player.getRoundNumber() > 1)
             {
@@ -84,7 +84,7 @@ public final class BehaviorLogic
             if (spawner.getUnitsCreated() == 20)
             {
                 GameCanvas.setActiveRound(false);
-                GameCanvas.getGamePanel().showNextRoundButton();
+                GameCanvas.getGamePanel().showNextWaveButton();
             }
         }
     }

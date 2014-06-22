@@ -30,9 +30,9 @@ public class Glaive extends Projectile
         setFireSound(SoundEffect.SHOOT_GLAIVE);
     }
 
-    public void performProjectileHit(Mob victim)
+    public void onHit(Mob victim)
     {
-        super.performProjectileHit(victim);
+        super.onHit(victim);
 
         // attempt to bounce to another mob
         if (m_hitsPerformed < m_hitsPossible)

@@ -12,7 +12,7 @@ public class IceBolt extends Projectile
     public IceBolt(int team)
     {
         setTeam(team);
-        setSizeRadius(10);
+        setSizeRadius(12);
         setMoveSpeed(300);
         setTimeOfLastMove(Util.now());
 
@@ -22,7 +22,7 @@ public class IceBolt extends Projectile
         setFireSound(SoundEffect.SHOOT_ARROW);
     }
 
-    public void performProjectileHit(Mob victim)
+    public void onHit(Mob victim)
     {
         CombatLogic.performAttack(this, victim);
         World.removeUnit(this);

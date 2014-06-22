@@ -15,7 +15,7 @@ public final class World
     private static Player        player;
     private static Spawner       spawner = new Spawner(2);
     private static BufferedImage terrainImage;
-    private static List<Round>   rounds;
+    private static List<Wave> waves;
 
     public static void addUnit(Unit unit)
     {
@@ -32,11 +32,11 @@ public final class World
         setStartTime(getStartTime().add(offset));
     }
 
-    public static Round getRound(int roundNumber)
+    public static Wave getWave(int waveNumber)
     {
-        for (Round round : rounds)
-            if (round.getRoundNumber() == roundNumber)
-                return round;
+        for (Wave wave : waves)
+            if (wave.getWaveNumber() == waveNumber)
+                return wave;
 
         return null;
     }
@@ -103,13 +103,13 @@ public final class World
         World.terrainImage = terrainImage;
     }
 
-    public static List<Round> getRounds()
+    public static List<Wave> getWaves()
     {
-        return rounds;
+        return waves;
     }
 
-    public static void setRounds(List<Round> rounds)
+    public static void setWaves(List<Wave> waves)
     {
-        World.rounds = rounds;
+        World.waves = waves;
     }
 }

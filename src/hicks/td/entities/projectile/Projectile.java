@@ -33,7 +33,7 @@ public abstract class Projectile extends Unit
 
     // ---------- Behavior
 
-    public void performProjectileHit(Mob victim)
+    public void onHit(Mob victim)
     {
         CombatLogic.performAttack(this, victim);
         World.removeUnit(this);

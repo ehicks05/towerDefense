@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class MyGamePanel extends JPanel
 {
-    private final JButton startRoundButton;
+    private final JButton startWaveButton;
 
     public MyGamePanel()
     {
@@ -28,8 +28,8 @@ public class MyGamePanel extends JPanel
         final JToggleButton pauseButton = new JToggleButton("Pause");
         pauseButton.setVisible(true);
 
-        startRoundButton = new JButton("Start Round");
-        startRoundButton.setVisible(true);
+        startWaveButton = new JButton("Start Wave");
+        startWaveButton.setVisible(true);
 
         arrowButton.addActionListener(new ActionListener()
         {
@@ -120,12 +120,12 @@ public class MyGamePanel extends JPanel
             }
         });
 
-        startRoundButton.addActionListener(new ActionListener()
+        startWaveButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                GameCanvas.startNextRound();
-                startRoundButton.setVisible(false);
+                GameCanvas.startNextWave();
+                startWaveButton.setVisible(false);
             }
         });
 
@@ -135,11 +135,11 @@ public class MyGamePanel extends JPanel
         this.add(cannonButton);
         this.add(iceButton);
         this.add(pauseButton);
-        this.add(startRoundButton);
+        this.add(startWaveButton);
     }
 
-    public void showNextRoundButton()
+    public void showNextWaveButton()
     {
-        startRoundButton.setVisible(true);
+        startWaveButton.setVisible(true);
     }
 }

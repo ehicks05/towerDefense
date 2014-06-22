@@ -29,7 +29,7 @@ public class Cannonball extends Projectile
         setSplashRadius(96);
     }
 
-    public void performProjectileHit(Mob victim)
+    public void onHit(Mob victim)
     {
         // get all mobs caught in the splash radius
         List<Mob> mobsHit = new ArrayList<>();
