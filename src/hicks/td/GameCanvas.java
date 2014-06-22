@@ -72,7 +72,7 @@ public final class GameCanvas extends Canvas
             g2d.drawString(stopSimulationReason, DisplayInfo.getWindowWidth() / 2, DisplayInfo.getWindowHeight() / 2);
         }
 
-        // draw
+        // draw dark circle to preview where a tower would be built
         if (selectedUnit == null)
         {
             g2d.setColor(Color.DARK_GRAY);
@@ -82,6 +82,7 @@ public final class GameCanvas extends Canvas
         }
 
         // draw tile grid
+        g2d.setColor(Color.BLACK);
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 3 * .1f));
         for (int width = 0; width < 1024; width += 32)
             g2d.drawLine( width, 0, width, 768);
