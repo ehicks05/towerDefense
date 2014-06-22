@@ -13,15 +13,16 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class Mob extends Unit
 {
-    private BigDecimal m_spawnTime = Util.now();
     private int m_currentHp;
     private int m_maxHp;
     private int m_armor;
-    private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
     private int m_frame;
-    private MobBodyPartCollection m_mobBodyPartCollection;
     private int m_bounty;
     private int m_slowInstances;
+
+    private BigDecimal m_spawnTime = Util.now();
+    private MobBodyPartCollection m_mobBodyPartCollection;
+    private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
 
     public boolean isAlive()
     {
