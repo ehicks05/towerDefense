@@ -23,6 +23,8 @@ public class MyGamePanel extends JPanel
         glaiveButton.setVisible(true);
         final JToggleButton cannonButton = new JToggleButton(new ImageIcon(UnitPainter.CANNON_TOWER));
         cannonButton.setVisible(true);
+        final JToggleButton iceButton = new JToggleButton(new ImageIcon(UnitPainter.ICE_TOWER));
+        iceButton.setVisible(true);
         final JToggleButton pauseButton = new JToggleButton("Pause");
         pauseButton.setVisible(true);
 
@@ -38,6 +40,7 @@ public class MyGamePanel extends JPanel
                     GameCanvas.setTowerToggle("Arrow");
                     glaiveButton.setSelected(false);
                     cannonButton.setSelected(false);
+                    iceButton.setSelected(false);
                 }
                 else
                 {
@@ -55,6 +58,7 @@ public class MyGamePanel extends JPanel
                     GameCanvas.setTowerToggle("Glaive");
                     arrowButton.setSelected(false);
                     cannonButton.setSelected(false);
+                    iceButton.setSelected(false);
                 }
                 else
                 {
@@ -72,6 +76,25 @@ public class MyGamePanel extends JPanel
                     GameCanvas.setTowerToggle("Cannon");
                     arrowButton.setSelected(false);
                     glaiveButton.setSelected(false);
+                    iceButton.setSelected(false);
+                }
+                else
+                {
+                    GameCanvas.setTowerToggle("Arrow");
+                }
+            }
+        });
+
+        iceButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (iceButton.isSelected())
+                {
+                    GameCanvas.setTowerToggle("Ice");
+                    arrowButton.setSelected(false);
+                    glaiveButton.setSelected(false);
+                    cannonButton.setSelected(false);
                 }
                 else
                 {
@@ -110,6 +133,7 @@ public class MyGamePanel extends JPanel
         this.add(arrowButton);
         this.add(glaiveButton);
         this.add(cannonButton);
+        this.add(iceButton);
         this.add(pauseButton);
         this.add(startRoundButton);
     }

@@ -4,10 +4,7 @@ import hicks.td.GameCanvas;
 import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
-import hicks.td.entities.tower.ArrowTower;
-import hicks.td.entities.tower.CannonTower;
-import hicks.td.entities.tower.GlaiveTower;
-import hicks.td.entities.tower.Tower;
+import hicks.td.entities.tower.*;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -53,6 +50,8 @@ public class MyMouseListener extends MouseAdapter
                 tower = new GlaiveTower(1);
             if (towerToggle.equals("Cannon"))
                 tower = new CannonTower(1);
+            if (towerToggle.equals("Ice"))
+                tower = new IceTower(1);
             if (tower == null) tower = new ArrowTower(1);
 
             int goldCost = tower.getPrice();

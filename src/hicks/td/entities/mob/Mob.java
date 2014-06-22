@@ -21,6 +21,7 @@ public class Mob extends Unit
     private int m_frame;
     private MobBodyPartCollection m_mobBodyPartCollection;
     private int m_bounty;
+    private int m_slowInstances;
 
     public boolean isAlive()
     {
@@ -127,5 +128,15 @@ public class Mob extends Unit
     public void setBounty(int bounty)
     {
         m_bounty = bounty;
+    }
+
+    public int getSlowInstances()
+    {
+        return m_slowInstances;
+    }
+
+    public void setSlowInstances(int slowInstances)
+    {
+        m_slowInstances = slowInstances;
     }
 }

@@ -7,7 +7,8 @@ public enum SoundEffect
     SHOOT_GLAIVE ("shootGlaive.wav", -9),
     WEAPON_HIT ("bowHit.wav", 0),
     CANNON_FIRE ("cannonFire.wav", 0),
-    CANNON_HIT ("cannonHit.wav", 0);
+    CANNON_HIT ("cannonHit.wav", 0),
+    ICE_HIT ("iceHit.wav", 0);
 
     private final String filename;
     private final float volumeOffset;

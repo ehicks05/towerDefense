@@ -6,14 +6,8 @@ import hicks.td.entities.Explosion;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Mob;
-import hicks.td.entities.projectile.Arrow;
-import hicks.td.entities.projectile.Cannonball;
-import hicks.td.entities.projectile.Glaive;
-import hicks.td.entities.projectile.Projectile;
-import hicks.td.entities.tower.ArrowTower;
-import hicks.td.entities.tower.CannonTower;
-import hicks.td.entities.tower.GlaiveTower;
-import hicks.td.entities.tower.Tower;
+import hicks.td.entities.projectile.*;
+import hicks.td.entities.tower.*;
 import hicks.td.util.ExplosionTileLoader;
 import hicks.td.util.MobBodyPartCollection;
 import hicks.td.util.MobTileLoader;
@@ -28,9 +22,11 @@ public final class UnitPainter
     public static final Image SCOUT_TOWER   = new ImageIcon("ass\\img\\scoutTower.gif").getImage();
     public static final Image GUARD_TOWER   = new ImageIcon("ass\\img\\guardTower.gif").getImage();
     public static final Image CANNON_TOWER  = new ImageIcon("ass\\img\\cannonTower.gif").getImage();
+    public static final Image ICE_TOWER     = new ImageIcon("ass\\img\\orcGuardTower.gif").getImage();
     private static final Image ARROW        = new ImageIcon("ass\\img\\arrow.png").getImage();
     private static final Image GLAIVE       = new ImageIcon("ass\\img\\glaive.png").getImage();
     private static final Image CANNON_BALL  = new ImageIcon("ass\\img\\rock.png").getImage();
+    private static final Image ICE          = new ImageIcon("ass\\img\\iceBolt.png").getImage();
 
     public static void drawUnits(Graphics2D g2d)
     {
@@ -49,6 +45,7 @@ public final class UnitPainter
                 if (unit instanceof ArrowTower) g2d.drawImage(GUARD_TOWER, drawX, drawY, diameter, diameter, null);
                 if (unit instanceof GlaiveTower) g2d.drawImage(SCOUT_TOWER, drawX, drawY, diameter, diameter, null);
                 if (unit instanceof CannonTower) g2d.drawImage(CANNON_TOWER, drawX, drawY, diameter, diameter, null);
+                if (unit instanceof IceTower) g2d.drawImage(ICE_TOWER, drawX, drawY, diameter, diameter, null);
                 if (isSelected(unit)) drawVisionCircle(g2d, (Tower) unit);
             }
             if (unit instanceof Projectile)
@@ -58,6 +55,8 @@ public final class UnitPainter
 
                 if (unit instanceof Arrow)
                     g2d.drawImage(ARROW, drawX, drawY, diameter, diameter, null);
+                if (unit instanceof IceBolt)
+                    g2d.drawImage(ICE, drawX, drawY, diameter, diameter, null);
                 if (unit instanceof Glaive)
                 {
                     g2d.drawImage(GLAIVE, drawX, drawY, diameter, diameter, null);
@@ -173,7 +172,7 @@ public final class UnitPainter
 
         // the health bar can be considered 20px wide. so start 10 pixels to the left of the vertex...
         for (int i = 0; i < hpBoxes; i++)
-            g2d.drawRect((unitX - 10 + (i * widthOfSlice)), (unitY - mob.getSizeRadius()), 1, 2);
+            g2d.drawRect((unitX - 10 + (i * widthOfSlice)), (unitY - mob.getSizeRadius() + 6), 1, 2);
     }
 
     private static void drawVisionCircle(Graphics2D g2d, Tower tower)
