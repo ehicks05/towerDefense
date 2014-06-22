@@ -8,11 +8,12 @@ public class Berserker extends Mob
     {
         setTeam(team);
         setSizeRadius(40);
-        setMoveSpeed(50);
+        setMoveSpeed(65);
         setTimeOfLastMove(Util.now());
 
         setCurrentHp(60);
         setMaxHp(60);
-        setArmor(1);
+        setArmor(8);
+        setBounty(4);
     }
 }

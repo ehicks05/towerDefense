@@ -8,7 +8,7 @@ public class Footman extends Mob
     {
         setTeam(team);
         setSizeRadius(32);
-        setMoveSpeed(50);
+        setMoveSpeed(60);
         setTimeOfLastMove(Util.now());
 
         setCurrentHp(60);

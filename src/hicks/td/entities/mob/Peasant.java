@@ -13,6 +13,7 @@ public class Peasant extends Mob
 
         setCurrentHp(50);
         setMaxHp(50);
-        setArmor(0);
+        setArmor(2);
+        setBounty(1);
     }
 }
