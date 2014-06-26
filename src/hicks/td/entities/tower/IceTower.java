@@ -14,7 +14,7 @@ public class IceTower extends Tower
         setSizeRadius(16);
         setAttackRange(224);
 
-        setPrice(150);
+        setPrice(100);
         setAttackSpeed(new BigDecimal(1.7));
         setTimeOfLastAttack(Util.now());
         setNumberOfTargets(1);

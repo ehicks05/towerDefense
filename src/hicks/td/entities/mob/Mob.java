@@ -13,6 +13,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class Mob extends Unit
 {
+    private String m_mobType = "";
+    private int m_mobTypeIndex;
+    private int m_powerBudgetUsage;
     private int m_currentHp;
     private int m_maxHp;
     private int m_armor;
@@ -23,6 +26,32 @@ public class Mob extends Unit
     private BigDecimal m_spawnTime = Util.now();
     private MobBodyPartCollection m_mobBodyPartCollection;
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
+
+    public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int currentHp, int maxHp, int armor,
+               int bounty, int slowInstances, BigDecimal spawnTime, MobBodyPartCollection mobBodyPartCollection)
+    {
+        setTeam(team);
+        setSizeRadius(sizeRadius);
+        setMoveSpeed(moveSpeed);
+        setTimeOfLastMove(Util.now());
+
+        m_mobType = mobType;
+        m_mobTypeIndex = mobTypeIndex;
+        m_powerBudgetUsage = powerBudgetUsage;
+        m_currentHp = currentHp;
+        m_maxHp = maxHp;
+        m_armor = armor;
+        m_bounty = bounty;
+        m_slowInstances = slowInstances;
+        m_spawnTime = spawnTime;
+        m_mobBodyPartCollection = mobBodyPartCollection;
+    }
+
+    public static Mob duplicateMob(Mob original)
+    {
+        return new Mob(original.getTeam(), original.getSizeRadius(), original.getMoveSpeed(), original.getMobType(), original.getMobTypeIndex(), original.getPowerBudgetUsage(),
+                original.getCurrentHp(), original.getMaxHp(), original.getArmor(), original.getBounty(), original.getSlowInstances(), Util.now(), original.getMobBodyPartCollection());
+    }
 
     public boolean isAlive()
     {
@@ -51,6 +80,36 @@ public class Mob extends Unit
     }
 
     // ------------ Properties
+    public String getMobType()
+    {
+        return m_mobType;
+    }
+
+    public void setMobType(String mobType)
+    {
+        m_mobType = mobType;
+    }
+
+    public int getMobTypeIndex()
+    {
+        return m_mobTypeIndex;
+    }
+
+    public void setMobTypeIndex(int mobTypeIndex)
+    {
+        m_mobTypeIndex = mobTypeIndex;
+    }
+
+    public int getPowerBudgetUsage()
+    {
+        return m_powerBudgetUsage;
+    }
+
+    public void setPowerBudgetUsage(int powerBudgetUsage)
+    {
+        m_powerBudgetUsage = powerBudgetUsage;
+    }
+
     public BigDecimal getSpawnTime()
     {
         return m_spawnTime;

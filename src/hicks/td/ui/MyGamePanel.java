@@ -27,6 +27,8 @@ public class MyGamePanel extends JPanel
         iceButton.setVisible(true);
         final JToggleButton pauseButton = new JToggleButton("Pause");
         pauseButton.setVisible(true);
+        final JButton mainMenuButton = new JButton("Menu");
+        mainMenuButton.setVisible(true);
 
         startWaveButton = new JButton("Start Wave");
         startWaveButton.setVisible(true);
@@ -120,6 +122,14 @@ public class MyGamePanel extends JPanel
             }
         });
 
+        mainMenuButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                GameCanvas.displayMenu();
+            }
+        });
+
         startWaveButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -134,6 +144,7 @@ public class MyGamePanel extends JPanel
         this.add(glaiveButton);
         this.add(cannonButton);
         this.add(iceButton);
+        this.add(mainMenuButton);
         this.add(pauseButton);
         this.add(startWaveButton);
     }

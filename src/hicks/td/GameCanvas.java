@@ -2,6 +2,7 @@ package hicks.td;
 
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
+import hicks.td.entities.Wave;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.tower.Tower;
@@ -14,6 +15,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 public final class GameCanvas extends Canvas
 {
@@ -58,6 +60,15 @@ public final class GameCanvas extends Canvas
 
         g2d.drawImage(World.getTerrainImage(), 0, 0, null);
 
+        // draw tile grid
+        g2d.setColor(Color.BLACK);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 3 * .1f));
+        for (int width = 0; width < 1024; width += 32)
+            g2d.drawLine( width, 0, width, 768);
+        for (int height = 0; height < 768; height += 32)
+            g2d.drawLine( 0, height, 1024, height);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+
         UnitPainter.drawUnits(g2d);
         if (runningSimulation)
             infoLabel.setText(getLabelText());
@@ -81,14 +92,6 @@ public final class GameCanvas extends Canvas
             g2d.setColor(Color.BLACK);
         }
 
-        // draw tile grid
-        g2d.setColor(Color.BLACK);
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 3 * .1f));
-        for (int width = 0; width < 1024; width += 32)
-            g2d.drawLine( width, 0, width, 768);
-        for (int height = 0; height < 768; height += 32)
-            g2d.drawLine( 0, height, 1024, height);
-
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
@@ -100,7 +103,7 @@ public final class GameCanvas extends Canvas
         String labelText = "<html><table><tr>";
 
         labelText += "<td>Gold:</td><td>" + World.getPlayer().getGold()   + "</td>";
-        labelText += "<td>Wave:</td><td>" + World.getPlayer().getRoundNumber() + "</td>";
+        labelText += "<td>Wave:</td><td>" + World.getPlayer().getWaveNumber() + "</td>";
         labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
         labelText += "</tr><tr>";
 
@@ -194,7 +197,7 @@ public final class GameCanvas extends Canvas
                 runningSimulation = false;
                 stopSimulationReason = "YOU LOSE!";
             }
-            if (World.getPlayer().getRoundNumber() > 6 && UnitLogic.getUnitsOnTeam(2) == 0)
+            if (World.getPlayer().getWaveNumber() > 6 && UnitLogic.getUnitsOnTeam(2) == 0)
             {
                 runningSimulation = false;
                 stopSimulationReason = "YOU WIN!";
@@ -288,7 +291,13 @@ public final class GameCanvas extends Canvas
         World.getSpawner().setTimeOfLastBuild(Util.now());
         World.getSpawner().setUnitsCreated(0);
 
-        World.getPlayer().setRoundNumber(World.getPlayer().getRoundNumber() + 1);
+        World.getPlayer().setWaveNumber(World.getPlayer().getWaveNumber() + 1);
+
+        List<Wave> waves = World.getWaves();
+        for (Wave wave : waves)
+            if (wave.getWaveNumber() == World.getPlayer().getWaveNumber())
+                wave.setTimeStarted(Util.now());
+
         setActiveRound(true);
     }
 

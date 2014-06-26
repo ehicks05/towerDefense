@@ -4,13 +4,13 @@ public final class Player
 {
     private int m_gold;
     private int m_lives;
-    private int m_roundNumber;
+    private int m_waveNumber;
 
-    public Player(int gold, int lives, int roundNumber)
+    public Player(int gold, int lives, int waveNumber)
     {
         m_gold = gold;
         m_lives = lives;
-        m_roundNumber = roundNumber;
+        m_waveNumber = waveNumber;
     }
 
     public void addLife()
@@ -53,13 +53,13 @@ public final class Player
         this.m_lives = lives;
     }
 
-    public int getRoundNumber()
+    public int getWaveNumber()
     {
-        return m_roundNumber;
+        return m_waveNumber;
     }
 
-    public void setRoundNumber(int roundNumber)
+    public void setWaveNumber(int waveNumber)
     {
-        this.m_roundNumber = roundNumber;
+        this.m_waveNumber = waveNumber;
     }
 }

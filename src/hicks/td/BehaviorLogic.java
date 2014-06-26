@@ -1,14 +1,16 @@
 package hicks.td;
 
 import hicks.td.entities.*;
-import hicks.td.entities.mob.Footman;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.entities.tower.Tower;
 import hicks.td.util.Util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public final class BehaviorLogic
 {
@@ -16,7 +18,6 @@ public final class BehaviorLogic
     {
         performSpawningPhase();
         performUpdatePhase();
-
     }
 
     private static void performUpdatePhase()
@@ -55,33 +56,42 @@ public final class BehaviorLogic
 
     private static void performSpawningPhase()
     {
-        Spawner spawner = World.getSpawner();
-        Player player   = World.getPlayer();
-        Wave wave       = World.getWave(player.getRoundNumber());
-
-        // spawn units
-        if (GameCanvas.isActiveRound() && spawner.isReadyToBuild() && player.getRoundNumber() < 7)
+        if (GameCanvas.isActiveRound())
         {
-            Mob mob = new Footman(2);
-            mob.setLocation(new Point(32, 32));
-            mob.setPath(mob.createPath());
-            mob.setMobBodyPartCollection(wave.getMobBodyPartCollection());
+            Player player                   = World.getPlayer();
+            Wave wave                       = World.getWave(player.getWaveNumber());
+            if (wave == null) return;
 
-            if (player.getRoundNumber() > 1)
+            BigDecimal timeSinceStartOfWave = Util.getElapsedTime(wave.getTimeStarted(), Util.now());
+
+            List<Integer> mobTypeIndexesToCreate = new ArrayList<>();
+            List<WaveSpawn> waveSpawns = wave.getWaveSpawns();
+            for (Iterator<WaveSpawn> i = waveSpawns.iterator(); i.hasNext();)
             {
-                mob.setCurrentHp(mob.getCurrentHp() + 10 * player.getRoundNumber());
-                mob.setMaxHp(mob.getMaxHp() + 10 * player.getRoundNumber());
+                WaveSpawn waveSpawn = i.next();
+                if (waveSpawn.getSpawnTime().compareTo(timeSinceStartOfWave) == -1)
+                {
+                    mobTypeIndexesToCreate.add(waveSpawn.getMobTypeIndex());
+                    i.remove();
+                }
+            }
+            wave.setWaveSpawns(waveSpawns);
 
-                mob.setArmor(mob.getArmor() + 2 * player.getRoundNumber());
+            // spawn units
+            if (mobTypeIndexesToCreate.size() > 0 && player.getWaveNumber() < World.getWaves().size())
+            {
+                List<Mob> mobTypes = Init.getOneOfEachMobType();
+                for (Integer mobTypeIndexToCreate : mobTypeIndexesToCreate)
+                {
+                    Mob mob = Mob.duplicateMob(mobTypes.get(mobTypeIndexToCreate));
+                    mob.setLocation(new Point(32, 32));
+                    mob.setPath(mob.createPath());
 
-                mob.setBounty(mob.getBounty() + 1);
+                    World.addUnit(mob);
+                }
             }
 
-            World.addUnit(mob);
-            spawner.setTimeOfLastBuild(Util.now());
-            spawner.incrementUnitsCreated();
-
-            if (spawner.getUnitsCreated() == 20)
+            if (waveSpawns.size() == 0)
             {
                 GameCanvas.setActiveRound(false);
                 GameCanvas.getGamePanel().showNextWaveButton();
