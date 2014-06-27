@@ -24,9 +24,7 @@
         <jar destfile="out/jar/ericTD.jar" basedir="out/classes">
             <manifest>
                 <attribute name="Main-Class" value="hicks.td.GameCanvas"/>
-                <attribute name="Class-Path" value="lib/jl1.0.1.jar"/>
-                <attribute name="Class-Path" value="lib/artemis.jar"/>
-                <attribute name="Class-Path" value="lib/jflac-1.3.jar"/>
+                <attribute name="Class-Path" value="lib/jl1.0.1.jar lib/artemis.jar lib/jflac-1.3.jar"/>
             </manifest>
         </jar>
 
