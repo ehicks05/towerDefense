@@ -13,14 +13,8 @@ public class SoundManager
 
     public static void init()
     {
-        try
-        {
-            new MediaThread().start();
-        }
-        catch (Exception e)
-        {
-            Log.info(e.getMessage());
-        }
+        MP3 music = new MP3("ass\\aud\\spacy.mp3");
+        music.play();
     }
 
     public static void playSFX(SoundEffect soundEffect)

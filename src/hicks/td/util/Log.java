@@ -33,7 +33,7 @@ public final class Log
             elapsedString = timeFormat.format(elapsedTime);
         }
 
-        message = lineFormat.format(lines) + " " + elapsedString + ": " + message + "\r\n";
+        message = lineFormat.format(lines) + "  " + elapsedString + ":  " + message + "\r\n";
 
         messageQueue += message;
 

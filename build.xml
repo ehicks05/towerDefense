@@ -40,5 +40,7 @@
             <fileset dir="ass"/>
         </copy>
 
+        <!--<zip destfile="out/erictd.zip" basedir="out/jar"/>-->
+
     </target>
 </project>

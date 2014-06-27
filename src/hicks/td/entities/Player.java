@@ -2,6 +2,7 @@ package hicks.td.entities;
 
 public final class Player
 {
+    private int m_team;
     private int m_gold;
     private int m_lives;
     private int m_waveNumber;
@@ -33,6 +34,16 @@ public final class Player
 
     // -------------- properties
 
+    public int getTeam()
+    {
+        return m_team;
+    }
+
+    public void setTeam(int team)
+    {
+        m_team = team;
+    }
+
     public int getGold()
     {
         return m_gold;
@@ -40,7 +51,7 @@ public final class Player
 
     public void setGold(int gold)
     {
-        this.m_gold = gold;
+        m_gold = gold;
     }
 
     public int getLives()
@@ -50,7 +61,7 @@ public final class Player
 
     public void setLives(int lives)
     {
-        this.m_lives = lives;
+        m_lives = lives;
     }
 
     public int getWaveNumber()
@@ -60,6 +71,6 @@ public final class Player
 
     public void setWaveNumber(int waveNumber)
     {
-        this.m_waveNumber = waveNumber;
+        m_waveNumber = waveNumber;
     }
 }

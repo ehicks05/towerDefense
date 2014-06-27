@@ -73,6 +73,6 @@ public final class Init
     private static void deleteLogs()
     {
         boolean deleteSuccess = new File("log.txt").delete();
-        Log.info("Clearing logs..." + (deleteSuccess ? "done." : "log not found."));
+        Log.info("Clearing logs..." + (deleteSuccess ? "done." : "none found."));
     }
 }

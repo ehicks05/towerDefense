@@ -13,7 +13,6 @@ public final class World
     private static GameMap       gameMap;
     private static BigDecimal    startTime;
     private static Player        player;
-    private static Spawner       spawner = new Spawner(2);
     private static BufferedImage terrainImage;
     private static List<Wave> waves;
 
@@ -81,16 +80,6 @@ public final class World
     public static void setPlayer(Player player)
     {
         World.player = player;
-    }
-
-    public static Spawner getSpawner()
-    {
-        return spawner;
-    }
-
-    public static void setSpawner(Spawner spawner)
-    {
-        World.spawner = spawner;
     }
 
     public static BufferedImage getTerrainImage()

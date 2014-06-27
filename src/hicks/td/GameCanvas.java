@@ -242,8 +242,6 @@ public final class GameCanvas extends Canvas
 
         for (Mob mob : Util.getMobs())
             mob.setTimeOfLastMove(mob.getTimeOfLastMove().add(timeDeltaMillis));
-
-        World.getSpawner().setTimeOfLastBuild(World.getSpawner().getTimeOfLastBuild().add(timeDeltaMillis));
     }
 
     public static Unit getSelectedUnit()
@@ -288,9 +286,6 @@ public final class GameCanvas extends Canvas
 
     public static void startNextWave()
     {
-        World.getSpawner().setTimeOfLastBuild(Util.now());
-        World.getSpawner().setUnitsCreated(0);
-
         World.getPlayer().setWaveNumber(World.getPlayer().getWaveNumber() + 1);
 
         List<Wave> waves = World.getWaves();
