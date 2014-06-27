@@ -1,0 +1,46 @@
+<project name="ericTD" default="build">
+    <target name="build">
+
+        <!-- Clean out the build destination directory -->
+        <delete dir="out"/>
+        <mkdir dir="out"/>
+        <mkdir dir="out/classes"/>
+
+        <!-- Clean out any windows thumbs.db files from the source tree -->
+        <delete>
+            <fileset dir="ass" includes="**/Thumbs.db"/>
+        </delete>
+
+        <!-- Compile Java -->
+        <javac srcdir="src" destdir="out/classes" debug="true" includeantruntime="false">
+            <classpath>
+                <pathelement location="C:/javalib/JLayer1.0.1/jl1.0.1.jar"/>
+                <pathelement location="C:/javalib/artemis.jar"/>
+                <pathelement location="C:/javalib/jflac-1.3/dist/jflac-1.3.jar"/>
+            </classpath>
+        </javac>
+
+        <mkdir dir="out/jar"/>
+        <jar destfile="out/jar/ericTD.jar" basedir="out/classes">
+            <manifest>
+                <attribute name="Main-Class" value="hicks.td.GameCanvas"/>
+                <attribute name="Class-Path" value="lib/jl1.0.1.jar"/>
+                <attribute name="Class-Path" value="lib/artemis.jar"/>
+                <attribute name="Class-Path" value="lib/jflac-1.3.jar"/>
+            </manifest>
+        </jar>
+
+        <!-- Copy required 3rd party JARs -->
+        <copy file="C:/javalib/JLayer1.0.1/jl1.0.1.jar" todir="out/jar/lib"/>
+        <copy file="C:/javalib/artemis.jar" todir="out/jar/lib"/>
+        <copy file="C:/javalib/jflac-1.3/dist/jflac-1.3.jar" todir="out/jar/lib"/>
+
+        <!-- Copy art assets to the target directory -->
+        <copy todir="out/jar/ass">
+            <fileset dir="ass"/>
+        </copy>
+
+        <!--<zip destfile="out/erictd.zip" basedir="out/jar"/>-->
+
+    </target>
+</project>
