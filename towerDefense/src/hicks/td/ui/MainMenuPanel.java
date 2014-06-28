@@ -17,8 +17,20 @@ public class MainMenuPanel extends JPanel
         this.setName("mainMenuPanel");
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
+        final JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+        container.setMinimumSize(new Dimension(800, 600));
+        container.setPreferredSize(new Dimension(800, 600));
+        container.setMaximumSize(new Dimension(800, 600));
+        container.setBackground(Color.LIGHT_GRAY);
+
+        container.setVisible(true);
+        container.setName("containerPanel");
+
         final JLabel mainLabel = new JLabel("Eric's Tower Defense");
-        mainLabel.setFont(new Font("Verdana", Font.BOLD, 64));
+        Font mainLabelFont = new Font("Verdana", Font.BOLD, 64);
+        mainLabel.setFont(mainLabelFont);
+
         mainLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         final JButton startButton = new JButton("Start");
@@ -61,16 +73,19 @@ public class MainMenuPanel extends JPanel
             }
         });
 
-        this.add(mainLabel);
-        this.add(Box.createRigidArea(new Dimension(0, 50)));
+        this.add(Box.createRigidArea(new Dimension(0, 100)));
+        this.add(container);
+
+        container.add(mainLabel);
+        container.add(Box.createRigidArea(new Dimension(0, 50)));
 
         JLabel picLabel = new JLabel(new ImageIcon(UnitPainter.ICE_TOWER));
         picLabel.setAlignmentX(CENTER_ALIGNMENT);
-        add(picLabel);
+        container.add(picLabel);
 
-        this.add(Box.createRigidArea(new Dimension(0, 50)));
-        this.add(startButton);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
-        this.add(exitButton);
+        container.add(Box.createRigidArea(new Dimension(0, 50)));
+        container.add(startButton);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+        container.add(exitButton);
     }
 }
