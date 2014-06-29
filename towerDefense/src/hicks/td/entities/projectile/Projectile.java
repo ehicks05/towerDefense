@@ -5,9 +5,11 @@ import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Unit;
+import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.tower.Tower;
 
+import java.util.List;
 import java.util.Random;
 
 public abstract class Projectile extends Unit
@@ -21,6 +23,8 @@ public abstract class Projectile extends Unit
 
     private int m_minDamage;
     private int m_maxDamage;
+
+    private List<Upgrade> m_upgrades;
 
     public int getAttackDamage()
     {
@@ -110,5 +114,15 @@ public abstract class Projectile extends Unit
     public int getMaxDamage()
     {
         return m_maxDamage;
+    }
+
+    public List<Upgrade> getUpgrades()
+    {
+        return m_upgrades;
+    }
+
+    public void setUpgrades(List<Upgrade> upgrades)
+    {
+        m_upgrades = upgrades;
     }
 }

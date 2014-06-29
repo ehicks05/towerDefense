@@ -2,6 +2,7 @@ package hicks.td.entities.tower;
 
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
+import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
@@ -19,6 +20,7 @@ public abstract class Tower extends Unit
     private List<Mob>       m_targets;
     private int             m_kills;
     private int             m_numberOfTargets;
+    private List<Upgrade>   m_upgrades;
 
     public abstract Projectile getProjectile();
 
@@ -28,6 +30,12 @@ public abstract class Tower extends Unit
         this.setTargets(UnitLogic.getClosestVisibleEnemies(this, m_attackRange, null, this.getNumberOfTargets()));
 
         if (this.getTargets().size() > 0) this.performHostileBehavior();
+    }
+
+    public void addUpgrade(Upgrade upgrade)
+    {
+        upgrade.applyTowerEffect(this);
+        m_upgrades.add(upgrade);
     }
 
     public boolean isReadyToAttack()
@@ -119,5 +127,15 @@ public abstract class Tower extends Unit
     public void setNumberOfTargets(int numberOfTargets)
     {
         m_numberOfTargets = numberOfTargets;
+    }
+
+    public List<Upgrade> getUpgrades()
+    {
+        return m_upgrades;
+    }
+
+    public void setUpgrades(List<Upgrade> upgrades)
+    {
+        m_upgrades = upgrades;
     }
 }

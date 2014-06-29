@@ -22,6 +22,6 @@ public class ArrowTower extends Tower
 
     public Projectile getProjectile()
     {
-        return new Arrow(this.getTeam());
+        return new Arrow(this.getTeam(), this.getUpgrades());
     }
 }

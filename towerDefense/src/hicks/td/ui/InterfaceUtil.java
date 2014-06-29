@@ -4,11 +4,20 @@ import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InterfaceUtil
 {
+    public static void setSizeFields(JComponent component, Dimension dimension)
+    {
+        component.setMinimumSize(dimension);
+        component.setPreferredSize(dimension);
+        component.setMaximumSize(dimension);
+    }
+
     public static int snapToMiddleOfTile(int input)
     {
         int tile = input / 32;

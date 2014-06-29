@@ -122,8 +122,11 @@ public final class UnitPainter
             // draw additional UI elements connected to the unit
             if (isSelected(unit))
             {
-//                drawObjectId(g2d, unit);
-                // todo
+                JPanel unitInfo = GameCanvas.getGamePanel().getUnitInfoPanel();
+                Component component = unitInfo.getComponent(0);
+                JLabel label = (JLabel) component;
+                label.setText(unit.toString());
+
             }
         }
     }

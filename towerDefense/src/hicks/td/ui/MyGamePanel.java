@@ -6,10 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyGamePanel extends JPanel
 {
     private final JButton startWaveButton;
+    private final JPanel unitInfo;
 
     public MyGamePanel()
     {
@@ -17,18 +20,41 @@ public class MyGamePanel extends JPanel
         this.setName("gamePanel");
         this.setPreferredSize(new Dimension(DisplayInfo.getWindowWidth(), DisplayInfo.getWindowHeight()));
 
-        final JToggleButton arrowButton = new JToggleButton(new ImageIcon(UnitPainter.GUARD_TOWER), true);
+        final Dimension towerButtonDimension = new Dimension(48, 48);
+        List<JToggleButton> towerButtons = new ArrayList<>();
+
+        final JToggleButton arrowButton = new JToggleButton(new ImageIcon(UnitPainter.GUARD_TOWER.getScaledInstance(48, 48, Image.SCALE_SMOOTH)), true);
         arrowButton.setVisible(true);
-        final JToggleButton glaiveButton = new JToggleButton(new ImageIcon(UnitPainter.SCOUT_TOWER));
+        InterfaceUtil.setSizeFields(arrowButton, towerButtonDimension);
+        towerButtons.add(arrowButton);
+
+        final JToggleButton glaiveButton = new JToggleButton(new ImageIcon(UnitPainter.SCOUT_TOWER.getScaledInstance(48, 48, Image.SCALE_SMOOTH)));
         glaiveButton.setVisible(true);
-        final JToggleButton cannonButton = new JToggleButton(new ImageIcon(UnitPainter.CANNON_TOWER));
+        InterfaceUtil.setSizeFields(glaiveButton, towerButtonDimension);
+        towerButtons.add(glaiveButton);
+
+        final JToggleButton cannonButton = new JToggleButton(new ImageIcon(UnitPainter.CANNON_TOWER.getScaledInstance(48, 48, Image.SCALE_SMOOTH)));
         cannonButton.setVisible(true);
-        final JToggleButton iceButton = new JToggleButton(new ImageIcon(UnitPainter.ICE_TOWER));
+        InterfaceUtil.setSizeFields(cannonButton, towerButtonDimension);
+        towerButtons.add(cannonButton);
+
+        final JToggleButton iceButton = new JToggleButton(new ImageIcon(UnitPainter.ICE_TOWER.getScaledInstance(48, 48, Image.SCALE_SMOOTH)));
         iceButton.setVisible(true);
+        InterfaceUtil.setSizeFields(iceButton, towerButtonDimension);
+        towerButtons.add(iceButton);
+
         final JToggleButton pauseButton = new JToggleButton("Pause");
         pauseButton.setVisible(true);
         final JButton mainMenuButton = new JButton("Menu");
         mainMenuButton.setVisible(true);
+
+        unitInfo = new JPanel();
+        unitInfo.setVisible(true);
+        InterfaceUtil.setSizeFields(unitInfo, new Dimension(300, 80));
+
+        JLabel unitInfoLabel = new JLabel("test");
+        unitInfoLabel.setVisible(true);
+        unitInfo.add(unitInfoLabel);
 
         startWaveButton = new JButton("Start Wave");
         startWaveButton.setVisible(true);
@@ -147,10 +173,16 @@ public class MyGamePanel extends JPanel
         this.add(mainMenuButton);
         this.add(pauseButton);
         this.add(startWaveButton);
+        this.add(unitInfo);
     }
 
     public void showNextWaveButton()
     {
         startWaveButton.setVisible(true);
+    }
+
+    public JPanel getUnitInfoPanel()
+    {
+        return unitInfo;
     }
 }
