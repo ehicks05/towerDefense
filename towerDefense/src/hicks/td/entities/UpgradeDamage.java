@@ -3,26 +3,24 @@ package hicks.td.entities;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.tower.Tower;
 
-public class AttackRangeUpgrade extends Upgrade
+public class UpgradeDamage extends Upgrade
 {
-    private String m_code;
-    private String m_preReq;
-    private int m_cost;
-
-    AttackRangeUpgrade()
+    public UpgradeDamage()
     {
-        setCode("AR");
+        setCode("AD");
+        setDescription("Attack Damage");
         setPreReq("");
         setCost(50);
     }
 
     public void applyTowerEffect(Tower tower)
     {
-        tower.setAttackRange(tower.getAttackRange() + 32);
+
     }
 
     public void applyProjectileEffect(Projectile projectile)
     {
-
+        projectile.setMinDamage(projectile.getMinDamage() + 2);
+        projectile.setMaxDamage(projectile.getMaxDamage() + 2);
     }
 }

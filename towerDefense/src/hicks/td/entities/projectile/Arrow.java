@@ -19,5 +19,7 @@ public class Arrow extends Projectile
         setMaxDamage(18);
         setMaximumRange(800);
         setFireSound(SoundEffect.SHOOT_ARROW);
+
+        applyUpgrades(upgrades);
     }
 }

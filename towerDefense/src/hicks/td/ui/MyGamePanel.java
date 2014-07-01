@@ -1,6 +1,9 @@
 package hicks.td.ui;
 
 import hicks.td.GameCanvas;
+import hicks.td.World;
+import hicks.td.entities.Upgrade;
+import hicks.td.entities.tower.Tower;
 
 import javax.swing.*;
 import java.awt.*;
@@ -164,6 +167,31 @@ public class MyGamePanel extends JPanel
                 startWaveButton.setVisible(false);
             }
         });
+
+        List<Upgrade> upgrades = World.getUpgrades();
+        for (final Upgrade upgrade : upgrades)
+        {
+            final JButton button = new JButton("Upgrade " + upgrade.getDescription());
+            button.setName(upgrade.getCode());
+            button.setVisible(false);
+
+            button.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    boolean canAffordGoldCost = World.getPlayer().getGold() >= upgrade.getCost();
+                    if (canAffordGoldCost)
+                    {
+                        Tower tower = (Tower) GameCanvas.getSelectedUnit();
+                        tower.addUpgrade(upgrade);
+                        World.getPlayer().removeGold(upgrade.getCost());
+                        button.setVisible(false);
+                    }
+                }
+            });
+
+            unitInfo.add(button);
+        }
 
         this.setLayout(new FlowLayout());
         this.add(arrowButton);

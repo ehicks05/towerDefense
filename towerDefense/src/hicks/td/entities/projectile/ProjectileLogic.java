@@ -5,6 +5,7 @@ import hicks.td.audio.SoundManager;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
+import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.util.NewtonRaphson;
 import hicks.td.util.Util;
@@ -12,6 +13,7 @@ import hicks.td.util.Util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectileLogic
 {

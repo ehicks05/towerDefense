@@ -44,6 +44,12 @@ public abstract class Projectile extends Unit
         SoundManager.playSFX(SoundEffect.WEAPON_HIT);
     }
 
+    public void applyUpgrades(List<Upgrade> upgrades)
+    {
+        for (Upgrade upgrade : upgrades)
+            upgrade.applyProjectileEffect(this);
+    }
+
     // ---------- Properties
 
     public Tower getOriginator()

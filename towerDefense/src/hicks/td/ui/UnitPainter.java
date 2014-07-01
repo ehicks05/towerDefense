@@ -5,6 +5,7 @@ import hicks.td.World;
 import hicks.td.entities.Explosion;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
+import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.*;
 import hicks.td.entities.tower.*;
@@ -16,6 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public final class UnitPainter
 {
@@ -30,6 +33,7 @@ public final class UnitPainter
 
     public static void drawUnits(Graphics2D g2d)
     {
+        Tower towerThatNeedsVisionCircle = null;
         for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             int size = unit.getSizeRadius();
@@ -46,7 +50,7 @@ public final class UnitPainter
                 if (unit instanceof GlaiveTower) g2d.drawImage(SCOUT_TOWER, drawX, drawY, diameter, diameter, null);
                 if (unit instanceof CannonTower) g2d.drawImage(CANNON_TOWER, drawX, drawY, diameter, diameter, null);
                 if (unit instanceof IceTower) g2d.drawImage(ICE_TOWER, drawX, drawY, diameter, diameter, null);
-                if (isSelected(unit)) drawVisionCircle(g2d, (Tower) unit);
+                if (isSelected(unit)) towerThatNeedsVisionCircle = (Tower) unit;
             }
             if (unit instanceof Projectile)
             {
@@ -111,6 +115,9 @@ public final class UnitPainter
             }
         }
 
+        if (towerThatNeedsVisionCircle != null)
+            drawVisionCircle(g2d, towerThatNeedsVisionCircle);
+
         for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             if (unit instanceof Mob)
@@ -126,6 +133,29 @@ public final class UnitPainter
                 Component component = unitInfo.getComponent(0);
                 JLabel label = (JLabel) component;
                 label.setText(unit.toString());
+
+                if (unit instanceof Tower)
+                {
+                    Tower tower = (Tower) unit;
+
+                    label.setText(unit.toString() + " \r\nRange:" + tower.getAttackRange() + "\rDamage: " + tower.getProjectile().getMinDamage() + "-" + tower.getProjectile().getMaxDamage());
+
+
+                    List<Upgrade> availableUpgrades = tower.getAvailableUpgrades();
+                    for (Upgrade upgrade : availableUpgrades)
+                    {
+                        java.util.List<Component> components = Arrays.asList(GameCanvas.getGamePanel().getUnitInfoPanel().getComponents());
+                        for (Component component1 : components)
+                        {
+                            if (component1 instanceof JButton)
+                            {
+                                JButton button = (JButton) component1;
+                                if (button.getName().equals(upgrade.getCode()))
+                                    button.setVisible(true);
+                            }
+                        }
+                    }
+                }
 
             }
         }
@@ -180,6 +210,8 @@ public final class UnitPainter
 
     private static void drawVisionCircle(Graphics2D g2d, Tower tower)
     {
+        if (tower == null) return;
+
         int x = (int) tower.getLocation().getX();
         int y = (int) tower.getLocation().getY();
         int size = tower.getAttackRange();

@@ -15,6 +15,7 @@ public final class World
     private static Player        player;
     private static BufferedImage terrainImage;
     private static List<Wave> waves;
+    private static List<Upgrade> upgrades;
 
     public static void addUnit(Unit unit)
     {
@@ -100,5 +101,15 @@ public final class World
     public static void setWaves(List<Wave> waves)
     {
         World.waves = waves;
+    }
+
+    public static List<Upgrade> getUpgrades()
+    {
+        return upgrades;
+    }
+
+    public static void setUpgrades(List<Upgrade> upgrades)
+    {
+        World.upgrades = upgrades;
     }
 }

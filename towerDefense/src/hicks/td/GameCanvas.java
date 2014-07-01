@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.List;
 
 public final class GameCanvas extends Canvas
@@ -251,6 +252,19 @@ public final class GameCanvas extends Canvas
 
     public static void setSelectedUnit(Unit selectedUnit)
     {
+        JLabel textLabel = (JLabel) getGamePanel().getUnitInfoPanel().getComponent(0);
+        textLabel.setText("");
+
+        List<Component> components = Arrays.asList(getGamePanel().getUnitInfoPanel().getComponents());
+        for (Component component : components)
+        {
+            if (component instanceof JButton)
+            {
+                JButton button = (JButton) component;
+                button.setVisible(false);
+            }
+        }
+
         GameCanvas.selectedUnit = selectedUnit;
     }
 

@@ -1,5 +1,6 @@
 package hicks.td.entities.tower;
 
+import hicks.td.World;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
 import hicks.td.entities.Upgrade;
@@ -9,6 +10,7 @@ import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tower extends Unit
@@ -20,7 +22,7 @@ public abstract class Tower extends Unit
     private List<Mob>       m_targets;
     private int             m_kills;
     private int             m_numberOfTargets;
-    private List<Upgrade>   m_upgrades;
+    private List<Upgrade>   m_upgrades = new ArrayList<>();
 
     public abstract Projectile getProjectile();
 
@@ -51,10 +53,42 @@ public abstract class Tower extends Unit
             {
                 Projectile newProjectile = this.getProjectile();
                 newProjectile.setOriginator(this);
+
+                for (Upgrade upgrade : m_upgrades)
+                    upgrade.applyProjectileEffect(newProjectile);
+
                 ProjectileLogic.shootProjectile(this, newProjectile, target.getLocation());
                 this.setTimeOfLastAttack(Util.now());
             }
         }
+    }
+
+    public List<Upgrade> getAvailableUpgrades()
+    {
+        List<Upgrade> availableUpgrades = new ArrayList<>();
+        List<Upgrade> upgrades = World.getUpgrades();
+        for (Upgrade upgrade : upgrades)
+        {
+            String preReqCode = upgrade.getPreReq();
+            if (!hasUpgrade(upgrade.getCode()) && hasPreReq(preReqCode)) availableUpgrades.add(upgrade);
+        }
+
+        return availableUpgrades;
+    }
+
+    public boolean hasPreReq(String preReqCode)
+    {
+        if (preReqCode.length() == 0) return true;
+        for (Upgrade upgrade : m_upgrades)
+            if (upgrade.getCode().equals(preReqCode)) return true;
+        return false;
+    }
+
+    public boolean hasUpgrade(String code)
+    {
+        for (Upgrade upgrade : m_upgrades)
+            if (upgrade.getCode().equals(code)) return true;
+        return false;
     }
 
     // ------------ Properties

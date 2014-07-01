@@ -1,9 +1,7 @@
 package hicks.td;
 
 import hicks.td.audio.SoundManager;
-import hicks.td.entities.GameMap;
-import hicks.td.entities.Player;
-import hicks.td.entities.Wave;
+import hicks.td.entities.*;
 import hicks.td.entities.mob.Mob;
 import hicks.td.ui.DisplayInfo;
 import hicks.td.util.*;
@@ -30,6 +28,11 @@ public final class Init
         World.setGameMap(new GameMap(1024, 768));
         World.setTerrainImage(MapBuilder.buildMap());
         World.setWaves(getWaves());
+
+        List<Upgrade> allUpgrades = new ArrayList<>();
+        allUpgrades.add(new UpgradeAttackRange());
+        allUpgrades.add(new UpgradeDamage());
+        World.setUpgrades(allUpgrades);
     }
 
     private static List<Wave> getWaves()
