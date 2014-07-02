@@ -1,6 +1,7 @@
 package hicks.td.audio;
 
 import hicks.td.util.Log;
+import hicks.td.util.Util;
 import it.sauronsoftware.jave.AudioAttributes;
 import it.sauronsoftware.jave.Encoder;
 import it.sauronsoftware.jave.EncoderException;
@@ -8,20 +9,31 @@ import it.sauronsoftware.jave.EncodingAttributes;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class SoundManager
 {
+    private static final int SIMULTANEOUS_SOUNDS = 8;
     private static final float GLOBAL_VOLUME_OFFSET = -10f;
+    private static List<BigDecimal> soundEndTimes = new ArrayList<>();
 
     public static void init()
     {
         File wav = convertToWav();
-        playSound(wav, -6f, true);
+        playSound(wav, 0.7f, true);
     }
 
     public static void playSFX(SoundEffect soundEffect)
     {
         playSound(new File(soundEffect.getPath()), GLOBAL_VOLUME_OFFSET + soundEffect.getVolumeOffset());
+    }
+
+    public static int getNumberOfSoundsPlaying()
+    {
+        return soundEndTimes.size();
     }
 
     private static File convertToWav()
@@ -59,6 +71,14 @@ public class SoundManager
     }
     private static void playSound(File soundFile, float gainAdjustment, boolean loopContinuously)
     {
+        for (Iterator<BigDecimal> i = soundEndTimes.iterator(); i.hasNext();)
+        {
+            BigDecimal soundEndTime = i.next();
+            if (soundEndTime.compareTo(Util.now()) > 0) i.remove();
+        }
+
+        if (soundEndTimes.size() > SIMULTANEOUS_SOUNDS) return;
+
         try
         {
             Clip clip = AudioSystem.getClip();
@@ -74,12 +94,11 @@ public class SoundManager
             else
                 clip.start();
 
-
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             AudioFormat format = audioInputStream.getFormat();
             long frames = audioInputStream.getFrameLength();
             double durationInSeconds = (frames+0.0) / format.getFrameRate();
-            // todo finish this - keep track of all sounds playing
+            soundEndTimes.add(Util.now().add(new BigDecimal(durationInSeconds * 1000)));
         }
         catch (Exception e)
         {

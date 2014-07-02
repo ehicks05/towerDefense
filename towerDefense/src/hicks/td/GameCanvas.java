@@ -1,5 +1,6 @@
 package hicks.td;
 
+import hicks.td.audio.SoundManager;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
 import hicks.td.entities.Wave;
@@ -109,6 +110,7 @@ public final class GameCanvas extends Canvas
         labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
         labelText += "</tr><tr>";
 
+        labelText += "<td>Sounds Playing:</td><td>" + SoundManager.getNumberOfSoundsPlaying() + "</td>";
 //        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
 //        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
 //        labelText += "<td>Units:</td><td>" + World.getUnits().size() + "</td>";
