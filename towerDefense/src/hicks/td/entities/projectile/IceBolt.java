@@ -4,13 +4,17 @@ import hicks.td.CombatLogic;
 import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
+import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.util.Util;
 
+import java.util.List;
+
 public class IceBolt extends Projectile
 {
-    public IceBolt(int team)
+    public IceBolt(int team, List<Upgrade> upgrades)
     {
+        setName("IceBolt");
         setTeam(team);
         setSizeRadius(12);
         setMoveSpeed(300);
@@ -20,6 +24,8 @@ public class IceBolt extends Projectile
         setMaxDamage(36);
         setMaximumRange(300);
         setFireSound(SoundEffect.SHOOT_ARROW);
+
+        applyUpgrades(upgrades);
     }
 
     public void onHit(Mob victim)

@@ -10,6 +10,7 @@ public class Arrow extends Projectile
 {
     public Arrow(int team, List<Upgrade> upgrades)
     {
+        setName("Arrow");
         setTeam(team);
         setSizeRadius(12);
         setMoveSpeed(300);

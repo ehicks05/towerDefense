@@ -68,14 +68,14 @@ public class MyGamePanel extends JPanel
             {
                 if (arrowButton.isSelected())
                 {
-                    GameCanvas.setTowerToggle("Arrow");
+                    GameCanvas.setTowerToggle("ArrowTower");
                     glaiveButton.setSelected(false);
                     cannonButton.setSelected(false);
                     iceButton.setSelected(false);
                 }
                 else
                 {
-                    GameCanvas.setTowerToggle("Glaive");
+                    GameCanvas.setTowerToggle("GlaiveTower");
                 }
             }
         });
@@ -86,14 +86,14 @@ public class MyGamePanel extends JPanel
             {
                 if (glaiveButton.isSelected())
                 {
-                    GameCanvas.setTowerToggle("Glaive");
+                    GameCanvas.setTowerToggle("GlaiveTower");
                     arrowButton.setSelected(false);
                     cannonButton.setSelected(false);
                     iceButton.setSelected(false);
                 }
                 else
                 {
-                    GameCanvas.setTowerToggle("Arrow");
+                    GameCanvas.setTowerToggle("ArrowTower");
                 }
             }
         });
@@ -104,14 +104,14 @@ public class MyGamePanel extends JPanel
             {
                 if (cannonButton.isSelected())
                 {
-                    GameCanvas.setTowerToggle("Cannon");
+                    GameCanvas.setTowerToggle("CannonTower");
                     arrowButton.setSelected(false);
                     glaiveButton.setSelected(false);
                     iceButton.setSelected(false);
                 }
                 else
                 {
-                    GameCanvas.setTowerToggle("Arrow");
+                    GameCanvas.setTowerToggle("ArrowTower");
                 }
             }
         });
@@ -122,14 +122,14 @@ public class MyGamePanel extends JPanel
             {
                 if (iceButton.isSelected())
                 {
-                    GameCanvas.setTowerToggle("Ice");
+                    GameCanvas.setTowerToggle("IceTower");
                     arrowButton.setSelected(false);
                     glaiveButton.setSelected(false);
                     cannonButton.setSelected(false);
                 }
                 else
                 {
-                    GameCanvas.setTowerToggle("Arrow");
+                    GameCanvas.setTowerToggle("ArrowTower");
                 }
             }
         });
@@ -202,6 +202,12 @@ public class MyGamePanel extends JPanel
         this.add(pauseButton);
         this.add(startWaveButton);
         this.add(unitInfo);
+
+//        JPanel menuPanel = new JPanel();
+//        menuPanel.setVisible(true);
+//        this.add(menuPanel);
+
+
     }
 
     public void showNextWaveButton()

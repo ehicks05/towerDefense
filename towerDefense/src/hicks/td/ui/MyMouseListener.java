@@ -43,21 +43,13 @@ public class MyMouseListener extends MouseAdapter
 
             String towerToggle = GameCanvas.getTowerToggle();
 
-            Tower tower = null;
-            if (towerToggle.equals("Arrow"))
-                tower = new ArrowTower(1);
-            if (towerToggle.equals("Glaive"))
-                tower = new GlaiveTower(1);
-            if (towerToggle.equals("Cannon"))
-                tower = new CannonTower(1);
-            if (towerToggle.equals("Ice"))
-                tower = new IceTower(1);
-            if (tower == null) tower = new ArrowTower(1);
+            Tower tower = World.getTowerByName(towerToggle);
+            if (tower == null) tower = World.getTowerByName("ArrowTower");
 
             int goldCost = tower.getPrice();
 
             boolean canAffordGoldCost = World.getPlayer().getGold() >= goldCost;
-            boolean validLocation = InterfaceUtil.isValidLocation(eventX, eventY, new ArrowTower(2).getSizeRadius());
+            boolean validLocation = InterfaceUtil.isValidLocation(eventX, eventY, tower.getSizeRadius());
 
             if (canAffordGoldCost && validLocation)
             {

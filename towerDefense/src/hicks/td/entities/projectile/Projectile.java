@@ -9,11 +9,14 @@ import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.tower.Tower;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public abstract class Projectile extends Unit
 {
+    private String m_name;
+
     private Tower m_originator;
     private SoundEffect m_fireSound;
 
@@ -24,7 +27,7 @@ public abstract class Projectile extends Unit
     private int m_minDamage;
     private int m_maxDamage;
 
-    private List<Upgrade> m_upgrades;
+    private List<Upgrade> m_upgrades = new ArrayList<>();
 
     public int getAttackDamage()
     {
@@ -46,11 +49,23 @@ public abstract class Projectile extends Unit
 
     public void applyUpgrades(List<Upgrade> upgrades)
     {
+        if (upgrades == null) return;
+
         for (Upgrade upgrade : upgrades)
             upgrade.applyProjectileEffect(this);
     }
 
     // ---------- Properties
+
+    public String getName()
+    {
+        return m_name;
+    }
+
+    public void setName(String name)
+    {
+        m_name = name;
+    }
 
     public Tower getOriginator()
     {

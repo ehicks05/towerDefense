@@ -12,10 +12,12 @@ import hicks.td.entities.tower.*;
 import hicks.td.util.ExplosionTileLoader;
 import hicks.td.util.MobBodyPartCollection;
 import hicks.td.util.MobTileLoader;
+import hicks.td.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,11 +48,12 @@ public final class UnitPainter
             // draw the unit
             if (unit instanceof Tower)
             {
-                if (unit instanceof ArrowTower) g2d.drawImage(GUARD_TOWER, drawX, drawY, diameter, diameter, null);
-                if (unit instanceof GlaiveTower) g2d.drawImage(SCOUT_TOWER, drawX, drawY, diameter, diameter, null);
-                if (unit instanceof CannonTower) g2d.drawImage(CANNON_TOWER, drawX, drawY, diameter, diameter, null);
-                if (unit instanceof IceTower) g2d.drawImage(ICE_TOWER, drawX, drawY, diameter, diameter, null);
-                if (isSelected(unit)) towerThatNeedsVisionCircle = (Tower) unit;
+                Tower tower = (Tower) unit;
+                if (tower.getName().equals("ArrowTower")) g2d.drawImage(GUARD_TOWER, drawX, drawY, diameter, diameter, null);
+                if (tower.getName().equals("GlaiveTower")) g2d.drawImage(SCOUT_TOWER, drawX, drawY, diameter, diameter, null);
+                if (tower.getName().equals("CannonTower")) g2d.drawImage(CANNON_TOWER, drawX, drawY, diameter, diameter, null);
+                if (tower.getName().equals("IceTower")) g2d.drawImage(ICE_TOWER, drawX, drawY, diameter, diameter, null);
+                if (isSelected(tower)) towerThatNeedsVisionCircle = tower;
             }
             if (unit instanceof Projectile)
             {
@@ -137,8 +140,9 @@ public final class UnitPainter
                 if (unit instanceof Tower)
                 {
                     Tower tower = (Tower) unit;
-
-                    label.setText(unit.toString() + " \r\nRange:" + tower.getAttackRange() + "\rDamage: " + tower.getProjectile().getMinDamage() + "-" + tower.getProjectile().getMaxDamage());
+                    Projectile projectile = tower.getProjectileWithUpgrades();
+                    label.setText("  R:" + tower.getAttackRange() + "  D:" + projectile.getMinDamage() + "-" + projectile.getMaxDamage() +
+                    "  tsla: " + Util.getElapsedTime(tower.getTimeOfLastAttack()).setScale(1, RoundingMode.HALF_UP));
 
 
                     List<Upgrade> availableUpgrades = tower.getAvailableUpgrades();

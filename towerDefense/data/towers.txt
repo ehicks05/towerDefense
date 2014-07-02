@@ -1,0 +1,5 @@
+name,projectile,price,attackRange,attackSpeed,numberOfTargets,sizeRadius
+ArrowTower,Arrow,50,256,1.5,1,16
+GlaiveTower,Glaive,100,160,1,1,16
+CannonTower,Cannonball,150,256,2,1,16
+IceTower,IceBolt,100,224,1.7,1,16

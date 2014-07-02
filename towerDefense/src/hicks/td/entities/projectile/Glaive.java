@@ -4,6 +4,7 @@ import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.UnitLogic;
+import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.util.Util;
 
@@ -17,8 +18,9 @@ public class Glaive extends Projectile
     private List<Mob> m_mobsHit = new ArrayList<>();
     private int m_bounceRange = 300;
 
-    public Glaive(int team)
+    public Glaive(int team , List<Upgrade> upgrades)
     {
+        setName("Glaive");
         setTeam(team);
         setSizeRadius(10);
         setMoveSpeed(300);
@@ -28,6 +30,8 @@ public class Glaive extends Projectile
         setMaxDamage(12);
         setMaximumRange(300);
         setFireSound(SoundEffect.SHOOT_GLAIVE);
+
+        applyUpgrades(upgrades);
     }
 
     public void onHit(Mob victim)
@@ -47,7 +51,7 @@ public class Glaive extends Projectile
 
             if (closestVisibleEnemy != null)
             {
-                Glaive glaive = new Glaive(getTeam());
+                Glaive glaive = new Glaive(getTeam(), this.getUpgrades());
                 glaive.setLocation(this.getLocation());
                 glaive.setOriginator(this.getOriginator());
                 glaive.setHitsPerformed(this.getHitsPerformed() + 1);

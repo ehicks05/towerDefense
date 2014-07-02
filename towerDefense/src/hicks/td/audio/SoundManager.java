@@ -18,7 +18,7 @@ public class SoundManager
     public static void init()
     {
         File wav = convertToWav();
-        playSound(wav, 0.7f, true);
+        playSound(wav, -10f, true);
     }
 
     public static void playSFX(SoundEffect soundEffect)

@@ -5,6 +5,7 @@ import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Explosion;
+import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.util.Util;
 
@@ -15,8 +16,9 @@ public class Cannonball extends Projectile
 {
     private int m_splashRadius;
 
-    public Cannonball(int team)
+    public Cannonball(int team, List<Upgrade> upgrades)
     {
+        setName("Cannonball");
         setTeam(team);
         setSizeRadius(10);
         setMoveSpeed(600);
@@ -27,6 +29,8 @@ public class Cannonball extends Projectile
         setMaximumRange(600);
         setFireSound(SoundEffect.CANNON_FIRE);
         setSplashRadius(96);
+
+        applyUpgrades(upgrades);
     }
 
     public void onHit(Mob victim)

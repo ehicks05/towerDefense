@@ -3,12 +3,20 @@ package hicks.td;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
 import hicks.td.entities.mob.Mob;
+import hicks.td.entities.projectile.*;
+import hicks.td.entities.tower.Tower;
 import hicks.td.ui.DisplayInfo;
 import hicks.td.util.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class Init
@@ -33,6 +41,40 @@ public final class Init
         allUpgrades.add(new UpgradeAttackRange());
         allUpgrades.add(new UpgradeDamage());
         World.setUpgrades(allUpgrades);
+
+        World.setTowers(getTowers());
+
+        World.setProjectiles(Arrays.asList(new Arrow(1, null), new Cannonball(1, null), new Glaive(1, null), new IceBolt(1, null)));
+    }
+
+    private static List<Tower> getTowers()
+    {
+        List<Tower> towers = new ArrayList<>();
+        try
+        {
+            List<String> lines = Files.readAllLines(Paths.get("data\\towers.txt"), Charset.defaultCharset());
+            lines.remove(0);
+            for (String line : lines)
+            {
+                List<String> elements = Arrays.asList(line.split(","));
+                String name             = elements.get(0);
+                String projectileType   = elements.get(1);
+                int price               = Integer.parseInt(elements.get(2));
+                int attackRange         = Integer.parseInt(elements.get(3));
+                BigDecimal attackSpeed  = new BigDecimal(elements.get(4));
+                int numberOfTargets     = Integer.parseInt(elements.get(5));
+                int sizeRadius          = Integer.parseInt(elements.get(6));
+
+                Tower tower = new Tower(price, attackRange, attackSpeed, numberOfTargets, name, projectileType, sizeRadius);
+                towers.add(tower);
+            }
+        }
+        catch (IOException e)
+        {
+            Log.info(e.getMessage(), true);
+        }
+
+        return towers;
     }
 
     private static List<Wave> getWaves()

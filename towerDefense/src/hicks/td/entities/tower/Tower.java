@@ -13,18 +13,48 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Tower extends Unit
+public class Tower extends Unit
 {
     private int             m_price;
     private int             m_attackRange;
     private BigDecimal      m_attackSpeed;
-    private BigDecimal      m_timeOfLastAttack;
+    private BigDecimal      m_timeOfLastAttack = Util.now();
     private List<Mob>       m_targets;
     private int             m_kills;
     private int             m_numberOfTargets;
     private List<Upgrade>   m_upgrades = new ArrayList<>();
+    private String          m_name = "";
+    private String          m_projectileType = "";
 
-    public abstract Projectile getProjectile();
+    public Tower(int price, int attackRange, BigDecimal attackSpeed, int numberOfTargets, String name, String projectileType, int sizeRadius)
+    {
+        m_price = price;
+        m_attackRange = attackRange;
+        m_attackSpeed = attackSpeed;
+        m_timeOfLastAttack = Util.now();
+        m_targets = new ArrayList<>();
+        m_kills = 0;
+        m_numberOfTargets = numberOfTargets;
+        m_upgrades = new ArrayList<>();
+        m_name = name;
+        m_projectileType = projectileType;
+        setSizeRadius(sizeRadius);
+    }
+
+    public Tower(Tower tower)
+    {
+        m_price = tower.getPrice();
+        m_attackRange = tower.getAttackRange();
+        m_attackSpeed = tower.getAttackSpeed();
+        m_timeOfLastAttack = Util.now();
+        m_targets = new ArrayList<>();
+        m_kills = 0;
+        m_numberOfTargets = tower.getNumberOfTargets();
+        m_upgrades = new ArrayList<>();
+        m_name = tower.getName();
+        m_projectileType = tower.getProjectileType();
+        setSizeRadius(tower.getSizeRadius());
+    }
 
     public void performTowerBehavior()
     {
@@ -51,16 +81,22 @@ public abstract class Tower extends Unit
         {
             for (Mob target : this.getTargets())
             {
-                Projectile newProjectile = this.getProjectile();
-                newProjectile.setOriginator(this);
+                Projectile newProjectile = getProjectileWithUpgrades();
 
-                for (Upgrade upgrade : m_upgrades)
-                    upgrade.applyProjectileEffect(newProjectile);
+                newProjectile.setOriginator(this);
 
                 ProjectileLogic.shootProjectile(this, newProjectile, target.getLocation());
                 this.setTimeOfLastAttack(Util.now());
             }
         }
+    }
+
+    public Projectile getProjectileWithUpgrades()
+    {
+        Projectile newProjectile = World.getProjectileByName(m_projectileType);
+        for (Upgrade upgrade : m_upgrades)
+            upgrade.applyProjectileEffect(newProjectile);
+        return newProjectile;
     }
 
     public List<Upgrade> getAvailableUpgrades()
@@ -171,5 +207,25 @@ public abstract class Tower extends Unit
     public void setUpgrades(List<Upgrade> upgrades)
     {
         m_upgrades = upgrades;
+    }
+
+    public String getName()
+    {
+        return m_name;
+    }
+
+    public void setName(String name)
+    {
+        m_name = name;
+    }
+
+    public String getProjectileType()
+    {
+        return m_projectileType;
+    }
+
+    public void setProjectileType(String projectileType)
+    {
+        m_projectileType = projectileType;
     }
 }
