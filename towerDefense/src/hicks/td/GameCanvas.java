@@ -36,6 +36,7 @@ public final class GameCanvas extends Canvas
     private static String towerToggle = "Arrow";
 
     private static boolean activeRound = false;
+    private static boolean gameStarted = false;
 
     private static int mouseX;
     private static int mouseY;
@@ -198,7 +199,7 @@ public final class GameCanvas extends Canvas
                 runningSimulation = false;
                 stopSimulationReason = "YOU LOSE!";
             }
-            if (World.getPlayer().getWaveNumber() > 6 && UnitLogic.getUnitsOnTeam(2) == 0)
+            if (World.getPlayer().getWaveNumber() > World.getWaves().size() && UnitLogic.getUnitsOnTeam(2) == 0)
             {
                 runningSimulation = false;
                 stopSimulationReason = "YOU WIN!";
@@ -268,6 +269,23 @@ public final class GameCanvas extends Canvas
         GameCanvas.selectedUnit = selectedUnit;
     }
 
+    public static void startNextWave()
+    {
+        if (GameCanvas.isActiveRound()) return;
+
+        GameCanvas.setGameStarted(true);
+        World.getPlayer().setWaveNumber(World.getPlayer().getWaveNumber() + 1);
+
+        List<Wave> waves = World.getWaves();
+        for (Wave wave : waves)
+            if (wave.getWaveNumber() == World.getPlayer().getWaveNumber())
+                wave.setTimeStarted(Util.now());
+
+        setActiveRound(true);
+    }
+
+    //
+
     public static String getTowerToggle()
     {
         return towerToggle;
@@ -298,16 +316,14 @@ public final class GameCanvas extends Canvas
         GameCanvas.activeRound = activeRound;
     }
 
-    public static void startNextWave()
+    public static boolean isGameStarted()
     {
-        World.getPlayer().setWaveNumber(World.getPlayer().getWaveNumber() + 1);
+        return gameStarted;
+    }
 
-        List<Wave> waves = World.getWaves();
-        for (Wave wave : waves)
-            if (wave.getWaveNumber() == World.getPlayer().getWaveNumber())
-                wave.setTimeStarted(Util.now());
-
-        setActiveRound(true);
+    public static void setGameStarted(boolean gameStarted)
+    {
+        GameCanvas.gameStarted = gameStarted;
     }
 
     public static MyGamePanel getGamePanel()

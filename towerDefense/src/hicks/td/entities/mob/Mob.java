@@ -8,6 +8,7 @@ import hicks.td.util.MobBodyPartCollection;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -27,8 +28,8 @@ public class Mob extends Unit
     private MobBodyPartCollection m_mobBodyPartCollection;
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
 
-    public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int currentHp, int maxHp, int armor,
-               int bounty, int slowInstances, BigDecimal spawnTime, MobBodyPartCollection mobBodyPartCollection)
+    public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int maxHp, int armor,
+               int bounty, int slowInstances, MobBodyPartCollection mobBodyPartCollection)
     {
         setTeam(team);
         setSizeRadius(sizeRadius);
@@ -38,19 +39,19 @@ public class Mob extends Unit
         m_mobType = mobType;
         m_mobTypeIndex = mobTypeIndex;
         m_powerBudgetUsage = powerBudgetUsage;
-        m_currentHp = currentHp;
+        m_currentHp = maxHp;
         m_maxHp = maxHp;
         m_armor = armor;
         m_bounty = bounty;
         m_slowInstances = slowInstances;
-        m_spawnTime = spawnTime;
+        m_spawnTime = Util.now();
         m_mobBodyPartCollection = mobBodyPartCollection;
     }
 
     public static Mob duplicateMob(Mob original)
     {
         return new Mob(original.getTeam(), original.getSizeRadius(), original.getMoveSpeed(), original.getMobType(), original.getMobTypeIndex(), original.getPowerBudgetUsage(),
-                original.getCurrentHp(), original.getMaxHp(), original.getArmor(), original.getBounty(), original.getSlowInstances(), Util.now(), original.getMobBodyPartCollection());
+                original.getMaxHp(), original.getArmor(), original.getBounty(), original.getSlowInstances(), original.getMobBodyPartCollection());
     }
 
     public boolean isAlive()
@@ -60,7 +61,7 @@ public class Mob extends Unit
 
     public void performMobBehavior()
     {
-        MobLogic.moveAlongPath(this);
+        this.moveAlongPath();
         if (m_path.size() == 0)
         {
             UnitLogic.removeUnitAsTarget(this);
@@ -77,6 +78,24 @@ public class Mob extends Unit
         path.add(new Point(World.getGameMap().getWidth() - 32, World.getGameMap().getHeight() - 32));
         path.add(new Point(World.getGameMap().getWidth() - 32, 32));
         return path;
+    }
+
+    public void moveAlongPath()
+    {
+        Queue<Point> path = this.getPath();
+        Point pathPoint = path.peek();
+
+        if (pathPoint != null)
+        {
+            BigDecimal currentDistance = new BigDecimal(this.getLocation().getDistance(pathPoint)).setScale(0, RoundingMode.HALF_UP);
+            if (currentDistance.equals(BigDecimal.ZERO))
+            {
+                path.remove();
+                path.add(pathPoint);
+            }
+            else
+                UnitLogic.move(this, pathPoint);
+        }
     }
 
     // ------------ Properties

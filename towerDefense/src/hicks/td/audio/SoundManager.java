@@ -6,9 +6,7 @@ import it.sauronsoftware.jave.Encoder;
 import it.sauronsoftware.jave.EncoderException;
 import it.sauronsoftware.jave.EncodingAttributes;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.*;
 import java.io.File;
 
 public class SoundManager
@@ -18,7 +16,7 @@ public class SoundManager
     public static void init()
     {
         File wav = convertToWav();
-        playSound(wav, -10f, true);
+        playSound(wav, -6f, true);
     }
 
     public static void playSFX(SoundEffect soundEffect)
@@ -75,6 +73,13 @@ public class SoundManager
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
             else
                 clip.start();
+
+
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            AudioFormat format = audioInputStream.getFormat();
+            long frames = audioInputStream.getFrameLength();
+            double durationInSeconds = (frames+0.0) / format.getFrameRate();
+            // todo finish this - keep track of all sounds playing
         }
         catch (Exception e)
         {

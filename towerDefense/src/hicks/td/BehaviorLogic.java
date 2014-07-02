@@ -94,8 +94,12 @@ public final class BehaviorLogic
             if (waveSpawns.size() == 0)
             {
                 GameCanvas.setActiveRound(false);
-                GameCanvas.getGamePanel().showNextWaveButton();
+//                GameCanvas.getGamePanel().showNextWaveButton();
             }
+        }
+        else
+        {
+            if (GameCanvas.isGameStarted()) GameCanvas.startNextWave();
         }
     }
 }

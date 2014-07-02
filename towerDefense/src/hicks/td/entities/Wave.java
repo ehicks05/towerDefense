@@ -1,6 +1,7 @@
 package hicks.td.entities;
 
 import hicks.td.Init;
+import hicks.td.World;
 import hicks.td.entities.mob.Mob;
 
 import java.math.BigDecimal;
@@ -23,6 +24,7 @@ public class Wave
     private List<WaveSpawn> generateWaveSpawns()
     {
         List<WaveSpawn> waveSpawns = new ArrayList<>();
+
         Random rand = new Random();
         List<Mob> mobTypes = Init.getOneOfEachMobType();
         Map<Integer, Integer> powerBudgetUsageMap = new HashMap<>();
@@ -33,7 +35,10 @@ public class Wave
         while (powerBudgeUsed < m_powerBudget)
         {
             int maxTypeIndex = m_waveNumber + 1;
-            if (maxTypeIndex > 4) maxTypeIndex = 4;
+
+            if (maxTypeIndex >= Init.getOneOfEachMobType().size())
+                maxTypeIndex = Init.getOneOfEachMobType().size() - 1;
+
             int mobTypeIndex = rand.nextInt(maxTypeIndex) + 1;
             powerBudgeUsed += powerBudgetUsageMap.get(mobTypeIndex);
 
