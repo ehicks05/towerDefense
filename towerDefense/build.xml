@@ -40,6 +40,11 @@
             <fileset dir="ass"/>
         </copy>
 
+        <!-- Copy data files to the target directory -->
+        <copy todir="out/jar/data">
+            <fileset dir="data"/>
+        </copy>
+
         <zip destfile="out/erictd.zip" basedir="out/jar"/>
 
     </target>
