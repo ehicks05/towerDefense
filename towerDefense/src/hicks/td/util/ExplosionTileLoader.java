@@ -11,6 +11,17 @@ public class ExplosionTileLoader
 {
     private static List<BufferedImage> tiles;
 
+    public static BufferedImage getTile(int i)
+    {
+        if (tiles == null)
+            createTileList();
+
+        if (i > 80)
+            i = 80;
+
+        return tiles.get(i);
+    }
+
     private static BufferedImage loadTileSet()
     {
         try
@@ -25,7 +36,7 @@ public class ExplosionTileLoader
         return null;
     }
 
-    public static void createTileList()
+    private static void createTileList()
     {
         tiles = new ArrayList<>();
 
@@ -39,16 +50,5 @@ public class ExplosionTileLoader
                 tiles.add(image);
             }
         }
-    }
-
-    public static BufferedImage getTile(int i)
-    {
-        if (tiles == null)
-            createTileList();
-
-        if (i > 80)
-            i = 80;
-
-        return tiles.get(i);
     }
 }
