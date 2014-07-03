@@ -71,10 +71,12 @@ public class SoundManager
     }
     private static void playSound(File soundFile, float gainAdjustment, boolean loopContinuously)
     {
+        BigDecimal instant = Util.now();
         for (Iterator<BigDecimal> i = soundEndTimes.iterator(); i.hasNext();)
         {
             BigDecimal soundEndTime = i.next();
-            if (soundEndTime.compareTo(Util.now()) > 0) i.remove();
+            if (soundEndTime.compareTo(instant) < 0)
+                i.remove();
         }
 
         if (soundEndTimes.size() > SIMULTANEOUS_SOUNDS) return;
