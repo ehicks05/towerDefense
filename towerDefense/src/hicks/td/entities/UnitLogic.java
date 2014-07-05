@@ -51,29 +51,6 @@ public final class UnitLogic
         unit.setTimeOfLastMove(Util.now());
     }
 
-    private static BigDecimal trimOvershoot(BigDecimal potentialDistanceToMove, BigDecimal currentDistance, BigDecimal desiredDistance)
-    {
-        BigDecimal expectedNewDistance = currentDistance.subtract(potentialDistanceToMove);
-        BigDecimal actualDistanceToMove = potentialDistanceToMove;
-        if (expectedNewDistance.compareTo(desiredDistance) == -1)
-        {
-            BigDecimal excessMovement = desiredDistance.subtract(expectedNewDistance);
-            actualDistanceToMove = potentialDistanceToMove.subtract(excessMovement);
-        }
-        return actualDistanceToMove;
-    }
-
-    public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange)
-    {
-        return getClosestVisibleEnemies(callingUnit, attackRange, null);
-    }
-
-    public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange, List<Mob> exceptions)
-    {
-        return getClosestVisibleEnemies(callingUnit, attackRange, null, 1);
-
-    }
-
     public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange, List<Mob> exceptions, int sizeToReturn)
     {
         final Point callingUnitLocation = callingUnit.getLocation();
@@ -130,5 +107,17 @@ public final class UnitLogic
         }
 
         return units.size();
+    }
+
+    private static BigDecimal trimOvershoot(BigDecimal potentialDistanceToMove, BigDecimal currentDistance, BigDecimal desiredDistance)
+    {
+        BigDecimal expectedNewDistance = currentDistance.subtract(potentialDistanceToMove);
+        BigDecimal actualDistanceToMove = potentialDistanceToMove;
+        if (expectedNewDistance.compareTo(desiredDistance) == -1)
+        {
+            BigDecimal excessMovement = desiredDistance.subtract(expectedNewDistance);
+            actualDistanceToMove = potentialDistanceToMove.subtract(excessMovement);
+        }
+        return actualDistanceToMove;
     }
 }
