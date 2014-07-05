@@ -73,7 +73,7 @@ public class MyGamePanel extends JPanel
         unitInfo.setVisible(true);
         InterfaceUtil.setSizeFields(unitInfo, new Dimension(300, 80));
 
-        JLabel unitInfoLabel = new JLabel("test");
+        JLabel unitInfoLabel = new JLabel();
         unitInfoLabel.setVisible(true);
         unitInfo.add(unitInfoLabel);
 
