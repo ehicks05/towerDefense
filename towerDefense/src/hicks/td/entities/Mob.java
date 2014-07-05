@@ -70,7 +70,7 @@ public class Mob extends Unit
 
     public void removeFromTargeting()
     {
-        for (Tower tower : World.getTowers())
+        for (Tower tower : Util.getTowers())
             if (tower.getTargets() != null && tower.getTargets().contains(this))
             {
                 List<Mob> newTargetList = tower.getTargets();

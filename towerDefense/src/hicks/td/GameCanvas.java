@@ -111,9 +111,9 @@ public final class GameCanvas extends Canvas
 
 //        labelText += "<td>Sounds Playing:</td><td>" + SoundManager.getNumberOfSoundsPlaying() + "</td>";
 //        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
-//        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-        labelText += "<td>TT:</td><td>" + GameCanvas.getTowerToggle() + "</td>";
-        labelText += "<td>Units:</td><td>" + World.getUnits().size() + "</td>";
+        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
+//        labelText += "<td>TT:</td><td>" + GameCanvas.getTowerToggle() + "</td>";
+        labelText += "<td>Mobs:</td><td>" + Util.getMobs().size() + "</td>";
         labelText += "</tr></table></html>";
 
         return labelText;
