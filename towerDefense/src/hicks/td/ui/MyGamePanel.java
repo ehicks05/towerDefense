@@ -3,7 +3,7 @@ package hicks.td.ui;
 import hicks.td.GameCanvas;
 import hicks.td.World;
 import hicks.td.entities.Upgrade;
-import hicks.td.entities.tower.Tower;
+import hicks.td.entities.Tower;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,27 +24,45 @@ public class MyGamePanel extends JPanel
         this.setPreferredSize(new Dimension(DisplayInfo.getWindowWidth(), DisplayInfo.getWindowHeight()));
 
         final Dimension towerButtonDimension = new Dimension(48, 48);
-        List<JToggleButton> towerButtons = new ArrayList<>();
+        final List<JToggleButton> towerButtons = new ArrayList<>();
 
-        final JToggleButton arrowButton = new JToggleButton(new ImageIcon(UnitPainter.GUARD_TOWER.getScaledInstance(48, 48, Image.SCALE_SMOOTH)), true);
-        arrowButton.setVisible(true);
-        InterfaceUtil.setSizeFields(arrowButton, towerButtonDimension);
-        towerButtons.add(arrowButton);
+        for (Tower tower : World.getTowers())
+        {
+            final JToggleButton towerButton = new JToggleButton(new ImageIcon(tower.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH)), false);
+            towerButton.setName(tower.getName());
+            towerButton.setVisible(true);
+            towerButton.setToolTipText("Price: " + tower.getPrice() + " gold");
 
-        final JToggleButton glaiveButton = new JToggleButton(new ImageIcon(UnitPainter.SCOUT_TOWER.getScaledInstance(48, 48, Image.SCALE_SMOOTH)));
-        glaiveButton.setVisible(true);
-        InterfaceUtil.setSizeFields(glaiveButton, towerButtonDimension);
-        towerButtons.add(glaiveButton);
+            InterfaceUtil.setSizeFields(towerButton, towerButtonDimension);
+            towerButtons.add(towerButton);
+            this.add(towerButton);
+        }
 
-        final JToggleButton cannonButton = new JToggleButton(new ImageIcon(UnitPainter.CANNON_TOWER.getScaledInstance(48, 48, Image.SCALE_SMOOTH)));
-        cannonButton.setVisible(true);
-        InterfaceUtil.setSizeFields(cannonButton, towerButtonDimension);
-        towerButtons.add(cannonButton);
+        towerButtons.get(0).setSelected(true);
 
-        final JToggleButton iceButton = new JToggleButton(new ImageIcon(UnitPainter.ICE_TOWER.getScaledInstance(48, 48, Image.SCALE_SMOOTH)));
-        iceButton.setVisible(true);
-        InterfaceUtil.setSizeFields(iceButton, towerButtonDimension);
-        towerButtons.add(iceButton);
+        for (final JToggleButton towerButton : towerButtons)
+        {
+            towerButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    if (towerButton.isSelected())
+                    {
+                        GameCanvas.setTowerToggle(towerButton.getName());
+
+                        for (final JToggleButton innerTowerButton : towerButtons)
+                        {
+                            if (innerTowerButton.equals(towerButton)) continue;
+                            innerTowerButton.setSelected(false);
+                        }
+                    }
+                    else
+                    {
+                        GameCanvas.setTowerToggle("");
+                    }
+                }
+            });
+        }
 
         final JToggleButton pauseButton = new JToggleButton("Pause");
         pauseButton.setVisible(true);
@@ -61,78 +79,6 @@ public class MyGamePanel extends JPanel
 
         startWaveButton = new JButton("Start Wave");
         startWaveButton.setVisible(true);
-
-        arrowButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (arrowButton.isSelected())
-                {
-                    GameCanvas.setTowerToggle("ArrowTower");
-                    glaiveButton.setSelected(false);
-                    cannonButton.setSelected(false);
-                    iceButton.setSelected(false);
-                }
-                else
-                {
-                    GameCanvas.setTowerToggle("GlaiveTower");
-                }
-            }
-        });
-
-        glaiveButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (glaiveButton.isSelected())
-                {
-                    GameCanvas.setTowerToggle("GlaiveTower");
-                    arrowButton.setSelected(false);
-                    cannonButton.setSelected(false);
-                    iceButton.setSelected(false);
-                }
-                else
-                {
-                    GameCanvas.setTowerToggle("ArrowTower");
-                }
-            }
-        });
-
-        cannonButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (cannonButton.isSelected())
-                {
-                    GameCanvas.setTowerToggle("CannonTower");
-                    arrowButton.setSelected(false);
-                    glaiveButton.setSelected(false);
-                    iceButton.setSelected(false);
-                }
-                else
-                {
-                    GameCanvas.setTowerToggle("ArrowTower");
-                }
-            }
-        });
-
-        iceButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (iceButton.isSelected())
-                {
-                    GameCanvas.setTowerToggle("IceTower");
-                    arrowButton.setSelected(false);
-                    glaiveButton.setSelected(false);
-                    cannonButton.setSelected(false);
-                }
-                else
-                {
-                    GameCanvas.setTowerToggle("ArrowTower");
-                }
-            }
-        });
 
         pauseButton.addActionListener(new ActionListener()
         {
@@ -194,10 +140,7 @@ public class MyGamePanel extends JPanel
         }
 
         this.setLayout(new FlowLayout());
-        this.add(arrowButton);
-        this.add(glaiveButton);
-        this.add(cannonButton);
-        this.add(iceButton);
+
         this.add(mainMenuButton);
         this.add(pauseButton);
         this.add(startWaveButton);
@@ -206,8 +149,6 @@ public class MyGamePanel extends JPanel
 //        JPanel menuPanel = new JPanel();
 //        menuPanel.setVisible(true);
 //        this.add(menuPanel);
-
-
     }
 
     public void showNextWaveButton()

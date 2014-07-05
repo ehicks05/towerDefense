@@ -7,7 +7,7 @@ import hicks.td.audio.SoundManager;
 import hicks.td.entities.Unit;
 import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
-import hicks.td.entities.tower.Tower;
+import hicks.td.entities.Tower;
 
 import java.util.ArrayList;
 import java.util.List;

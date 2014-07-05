@@ -1,20 +1,20 @@
-package hicks.td.entities.tower;
+package hicks.td.entities;
 
 import hicks.td.World;
-import hicks.td.entities.Unit;
-import hicks.td.entities.UnitLogic;
-import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.util.Util;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Tower extends Unit
 {
+    private static String imageFolder = "ass\\img\\";
+
     private int             m_price;
     private int             m_attackRange;
     private BigDecimal      m_attackSpeed;
@@ -25,8 +25,9 @@ public class Tower extends Unit
     private List<Upgrade>   m_upgrades = new ArrayList<>();
     private String          m_name = "";
     private String          m_projectileType = "";
+    private String          m_imageFile = "";
 
-    public Tower(int price, int attackRange, BigDecimal attackSpeed, int numberOfTargets, String name, String projectileType, int sizeRadius)
+    public Tower(int price, int attackRange, BigDecimal attackSpeed, int numberOfTargets, String name, String projectileType, int sizeRadius, String imageFile)
     {
         m_price = price;
         m_attackRange = attackRange;
@@ -38,9 +39,11 @@ public class Tower extends Unit
         m_upgrades = new ArrayList<>();
         m_name = name;
         m_projectileType = projectileType;
+        m_imageFile = imageFile;
         setSizeRadius(sizeRadius);
     }
 
+    // Copy Constructor
     public Tower(Tower tower)
     {
         m_price = tower.getPrice();
@@ -53,7 +56,14 @@ public class Tower extends Unit
         m_upgrades = new ArrayList<>();
         m_name = tower.getName();
         m_projectileType = tower.getProjectileType();
+        m_imageFile = tower.getImageFile();
         setSizeRadius(tower.getSizeRadius());
+    }
+
+    public Image getImage()
+    {
+        return World.getGameImage(imageFolder + m_imageFile).getImage();
+//        return new ImageIcon(imageFolder + m_imageFile).getImage();
     }
 
     public void performTowerBehavior()
@@ -227,5 +237,15 @@ public class Tower extends Unit
     public void setProjectileType(String projectileType)
     {
         m_projectileType = projectileType;
+    }
+
+    public String getImageFile()
+    {
+        return m_imageFile;
+    }
+
+    public void setImageFile(String imageFile)
+    {
+        m_imageFile = imageFile;
     }
 }

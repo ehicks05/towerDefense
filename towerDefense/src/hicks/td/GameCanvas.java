@@ -1,12 +1,11 @@
 package hicks.td;
 
-import hicks.td.audio.SoundManager;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
 import hicks.td.entities.Wave;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
-import hicks.td.entities.tower.Tower;
+import hicks.td.entities.Tower;
 import hicks.td.ui.*;
 import hicks.td.util.Metrics;
 import hicks.td.util.Util;
@@ -34,7 +33,7 @@ public final class GameCanvas extends Canvas
     private static BigDecimal timePaused;
 
     private static JLabel infoLabel;
-    private static String towerToggle = "Arrow";
+    private static String towerToggle = "ArrowTower";
 
     private static boolean activeRound = false;
     private static boolean gameStarted = false;
@@ -54,7 +53,7 @@ public final class GameCanvas extends Canvas
         this.setIgnoreRepaint(true);
     }
 
-    public static void paintWorld(Graphics g)
+    private static void paintWorld(Graphics g)
     {
         Graphics2D g2d = (Graphics2D) g;
 
@@ -110,10 +109,11 @@ public final class GameCanvas extends Canvas
         labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
         labelText += "</tr><tr>";
 
-        labelText += "<td>Sounds Playing:</td><td>" + SoundManager.getNumberOfSoundsPlaying() + "</td>";
+//        labelText += "<td>Sounds Playing:</td><td>" + SoundManager.getNumberOfSoundsPlaying() + "</td>";
 //        labelText += "<td>Stopwatch:</td><td>" + elapsed                 + "</td>";
 //        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-//        labelText += "<td>Units:</td><td>" + World.getUnits().size() + "</td>";
+        labelText += "<td>TT:</td><td>" + GameCanvas.getTowerToggle() + "</td>";
+        labelText += "<td>Units:</td><td>" + World.getUnits().size() + "</td>";
         labelText += "</tr></table></html>";
 
         return labelText;

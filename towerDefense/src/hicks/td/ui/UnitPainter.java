@@ -2,13 +2,10 @@ package hicks.td.ui;
 
 import hicks.td.GameCanvas;
 import hicks.td.World;
-import hicks.td.entities.Explosion;
+import hicks.td.entities.*;
 import hicks.td.entities.Point;
-import hicks.td.entities.Unit;
-import hicks.td.entities.Upgrade;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.*;
-import hicks.td.entities.tower.*;
 import hicks.td.util.ExplosionTileLoader;
 import hicks.td.util.MobBodyPartCollection;
 import hicks.td.util.MobTileLoader;
@@ -24,15 +21,6 @@ import java.util.List;
 
 public final class UnitPainter
 {
-    public static final Image SCOUT_TOWER   = new ImageIcon("ass\\img\\scoutTower.gif").getImage();
-    public static final Image GUARD_TOWER   = new ImageIcon("ass\\img\\guardTower.gif").getImage();
-    public static final Image CANNON_TOWER  = new ImageIcon("ass\\img\\cannonTower.gif").getImage();
-    public static final Image ICE_TOWER     = new ImageIcon("ass\\img\\orcGuardTower.gif").getImage();
-    private static final Image ARROW        = new ImageIcon("ass\\img\\arrow.png").getImage();
-    private static final Image GLAIVE       = new ImageIcon("ass\\img\\glaive.png").getImage();
-    private static final Image CANNON_BALL  = new ImageIcon("ass\\img\\rock.png").getImage();
-    private static final Image ICE          = new ImageIcon("ass\\img\\iceBolt.png").getImage();
-
     public static void drawUnits(Graphics2D g2d)
     {
         Tower towerThatNeedsVisionCircle = null;
@@ -49,10 +37,9 @@ public final class UnitPainter
             if (unit instanceof Tower)
             {
                 Tower tower = (Tower) unit;
-                if (tower.getName().equals("ArrowTower")) g2d.drawImage(GUARD_TOWER, drawX, drawY, diameter, diameter, null);
-                if (tower.getName().equals("GlaiveTower")) g2d.drawImage(SCOUT_TOWER, drawX, drawY, diameter, diameter, null);
-                if (tower.getName().equals("CannonTower")) g2d.drawImage(CANNON_TOWER, drawX, drawY, diameter, diameter, null);
-                if (tower.getName().equals("IceTower")) g2d.drawImage(ICE_TOWER, drawX, drawY, diameter, diameter, null);
+
+                g2d.drawImage(tower.getImage(), drawX, drawY, diameter, diameter, null);
+
                 if (isSelected(tower)) towerThatNeedsVisionCircle = tower;
             }
             if (unit instanceof Projectile)
@@ -61,12 +48,12 @@ public final class UnitPainter
                 g2d.rotate(rotationRequired, x, y);
 
                 if (unit instanceof Arrow)
-                    g2d.drawImage(ARROW, drawX, drawY, diameter, diameter, null);
+                    g2d.drawImage(World.getGameImage("ARROW").getImage(), drawX, drawY, diameter, diameter, null);
                 if (unit instanceof IceBolt)
-                    g2d.drawImage(ICE, drawX, drawY, diameter, diameter, null);
+                    g2d.drawImage(World.getGameImage("ICE").getImage(), drawX, drawY, diameter, diameter, null);
                 if (unit instanceof Glaive)
                 {
-                    g2d.drawImage(GLAIVE, drawX, drawY, diameter, diameter, null);
+                    g2d.drawImage(World.getGameImage("GLAIVE").getImage(), drawX, drawY, diameter, diameter, null);
                     Glaive glaive = (Glaive) unit;
 
                     if (GameCanvas.isRunningSimulation())
@@ -74,7 +61,7 @@ public final class UnitPainter
                 }
                 if (unit instanceof Cannonball)
                 {
-                    g2d.drawImage(CANNON_BALL, drawX, drawY, diameter, diameter, null);
+                    g2d.drawImage(World.getGameImage("CANNON_BALL").getImage(), drawX, drawY, diameter, diameter, null);
                     Cannonball cannonball = (Cannonball) unit;
 
                     if (GameCanvas.isRunningSimulation())

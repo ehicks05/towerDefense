@@ -2,6 +2,7 @@ package hicks.td.entities.mob;
 
 import hicks.td.World;
 import hicks.td.entities.Point;
+import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
 import hicks.td.util.MobBodyPartCollection;
@@ -9,6 +10,8 @@ import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -64,10 +67,21 @@ public class Mob extends Unit
         this.moveAlongPath();
         if (m_path.size() == 0)
         {
-            UnitLogic.removeUnitAsTarget(this);
+            removeFromTargeting();
             World.removeUnit(this);
             World.getPlayer().removeLife();
         }
+    }
+
+    public void removeFromTargeting()
+    {
+        for (Tower tower : World.getTowers())
+            if (tower.getTargets() != null && tower.getTargets().contains(this))
+            {
+                List<Mob> newTargetList = tower.getTargets();
+                newTargetList.remove(this);
+                tower.setTargets(newTargetList);
+            }
     }
 
     public Queue<Point> createPath()

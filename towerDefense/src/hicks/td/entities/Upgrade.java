@@ -1,7 +1,6 @@
 package hicks.td.entities;
 
 import hicks.td.entities.projectile.Projectile;
-import hicks.td.entities.tower.Tower;
 
 public abstract class Upgrade
 {

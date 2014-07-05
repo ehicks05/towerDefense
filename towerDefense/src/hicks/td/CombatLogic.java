@@ -2,13 +2,10 @@ package hicks.td;
 
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
-import hicks.td.entities.Unit;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
-import hicks.td.entities.tower.Tower;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public final class CombatLogic
 {
@@ -29,16 +26,7 @@ public final class CombatLogic
 
     private static void processDeath(Mob defender)
     {
-        for (Unit unit : new ArrayList<>(World.getUnits()))
-        {
-            if (unit instanceof Tower)
-            {
-                Tower tower = (Tower) unit;
-                if (tower.getTargets() != null && tower.getTargets().equals(defender))
-                    tower.setTargets(null);
-            }
-        }
-
+        defender.removeFromTargeting();
         SoundManager.playSFX(SoundEffect.DEATH);
         World.removeUnit(defender);
     }

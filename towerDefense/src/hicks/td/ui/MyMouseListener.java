@@ -3,8 +3,8 @@ package hicks.td.ui;
 import hicks.td.GameCanvas;
 import hicks.td.World;
 import hicks.td.entities.Point;
+import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
-import hicks.td.entities.tower.*;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -3,7 +3,6 @@ package hicks.td.entities;
 import hicks.td.World;
 import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
-import hicks.td.entities.tower.Tower;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -12,22 +11,6 @@ import java.util.*;
 
 public final class UnitLogic
 {
-    public static Unit removeUnitAsTarget(Unit formerTarget)
-    {
-        List<Unit> units = new ArrayList<>(World.getUnits());
-
-        for (Unit unit : units)
-        {
-            if (unit instanceof Tower)
-            {
-                Tower tower = (Tower) unit;
-                if (tower.getTargets() != null && tower.getTargets().equals(formerTarget))
-                    tower.setTargets(null);
-            }
-        }
-        return null;
-    }
-
     public static void move(Unit unit, Point destination)
     {
         BigDecimal moveSpeed                = new BigDecimal(unit.getMoveSpeed());

@@ -2,7 +2,7 @@ package hicks.td;
 
 import hicks.td.entities.*;
 import hicks.td.entities.projectile.*;
-import hicks.td.entities.tower.Tower;
+import hicks.td.entities.Tower;
 
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
@@ -20,6 +20,7 @@ public final class World
     private static List<Upgrade> upgrades;
     private static List<Tower> towers;
     private static List<Projectile> projectiles;
+    private static List<GameImage> gameImages;
 
     public static void addUnit(Unit unit)
     {
@@ -60,6 +61,14 @@ public final class World
         if (name.equals("Cannonball")) return new Cannonball(1, null);
         if (name.equals("Glaive")) return new Glaive(1, null);
         if (name.equals("IceBolt")) return new IceBolt(1, null);
+
+        return null;
+    }
+
+    public static GameImage getGameImage(String name)
+    {
+        for (GameImage gameImage : gameImages)
+            if (gameImage.getPath().equals(name)) return gameImage;
 
         return null;
     }
@@ -154,5 +163,15 @@ public final class World
     public static void setProjectiles(List<Projectile> projectiles)
     {
         World.projectiles = projectiles;
+    }
+
+    public static List<GameImage> getGameImages()
+    {
+        return gameImages;
+    }
+
+    public static void setGameImages(List<GameImage> gameImages)
+    {
+        World.gameImages = gameImages;
     }
 }

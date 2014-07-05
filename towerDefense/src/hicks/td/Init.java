@@ -3,11 +3,15 @@ package hicks.td;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
 import hicks.td.entities.mob.Mob;
-import hicks.td.entities.projectile.*;
-import hicks.td.entities.tower.Tower;
+import hicks.td.entities.projectile.Arrow;
+import hicks.td.entities.projectile.Cannonball;
+import hicks.td.entities.projectile.Glaive;
+import hicks.td.entities.projectile.IceBolt;
+import hicks.td.entities.Tower;
 import hicks.td.ui.DisplayInfo;
 import hicks.td.util.*;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -45,6 +49,26 @@ public final class Init
         World.setTowers(getTowers());
 
         World.setProjectiles(Arrays.asList(new Arrow(1, null), new Cannonball(1, null), new Glaive(1, null), new IceBolt(1, null)));
+
+        World.setGameImages(getGameImages());
+    }
+
+    private static List<GameImage> getGameImages()
+    {
+        String imageDir = "ass\\img\\";
+
+        List<GameImage> gameImages = new ArrayList<>();
+        gameImages.add(new GameImage(imageDir + "arrowTower.gif", new ImageIcon(imageDir + "arrowTower.gif").getImage()));
+        gameImages.add(new GameImage(imageDir + "glaiveTower.gif", new ImageIcon(imageDir + "glaiveTower.gif").getImage()));
+        gameImages.add(new GameImage(imageDir + "cannonTower.gif", new ImageIcon(imageDir + "cannonTower.gif").getImage()));
+        gameImages.add(new GameImage(imageDir + "iceTower.gif", new ImageIcon(imageDir + "iceTower.gif").getImage()));
+
+        gameImages.add(new GameImage("ARROW", new ImageIcon(imageDir + "arrow.png").getImage()));
+        gameImages.add(new GameImage("GLAIVE", new ImageIcon(imageDir + "glaive.png").getImage()));
+        gameImages.add(new GameImage("CANNON_BALL", new ImageIcon(imageDir + "rock.png").getImage()));
+        gameImages.add(new GameImage("ICE", new ImageIcon(imageDir + "iceBolt.png").getImage()));
+
+        return gameImages;
     }
 
     private static List<Tower> getTowers()
@@ -64,8 +88,9 @@ public final class Init
                 BigDecimal attackSpeed  = new BigDecimal(elements.get(4));
                 int numberOfTargets     = Integer.parseInt(elements.get(5));
                 int sizeRadius          = Integer.parseInt(elements.get(6));
+                String imageFile        = elements.get(7);
 
-                Tower tower = new Tower(price, attackRange, attackSpeed, numberOfTargets, name, projectileType, sizeRadius);
+                Tower tower = new Tower(price, attackRange, attackSpeed, numberOfTargets, name, projectileType, sizeRadius, imageFile);
                 towers.add(tower);
             }
         }

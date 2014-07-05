@@ -1,6 +1,7 @@
 package hicks.td.ui;
 
 import hicks.td.GameCanvas;
+import hicks.td.World;
 import hicks.td.util.Log;
 
 import javax.swing.*;
@@ -79,7 +80,7 @@ public class MainMenuPanel extends JPanel
         container.add(mainLabel);
         container.add(Box.createRigidArea(new Dimension(0, 50)));
 
-        JLabel picLabel = new JLabel(new ImageIcon(UnitPainter.ICE_TOWER));
+        JLabel picLabel = new JLabel(new ImageIcon(World.getTowerByName("IceTower").getImage()));
         picLabel.setAlignmentX(CENTER_ALIGNMENT);
         container.add(picLabel);
 
