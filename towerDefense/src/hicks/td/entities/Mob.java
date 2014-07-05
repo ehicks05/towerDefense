@@ -1,16 +1,11 @@
-package hicks.td.entities.mob;
+package hicks.td.entities;
 
 import hicks.td.World;
-import hicks.td.entities.Point;
-import hicks.td.entities.Tower;
-import hicks.td.entities.Unit;
-import hicks.td.entities.UnitLogic;
 import hicks.td.util.MobBodyPartCollection;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -31,8 +26,8 @@ public class Mob extends Unit
     private MobBodyPartCollection m_mobBodyPartCollection;
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
 
-    public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int maxHp, int armor,
-               int bounty, int slowInstances, MobBodyPartCollection mobBodyPartCollection)
+    public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int maxHp,
+               int armor, int bounty, int slowInstances, MobBodyPartCollection mobBodyPartCollection)
     {
         setTeam(team);
         setSizeRadius(sizeRadius);

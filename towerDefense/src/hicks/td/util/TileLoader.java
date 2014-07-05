@@ -1,5 +1,7 @@
 package hicks.td.util;
 
+import hicks.td.World;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,7 +23,7 @@ public class TileLoader
     {
         try
         {
-            return ImageIO.read(new File("ass\\img\\tiles.bmp"));
+            return ImageIO.read(new File(World.getImageDir() + "tiles.bmp"));
         }
         catch (IOException e)
         {

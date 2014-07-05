@@ -1,7 +1,6 @@
 package hicks.td.entities;
 
 import hicks.td.World;
-import hicks.td.entities.mob.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.util.Util;
@@ -13,8 +12,6 @@ import java.util.List;
 
 public class Tower extends Unit
 {
-    private static String imageFolder = "ass\\img\\";
-
     private int             m_price;
     private int             m_attackRange;
     private BigDecimal      m_attackSpeed;
@@ -62,8 +59,7 @@ public class Tower extends Unit
 
     public Image getImage()
     {
-        return World.getGameImage(imageFolder + m_imageFile).getImage();
-//        return new ImageIcon(imageFolder + m_imageFile).getImage();
+        return World.getGameImage(World.getImageDir() + m_imageFile).getImage();
     }
 
     public void performTowerBehavior()

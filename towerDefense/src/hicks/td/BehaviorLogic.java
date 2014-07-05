@@ -1,7 +1,7 @@
 package hicks.td;
 
 import hicks.td.entities.*;
-import hicks.td.entities.mob.Mob;
+import hicks.td.entities.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.entities.Tower;

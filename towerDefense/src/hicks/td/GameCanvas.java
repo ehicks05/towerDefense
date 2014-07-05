@@ -3,7 +3,7 @@ package hicks.td;
 import hicks.td.entities.Unit;
 import hicks.td.entities.UnitLogic;
 import hicks.td.entities.Wave;
-import hicks.td.entities.mob.Mob;
+import hicks.td.entities.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.Tower;
 import hicks.td.ui.*;

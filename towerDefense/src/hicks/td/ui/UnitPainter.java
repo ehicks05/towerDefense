@@ -4,7 +4,7 @@ import hicks.td.GameCanvas;
 import hicks.td.World;
 import hicks.td.entities.*;
 import hicks.td.entities.Point;
-import hicks.td.entities.mob.Mob;
+import hicks.td.entities.Mob;
 import hicks.td.entities.projectile.*;
 import hicks.td.util.ExplosionTileLoader;
 import hicks.td.util.MobBodyPartCollection;

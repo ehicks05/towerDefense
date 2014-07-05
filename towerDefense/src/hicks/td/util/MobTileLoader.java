@@ -1,5 +1,7 @@
 package hicks.td.util;
 
+import hicks.td.World;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -185,7 +187,7 @@ public class MobTileLoader
     {
         try
         {
-            return ImageIO.read(new File("ass\\img\\mob\\" + filename));
+            return ImageIO.read(new File(World.getImageDir() + "mob\\" + filename));
         }
         catch (IOException e)
         {

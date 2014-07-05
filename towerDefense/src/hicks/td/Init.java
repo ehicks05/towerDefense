@@ -2,7 +2,7 @@ package hicks.td;
 
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
-import hicks.td.entities.mob.Mob;
+import hicks.td.entities.Mob;
 import hicks.td.entities.projectile.Arrow;
 import hicks.td.entities.projectile.Cannonball;
 import hicks.td.entities.projectile.Glaive;
@@ -55,7 +55,7 @@ public final class Init
 
     private static List<GameImage> getGameImages()
     {
-        String imageDir = "ass\\img\\";
+        String imageDir = World.getImageDir();
 
         List<GameImage> gameImages = new ArrayList<>();
         gameImages.add(new GameImage(imageDir + "arrowTower.gif", new ImageIcon(imageDir + "arrowTower.gif").getImage()));

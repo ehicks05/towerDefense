@@ -1,5 +1,7 @@
 package hicks.td.util;
 
+import hicks.td.World;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,7 +28,7 @@ public class ExplosionTileLoader
     {
         try
         {
-            return ImageIO.read(new File("ass\\img\\explosion.png"));
+            return ImageIO.read(new File(World.getImageDir() + "explosion.png"));
         }
         catch (IOException e)
         {

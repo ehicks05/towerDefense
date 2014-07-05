@@ -2,7 +2,7 @@ package hicks.td.util;
 
 import hicks.td.World;
 import hicks.td.entities.Unit;
-import hicks.td.entities.mob.Mob;
+import hicks.td.entities.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.Tower;
 
