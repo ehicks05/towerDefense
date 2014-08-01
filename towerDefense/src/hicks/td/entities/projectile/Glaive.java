@@ -16,7 +16,7 @@ public class Glaive extends Projectile
     private int m_hitsPossible = 4;
     private int m_hitsPerformed;
     private List<Mob> m_mobsHit = new ArrayList<>();
-    private int m_bounceRange = 300;
+    private int m_bounceRange = 128;
 
     public Glaive(int team , List<Upgrade> upgrades)
     {

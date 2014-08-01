@@ -10,7 +10,6 @@ public class Unit
     private int             m_sizeRadius;
     private int             m_moveSpeed;
     private BigDecimal      m_timeOfLastMove;
-    private boolean         m_moving;
     private Point           m_location;
     private Point           m_destination;
 
@@ -76,16 +75,6 @@ public class Unit
     public void setTimeOfLastMove(BigDecimal timeOfLastMove)
     {
         m_timeOfLastMove = timeOfLastMove;
-    }
-
-    public boolean isMoving()
-    {
-        return m_moving;
-    }
-
-    public void setMoving(boolean moving)
-    {
-        m_moving = moving;
     }
 
     public Point getLocation()

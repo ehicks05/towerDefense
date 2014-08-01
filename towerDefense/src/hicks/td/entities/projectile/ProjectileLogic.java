@@ -75,8 +75,12 @@ public class ProjectileLogic
                     continue;
             }
 
-            if (projectile.getLocation().getDistance(mob.getLocation()) <= projectile.getSizeRadius() + mob.getSizeRadius())
+            double distanceToMob = projectile.getLocation().getDistance(mob.getLocation());
+            if (distanceToMob <= projectile.getSizeRadius() + mob.getSizeRadius())
+            {
                 projectile.onHit(mob);
+                return; // we just hit a mob, return so we do not hit another one this tick...
+            }
         }
     }
 }
