@@ -26,7 +26,7 @@ public class MyGamePanel extends JPanel
         final Dimension towerButtonDimension = new Dimension(48, 48);
         final List<JToggleButton> towerButtons = new ArrayList<>();
 
-        for (Tower tower : World.getTowers())
+        for (Tower tower : World.getTowerTypes())
         {
             final JToggleButton towerButton = new JToggleButton(new ImageIcon(tower.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH)), false);
             towerButton.setName(tower.getName());

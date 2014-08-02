@@ -19,7 +19,7 @@ public final class World
     private static BufferedImage terrainImage;
     private static List<Wave> waves;
     private static List<Upgrade> upgrades;
-    private static List<Tower> towers;
+    private static List<Tower> towerTypes;
     private static List<Projectile> projectiles;
     private static List<GameImage> gameImages;
 
@@ -49,7 +49,7 @@ public final class World
 
     public static Tower getTowerByName(String name)
     {
-        for (Tower tower : towers)
+        for (Tower tower : towerTypes)
             if (tower.getName().equals(name))
                 return new Tower(tower);
 
@@ -157,14 +157,14 @@ public final class World
         World.upgrades = upgrades;
     }
 
-    public static List<Tower> getTowers()
+    public static List<Tower> getTowerTypes()
     {
-        return towers;
+        return towerTypes;
     }
 
-    public static void setTowers(List<Tower> towers)
+    public static void setTowerTypes(List<Tower> towerTypes)
     {
-        World.towers = towers;
+        World.towerTypes = towerTypes;
     }
 
     public static List<Projectile> getProjectiles()

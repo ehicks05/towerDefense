@@ -46,7 +46,7 @@ public final class Init
         allUpgrades.add(new UpgradeDamage());
         World.setUpgrades(allUpgrades);
 
-        World.setTowers(getTowers());
+        World.setTowerTypes(getTowers());
 
         World.setProjectiles(Arrays.asList(new Arrow(1, null), new Cannonball(1, null), new Glaive(1, null), new IceBolt(1, null)));
 

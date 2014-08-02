@@ -22,5 +22,8 @@ public class MyMouseMotionListener extends MouseAdapter
         super.mouseDragged(e);
         int eventX = e.getX();
         int eventY = e.getY();
+
+        GameCanvas.setMouseX(eventX);
+        GameCanvas.setMouseY(eventY);
     }
 }

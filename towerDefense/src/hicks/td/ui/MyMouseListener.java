@@ -11,9 +11,9 @@ import java.awt.event.MouseEvent;
 
 public class MyMouseListener extends MouseAdapter
 {
-    public void mouseClicked(MouseEvent e)
+    public void mouseReleased(MouseEvent e)
     {
-        super.mouseClicked(e);
+        super.mouseReleased(e);
         int eventX = e.getX();
         int eventY = e.getY();
 

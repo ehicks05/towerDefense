@@ -2,7 +2,9 @@ package hicks.td.ui;
 
 import hicks.td.World;
 import hicks.td.entities.Point;
+import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
+import hicks.td.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,14 +29,14 @@ public class InterfaceUtil
     public static boolean isValidLocation(int x, int y, int radiusOfNewBuilding)
     {
         Point attemptedBuildLocation = new Point(x, y);
-        List<Unit> units = new ArrayList<>(World.getUnits());
+        List<Tower> towers = new ArrayList<>(Util.getTowers());
 
-        // check against existing units
-        for (Unit unit : units)
+        // check against existing towers
+        for (Tower tower : towers)
         {
-            Point unitLocation = unit.getLocation();
-            double distance = attemptedBuildLocation.getDistance(unitLocation);
-            if (distance < unit.getSizeRadius() + radiusOfNewBuilding)
+            Point towerLocation = tower.getLocation();
+            double distance = attemptedBuildLocation.getDistance(towerLocation);
+            if (distance < tower.getSizeRadius() + radiusOfNewBuilding)
                 return false;
         }
 

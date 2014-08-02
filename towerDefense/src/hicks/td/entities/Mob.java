@@ -52,6 +52,11 @@ public class Mob extends Unit
                 original.getMaxHp(), original.getArmor(), original.getBounty(), original.getSlowInstances(), original.getMobBodyPartCollection());
     }
 
+    public String toString()
+    {
+        return this.getClass().getSimpleName() + " HP:" + getCurrentHp() + "(" + getMaxHp() + ")" + ",ID:" + getObjectId();
+    }
+
     public boolean isAlive()
     {
         return m_currentHp > 0;
@@ -81,11 +86,12 @@ public class Mob extends Unit
 
     public Queue<Point> createPath()
     {
-        Queue<Point> path = new ArrayBlockingQueue<>(4);
+        Queue<Point> path = new ArrayBlockingQueue<>(5);
         path.add(new Point(32, 32));
         path.add(new Point(32, World.getGameMap().getHeight() - 32));
         path.add(new Point(World.getGameMap().getWidth() - 32, World.getGameMap().getHeight() - 32));
         path.add(new Point(World.getGameMap().getWidth() - 32, 32));
+        path.add(new Point(32, 32));
         return path;
     }
 
@@ -100,7 +106,7 @@ public class Mob extends Unit
             if (currentDistance.equals(BigDecimal.ZERO))
             {
                 path.remove();
-                path.add(pathPoint);
+//                path.add(pathPoint);
             }
             else
                 UnitLogic.move(this, pathPoint);
