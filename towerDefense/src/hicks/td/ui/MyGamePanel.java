@@ -95,7 +95,7 @@ public class MyGamePanel extends JPanel
         {
             public void actionPerformed(ActionEvent e)
             {
-                GameCanvas.displayMenu();
+                GameCanvas.openMenu();
             }
         });
 

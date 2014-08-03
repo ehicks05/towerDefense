@@ -117,7 +117,7 @@ public final class GameCanvas extends Canvas
         }
     }
 
-    public static void displayMenu()
+    public static void openMenu()
     {
         InterfaceLogic.pauseGame();
         cardLayout.show(cards, mainMenuPanel.getName());

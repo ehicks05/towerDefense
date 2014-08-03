@@ -20,9 +20,7 @@ public class MainMenuPanel extends JPanel
 
         final JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
-        container.setMinimumSize(new Dimension(800, 600));
-        container.setPreferredSize(new Dimension(800, 600));
-        container.setMaximumSize(new Dimension(800, 600));
+        InterfaceUtil.setSizeFields(container, new Dimension(800, 600));
         container.setBackground(Color.LIGHT_GRAY);
 
         container.setVisible(true);
@@ -38,17 +36,14 @@ public class MainMenuPanel extends JPanel
         startButton.setVisible(true);
         startButton.setFont(new Font("Verdana", Font.PLAIN, 32));
         startButton.setAlignmentX(CENTER_ALIGNMENT);
-        startButton.setMinimumSize(new Dimension(240, 80));
-        startButton.setPreferredSize(new Dimension(240, 80));
-        startButton.setMaximumSize(new Dimension(240, 80));
+        InterfaceUtil.setSizeFields(startButton, new Dimension(240, 80));
 
         final JButton exitButton = new JButton("Exit");
         exitButton.setVisible(true);
         exitButton.setFont(new Font("Verdana", Font.PLAIN, 32));
         exitButton.setAlignmentX(CENTER_ALIGNMENT);
-        exitButton.setMinimumSize(new Dimension(240, 80));
-        exitButton.setPreferredSize(new Dimension(240, 80));
-        exitButton.setMaximumSize(new Dimension(240, 80));
+        InterfaceUtil.setSizeFields(exitButton, new Dimension(240, 80));
+
 
         startButton.addActionListener(new ActionListener()
         {

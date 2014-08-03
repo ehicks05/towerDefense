@@ -17,7 +17,7 @@ public class MyKeyListener extends KeyAdapter
         super.keyPressed(e);
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
         {
-            GameCanvas.displayMenu();
+            GameCanvas.openMenu();
         }
     }
 
