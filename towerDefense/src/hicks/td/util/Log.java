@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public final class Log
 {
@@ -33,7 +35,9 @@ public final class Log
             elapsedString = timeFormat.format(elapsedTime);
         }
 
-        message = lineFormat.format(lines) + "  " + elapsedString + ":  " + message + "\r\n";
+        String timeStamp = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss.SSS").format(new Date());
+
+        message = lineFormat.format(lines) + "  " + timeStamp + " (" + elapsedString + " sec)" + ":  " + message + "\r\n";
 
         messageQueue += message;
 
