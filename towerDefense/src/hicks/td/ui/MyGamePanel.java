@@ -114,7 +114,7 @@ public class MyGamePanel extends JPanel
             }
         });
 
-        List<Upgrade> upgrades = World.getUpgrades();
+        List<Upgrade> upgrades = World.getUpgradeTypes();
         for (final Upgrade upgrade : upgrades)
         {
             final JButton button = new JButton("Upgrade " + upgrade.getDescription());

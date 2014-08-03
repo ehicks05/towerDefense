@@ -108,7 +108,7 @@ public class Tower extends Unit
     public List<Upgrade> getAvailableUpgrades()
     {
         List<Upgrade> availableUpgrades = new ArrayList<>();
-        List<Upgrade> upgrades = World.getUpgrades();
+        List<Upgrade> upgrades = World.getUpgradeTypes();
         for (Upgrade upgrade : upgrades)
         {
             String preReqCode = upgrade.getPreReq();

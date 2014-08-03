@@ -18,9 +18,9 @@ public final class World
     private static Player        player;
     private static BufferedImage terrainImage;
     private static List<Wave> waves;
-    private static List<Upgrade> upgrades;
+    private static List<Upgrade> upgradeTypes;
     private static List<Tower> towerTypes;
-    private static List<Projectile> projectiles;
+    private static List<Projectile> projectileTypes;
     private static List<GameImage> gameImages;
 
     public static void addUnit(Unit unit)
@@ -147,14 +147,14 @@ public final class World
         World.waves = waves;
     }
 
-    public static List<Upgrade> getUpgrades()
+    public static List<Upgrade> getUpgradeTypes()
     {
-        return upgrades;
+        return upgradeTypes;
     }
 
-    public static void setUpgrades(List<Upgrade> upgrades)
+    public static void setUpgradeTypes(List<Upgrade> upgradeTypes)
     {
-        World.upgrades = upgrades;
+        World.upgradeTypes = upgradeTypes;
     }
 
     public static List<Tower> getTowerTypes()
@@ -167,14 +167,14 @@ public final class World
         World.towerTypes = towerTypes;
     }
 
-    public static List<Projectile> getProjectiles()
+    public static List<Projectile> getProjectileTypes()
     {
-        return projectiles;
+        return projectileTypes;
     }
 
-    public static void setProjectiles(List<Projectile> projectiles)
+    public static void setProjectileTypes(List<Projectile> projectileTypes)
     {
-        World.projectiles = projectiles;
+        World.projectileTypes = projectileTypes;
     }
 
     public static List<GameImage> getGameImages()
