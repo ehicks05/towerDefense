@@ -87,8 +87,8 @@ public class InterfaceLogic
         labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
         labelText += "</tr><tr>";
 
-        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-        labelText += "<td>Mobs:</td><td>" + Util.getMobs().size() + "</td>";
+//        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
+//        labelText += "<td>Mobs:</td><td>" + Util.getMobs().size() + "</td>";
         labelText += "</tr></table></html>";
 
         return labelText;

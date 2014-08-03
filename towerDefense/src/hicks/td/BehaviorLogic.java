@@ -85,6 +85,15 @@ public final class BehaviorLogic
                 for (Integer mobTypeIndexToCreate : mobTypeIndexesToCreate)
                 {
                     Mob mob = Mob.duplicateMob(mobTypes.get(mobTypeIndexToCreate));
+
+                    if (wave.getWaveNumber() > 5)
+                    {
+                        double healthMultiplier = 1 + (3 * (wave.getWaveNumber() - 5) / (double) 100);
+                        int newHp = (int) (mob.getCurrentHp() * healthMultiplier);
+                        mob.setCurrentHp(newHp);
+                        mob.setMaxHp(newHp);
+                    }
+
                     mob.setLocation(new Point(32, 32));
                     mob.setPath(mob.createPath());
 

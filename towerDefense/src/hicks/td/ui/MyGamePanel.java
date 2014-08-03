@@ -31,7 +31,7 @@ public class MyGamePanel extends JPanel
             final JToggleButton towerButton = new JToggleButton(new ImageIcon(tower.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH)), false);
             towerButton.setName(tower.getName());
             towerButton.setVisible(true);
-            towerButton.setToolTipText("Price: " + tower.getPrice() + " gold");
+            towerButton.setToolTipText(tower.getName() + ": " + tower.getPrice() + " gold");
 
             InterfaceUtil.setSizeFields(towerButton, towerButtonDimension);
             towerButtons.add(towerButton);
@@ -85,15 +85,9 @@ public class MyGamePanel extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 if (pauseButton.isSelected())
-                {
                     InterfaceLogic.pauseGame();
-                    pauseButton.setText("Resume");
-                }
                 else
-                {
                     InterfaceLogic.resumeGame();
-                    pauseButton.setText("Pause");
-                }
             }
         });
 
