@@ -1,6 +1,5 @@
 package hicks.td.ui;
 
-import hicks.td.GameCanvas;
 import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Tower;
@@ -17,7 +16,7 @@ public class MyMouseListener extends MouseAdapter
         int eventX = e.getX();
         int eventY = e.getY();
 
-        GameCanvas.setSelectedUnit(null);
+        InterfaceLogic.setSelectedUnit(null);
         if (e.getButton() == 1)
         {
             for (Unit unit : World.getUnits())
@@ -32,7 +31,7 @@ public class MyMouseListener extends MouseAdapter
                 int maxY = unitY + unitSize;
 
                 if (eventX >= minX && eventX <= maxX && eventY >= minY && eventY <= maxY)
-                    GameCanvas.setSelectedUnit(unit);
+                    InterfaceLogic.setSelectedUnit(unit);
             }
         }
         if (e.getButton() == 3)
@@ -41,7 +40,7 @@ public class MyMouseListener extends MouseAdapter
             eventX = InterfaceUtil.snapToMiddleOfTile(eventX);
             eventY = InterfaceUtil.snapToMiddleOfTile(eventY);
 
-            String towerToggle = GameCanvas.getTowerToggle();
+            String towerToggle = InterfaceLogic.getTowerToggle();
 
             Tower tower = World.getTowerByName(towerToggle);
             if (tower == null) tower = World.getTowerByName("ArrowTower");

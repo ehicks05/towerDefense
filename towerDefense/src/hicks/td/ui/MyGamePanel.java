@@ -48,7 +48,7 @@ public class MyGamePanel extends JPanel
                 {
                     if (towerButton.isSelected())
                     {
-                        GameCanvas.setTowerToggle(towerButton.getName());
+                        InterfaceLogic.setTowerToggle(towerButton.getName());
 
                         for (final JToggleButton innerTowerButton : towerButtons)
                         {
@@ -58,7 +58,7 @@ public class MyGamePanel extends JPanel
                     }
                     else
                     {
-                        GameCanvas.setTowerToggle("");
+                        InterfaceLogic.setTowerToggle("");
                     }
                 }
             });
@@ -86,12 +86,12 @@ public class MyGamePanel extends JPanel
             {
                 if (pauseButton.isSelected())
                 {
-                    GameCanvas.pauseGame();
+                    InterfaceLogic.pauseGame();
                     pauseButton.setText("Resume");
                 }
                 else
                 {
-                    GameCanvas.resumeGame();
+                    InterfaceLogic.resumeGame();
                     pauseButton.setText("Pause");
                 }
             }
@@ -109,7 +109,7 @@ public class MyGamePanel extends JPanel
         {
             public void actionPerformed(ActionEvent e)
             {
-                GameCanvas.startNextWave();
+                InterfaceLogic.startNextWave();
                 startWaveButton.setVisible(false);
             }
         });
@@ -128,7 +128,7 @@ public class MyGamePanel extends JPanel
                     boolean canAffordGoldCost = World.getPlayer().getGold() >= upgrade.getCost();
                     if (canAffordGoldCost)
                     {
-                        Tower tower = (Tower) GameCanvas.getSelectedUnit();
+                        Tower tower = (Tower) InterfaceLogic.getSelectedUnit();
                         tower.addUpgrade(upgrade);
                         World.getPlayer().removeGold(upgrade.getCost());
                         button.setVisible(false);

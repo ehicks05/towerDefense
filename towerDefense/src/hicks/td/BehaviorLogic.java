@@ -5,6 +5,7 @@ import hicks.td.entities.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.entities.Tower;
+import hicks.td.ui.InterfaceLogic;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -56,7 +57,7 @@ public final class BehaviorLogic
 
     private static void performSpawningPhase()
     {
-        if (GameCanvas.isActiveRound())
+        if (InterfaceLogic.isActiveRound())
         {
             Player player                   = World.getPlayer();
             Wave wave                       = World.getWave(player.getWaveNumber());
@@ -93,13 +94,13 @@ public final class BehaviorLogic
 
             if (waveSpawns.size() == 0)
             {
-                GameCanvas.setActiveRound(false);
+                InterfaceLogic.setActiveRound(false);
 //                GameCanvas.getGamePanel().showNextWaveButton();
             }
         }
         else
         {
-            if (GameCanvas.isGameStarted()) GameCanvas.startNextWave();
+            if (InterfaceLogic.isGameStarted()) InterfaceLogic.startNextWave();
         }
     }
 }

@@ -56,7 +56,7 @@ public final class UnitPainter
                     g2d.drawImage(World.getGameImage("GLAIVE").getImage(), drawX, drawY, diameter, diameter, null);
                     Glaive glaive = (Glaive) unit;
 
-                    if (GameCanvas.isRunningSimulation())
+                    if (InterfaceLogic.isRunningSimulation())
                         glaive.setTheta(glaive.getTheta() + .1);
                 }
                 if (unit instanceof Cannonball)
@@ -64,7 +64,7 @@ public final class UnitPainter
                     g2d.drawImage(World.getGameImage("CANNON_BALL").getImage(), drawX, drawY, diameter, diameter, null);
                     Cannonball cannonball = (Cannonball) unit;
 
-                    if (GameCanvas.isRunningSimulation())
+                    if (InterfaceLogic.isRunningSimulation())
                         cannonball.setTheta(cannonball.getTheta() + .05);
                 }
 
@@ -87,7 +87,7 @@ public final class UnitPainter
 
                 drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getMobBodyPartCollection());
 
-                if (GameCanvas.isRunningSimulation())
+                if (InterfaceLogic.isRunningSimulation())
                 {
                     mob.setFrame(mob.getFrame() + 1);
                     if (mob.getFrame() > 89)
@@ -100,7 +100,7 @@ public final class UnitPainter
                 int frameIndex = explosion.getFrame();
                 g2d.drawImage(ExplosionTileLoader.getTile(frameIndex), drawX, drawY, diameter, diameter, null);
 
-                if (GameCanvas.isRunningSimulation())
+                if (InterfaceLogic.isRunningSimulation())
                     explosion.setFrame(frameIndex + 2);
             }
         }
@@ -174,7 +174,7 @@ public final class UnitPainter
 
     private static boolean isSelected(Unit unit)
     {
-        Unit selectedUnit = GameCanvas.getSelectedUnit();
+        Unit selectedUnit = InterfaceLogic.getSelectedUnit();
         return selectedUnit != null && unit.equals(selectedUnit);
     }
 
