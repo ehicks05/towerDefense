@@ -96,9 +96,11 @@ public final class UnitPainter
             }
             if (unit instanceof Explosion)
             {
+                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 7 * .1f));
                 Explosion explosion = (Explosion) unit;
                 int frameIndex = explosion.getFrame();
                 g2d.drawImage(ExplosionTileLoader.getTile(frameIndex), drawX, drawY, diameter, diameter, null);
+                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
                 if (InterfaceLogic.isRunningSimulation())
                     explosion.setFrame(frameIndex + 2);
