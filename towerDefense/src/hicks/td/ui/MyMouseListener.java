@@ -4,6 +4,7 @@ import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
+import hicks.td.entities.projectile.Projectile;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,45 +18,49 @@ public class MyMouseListener extends MouseAdapter
         int eventY = e.getY();
 
         InterfaceLogic.setSelectedUnit(null);
-        if (e.getButton() == 1)
+        if (e.getButton() == 1) performLeftClick(eventX, eventY);
+        if (e.getButton() == 3) performRightClick(eventX, eventY);
+    }
+
+    private void performRightClick(int eventX, int eventY)
+    {
+        // snap to grid
+        eventX = InterfaceUtil.snapToMiddleOfTile(eventX);
+        eventY = InterfaceUtil.snapToMiddleOfTile(eventY);
+
+        String towerToggle = InterfaceLogic.getTowerToggle();
+
+        Tower tower = World.getTowerByName(towerToggle);
+        if (tower == null) tower = World.getTowerByName("ArrowTower");
+
+        boolean isAffordable = World.getPlayer().getGold() >= tower.getPrice();
+        boolean isValidLocation = InterfaceUtil.isValidLocation(eventX, eventY, tower.getSizeRadius());
+
+        if (isAffordable && isValidLocation)
         {
-            for (Unit unit : World.getUnits())
-            {
-                int unitX = (int) unit.getLocation().getX();
-                int unitY = (int) unit.getLocation().getY();
-                int unitSize = unit.getSizeRadius();
-
-                int minX = unitX - unitSize;
-                int maxX = unitX + unitSize;
-                int minY = unitY - unitSize;
-                int maxY = unitY + unitSize;
-
-                if (eventX >= minX && eventX <= maxX && eventY >= minY && eventY <= maxY)
-                    InterfaceLogic.setSelectedUnit(unit);
-            }
+            tower.setLocation(new Point(eventX, eventY));
+            World.addUnit(tower);
+            World.getPlayer().removeGold(tower.getPrice());
         }
-        if (e.getButton() == 3)
+    }
+
+    private void performLeftClick(int eventX, int eventY)
+    {
+        for (Unit unit : World.getUnits())
         {
-            // snap to grid
-            eventX = InterfaceUtil.snapToMiddleOfTile(eventX);
-            eventY = InterfaceUtil.snapToMiddleOfTile(eventY);
+            if (unit instanceof Projectile) continue;
 
-            String towerToggle = InterfaceLogic.getTowerToggle();
+            int unitX = (int) unit.getLocation().getX();
+            int unitY = (int) unit.getLocation().getY();
+            int unitSize = unit.getSizeRadius();
 
-            Tower tower = World.getTowerByName(towerToggle);
-            if (tower == null) tower = World.getTowerByName("ArrowTower");
+            int minX = unitX - unitSize;
+            int maxX = unitX + unitSize;
+            int minY = unitY - unitSize;
+            int maxY = unitY + unitSize;
 
-            int goldCost = tower.getPrice();
-
-            boolean canAffordGoldCost = World.getPlayer().getGold() >= goldCost;
-            boolean validLocation = InterfaceUtil.isValidLocation(eventX, eventY, tower.getSizeRadius());
-
-            if (canAffordGoldCost && validLocation)
-            {
-                tower.setLocation(new Point(eventX, eventY));
-                World.addUnit(tower);
-                World.getPlayer().removeGold(tower.getPrice());
-            }
+            if (eventX >= minX && eventX <= maxX && eventY >= minY && eventY <= maxY)
+                InterfaceLogic.setSelectedUnit(unit);
         }
     }
 }
