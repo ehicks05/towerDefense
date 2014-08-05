@@ -58,10 +58,9 @@ public final class World
 
     public static Projectile getProjectileByName(String name)
     {
-        if (name.equals("Arrow")) return new Arrow(1, null);
-        if (name.equals("Cannonball")) return new Cannonball(1, null);
-        if (name.equals("Glaive")) return new Glaive(1, null);
-        if (name.equals("IceBolt")) return new IceBolt(1, null);
+        for (Projectile projectile : projectileTypes)
+            if (projectile.getName().equals(name))
+                return new Projectile(projectile);
 
         return null;
     }

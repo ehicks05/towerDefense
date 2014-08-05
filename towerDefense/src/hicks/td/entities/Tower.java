@@ -31,7 +31,6 @@ public class Tower extends Unit
         m_attackSpeed = attackSpeed;
         m_timeOfLastAttack = Util.now();
         m_targets = new ArrayList<>();
-        m_kills = 0;
         m_numberOfTargets = numberOfTargets;
         m_upgrades = new ArrayList<>();
         m_name = name;
@@ -48,7 +47,6 @@ public class Tower extends Unit
         m_attackSpeed = tower.getAttackSpeed();
         m_timeOfLastAttack = Util.now();
         m_targets = new ArrayList<>();
-        m_kills = 0;
         m_numberOfTargets = tower.getNumberOfTargets();
         m_upgrades = new ArrayList<>();
         m_name = tower.getName();

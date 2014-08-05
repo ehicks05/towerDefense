@@ -4,17 +4,14 @@ import hicks.td.GameCanvas;
 import hicks.td.World;
 import hicks.td.entities.*;
 import hicks.td.entities.Point;
-import hicks.td.entities.Mob;
-import hicks.td.entities.projectile.*;
+import hicks.td.entities.projectile.Projectile;
 import hicks.td.util.ExplosionTileLoader;
 import hicks.td.util.MobBodyPartCollection;
 import hicks.td.util.MobTileLoader;
-import hicks.td.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,29 +41,14 @@ public final class UnitPainter
             }
             if (unit instanceof Projectile)
             {
-                double rotationRequired = ((Projectile) unit).getTheta();
-                g2d.rotate(rotationRequired, x, y);
+                Projectile projectile = (Projectile) unit;
 
-                if (unit instanceof Arrow)
-                    g2d.drawImage(World.getGameImage("ARROW").getImage(), drawX, drawY, diameter, diameter, null);
-                if (unit instanceof IceBolt)
-                    g2d.drawImage(World.getGameImage("ICE").getImage(), drawX, drawY, diameter, diameter, null);
-                if (unit instanceof Glaive)
-                {
-                    g2d.drawImage(World.getGameImage("GLAIVE").getImage(), drawX, drawY, diameter, diameter, null);
-                    Glaive glaive = (Glaive) unit;
+                g2d.rotate(projectile.getTheta(), x, y);
 
-                    if (InterfaceLogic.isRunningSimulation())
-                        glaive.setTheta(glaive.getTheta() + .1);
-                }
-                if (unit instanceof Cannonball)
-                {
-                    g2d.drawImage(World.getGameImage("CANNON_BALL").getImage(), drawX, drawY, diameter, diameter, null);
-                    Cannonball cannonball = (Cannonball) unit;
+                g2d.drawImage(projectile.getImage(), drawX, drawY, diameter, diameter, null);
 
-                    if (InterfaceLogic.isRunningSimulation())
-                        cannonball.setTheta(cannonball.getTheta() + .05);
-                }
+                if (InterfaceLogic.isRunningSimulation())
+                    projectile.setTheta(projectile.getTheta() + projectile.getThetaDelta());
 
                 // reset the transform
                 AffineTransform reset = new AffineTransform();
@@ -130,9 +112,7 @@ public final class UnitPainter
                 {
                     Tower tower = (Tower) unit;
                     Projectile projectile = tower.getProjectileWithUpgrades();
-                    label.setText("  R:" + tower.getAttackRange() + "  D:" + projectile.getMinDamage() + "-" + projectile.getMaxDamage() +
-                    "  tsla: " + Util.getElapsedTime(tower.getTimeOfLastAttack()).setScale(1, RoundingMode.HALF_UP));
-
+                    label.setText("  R:" + tower.getAttackRange() + "  D:" + projectile.getMinDamage() + "-" + projectile.getMaxDamage());
 
                     List<Upgrade> availableUpgrades = tower.getAvailableUpgrades();
                     for (Upgrade upgrade : availableUpgrades)
@@ -149,7 +129,6 @@ public final class UnitPainter
                         }
                     }
                 }
-
             }
         }
     }

@@ -3,10 +3,7 @@ package hicks.td;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
 import hicks.td.entities.Mob;
-import hicks.td.entities.projectile.Arrow;
-import hicks.td.entities.projectile.Cannonball;
-import hicks.td.entities.projectile.Glaive;
-import hicks.td.entities.projectile.IceBolt;
+import hicks.td.entities.projectile.*;
 import hicks.td.entities.Tower;
 import hicks.td.ui.DisplayInfo;
 import hicks.td.util.*;
@@ -46,9 +43,8 @@ public final class Init
         allUpgrades.add(new UpgradeDamage());
         World.setUpgradeTypes(allUpgrades);
 
-        World.setTowerTypes(getTowers());
-
-        World.setProjectileTypes(Arrays.asList(new Arrow(1, null), new Cannonball(1, null), new Glaive(1, null), new IceBolt(1, null)));
+        World.setTowerTypes(getTowerTypes());
+        World.setProjectileTypes(getProjectileTypes());
 
         World.setGameImages(getGameImages());
     }
@@ -71,7 +67,7 @@ public final class Init
         return gameImages;
     }
 
-    private static List<Tower> getTowers()
+    private static List<Tower> getTowerTypes()
     {
         List<Tower> towers = new ArrayList<>();
         try
@@ -100,6 +96,43 @@ public final class Init
         }
 
         return towers;
+    }
+
+    private static List<Projectile> getProjectileTypes()
+    {
+        List<Projectile> projectiles = new ArrayList<>();
+        try
+        {
+            List<String> lines = Files.readAllLines(Paths.get("data\\projectiles.csv"), Charset.defaultCharset());
+            lines.remove(0);
+            for (String line : lines)
+            {
+                List<String> elements = Arrays.asList(line.split(","));
+                String name             = elements.get(0);
+                int sizeRadius          = Integer.parseInt(elements.get(1));
+                int moveSpeed           = Integer.parseInt(elements.get(2));
+                int minDamage           = Integer.parseInt(elements.get(3));
+                int maxDamage           = Integer.parseInt(elements.get(4));
+                int maxRange            = Integer.parseInt(elements.get(5));
+                String fireSound        = elements.get(6);
+                String onHitEffect      = elements.get(7);
+                int splashRadius        = Integer.parseInt(elements.get(8));
+                int hitsPossible        = Integer.parseInt(elements.get(9));
+                int bounceRange         = Integer.parseInt(elements.get(10));
+                double thetaDelta         = Double.parseDouble(elements.get(11));
+                String imageFile        = elements.get(12);
+
+                Projectile projectile = new Projectile(name, sizeRadius, moveSpeed, minDamage, maxDamage, maxRange, fireSound,
+                        onHitEffect, splashRadius, hitsPossible, bounceRange, thetaDelta, imageFile);
+                projectiles.add(projectile);
+            }
+        }
+        catch (IOException e)
+        {
+            Log.info(e.getMessage(), true);
+        }
+
+        return projectiles;
     }
 
     private static List<Wave> getWaves()

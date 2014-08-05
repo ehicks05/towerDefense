@@ -1,6 +1,7 @@
 package hicks.td.entities.projectile;
 
 import hicks.td.World;
+import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
@@ -26,7 +27,8 @@ public class ProjectileLogic
         double targetY = destination.getY();
         projectile.setTheta(Math.atan2(targetY - unitY, targetX - unitX) + .8); // todo deal with this magic bullshit
 
-        SoundManager.playSFX(projectile.getFireSound());
+        SoundEffect soundEffect = SoundEffect.valueOf(projectile.getFireSound());
+        SoundManager.playSFX(soundEffect);
         World.addUnit(projectile);
     }
 
@@ -68,10 +70,9 @@ public class ProjectileLogic
         for (Mob mob : new ArrayList<>(Util.getMobs()))
         {
             // don't hit the guy you just hit - glaives are more fun when they bounce around
-            if (projectile instanceof Glaive)
+            if (projectile.getName().equals("Glaive"))
             {
-                Glaive glaive = (Glaive) projectile;
-                if (glaive.getMobsHit().contains(mob))
+                if (projectile.getMobsHit().contains(mob))
                     continue;
             }
 

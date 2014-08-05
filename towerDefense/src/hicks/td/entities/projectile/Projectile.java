@@ -1,33 +1,83 @@
 package hicks.td.entities.projectile;
 
-import hicks.td.CombatLogic;
 import hicks.td.World;
-import hicks.td.audio.SoundEffect;
-import hicks.td.audio.SoundManager;
-import hicks.td.entities.Unit;
-import hicks.td.entities.Upgrade;
 import hicks.td.entities.Mob;
 import hicks.td.entities.Tower;
+import hicks.td.entities.Unit;
+import hicks.td.entities.Upgrade;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Projectile extends Unit
+public class Projectile extends Unit
 {
     private String m_name;
 
     private Tower m_originator;
-    private SoundEffect m_fireSound;
+    private String m_fireSound;
+    private String m_onHitEffect;
 
     private double m_maximumRange;
     private double m_distanceTravelled;
     private double m_theta;
+    private double m_thetaDelta;
 
     private int m_minDamage;
     private int m_maxDamage;
 
+    private int m_splashRadius;
+
+    private int m_hitsPossible;
+    private int m_hitsPerformed;
+    private List<Mob> m_mobsHit = new ArrayList<>();
+    private int m_bounceRange;
+
     private List<Upgrade> m_upgrades = new ArrayList<>();
+
+    private String          m_imageFile = "";
+
+    public Projectile(String name, int sizeRadius, int moveSpeed, int minDamage, int maxDamage, int maxRange, String fireSound,
+                      String onHitEffect, int splashRadius, int hitsPossible, int bounceRange, double thetaDelta, String imageFile)
+    {
+        m_name = name;
+        this.setSizeRadius(sizeRadius);
+        this.setMoveSpeed(moveSpeed);
+        m_minDamage = minDamage;
+        m_maxDamage = maxDamage;
+        m_maximumRange = maxRange;
+        m_fireSound = fireSound;
+        m_onHitEffect = onHitEffect;
+        m_splashRadius = splashRadius;
+        m_hitsPossible = hitsPossible;
+        m_bounceRange = bounceRange;
+        m_thetaDelta = thetaDelta;
+        m_imageFile = imageFile;
+    }
+
+    // Copy Constructor
+    public Projectile(Projectile projectile)
+    {
+        m_name = projectile.getName();
+        this.setSizeRadius(projectile.getSizeRadius());
+        this.setMoveSpeed(projectile.getMoveSpeed());
+        m_minDamage = projectile.getMinDamage();
+        m_maxDamage = projectile.getMaxDamage();
+        m_maximumRange = projectile.getMaximumRange();
+        m_fireSound = projectile.getFireSound();
+        m_onHitEffect = projectile.getOnHitEffect();
+        m_splashRadius = projectile.getSplashRadius();
+        m_hitsPossible = projectile.getHitsPossible();
+        m_bounceRange = projectile.getBounceRange();
+        m_thetaDelta = projectile.getThetaDelta();
+        m_imageFile = projectile.getImageFile();
+    }
+
+    public Image getImage()
+    {
+        return World.getGameImage(World.getImageDir() + m_imageFile).getImage();
+    }
 
     public int getAttackDamage()
     {
@@ -42,9 +92,7 @@ public abstract class Projectile extends Unit
 
     public void onHit(Mob victim)
     {
-        CombatLogic.performAttack(this, victim);
-        World.removeUnit(this);
-        SoundManager.playSFX(SoundEffect.WEAPON_HIT);
+        HitEffectLogic.applyHitEffect(this, victim);
     }
 
     public void applyUpgrades(List<Upgrade> upgrades)
@@ -77,14 +125,24 @@ public abstract class Projectile extends Unit
         this.m_originator = originator;
     }
 
-    public SoundEffect getFireSound()
+    public String getFireSound()
     {
         return m_fireSound;
     }
 
-    public void setFireSound(SoundEffect fireSound)
+    public void setFireSound(String fireSound)
     {
         m_fireSound = fireSound;
+    }
+
+    public String getOnHitEffect()
+    {
+        return m_onHitEffect;
+    }
+
+    public void setOnHitEffect(String onHitEffect)
+    {
+        m_onHitEffect = onHitEffect;
     }
 
     public double getMaximumRange()
@@ -112,6 +170,16 @@ public abstract class Projectile extends Unit
         return m_theta;
     }
 
+    public double getThetaDelta()
+    {
+        return m_thetaDelta;
+    }
+
+    public void setThetaDelta(double thetaDelta)
+    {
+        m_thetaDelta = thetaDelta;
+    }
+
     public void setTheta(double theta)
     {
         m_theta = theta;
@@ -137,6 +205,56 @@ public abstract class Projectile extends Unit
         return m_maxDamage;
     }
 
+    public int getSplashRadius()
+    {
+        return m_splashRadius;
+    }
+
+    public void setSplashRadius(int splashRadius)
+    {
+        m_splashRadius = splashRadius;
+    }
+
+    public int getHitsPossible()
+    {
+        return m_hitsPossible;
+    }
+
+    public void setHitsPossible(int hitsPossible)
+    {
+        m_hitsPossible = hitsPossible;
+    }
+
+    public int getHitsPerformed()
+    {
+        return m_hitsPerformed;
+    }
+
+    public void setHitsPerformed(int hitsPerformed)
+    {
+        m_hitsPerformed = hitsPerformed;
+    }
+
+    public List<Mob> getMobsHit()
+    {
+        return m_mobsHit;
+    }
+
+    public void setMobsHit(List<Mob> mobsHit)
+    {
+        m_mobsHit = mobsHit;
+    }
+
+    public int getBounceRange()
+    {
+        return m_bounceRange;
+    }
+
+    public void setBounceRange(int bounceRange)
+    {
+        m_bounceRange = bounceRange;
+    }
+
     public List<Upgrade> getUpgrades()
     {
         return m_upgrades;
@@ -145,5 +263,15 @@ public abstract class Projectile extends Unit
     public void setUpgrades(List<Upgrade> upgrades)
     {
         m_upgrades = upgrades;
+    }
+
+    public String getImageFile()
+    {
+        return m_imageFile;
+    }
+
+    public void setImageFile(String imageFile)
+    {
+        m_imageFile = imageFile;
     }
 }
