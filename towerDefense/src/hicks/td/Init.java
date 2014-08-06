@@ -59,10 +59,10 @@ public final class Init
         gameImages.add(new GameImage(imageDir + "cannonTower.gif", new ImageIcon(imageDir + "cannonTower.gif").getImage()));
         gameImages.add(new GameImage(imageDir + "iceTower.gif", new ImageIcon(imageDir + "iceTower.gif").getImage()));
 
-        gameImages.add(new GameImage("ARROW", new ImageIcon(imageDir + "arrow.png").getImage()));
-        gameImages.add(new GameImage("GLAIVE", new ImageIcon(imageDir + "glaive.png").getImage()));
-        gameImages.add(new GameImage("CANNON_BALL", new ImageIcon(imageDir + "rock.png").getImage()));
-        gameImages.add(new GameImage("ICE", new ImageIcon(imageDir + "iceBolt.png").getImage()));
+        gameImages.add(new GameImage(imageDir + "arrow.png", new ImageIcon(imageDir + "arrow.png").getImage()));
+        gameImages.add(new GameImage(imageDir + "glaive.png", new ImageIcon(imageDir + "glaive.png").getImage()));
+        gameImages.add(new GameImage(imageDir + "rock.png", new ImageIcon(imageDir + "rock.png").getImage()));
+        gameImages.add(new GameImage(imageDir + "iceBolt.png", new ImageIcon(imageDir + "iceBolt.png").getImage()));
 
         return gameImages;
     }

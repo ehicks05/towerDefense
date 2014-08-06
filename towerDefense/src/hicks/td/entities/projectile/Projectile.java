@@ -5,6 +5,7 @@ import hicks.td.entities.Mob;
 import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
 import hicks.td.entities.Upgrade;
+import hicks.td.util.Util;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class Projectile extends Unit
         m_bounceRange = bounceRange;
         m_thetaDelta = thetaDelta;
         m_imageFile = imageFile;
+        setTimeOfLastMove(Util.now());
+        setTeam(1);
     }
 
     // Copy Constructor
@@ -72,6 +75,8 @@ public class Projectile extends Unit
         m_bounceRange = projectile.getBounceRange();
         m_thetaDelta = projectile.getThetaDelta();
         m_imageFile = projectile.getImageFile();
+        setTimeOfLastMove(Util.now());
+        setTeam(1);
     }
 
     public Image getImage()
