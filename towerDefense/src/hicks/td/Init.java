@@ -22,21 +22,27 @@ import java.util.List;
 
 public final class Init
 {
-    public static void init()
+    public static void init(boolean loadResources)
     {
         World.setStartTime(Util.now());
         Log.info("Initializing " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(World.getStartTime()));
 
         deleteLogs();
 
+        World.setUnits(new ArrayList<Unit>());
+        World.setPlayer(new Player(300, 20, 0));
+        World.setGameMap(new GameMap(1024, 768));
+        World.setWaves(getWaves());
+
+        if (loadResources)
+            loadResources();
+    }
+
+    private static void loadResources()
+    {
         DisplayInfo.setDisplayProperties();
         SoundManager.init();
         MobTileLoader.init();
-
-        World.setPlayer(new Player(300, 20, 0));
-        World.setGameMap(new GameMap(1024, 768));
-        World.setTerrainImage(MapBuilder.buildMap());
-        World.setWaves(getWaves());
 
         List<Upgrade> allUpgrades = new ArrayList<>();
         allUpgrades.add(new UpgradeAttackRange());
@@ -47,6 +53,8 @@ public final class Init
         World.setProjectileTypes(getProjectileTypes());
 
         World.setGameImages(getGameImages());
+
+        World.setTerrainImage(MapBuilder.buildMap());
     }
 
     private static List<GameImage> getGameImages()

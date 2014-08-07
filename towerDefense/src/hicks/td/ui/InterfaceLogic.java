@@ -197,6 +197,7 @@ public class InterfaceLogic
     public static void setGameStarted(boolean gameStarted)
     {
         InterfaceLogic.gameStarted = gameStarted;
+        GameCanvas.getMainMenuPanel().showRestartGameButton();
     }
 
     public static int getMouseY()

@@ -1,6 +1,7 @@
 package hicks.td.ui;
 
 import hicks.td.GameCanvas;
+import hicks.td.Init;
 import hicks.td.World;
 import hicks.td.util.Log;
 
@@ -11,6 +12,8 @@ import java.awt.event.ActionListener;
 
 public class MainMenuPanel extends JPanel
 {
+    private final JButton restartButton;
+
     public MainMenuPanel()
     {
         this.setPreferredSize(new Dimension(DisplayInfo.getWindowWidth(), DisplayInfo.getWindowHeight()));
@@ -38,6 +41,12 @@ public class MainMenuPanel extends JPanel
         startButton.setAlignmentX(CENTER_ALIGNMENT);
         InterfaceUtil.setSizeFields(startButton, new Dimension(240, 80));
 
+        restartButton = new JButton("Restart");
+        restartButton.setVisible(false);
+        restartButton.setFont(new Font("Verdana", Font.PLAIN, 32));
+        restartButton.setAlignmentX(CENTER_ALIGNMENT);
+        InterfaceUtil.setSizeFields(restartButton, new Dimension(240, 80));
+
         final JButton exitButton = new JButton("Exit");
         exitButton.setVisible(true);
         exitButton.setFont(new Font("Verdana", Font.PLAIN, 32));
@@ -51,6 +60,19 @@ public class MainMenuPanel extends JPanel
             {
                 GameCanvas.closeMenu();
                 startButton.setText("Resume");
+            }
+        });
+
+        restartButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                InterfaceLogic.setActiveRound(false);
+                InterfaceLogic.setGameStarted(false);
+                Init.init(false);
+                GameCanvas.closeMenu();
+                GameCanvas.getGamePanel().showNextWaveButton();
+                hideRestartGameButton();
             }
         });
 
@@ -82,6 +104,18 @@ public class MainMenuPanel extends JPanel
         container.add(Box.createRigidArea(new Dimension(0, 50)));
         container.add(startButton);
         container.add(Box.createRigidArea(new Dimension(0, 10)));
+        container.add(restartButton);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
         container.add(exitButton);
+    }
+
+    public void showRestartGameButton()
+    {
+        restartButton.setVisible(true);
+    }
+
+    public void hideRestartGameButton()
+    {
+        restartButton.setVisible(true);
     }
 }

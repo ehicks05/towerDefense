@@ -11,7 +11,7 @@ import java.awt.image.BufferStrategy;
 public final class GameCanvas extends Canvas
 {
     private static MyGamePanel gamePanel;
-    private static JPanel mainMenuPanel;
+    private static MainMenuPanel mainMenuPanel;
     private static JPanel cards;
     private static CardLayout cardLayout;
 
@@ -29,7 +29,7 @@ public final class GameCanvas extends Canvas
 
     public static void main(String[] args)
     {
-        Init.init();
+        Init.init(true);
 
         JFrame frame = new MyFrame();
         gamePanel = new MyGamePanel();
@@ -135,9 +135,8 @@ public final class GameCanvas extends Canvas
         return gamePanel;
     }
 
-    public static void setGamePanel(MyGamePanel gamePanel)
+    public static MainMenuPanel getMainMenuPanel()
     {
-        GameCanvas.gamePanel = gamePanel;
+        return mainMenuPanel;
     }
-
 }
