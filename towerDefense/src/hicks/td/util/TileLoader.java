@@ -39,7 +39,6 @@ public class TileLoader
 
         BufferedImage tileSet = loadTileSet();
 
-        BufferedImage image;
         int x = 0;
         int y = 0;
 
@@ -51,7 +50,7 @@ public class TileLoader
                 y += 33;
             }
 
-            image = tileSet.getSubimage(x, y, 32, 32);
+            BufferedImage image = tileSet.getSubimage(x, y, 32, 32);
             tiles.put(tileNames.get(i), image);
             x += 33;
         }

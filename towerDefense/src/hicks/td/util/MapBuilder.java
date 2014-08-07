@@ -19,7 +19,8 @@ public final class MapBuilder
         {
             for (int column = 0; column < 32; column++)
             {
-                if (row < 2 || row > 21 || column < 2 || column > 29)
+                boolean isOutsideEdge = row < 2 || row > 21 || column < 2 || column > 29;
+                if (isOutsideEdge)
                     terrain.setRGB(column * 32, row * 32, 32, 32, roadRGB, 0, 32);
                 else
                     terrain.setRGB(column * 32, row * 32, 32, 32, grassRGB, 0, 32);

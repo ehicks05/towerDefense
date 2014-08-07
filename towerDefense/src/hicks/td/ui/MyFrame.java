@@ -1,6 +1,5 @@
 package hicks.td.ui;
 
-import hicks.td.audio.SoundManager;
 import hicks.td.util.Log;
 
 import javax.swing.*;

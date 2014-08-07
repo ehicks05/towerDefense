@@ -18,8 +18,8 @@ public class ExplosionTileLoader
         if (tiles == null)
             createTileList();
 
-        if (i > 80)
-            i = 80;
+        if (i >= tiles.size())
+            i = tiles.size() - 1;
 
         return tiles.get(i);
     }
