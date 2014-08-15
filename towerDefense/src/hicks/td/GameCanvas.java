@@ -2,6 +2,7 @@ package hicks.td;
 
 import hicks.td.entities.UnitLogic;
 import hicks.td.ui.*;
+import hicks.td.util.Log;
 import hicks.td.util.Metrics;
 
 import javax.swing.*;
@@ -106,6 +107,65 @@ public final class GameCanvas extends Canvas
             checkGameOverConditions();
         }
     }
+
+    // todo alternate game loop logic...
+//    private static void runGameLoop(BufferStrategy bufferStrategy)
+//    {
+//        double t = 0;
+////        final int dt = 33333333; // (33 ms)
+//        final int dt = 16666666; // (16 ms)
+//
+//        long currentTime = System.nanoTime();
+//        long accumulator = 0;
+//
+//        // run game loop
+//        while (true)
+//        {
+//            long newTime = System.nanoTime();
+//            long frameTime = newTime - currentTime;
+//            if (frameTime < dt)
+//            {
+//                long waitTime = (dt - frameTime) / 1_000_000;
+//                try
+//                {
+//                    Thread.sleep(waitTime);
+//                }
+//                catch (InterruptedException e)
+//                {
+//                    Log.info(e.getMessage());
+//                }
+//            }
+//            newTime = System.nanoTime();
+//            frameTime = newTime - currentTime;
+//            currentTime = newTime;
+//
+//            accumulator += frameTime;
+//
+//            if (InterfaceLogic.runningSimulation)
+//            {
+//                while(accumulator >= dt)
+//                {
+//                    BehaviorLogic.updateState();
+//                    accumulator -= dt;
+//                    t += dt;
+//                }
+//            }
+//
+//            // Grab the current non visible frame (Memory on the graphics card)
+//            // getDrawGraphics actually creates a new off screen buffer; it doesn't get something that already exists.
+//            Graphics2D frameBuffer = (Graphics2D) bufferStrategy.getDrawGraphics();
+//
+//            InterfaceLogic.paintWorld(frameBuffer);
+//
+//            // Release the off screen buffer
+//            frameBuffer.dispose();
+//
+//            // Flip the off screen buffer back in.
+//            bufferStrategy.show();
+//
+//            checkGameOverConditions();
+//        }
+//    }
 
     private static void checkGameOverConditions()
     {
