@@ -103,17 +103,21 @@ public final class GameCanvas extends Canvas
                 System.out.println("interrupted");
             }
 
-            // check stopping conditions
-            if (World.getPlayer().getLives() <= 0)
-            {
-                InterfaceLogic.setRunningSimulation(false);
-                InterfaceLogic.stopSimulationReason = "YOU LOSE!";
-            }
-            if (World.getPlayer().getWaveNumber() > World.getWaves().size() && UnitLogic.getUnitsOnTeam(2) == 0)
-            {
-                InterfaceLogic.setRunningSimulation(false);
-                InterfaceLogic.stopSimulationReason = "YOU WIN!";
-            }
+            checkGameOverConditions();
+        }
+    }
+
+    private static void checkGameOverConditions()
+    {
+        if (World.getPlayer().getLives() <= 0)
+        {
+            InterfaceLogic.setRunningSimulation(false);
+            InterfaceLogic.stopSimulationReason = "YOU LOSE!";
+        }
+        if (World.getPlayer().getWaveNumber() > World.getWaves().size() && UnitLogic.getUnitsOnTeam(2) == 0)
+        {
+            InterfaceLogic.setRunningSimulation(false);
+            InterfaceLogic.stopSimulationReason = "YOU WIN!";
         }
     }
 
