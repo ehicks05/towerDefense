@@ -7,6 +7,9 @@ import java.util.Map;
 
 public final class MapBuilder
 {
+    private static int ROWS = 18;
+    private static int COLUMNS = 24;
+
     public static BufferedImage buildMap()
     {
         Map<String, BufferedImage> tiles = TileLoader.createTileList();
@@ -15,11 +18,11 @@ public final class MapBuilder
 
         BufferedImage terrain = new BufferedImage(World.getGameMap().getWidth(), World.getGameMap().getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        for (int row = 0; row < 24; row++)
+        for (int row = 0; row < ROWS; row++)
         {
-            for (int column = 0; column < 32; column++)
+            for (int column = 0; column < COLUMNS; column++)
             {
-                boolean isOutsideEdge = row < 2 || row > 21 || column < 2 || column > 29;
+                boolean isOutsideEdge = row < 2 || row > ROWS-3 || column < 2 || column > COLUMNS-3;
                 if (isOutsideEdge)
                     terrain.setRGB(column * 32, row * 32, 32, 32, roadRGB, 0, 32);
                 else

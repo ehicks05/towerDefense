@@ -10,11 +10,11 @@ import java.util.*;
 
 public final class UnitLogic
 {
-    public static void move(Unit unit, Point destination)
+    public static void move(Unit unit, Point destination, BigDecimal dt)
     {
         BigDecimal moveSpeed                = new BigDecimal(unit.getMoveSpeed());
-        BigDecimal timeSinceLastMove        = Util.getElapsedTime(unit.getTimeOfLastMove());
-        BigDecimal potentialDistanceToMove  = moveSpeed.multiply(timeSinceLastMove);
+//        BigDecimal timeSinceLastMove        = dt;
+        BigDecimal potentialDistanceToMove  = moveSpeed.multiply(dt);
         BigDecimal currentDistance          = new BigDecimal(unit.getLocation().getDistance(destination)).setScale(0, RoundingMode.HALF_UP);
 
         BigDecimal desiredDistance = BigDecimal.ZERO;
@@ -48,7 +48,6 @@ public final class UnitLogic
         double newY = new BigDecimal(unit.getLocation().getY()).add((distanceToMoveY)).doubleValue();
 
         unit.setLocation(new Point(newX, newY));
-        unit.setTimeOfLastMove(Util.now());
     }
 
     public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange, List<Mob> exceptions, int sizeToReturn)

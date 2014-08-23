@@ -10,27 +10,39 @@ public class DisplayInfo
     private static int windowWidth;
     private static int windowHeight;
 
+    private static double scalingFactor;
+
     public static void setDisplayProperties()
     {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         DisplayMode displayMode = graphicsDevice.getDisplayMode();
-        DisplayInfo.setDisplayWidth(displayMode.getWidth());
-        DisplayInfo.setDisplayHeight(displayMode.getHeight());
-        DisplayInfo.setWindowWidth(1024);
-        DisplayInfo.setWindowHeight(864);
+
+        int displayWidth = displayMode.getWidth();
+        int displayHeight = displayMode.getHeight();
+        DisplayInfo.setDisplayWidth(displayWidth);
+        DisplayInfo.setDisplayHeight(displayHeight);
+
+        final int desiredWindowWidth = 768;
+        final int desiredWindowHeight = 672;
+
+        setScalingFactor(calculateScalingFactor(desiredWindowWidth, desiredWindowHeight));
+
+        DisplayInfo.setWindowWidth((int) (desiredWindowWidth * getScalingFactor()));
+        DisplayInfo.setWindowHeight((int) (desiredWindowHeight * getScalingFactor()));
     }
 
-    public static double getScalingFactor()
+    private static double calculateScalingFactor(int desiredWindowWidth, int desiredWindowHeight)
     {
-        double scaleWidth = (double) windowWidth / 1024;
-        double scaleHeight = (double) windowHeight / 800;
-
-        String scaleBy = scaleWidth < scaleHeight ? "width" : "height";
-
-        if (scaleBy.equals("width"))
-            return scaleWidth;
-        else
-            return scaleHeight;
+        final double actualToDesiredWidth = (double) displayWidth / desiredWindowWidth;
+        final double actualToDesiredHeight = (double) displayHeight / desiredWindowHeight;
+        double scalingFactor = 1;
+        if (actualToDesiredWidth <= 1 || actualToDesiredHeight <= 1)
+        {
+            scalingFactor = actualToDesiredWidth <= actualToDesiredHeight ? actualToDesiredWidth : actualToDesiredHeight;
+            scalingFactor *= .8;
+        }
+//        return scalingFactor;
+        return 1;
     }
 
     public static int getDisplayWidth()
@@ -71,5 +83,15 @@ public class DisplayInfo
     public static void setWindowHeight(int windowHeight)
     {
         DisplayInfo.windowHeight = windowHeight;
+    }
+
+    public static double getScalingFactor()
+    {
+        return scalingFactor;
+    }
+
+    public static void setScalingFactor(double scalingFactor)
+    {
+        DisplayInfo.scalingFactor = scalingFactor;
     }
 }

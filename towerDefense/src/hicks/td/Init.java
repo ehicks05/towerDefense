@@ -2,22 +2,14 @@ package hicks.td;
 
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
-import hicks.td.entities.Mob;
-import hicks.td.entities.projectile.*;
-import hicks.td.entities.Tower;
+import hicks.td.entities.projectile.Projectile;
 import hicks.td.ui.DisplayInfo;
 import hicks.td.util.*;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public final class Init
@@ -31,8 +23,8 @@ public final class Init
 
         World.setUnits(new ArrayList<Unit>());
         World.setPlayer(new Player(300, 20, 0));
-        World.setGameMap(new GameMap(1024, 768));
-        World.setWaves(getWaves());
+        World.setGameMap(new GameMap(768, 576));
+        World.setWaves(Wave.getWaves());
 
         if (loadResources)
             loadResources();
@@ -49,8 +41,8 @@ public final class Init
         allUpgrades.add(new UpgradeDamage());
         World.setUpgradeTypes(allUpgrades);
 
-        World.setTowerTypes(getTowerTypes());
-        World.setProjectileTypes(getProjectileTypes());
+        World.setTowerTypes(Tower.getTowerTypes());
+        World.setProjectileTypes(Projectile.getProjectileTypes());
 
         World.setGameImages(getGameImages());
 
@@ -75,94 +67,16 @@ public final class Init
         return gameImages;
     }
 
-    private static List<Tower> getTowerTypes()
-    {
-        List<Tower> towers = new ArrayList<>();
-        try
-        {
-            List<String> lines = Files.readAllLines(Paths.get("data\\towers.csv"), Charset.defaultCharset());
-            lines.remove(0);
-            for (String line : lines)
-            {
-                List<String> elements = Arrays.asList(line.split(","));
-                String name             = elements.get(0);
-                String projectileType   = elements.get(1);
-                int price               = Integer.parseInt(elements.get(2));
-                int attackRange         = Integer.parseInt(elements.get(3));
-                BigDecimal attackSpeed  = new BigDecimal(elements.get(4));
-                int numberOfTargets     = Integer.parseInt(elements.get(5));
-                int sizeRadius          = Integer.parseInt(elements.get(6));
-                String imageFile        = elements.get(7);
-
-                Tower tower = new Tower(price, attackRange, attackSpeed, numberOfTargets, name, projectileType, sizeRadius, imageFile);
-                towers.add(tower);
-            }
-        }
-        catch (IOException e)
-        {
-            Log.info(e.getMessage(), true);
-        }
-
-        return towers;
-    }
-
-    private static List<Projectile> getProjectileTypes()
-    {
-        List<Projectile> projectiles = new ArrayList<>();
-        try
-        {
-            List<String> lines = Files.readAllLines(Paths.get("data\\projectiles.csv"), Charset.defaultCharset());
-            lines.remove(0);
-            for (String line : lines)
-            {
-                List<String> elements = Arrays.asList(line.split(","));
-                String name             = elements.get(0);
-                int sizeRadius          = Integer.parseInt(elements.get(1));
-                int moveSpeed           = Integer.parseInt(elements.get(2));
-                int minDamage           = Integer.parseInt(elements.get(3));
-                int maxDamage           = Integer.parseInt(elements.get(4));
-                int maxRange            = Integer.parseInt(elements.get(5));
-                String fireSound        = elements.get(6);
-                String onHitEffect      = elements.get(7);
-                int splashRadius        = Integer.parseInt(elements.get(8));
-                int hitsPossible        = Integer.parseInt(elements.get(9));
-                int bounceRange         = Integer.parseInt(elements.get(10));
-                double thetaDelta         = Double.parseDouble(elements.get(11));
-                String imageFile        = elements.get(12);
-
-                Projectile projectile = new Projectile(name, sizeRadius, moveSpeed, minDamage, maxDamage, maxRange, fireSound,
-                        onHitEffect, splashRadius, hitsPossible, bounceRange, thetaDelta, imageFile);
-                projectiles.add(projectile);
-            }
-        }
-        catch (IOException e)
-        {
-            Log.info(e.getMessage(), true);
-        }
-
-        return projectiles;
-    }
-
-    private static List<Wave> getWaves()
-    {
-        List<Wave> waves = new ArrayList<>();
-
-        for (int i = 1; i < 100; i++)
-            waves.add(new Wave(i, i * 10));
-
-        return waves;
-    }
-
     public static List<Mob> getOneOfEachMobType()
     {
         List<Mob> mobsOfEachType = new ArrayList<>();
         List<MobBodyPartCollection> bodyPartCollections = getBodyPartCollections();
 
-        mobsOfEachType.add(new Mob(2, 32, 50, "peasant",    1,  1,  50, 2,   1, 0, bodyPartCollections.get(0)));
-        mobsOfEachType.add(new Mob(2, 32, 55, "archer",     2,  2,  50, 4,   2, 0, bodyPartCollections.get(1)));
-        mobsOfEachType.add(new Mob(2, 32, 60, "footman",    3,  3,  60, 8,   3, 0, bodyPartCollections.get(2)));
-        mobsOfEachType.add(new Mob(2, 32, 65, "barbarian",  4,  4,  60, 8,   4, 0, bodyPartCollections.get(3)));
-        mobsOfEachType.add(new Mob(2, 32, 70, "knight",     5,  5,  70, 12,  5, 0, bodyPartCollections.get(4)));
+        mobsOfEachType.add(new Mob(2, 32, 50, "peasant",            1,  1,  50, 2,   1, 0, bodyPartCollections.get(0)));
+        mobsOfEachType.add(new Mob(2, 32, 55, "archer",             2,  2,  50, 4,   2, 0, bodyPartCollections.get(1)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "footman",            3,  3,  60, 8,   3, 0, bodyPartCollections.get(2)));
+        mobsOfEachType.add(new Mob(2, 32, 65, "barbarian",          4,  4,  60, 8,   4, 0, bodyPartCollections.get(3)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "knight",             5,  5,  70, 12,  5, 0, bodyPartCollections.get(4)));
 
         mobsOfEachType.add(new Mob(2, 32, 50, "skeletonPeasant",    6,  6,  80, 13,  6, 0, bodyPartCollections.get(5)));
         mobsOfEachType.add(new Mob(2, 32, 55, "skeletonArcher",     7,  7,  90, 14,  7, 0, bodyPartCollections.get(6)));
@@ -180,12 +94,12 @@ public final class Init
         bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, null, null, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS));
         bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS));
         bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_CHAIN_ARMOR, MobBodyPart.TORSO_CHAIN_JACKET, null, null));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_PLATE, MobBodyPart.LEGS_PLATE, MobBodyPart.TORSO_PLATE, null, MobBodyPart.TORSO_PLATE_SHOULDERS, null));
+        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, null, MobBodyPart.LEGS_PLATE, MobBodyPart.TORSO_PLATE, null, MobBodyPart.TORSO_PLATE_SHOULDERS, null));
         bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, null, null, null, MobBodyPart.LEGS_ROBE, MobBodyPart.TORSO_ROBE, null, null, null));
         bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, null, null, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS));
         bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS));
         bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_CHAIN_ARMOR, MobBodyPart.TORSO_CHAIN_JACKET, null, null));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_PLATE, MobBodyPart.LEGS_PLATE, MobBodyPart.TORSO_PLATE, null, MobBodyPart.TORSO_PLATE_SHOULDERS, null));
+        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, null, MobBodyPart.LEGS_PLATE, MobBodyPart.TORSO_PLATE, null, MobBodyPart.TORSO_PLATE_SHOULDERS, null));
         return bodyPartCollections;
     }
 

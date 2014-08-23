@@ -8,8 +8,8 @@ public class MyMouseMotionListener extends MouseAdapter
     public void mouseMoved(MouseEvent e)
     {
         super.mouseMoved(e);
-        int eventX = e.getX();
-        int eventY = e.getY();
+        int eventX = (int) (e.getX() * (1 / DisplayInfo.getScalingFactor()));
+        int eventY = (int) (e.getY() * (1 / DisplayInfo.getScalingFactor()));
 
         InterfaceLogic.setMouseX(eventX);
         InterfaceLogic.setMouseY(eventY);
@@ -18,8 +18,8 @@ public class MyMouseMotionListener extends MouseAdapter
     public void mouseDragged(MouseEvent e)
     {
         super.mouseDragged(e);
-        int eventX = e.getX();
-        int eventY = e.getY();
+        int eventX = (int) (e.getX() * (1 / DisplayInfo.getScalingFactor()));
+        int eventY = (int) (e.getY() * (1 / DisplayInfo.getScalingFactor()));
 
         InterfaceLogic.setMouseX(eventX);
         InterfaceLogic.setMouseY(eventY);

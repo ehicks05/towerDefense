@@ -1,7 +1,5 @@
 package hicks.td.entities;
 
-import java.math.BigDecimal;
-
 public class Unit
 {
     private static int      m_seq = 0;
@@ -9,7 +7,6 @@ public class Unit
     private int             m_team;
     private int             m_sizeRadius;
     private int             m_moveSpeed;
-    private BigDecimal      m_timeOfLastMove;
     private Point           m_location;
     private Point           m_destination;
 
@@ -65,16 +62,6 @@ public class Unit
     public void setMoveSpeed(int moveSpeed)
     {
         m_moveSpeed = moveSpeed;
-    }
-
-    public BigDecimal getTimeOfLastMove()
-    {
-        return m_timeOfLastMove;
-    }
-
-    public void setTimeOfLastMove(BigDecimal timeOfLastMove)
-    {
-        m_timeOfLastMove = timeOfLastMove;
     }
 
     public Point getLocation()

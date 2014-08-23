@@ -1,17 +1,23 @@
 package hicks.td.entities;
 
+import hicks.td.util.Util;
+
+import java.math.BigDecimal;
+
 public final class Player
 {
     private int m_team;
     private int m_gold;
     private int m_lives;
     private int m_waveNumber;
+    private BigDecimal m_timeOfLastGoldTick;
 
     public Player(int gold, int lives, int waveNumber)
     {
         m_gold = gold;
         m_lives = lives;
         m_waveNumber = waveNumber;
+        m_timeOfLastGoldTick = Util.now();
     }
 
     public void addLife()
@@ -72,5 +78,15 @@ public final class Player
     public void setWaveNumber(int waveNumber)
     {
         m_waveNumber = waveNumber;
+    }
+
+    public BigDecimal getTimeOfLastGoldTick()
+    {
+        return m_timeOfLastGoldTick;
+    }
+
+    public void setTimeOfLastGoldTick(BigDecimal timeOfLastGoldTick)
+    {
+        m_timeOfLastGoldTick = timeOfLastGoldTick;
     }
 }

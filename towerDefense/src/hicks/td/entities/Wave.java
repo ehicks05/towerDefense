@@ -19,6 +19,16 @@ public class Wave
         m_waveSpawns = generateWaveSpawns();
     }
 
+    public static List<Wave> getWaves()
+    {
+        List<Wave> waves = new ArrayList<>();
+
+        for (int i = 1; i < 50; i++)
+            waves.add(new Wave(i, i * 10));
+
+        return waves;
+    }
+
     private List<WaveSpawn> generateWaveSpawns()
     {
         List<WaveSpawn> waveSpawns = new ArrayList<>();

@@ -55,7 +55,7 @@ public class ProjectileLogic
         return new Point(resultX, resultY);
     }
 
-    public static void performProjectileBehavior(Projectile projectile)
+    public static void performProjectileBehavior(Projectile projectile, BigDecimal dt)
     {
         // check that we haven't run out of steam
         if (Math.round(projectile.getDistanceTravelled()) >= projectile.getMaximumRange())
@@ -64,7 +64,7 @@ public class ProjectileLogic
             return;
         }
 
-        UnitLogic.move(projectile, projectile.getDestination());
+        UnitLogic.move(projectile, projectile.getDestination(), dt);
 
         // see if we have hit anyone
         for (Mob mob : new ArrayList<>(Util.getMobs()))

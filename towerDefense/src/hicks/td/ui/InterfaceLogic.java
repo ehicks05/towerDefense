@@ -2,11 +2,9 @@ package hicks.td.ui;
 
 import hicks.td.GameCanvas;
 import hicks.td.World;
-import hicks.td.entities.Mob;
 import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
 import hicks.td.entities.Wave;
-import hicks.td.entities.projectile.Projectile;
 import hicks.td.util.Metrics;
 import hicks.td.util.Util;
 
@@ -21,11 +19,12 @@ public class InterfaceLogic
     public static Unit selectedUnit = new Unit();
     public static JLabel infoLabel;
     public static String stopSimulationReason = "";
-    private static String towerToggle = "ArrowTower";
-    private static BigDecimal timePaused;
+    public static BigDecimal timePaused;
+    public static boolean gameStarted = false;
     public static boolean runningSimulation = false;
+    private static String towerToggle = "ArrowTower";
     private static boolean activeRound = false;
-    private static boolean gameStarted = false;
+
     private static int mouseX;
     private static int mouseY;
 
@@ -45,7 +44,7 @@ public class InterfaceLogic
         if (isRunningSimulation())
             infoLabel.setText(getLabelText());
 
-        infoLabel.setPreferredSize(new Dimension(250,80));
+//        infoLabel.setPreferredSize(new Dimension(300, 20));
 
         if (!isRunningSimulation())
         {
@@ -65,7 +64,7 @@ public class InterfaceLogic
         }
 
         Toolkit.getDefaultToolkit().sync();
-        g.dispose();
+//        g.dispose();
     }
 
     private static void drawTileGrid(Graphics2D g2d)
@@ -81,17 +80,25 @@ public class InterfaceLogic
 
     private static String getLabelText()
     {
-        String labelText = "<html><table><tr>";
-        labelText += "<td>Gold:</td><td>" + World.getPlayer().getGold()   + "</td>";
-        labelText += "<td>Wave:</td><td>" + World.getPlayer().getWaveNumber() + "</td>";
-        labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
-        labelText += "</tr><tr>";
-
-//        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-//        labelText += "<td>Mobs:</td><td>" + Util.getMobs().size() + "</td>";
-        labelText += "</tr></table></html>";
+        int gold = World.getPlayer().getGold();
+        int wave = World.getPlayer().getWaveNumber();
+        int lives = World.getPlayer().getLives();
+        String labelText = "Gold:" + gold + " ";
+        labelText += "Wave:" + wave + " ";
+        labelText += "Lives:" + lives + " ";
+        labelText += "FPS:" + Metrics.calculateFPS() + " ";
 
         return labelText;
+
+//        String labelText = "<html><table><tr>";
+//        labelText += "<td>Gold:</td><td>" + World.getPlayer().getGold()   + "</td>";
+//        labelText += "<td>Wave:</td><td>" + World.getPlayer().getWaveNumber() + "</td>";
+//        labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
+//        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
+////        labelText += "<td>Mobs:</td><td>" + Util.getMobs().size() + "</td>";
+//        labelText += "</tr></table></html>";
+//
+//        return labelText;
     }
 
     public static void resumeGame()
@@ -101,22 +108,26 @@ public class InterfaceLogic
 
         if (timePaused == null) timePaused = Util.now();
 
+        BigDecimal timeDeltaRaw = Util.getElapsedTimeRaw(timePaused, timeResumed).multiply(new BigDecimal("1000000"));
         BigDecimal timeDeltaSeconds = Util.getElapsedTime(timePaused, timeResumed);
         BigDecimal timeDeltaMillis = timeDeltaSeconds.multiply(new BigDecimal("1000"));
-        World.adjustStartTime(timeDeltaMillis);
+        Util.adjustStartTime(timeDeltaMillis);
+
+        GameCanvas.accumulator -= timeDeltaRaw.longValue();
+        if (GameCanvas.accumulator < 0) GameCanvas.accumulator = 0;
+
+        Wave wave = World.getWave(World.getPlayer().getWaveNumber());
+        if (wave != null)
+            wave.setTimeStarted(wave.getTimeStarted().add(timeDeltaMillis));
 
         for (Tower tower : Util.getTowers())
             tower.setTimeOfLastAttack(tower.getTimeOfLastAttack().add(timeDeltaMillis));
-
-        for (Projectile projectile : Util.getProjectiles())
-            projectile.setTimeOfLastMove(projectile.getTimeOfLastMove().add(timeDeltaMillis));
-
-        for (Mob mob : Util.getMobs())
-            mob.setTimeOfLastMove(mob.getTimeOfLastMove().add(timeDeltaMillis));
     }
 
     public static void pauseGame()
     {
+        if (!runningSimulation) return;
+
         runningSimulation = false;
         timePaused = Util.now();
     }

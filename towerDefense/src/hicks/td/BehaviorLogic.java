@@ -15,14 +15,29 @@ import java.util.List;
 
 public final class BehaviorLogic
 {
-    public static void updateState()
+    public static void updateState(BigDecimal dt)
     {
+        goldTick();
         performSpawningPhase();
-        performUpdatePhase();
+        performUpdatePhase(dt);
     }
 
-    private static void performUpdatePhase()
+    private static void goldTick()
     {
+        if (InterfaceLogic.gameStarted && InterfaceLogic.runningSimulation)
+        {
+            if (Util.getElapsedTime(World.getPlayer().getTimeOfLastGoldTick(), Util.now()).compareTo(new BigDecimal("1")) > 0)
+            {
+                World.getPlayer().setGold(World.getPlayer().getGold() + 1);
+                World.getPlayer().setTimeOfLastGoldTick(Util.now());
+            }
+        }
+    }
+
+    private static void performUpdatePhase(BigDecimal dt)
+    {
+        if (!InterfaceLogic.isRunningSimulation()) return;
+
         for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             if (unit instanceof Mob)
@@ -32,7 +47,7 @@ public final class BehaviorLogic
                 if (!mob.isAlive())
                     continue;
 
-                mob.performMobBehavior();
+                mob.performMobBehavior(dt);
             }
 
             if (unit instanceof Tower)
@@ -43,7 +58,7 @@ public final class BehaviorLogic
             if (unit instanceof Projectile)
             {
                 Projectile projectile = (Projectile) unit;
-                ProjectileLogic.performProjectileBehavior(projectile);
+                ProjectileLogic.performProjectileBehavior(projectile, dt);
             }
 
             if (unit instanceof Explosion)
@@ -57,7 +72,7 @@ public final class BehaviorLogic
 
     private static void performSpawningPhase()
     {
-        if (InterfaceLogic.isActiveRound())
+        if (InterfaceLogic.isActiveRound() && InterfaceLogic.runningSimulation)
         {
             Player player                   = World.getPlayer();
             Wave wave                       = World.getWave(player.getWaveNumber());

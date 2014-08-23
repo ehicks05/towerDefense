@@ -1,6 +1,7 @@
 package hicks.td.ui;
 
 import hicks.td.World;
+import hicks.td.entities.Explosion;
 import hicks.td.entities.Point;
 import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
@@ -14,8 +15,8 @@ public class MyMouseListener extends MouseAdapter
     public void mouseReleased(MouseEvent e)
     {
         super.mouseReleased(e);
-        int eventX = e.getX();
-        int eventY = e.getY();
+        int eventX = (int) (e.getX() * (1 / DisplayInfo.getScalingFactor()));
+        int eventY = (int) (e.getY() * (1 / DisplayInfo.getScalingFactor()));
 
         InterfaceLogic.setSelectedUnit(null);
         if (e.getButton() == 1) performLeftClick(eventX, eventY);
@@ -48,7 +49,7 @@ public class MyMouseListener extends MouseAdapter
     {
         for (Unit unit : World.getUnits())
         {
-            if (unit instanceof Projectile) continue;
+            if (unit instanceof Projectile || unit instanceof Explosion) continue;
 
             int unitX = (int) unit.getLocation().getX();
             int unitY = (int) unit.getLocation().getY();

@@ -27,6 +27,11 @@ public final class Util
         return endTime.subtract(startTime).divide(new BigDecimal("1000"));
     }
 
+    public static BigDecimal getElapsedTimeRaw(BigDecimal startTime, BigDecimal endTime)
+    {
+        return endTime.subtract(startTime);
+    }
+
     public static List<Tower> getTowers()
     {
         List<Tower> towers = new ArrayList<>();
@@ -55,5 +60,10 @@ public final class Util
             if (unit instanceof Mob) mobs.add((Mob) unit);
 
         return mobs;
+    }
+
+    public static void adjustStartTime(BigDecimal offset)
+    {
+        World.setStartTime(World.getStartTime().add(offset));
     }
 }

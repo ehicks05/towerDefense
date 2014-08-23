@@ -11,17 +11,17 @@ import java.util.List;
 
 public final class World
 {
-    private static String        imageDir = "ass\\img\\";
-    private static List<Unit>    units = new ArrayList<>();
-    private static GameMap       gameMap;
-    private static BigDecimal    startTime;
-    private static Player        player;
-    private static BufferedImage terrainImage;
-    private static List<Wave> waves;
-    private static List<Upgrade> upgradeTypes;
-    private static List<Tower> towerTypes;
+    private static String           imageDir = "ass\\img\\";
+    private static List<Unit>       units = new ArrayList<>();
+    private static GameMap          gameMap;
+    private static BigDecimal       startTime;
+    private static Player           player;
+    private static BufferedImage    terrainImage;
+    private static List<Wave>       waves;
+    private static List<Upgrade>    upgradeTypes;
+    private static List<Tower>      towerTypes;
     private static List<Projectile> projectileTypes;
-    private static List<GameImage> gameImages;
+    private static List<GameImage>  gameImages;
 
     public static void addUnit(Unit unit)
     {
@@ -31,11 +31,6 @@ public final class World
     public static void removeUnit(Unit unit)
     {
         units.remove(unit);
-    }
-
-    public static void adjustStartTime(BigDecimal offset)
-    {
-        setStartTime(getStartTime().add(offset));
     }
 
     public static Wave getWave(int waveNumber)

@@ -18,6 +18,7 @@ public class MainMenuPanel extends JPanel
     {
         this.setPreferredSize(new Dimension(DisplayInfo.getWindowWidth(), DisplayInfo.getWindowHeight()));
         this.setVisible(true);
+        this.setBackground(Color.LIGHT_GRAY);
         this.setName("mainMenuPanel");
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -30,7 +31,7 @@ public class MainMenuPanel extends JPanel
         container.setName("containerPanel");
 
         final JLabel mainLabel = new JLabel("Eric's Tower Defense");
-        Font mainLabelFont = new Font("Verdana", Font.BOLD, 64);
+        Font mainLabelFont = new Font("Verdana", Font.BOLD, 48);
         mainLabel.setFont(mainLabelFont);
 
         mainLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -76,22 +77,9 @@ public class MainMenuPanel extends JPanel
             }
         });
 
-        exitButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to exit?", "Exit?",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
-                {
-                    Log.info("Game was manually terminated...", true);
-                    System.exit(0);
-                }
-            }
-        });
+        exitButton.addActionListener(new ExitListener());
 
-        this.add(Box.createRigidArea(new Dimension(0, 100)));
+        this.add(Box.createRigidArea(new Dimension(0, 50)));
         this.add(container);
 
         container.add(mainLabel);

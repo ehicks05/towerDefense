@@ -8,6 +8,7 @@ import hicks.td.entities.projectile.Projectile;
 import hicks.td.util.ExplosionTileLoader;
 import hicks.td.util.MobBodyPartCollection;
 import hicks.td.util.MobTileLoader;
+import hicks.td.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -92,6 +93,15 @@ public final class UnitPainter
         if (towerThatNeedsVisionCircle != null)
             drawVisionCircle(g2d, towerThatNeedsVisionCircle);
 
+        // if the selected mob has died, stop showing its info...
+        if (InterfaceLogic.getSelectedUnit() instanceof Mob && !Util.getMobs().contains(InterfaceLogic.getSelectedUnit()))
+        {
+            JPanel unitInfo = GameCanvas.getGamePanel().getUnitInfoPanel();
+            Component component = unitInfo.getComponent(0);
+            JLabel label = (JLabel) component;
+            label.setText("");
+        }
+
         for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             if (unit instanceof Mob)
@@ -115,9 +125,9 @@ public final class UnitPainter
                     label.setText("  R:" + tower.getAttackRange() + "  D:" + projectile.getMinDamage() + "-" + projectile.getMaxDamage());
 
                     List<Upgrade> availableUpgrades = tower.getAvailableUpgrades();
+                    List<Component> components = Arrays.asList(GameCanvas.getGamePanel().getUnitInfoPanel().getComponents());
                     for (Upgrade upgrade : availableUpgrades)
                     {
-                        java.util.List<Component> components = Arrays.asList(GameCanvas.getGamePanel().getUnitInfoPanel().getComponents());
                         for (Component component1 : components)
                         {
                             if (component1 instanceof JButton)
@@ -126,6 +136,15 @@ public final class UnitPainter
                                 if (button.getName().equals(upgrade.getCode()))
                                     button.setVisible(true);
                             }
+                        }
+                    }
+                    for (Component component1 : components)
+                    {
+                        if (component1 instanceof JButton)
+                        {
+                            JButton button = (JButton) component1;
+                            if (button.getName().equals("sell"))
+                                button.setVisible(true);
                         }
                     }
                 }

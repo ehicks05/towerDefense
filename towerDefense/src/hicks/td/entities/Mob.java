@@ -32,7 +32,6 @@ public class Mob extends Unit
         setTeam(team);
         setSizeRadius(sizeRadius);
         setMoveSpeed(moveSpeed);
-        setTimeOfLastMove(Util.now());
 
         m_mobType = mobType;
         m_mobTypeIndex = mobTypeIndex;
@@ -62,9 +61,9 @@ public class Mob extends Unit
         return m_currentHp > 0;
     }
 
-    public void performMobBehavior()
+    public void performMobBehavior(BigDecimal dt)
     {
-        this.moveAlongPath();
+        this.moveAlongPath(dt);
         if (m_path.size() == 0)
         {
             removeFromTargeting();
@@ -95,7 +94,7 @@ public class Mob extends Unit
         return path;
     }
 
-    public void moveAlongPath()
+    public void moveAlongPath(BigDecimal dt)
     {
         Queue<Point> path = this.getPath();
         Point pathPoint = path.peek();
@@ -109,7 +108,7 @@ public class Mob extends Unit
 //                path.add(pathPoint);
             }
             else
-                UnitLogic.move(this, pathPoint);
+                UnitLogic.move(this, pathPoint, dt);
         }
     }
 

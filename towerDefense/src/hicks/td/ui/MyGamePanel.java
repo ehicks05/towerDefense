@@ -1,6 +1,5 @@
 package hicks.td.ui;
 
-import hicks.td.GameCanvas;
 import hicks.td.World;
 import hicks.td.entities.Upgrade;
 import hicks.td.entities.Tower;
@@ -23,9 +22,19 @@ public class MyGamePanel extends JPanel
         this.setName("gamePanel");
         this.setPreferredSize(new Dimension(DisplayInfo.getWindowWidth(), DisplayInfo.getWindowHeight()));
 
+        FlowLayout flowLayout = new FlowLayout(FlowLayout.CENTER, 0, 0);
+        flowLayout.setAlignment(FlowLayout.LEFT);
+        this.setLayout(flowLayout);
+
+        InterfaceLogic.infoLabel = new JLabel();
+        InterfaceLogic.infoLabel.setVisible(true);
+        InterfaceUtil.setSizeFields(InterfaceLogic.infoLabel, new Dimension(DisplayInfo.getWindowWidth(), 10));
+        this.add(InterfaceLogic.infoLabel);
+
         final Dimension towerButtonDimension = new Dimension(48, 48);
         final List<JToggleButton> towerButtons = new ArrayList<>();
 
+        JPanel towerButtonPanel = new JPanel();
         for (Tower tower : World.getTowerTypes())
         {
             final JToggleButton towerButton = new JToggleButton(new ImageIcon(tower.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH)), false);
@@ -35,8 +44,10 @@ public class MyGamePanel extends JPanel
 
             InterfaceUtil.setSizeFields(towerButton, towerButtonDimension);
             towerButtons.add(towerButton);
-            this.add(towerButton);
+            towerButtonPanel.add(towerButton);
         }
+
+        this.add(towerButtonPanel);
 
         towerButtons.get(0).setSelected(true);
 
@@ -58,47 +69,22 @@ public class MyGamePanel extends JPanel
                     }
                     else
                     {
-                        InterfaceLogic.setTowerToggle("");
+                        towerButton.setSelected(true);
                     }
                 }
             });
         }
 
-        final JToggleButton pauseButton = new JToggleButton("Pause");
-        pauseButton.setVisible(true);
-        final JButton mainMenuButton = new JButton("Menu");
-        mainMenuButton.setVisible(true);
-
         unitInfo = new JPanel();
-        unitInfo.setVisible(true);
-        InterfaceUtil.setSizeFields(unitInfo, new Dimension(300, 80));
+//        unitInfo.setVisible(true);
+//        InterfaceUtil.setSizeFields(unitInfo, new Dimension(200, 80));
 
         JLabel unitInfoLabel = new JLabel();
         unitInfoLabel.setVisible(true);
         unitInfo.add(unitInfoLabel);
 
-        startWaveButton = new JButton("Start Wave");
+        startWaveButton = new JButton("Start");
         startWaveButton.setVisible(true);
-
-        pauseButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (pauseButton.isSelected())
-                    InterfaceLogic.pauseGame();
-                else
-                    InterfaceLogic.resumeGame();
-            }
-        });
-
-        mainMenuButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                GameCanvas.openMenu();
-            }
-        });
-
         startWaveButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -133,16 +119,27 @@ public class MyGamePanel extends JPanel
             unitInfo.add(button);
         }
 
-        this.setLayout(new FlowLayout());
+        final JButton sellTowerButton = new JButton("Sell");
+        sellTowerButton.setName("sell");
+        sellTowerButton.setVisible(false);
 
-        this.add(mainMenuButton);
-        this.add(pauseButton);
+        sellTowerButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                Tower tower = (Tower) InterfaceLogic.getSelectedUnit();
+                int sellPrice = tower.getPrice() / 2;
+                World.removeUnit(tower);
+                World.getPlayer().addGold(sellPrice);
+                sellTowerButton.setVisible(false);
+                InterfaceLogic.setSelectedUnit(null);
+            }
+        });
+
+        unitInfo.add(sellTowerButton);
+
         this.add(startWaveButton);
         this.add(unitInfo);
-
-//        JPanel menuPanel = new JPanel();
-//        menuPanel.setVisible(true);
-//        this.add(menuPanel);
     }
 
     public void showNextWaveButton()
