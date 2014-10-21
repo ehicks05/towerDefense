@@ -1,5 +1,0 @@
-name,sizeRadius,moveSpeed,minDamage,maxDamage,MaxRange,FireSound,onHitEffect,splashRadius,hitsPossible,bounceRange,thetaDelta,imageFile
-Arrow,12,300,12,18,800,SHOOT_ARROW,NONE,0,0,0,0,arrow.png
-Cannonball,10,600,24,48,600,CANNON_FIRE,EXPLODE,96,0,0,0.05,rock.png
-Glaive,10,300,9,12,300,SHOOT_GLAIVE,BOUNCE,0,4,128,0.1,glaive.png
-IceBolt,12,300,32,36,300,SHOOT_ARROW,SLOW,0,0,0,0,iceBolt.png
