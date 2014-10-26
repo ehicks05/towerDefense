@@ -73,6 +73,7 @@ public class MobTileLoader
         if (type.equals(MobBodyPart.TORSO_PLATE))             tileMap = torsoPlate;
         if (type.equals(MobBodyPart.TORSO_ROBE))              tileMap = torsoRobe;
 
+        if (direction == null || direction.equals("")) direction = "right";
         List<BufferedImage> images = tileMap.get(direction);
 
         if (frame > 8)

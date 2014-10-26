@@ -3,6 +3,7 @@ package hicks.td;
 import hicks.td.entities.*;
 import hicks.td.entities.projectile.*;
 import hicks.td.entities.Tower;
+import hicks.td.util.PathPoint;
 
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
@@ -22,6 +23,8 @@ public final class World
     private static List<Tower>      towerTypes;
     private static List<Projectile> projectileTypes;
     private static List<GameImage>  gameImages;
+    private static int[][]          logicalMap;
+    private static List<PathPoint>  mobPath;
 
     public static void addUnit(Unit unit)
     {
@@ -179,5 +182,25 @@ public final class World
     public static void setGameImages(List<GameImage> gameImages)
     {
         World.gameImages = gameImages;
+    }
+
+    public static int[][] getLogicalMap()
+    {
+        return logicalMap;
+    }
+
+    public static void setLogicalMap(int[][] logicalMap)
+    {
+        World.logicalMap = logicalMap;
+    }
+
+    public static List<PathPoint> getMobPath()
+    {
+        return mobPath;
+    }
+
+    public static void setMobPath(List<PathPoint> mobPath)
+    {
+        World.mobPath = mobPath;
     }
 }

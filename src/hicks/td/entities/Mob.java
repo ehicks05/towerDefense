@@ -2,6 +2,7 @@ package hicks.td.entities;
 
 import hicks.td.World;
 import hicks.td.util.MobBodyPartCollection;
+import hicks.td.util.PathPoint;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -25,6 +26,7 @@ public class Mob extends Unit
     private BigDecimal m_spawnTime = Util.now();
     private MobBodyPartCollection m_mobBodyPartCollection;
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
+    private Point m_previousPoint;
 
     public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int maxHp,
                int armor, int bounty, int slowInstances, MobBodyPartCollection mobBodyPartCollection)
@@ -85,12 +87,11 @@ public class Mob extends Unit
 
     public Queue<Point> createPath()
     {
-        Queue<Point> path = new ArrayBlockingQueue<>(5);
-        path.add(new Point(32, 32));
-        path.add(new Point(32, World.getGameMap().getHeight() - 32));
-        path.add(new Point(World.getGameMap().getWidth() - 32, World.getGameMap().getHeight() - 32));
-        path.add(new Point(World.getGameMap().getWidth() - 32, 32));
-        path.add(new Point(32, 32));
+        Queue<Point> path = new ArrayBlockingQueue<>(World.getMobPath().size());
+        for (PathPoint point : World.getMobPath())
+        {
+            path.add(new Point(point.getCol() * 32 + 16, point.getRow() * 32));
+        }
         return path;
     }
 
@@ -104,6 +105,7 @@ public class Mob extends Unit
             BigDecimal currentDistance = new BigDecimal(this.getLocation().getDistance(pathPoint)).setScale(0, RoundingMode.HALF_UP);
             if (currentDistance.equals(BigDecimal.ZERO))
             {
+                setPreviousPoint(pathPoint);
                 path.remove();
 //                path.add(pathPoint);
             }
@@ -231,5 +233,15 @@ public class Mob extends Unit
     public void setSlowInstances(int slowInstances)
     {
         m_slowInstances = slowInstances;
+    }
+
+    public Point getPreviousPoint()
+    {
+        return m_previousPoint;
+    }
+
+    public void setPreviousPoint(Point previousPoint)
+    {
+        m_previousPoint = previousPoint;
     }
 }

@@ -61,12 +61,13 @@ public final class UnitPainter
                 Mob mob = (Mob) unit;
                 int frameIndex = mob.getFrame() / 10;
 
+                Point previousPoint = mob.getPreviousPoint();
                 Point destination = mob.getPath().peek();
                 String direction = "";
-                if (destination.equals(new Point(32, 32))) direction = "left";
-                if (destination.equals(new Point(32, World.getGameMap().getHeight() - 32))) direction = "down";
-                if (destination.equals(new Point(World.getGameMap().getWidth() - 32, World.getGameMap().getHeight() - 32))) direction = "right";
-                if (destination.equals(new Point(World.getGameMap().getWidth() - 32, 32))) direction = "up";
+                if (destination.getY() > previousPoint.getY()) direction = "down";
+                if (destination.getY() < previousPoint.getY()) direction = "up";
+                if (destination.getX() > previousPoint.getX()) direction = "right";
+                if (destination.getX() < previousPoint.getX()) direction = "left";
 
                 drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getMobBodyPartCollection());
 

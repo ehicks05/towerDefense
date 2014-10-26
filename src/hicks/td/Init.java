@@ -25,6 +25,8 @@ public final class Init
         World.setPlayer(new Player(300, 20, 0));
         World.setGameMap(new GameMap(768, 576));
         World.setWaves(Wave.getWaves());
+        World.setLogicalMap(MapBuilder.buildRandomMap());
+        World.setTerrainImage(MapBuilder.createImageFromLogicalMap(World.getLogicalMap()));
 
         if (loadResources)
             loadResources();
@@ -45,8 +47,6 @@ public final class Init
         World.setProjectileTypes(Projectile.getProjectileTypes());
 
         World.setGameImages(getGameImages());
-
-        World.setTerrainImage(MapBuilder.buildMap());
     }
 
     private static List<GameImage> getGameImages()

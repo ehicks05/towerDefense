@@ -6,6 +6,7 @@ import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.entities.Tower;
 import hicks.td.ui.InterfaceLogic;
+import hicks.td.util.PathPoint;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -109,7 +110,8 @@ public final class BehaviorLogic
                         mob.setMaxHp(newHp);
                     }
 
-                    mob.setLocation(new Point(32, 32));
+                    PathPoint origin = World.getMobPath().get(0);
+                    mob.setLocation(new Point(origin.getCol() * 32 + 16, origin.getRow() * 32));
                     mob.setPath(mob.createPath());
 
                     World.addUnit(mob);
