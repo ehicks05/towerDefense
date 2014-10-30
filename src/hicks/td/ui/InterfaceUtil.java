@@ -3,13 +3,12 @@ package hicks.td.ui;
 import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Tower;
-import hicks.td.entities.Unit;
+import hicks.td.util.PathPoint;
 import hicks.td.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class InterfaceUtil
 {
@@ -26,38 +25,57 @@ public class InterfaceUtil
         return (tile * 32) + 16;
     }
 
+    public static int convertToTile(int input)
+    {
+        return input / 32;
+    }
+
     public static boolean isValidLocation(int x, int y, int radiusOfNewBuilding)
     {
         Point attemptedBuildLocation = new Point(x, y);
-        List<Tower> towers = new ArrayList<>(Util.getTowers());
 
         // check against existing towers
-        for (Tower tower : towers)
-        {
-            Point towerLocation = tower.getLocation();
-            double distance = attemptedBuildLocation.getDistance(towerLocation);
-            if (distance < tower.getSizeRadius() + radiusOfNewBuilding)
-                return false;
-        }
+        boolean onExistingTower = isOnExistingTower(radiusOfNewBuilding, attemptedBuildLocation);
+        if (onExistingTower) return false;
 
         // check against edge of map
-        if (!isObjectInBounds(x, y, radiusOfNewBuilding)) return false;
+        boolean inBounds = isInBounds(x, y, radiusOfNewBuilding);
+        if (!inBounds) return false;
 
-        // check against terrain - the simple and inflexible way
-        if (!isObjectOffTheRoad(x, y, radiusOfNewBuilding)) return false;
+        // check against terrain
+        boolean onRoad = isOnTheRoad(x, y, radiusOfNewBuilding);
+        if (onRoad) return false;
 
         return true;
     }
 
-    private static boolean isObjectInBounds(int x, int y, int radius)
+    private static boolean isOnExistingTower(int radiusOfNewBuilding, Point attemptedBuildLocation)
     {
-        return (x - radius >= 0 && x + radius < World.getGameMap().getWidth() &&
-                y - radius >= 0 && y + radius < World.getGameMap().getHeight());
+        for (Tower tower : new ArrayList<>(Util.getTowers()))
+        {
+            Point towerLocation = tower.getLocation();
+            double distance = attemptedBuildLocation.getDistance(towerLocation);
+            if (distance < tower.getSizeRadius() + radiusOfNewBuilding)
+                return true;
+        }
+        return false;
     }
 
-    private static boolean isObjectOffTheRoad(int x, int y, int radius)
+    private static boolean isInBounds(int x, int y, int radius)
     {
-        return (x - radius >= 64 && x + radius <= World.getGameMap().getWidth() - 64 &&
-                y - radius >= 64 && y + radius <= World.getGameMap().getHeight() - 64);
+        int col = convertToTile(x);
+        int row = convertToTile(y);
+        return (col >= 0 && col < World.getLogicalMap().length &&
+                row >= 0 && row < World.getLogicalMap()[0].length);
+    }
+
+    private static boolean isOnTheRoad(int x, int y, int radius)
+    {
+        int col = convertToTile(x);
+        int row = convertToTile(y);
+        for (PathPoint pathPoint : World.getMobPath())
+            if (pathPoint.getCol() == col && pathPoint.getRow() == row)
+                return true;
+        return false;
     }
 }

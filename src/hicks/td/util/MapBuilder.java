@@ -56,7 +56,7 @@ public final class MapBuilder
 
                 if (pathPoint.equals(endPoint))
                 {
-                    possibleNextPoints.retainAll(Arrays.asList(pathPoint));
+                    possibleNextPoints = Arrays.asList(pathPoint);
                     break;
                 }
 
@@ -65,6 +65,7 @@ public final class MapBuilder
                 if (pathPoints == null) i.remove();
             }
 
+            // something went wrong
             if (possibleNextPoints.size() == 0)
                 printLogicalMap(logicalMap);
 
@@ -85,7 +86,6 @@ public final class MapBuilder
     private static List<PathPoint> findPath(PathPoint start, PathPoint end, int[][] logicalMap)
     {
         start.setG(0);
-        start.setH(getDistance(start.getCol(), start.getRow(), end.getCol(), end.getRow()));
         start.setF(start.getG() + start.getH());
 
         List<PathPoint> open = new ArrayList<>(Arrays.asList(start));
@@ -124,15 +124,15 @@ public final class MapBuilder
         return closed;
     }
 
-    private static List<PathPoint> getValidAdjacentPoints(PathPoint start, PathPoint end, int[][] logicalMap, int maximumBorderedRoads)
+    private static List<PathPoint> getValidAdjacentPoints(PathPoint start, PathPoint end, int[][] logicalMap, int maximumAdjacentRoads)
     {
         List<PathPoint> validAdjacentPoints = new ArrayList<>();
         for (PathPoint adjacentPoint : getAllAdjacentPoints(start, end))
         {
             if (!insideMap(adjacentPoint)) continue;
 
-            boolean bordersOneRoadOrLess = roadsBordered(adjacentPoint, logicalMap) <= maximumBorderedRoads;
-            if (bordersOneRoadOrLess || getDistance(adjacentPoint, end) < 2)
+            int adjacentRoads = adjacentRoads(adjacentPoint, logicalMap);
+            if (adjacentRoads <= maximumAdjacentRoads || getDistance(adjacentPoint, end) < 2)
                 validAdjacentPoints.add(adjacentPoint);
         }
         return validAdjacentPoints;
@@ -179,7 +179,7 @@ public final class MapBuilder
         return true;
     }
 
-    private static int roadsBordered(PathPoint point, int[][] terrain)
+    private static int adjacentRoads(PathPoint point, int[][] terrain)
     {
         int col = point.getCol();
         int row = point.getRow();

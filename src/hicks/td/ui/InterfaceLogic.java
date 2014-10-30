@@ -51,7 +51,7 @@ public class InterfaceLogic
             Font font = new Font("Helvetica", Font.PLAIN, 36);
             g2d.setFont(font);
             g2d.setColor(Color.BLACK);
-            g2d.drawString(stopSimulationReason, DisplayInfo.getWindowWidth() / 2, DisplayInfo.getWindowHeight() / 2);
+            g2d.drawString(stopSimulationReason, DisplayInfo.getWindowWidth() / 2 - 64, DisplayInfo.getWindowHeight() / 2);
         }
 
         // draw dark circle to preview where a tower would be built
@@ -89,16 +89,6 @@ public class InterfaceLogic
         labelText += "FPS:" + Metrics.calculateFPS() + " ";
 
         return labelText;
-
-//        String labelText = "<html><table><tr>";
-//        labelText += "<td>Gold:</td><td>" + World.getPlayer().getGold()   + "</td>";
-//        labelText += "<td>Wave:</td><td>" + World.getPlayer().getWaveNumber() + "</td>";
-//        labelText += "<td>Lives:</td><td>" + World.getPlayer().getLives() + "</td>";
-//        labelText += "<td>FPS:</td><td>" + Metrics.calculateFPS()        + "</td>";
-////        labelText += "<td>Mobs:</td><td>" + Util.getMobs().size() + "</td>";
-//        labelText += "</tr></table></html>";
-//
-//        return labelText;
     }
 
     public static void resumeGame()

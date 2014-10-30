@@ -70,6 +70,7 @@ public class MainMenuPanel extends JPanel
             {
                 InterfaceLogic.setActiveRound(false);
                 InterfaceLogic.setGameStarted(false);
+                InterfaceLogic.stopSimulationReason = "";
                 Init.init(false);
                 GameCanvas.closeMenu();
                 GameCanvas.getGamePanel().showNextWaveButton();
