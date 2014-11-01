@@ -54,6 +54,12 @@ public final class MapBuilder
                 // can this possible point still get to the exit?
                 PathPoint pathPoint = i.next();
 
+                if (path.contains(pathPoint))
+                {
+                    i.remove();
+                    continue;
+                }
+
                 if (pathPoint.equals(endPoint))
                 {
                     possibleNextPoints = Arrays.asList(pathPoint);
