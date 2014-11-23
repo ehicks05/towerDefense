@@ -1,6 +1,9 @@
 package hicks.td;
 
+import hicks.td.audio.SoundManager;
+import hicks.td.entities.Player;
 import hicks.td.ui.*;
+import hicks.td.util.HighScoreClient;
 import hicks.td.util.Log;
 import hicks.td.util.Metrics;
 import hicks.td.util.Util;
@@ -8,10 +11,17 @@ import hicks.td.util.Util;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.net.Socket;
+import java.util.Arrays;
 
 public final class GameCanvas extends Canvas
 {
+    private static JFrame frame;
     private static JMenuBar menuBar;
     private static MyGamePanel gamePanel;
     private static MainMenuPanel mainMenuPanel;
@@ -37,7 +47,7 @@ public final class GameCanvas extends Canvas
     {
         Init.init(true);
 
-        JFrame frame = new MyFrame();
+        frame = new MyFrame();
         menuBar = frame.getJMenuBar();
 
         gamePanel = new MyGamePanel();
@@ -155,6 +165,7 @@ public final class GameCanvas extends Canvas
                     t += dt;
                 }
             }
+            SoundManager.closeInactiveClips();
 
             // Grab the current non visible frame (Memory on the graphics card)
             // getDrawGraphics actually creates a new off screen buffer; it doesn't get something that already exists.
@@ -168,22 +179,61 @@ public final class GameCanvas extends Canvas
             // Flip the off screen buffer back in.
             bufferStrategy.show();
 
-            checkGameOverConditions();
+            if (!Arrays.asList("RIP!", "YOU WIN!").contains(InterfaceLogic.stopSimulationReason))
+                checkGameOverConditions();
         }
     }
 
     private static void checkGameOverConditions()
     {
-        if (World.getPlayer().getLives() <= 0)
+        boolean playerLost = World.getPlayer().getLives() <= 0;
+        boolean playerWon = World.getPlayer().getWaveNumber() > World.getWaves().size() && Util.getMobs().size() == 0;
+
+        if (playerLost || playerWon)
         {
             InterfaceLogic.setRunningSimulation(false);
-            InterfaceLogic.stopSimulationReason = "YOU LOSE!";
+            if (playerLost) InterfaceLogic.stopSimulationReason = "RIP!";
+            if (playerWon) InterfaceLogic.stopSimulationReason = "YOU WIN!";
+            reportScore();
         }
-        if (World.getPlayer().getWaveNumber() > World.getWaves().size() && Util.getMobs().size() == 0)
+    }
+
+    private static void reportScore()
+    {
+        String playerName = getPlayerName();
+        if (playerName != null)
         {
-            InterfaceLogic.setRunningSimulation(false);
-            InterfaceLogic.stopSimulationReason = "YOU WIN!";
+            Player player = World.getPlayer();
+            String score = playerName + "\t" + player.getWaveNumber() + "\t" + player.getLives() + "\t" + player.getGold();
+
+            try
+            {
+                HighScoreClient.sendScore(score);
+                showHighScoresDialog();
+            }
+            catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
         }
+    }
+
+    public static void showHighScoresDialog()
+    {
+        try
+        {
+            String highScores = HighScoreClient.getHighScores();
+            JOptionPane.showMessageDialog(frame, highScores, "High Scores", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (Exception e)
+        {
+            Log.info(e.getMessage());
+        }
+    }
+
+    private static String getPlayerName()
+    {
+        return JOptionPane.showInputDialog(frame, "Enter your name:", "Share Your High Score", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void openMenu()

@@ -6,7 +6,7 @@ import hicks.td.entities.*;
 import hicks.td.entities.Point;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.util.ExplosionTileLoader;
-import hicks.td.util.MobBodyPartCollection;
+import hicks.td.util.BodyPartCollection;
 import hicks.td.util.MobTileLoader;
 import hicks.td.util.Util;
 
@@ -69,7 +69,7 @@ public final class UnitPainter
                 if (destination.getX() > previousPoint.getX()) direction = "right";
                 if (destination.getX() < previousPoint.getX()) direction = "left";
 
-                drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getMobBodyPartCollection());
+                drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getBodyPartCollection());
 
                 if (InterfaceLogic.isRunningSimulation())
                 {
@@ -153,7 +153,7 @@ public final class UnitPainter
         }
     }
 
-    private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, MobBodyPartCollection bodyParts)
+    private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, BodyPartCollection bodyParts)
     {
         if (bodyParts.getBody() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBody()), drawX, drawY, diameter, diameter, null);
         if (bodyParts.getBack() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBack()), drawX, drawY, diameter, diameter, null);

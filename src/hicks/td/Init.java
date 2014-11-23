@@ -22,7 +22,7 @@ public final class Init
         deleteLogs();
 
         World.setUnits(new ArrayList<Unit>());
-        World.setPlayer(new Player(300, 20, 0));
+        World.setPlayer(new Player(300, 1, 0));
         World.setGameMap(new GameMap(768, 576));
         World.setWaves(Wave.getWaves());
         World.setLogicalMap(MapBuilder.buildRandomMap());
@@ -70,36 +70,36 @@ public final class Init
     public static List<Mob> getOneOfEachMobType()
     {
         List<Mob> mobsOfEachType = new ArrayList<>();
-        List<MobBodyPartCollection> bodyPartCollections = getBodyPartCollections();
+        List<BodyPartCollection> bodyPartCollections = getBodyPartCollections();
 
-        mobsOfEachType.add(new Mob(2, 32, 50, "peasant",            1,  1,  50, 2,   1, 0, bodyPartCollections.get(0)));
-        mobsOfEachType.add(new Mob(2, 32, 55, "archer",             2,  2,  50, 4,   2, 0, bodyPartCollections.get(1)));
-        mobsOfEachType.add(new Mob(2, 32, 60, "footman",            3,  3,  60, 8,   3, 0, bodyPartCollections.get(2)));
-        mobsOfEachType.add(new Mob(2, 32, 65, "barbarian",          4,  4,  60, 8,   4, 0, bodyPartCollections.get(3)));
-        mobsOfEachType.add(new Mob(2, 32, 70, "knight",             5,  5,  70, 12,  5, 0, bodyPartCollections.get(4)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "peasant",            1,  1,  30, 0,   1, 0, bodyPartCollections.get(0)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "archer",             2,  2,  45, 2,   2, 0, bodyPartCollections.get(1)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "footman",            3,  3,  60, 4,   3, 0, bodyPartCollections.get(2)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "barbarian",          4,  4,  75, 2,   4, 0, bodyPartCollections.get(3)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "knight",             5,  5,  90, 7,   5, 0, bodyPartCollections.get(4)));
 
-        mobsOfEachType.add(new Mob(2, 32, 50, "skeletonPeasant",    6,  6,  80, 13,  6, 0, bodyPartCollections.get(5)));
-        mobsOfEachType.add(new Mob(2, 32, 55, "skeletonArcher",     7,  7,  90, 14,  7, 0, bodyPartCollections.get(6)));
-        mobsOfEachType.add(new Mob(2, 32, 60, "skeletonFootman",    8,  8, 100, 15,  8, 0, bodyPartCollections.get(7)));
-        mobsOfEachType.add(new Mob(2, 32, 65, "skeletonBarbarian",  9,  9, 110, 16,  9, 0, bodyPartCollections.get(8)));
-        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonKnight",    10, 10, 120, 17, 10, 0, bodyPartCollections.get(9)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonPeasant",    6,  7, 135, 2,   8, 0, bodyPartCollections.get(5)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonArcher",     7,  9, 200, 4,  10, 0, bodyPartCollections.get(6)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonFootman",    8, 11, 250, 6,  12, 0, bodyPartCollections.get(7)));
+        mobsOfEachType.add(new Mob(2, 32, 80, "skeletonBarbarian",  9, 12, 300, 4,  14, 0, bodyPartCollections.get(8)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonKnight",    10, 15, 400, 9,  16, 0, bodyPartCollections.get(9)));
 
         return mobsOfEachType;
     }
 
-    public static List<MobBodyPartCollection> getBodyPartCollections()
+    public static List<BodyPartCollection> getBodyPartCollections()
     {
-        List<MobBodyPartCollection> bodyPartCollections = new ArrayList<>();
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, null, null, null, null, MobBodyPart.LEGS_ROBE, MobBodyPart.TORSO_ROBE, null, null, null));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, null, null, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_CHAIN_ARMOR, MobBodyPart.TORSO_CHAIN_JACKET, null, null));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_HUMAN,    null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, null, MobBodyPart.LEGS_PLATE, MobBodyPart.TORSO_PLATE, null, MobBodyPart.TORSO_PLATE_SHOULDERS, null));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, null, null, null, MobBodyPart.LEGS_ROBE, MobBodyPart.TORSO_ROBE, null, null, null));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, null, null, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, MobBodyPart.BELT_LEATHER, MobBodyPart.FEET_SHOES, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_LEATHER_SHIRT, MobBodyPart.TORSO_LEATHER_ARMOR, MobBodyPart.TORSO_LEATHER_SHOULDERS, MobBodyPart.TORSO_LEATHER_BRACERS));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, MobBodyPart.HEAD_CHAIN_HOOD, MobBodyPart.LEGS_PANTS, MobBodyPart.TORSO_CHAIN_ARMOR, MobBodyPart.TORSO_CHAIN_JACKET, null, null));
-        bodyPartCollections.add(new MobBodyPartCollection(MobBodyPart.BODY_SKELETON, null, null, MobBodyPart.FEET_PLATE, MobBodyPart.HANDS_PLATE, null, MobBodyPart.LEGS_PLATE, MobBodyPart.TORSO_PLATE, null, MobBodyPart.TORSO_PLATE_SHOULDERS, null));
+        List<BodyPartCollection> bodyPartCollections = new ArrayList<>();
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, null, null, null, null, BodyPart.LEGS_ROBE, BodyPart.TORSO_ROBE, null, null, null));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, BodyPart.BELT_LEATHER, BodyPart.FEET_SHOES, null, null, BodyPart.LEGS_PANTS, BodyPart.TORSO_LEATHER_SHIRT, BodyPart.TORSO_LEATHER_ARMOR, BodyPart.TORSO_LEATHER_SHOULDERS, BodyPart.TORSO_LEATHER_BRACERS));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, BodyPart.BELT_LEATHER, BodyPart.FEET_SHOES, BodyPart.HANDS_PLATE, BodyPart.HEAD_CHAIN_HOOD, BodyPart.LEGS_PANTS, BodyPart.TORSO_LEATHER_SHIRT, BodyPart.TORSO_LEATHER_ARMOR, BodyPart.TORSO_LEATHER_SHOULDERS, BodyPart.TORSO_LEATHER_BRACERS));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, null, BodyPart.FEET_PLATE, BodyPart.HANDS_PLATE, BodyPart.HEAD_CHAIN_HOOD, BodyPart.LEGS_PANTS, BodyPart.TORSO_CHAIN_ARMOR, BodyPart.TORSO_CHAIN_JACKET, null, null));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, null, BodyPart.FEET_PLATE, BodyPart.HANDS_PLATE, null, BodyPart.LEGS_PLATE, BodyPart.TORSO_PLATE, null, BodyPart.TORSO_PLATE_SHOULDERS, null));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, null, null, null, null, BodyPart.LEGS_ROBE, BodyPart.TORSO_ROBE, null, null, null));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, BodyPart.BELT_LEATHER, BodyPart.FEET_SHOES, null, null, BodyPart.LEGS_PANTS, BodyPart.TORSO_LEATHER_SHIRT, BodyPart.TORSO_LEATHER_ARMOR, BodyPart.TORSO_LEATHER_SHOULDERS, BodyPart.TORSO_LEATHER_BRACERS));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, BodyPart.BELT_LEATHER, BodyPart.FEET_SHOES, BodyPart.HANDS_PLATE, BodyPart.HEAD_CHAIN_HOOD, BodyPart.LEGS_PANTS, BodyPart.TORSO_LEATHER_SHIRT, BodyPart.TORSO_LEATHER_ARMOR, BodyPart.TORSO_LEATHER_SHOULDERS, BodyPart.TORSO_LEATHER_BRACERS));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, null, BodyPart.FEET_PLATE, BodyPart.HANDS_PLATE, BodyPart.HEAD_CHAIN_HOOD, BodyPart.LEGS_PANTS, BodyPart.TORSO_CHAIN_ARMOR, BodyPart.TORSO_CHAIN_JACKET, null, null));
+        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, null, BodyPart.FEET_PLATE, BodyPart.HANDS_PLATE, null, BodyPart.LEGS_PLATE, BodyPart.TORSO_PLATE, null, BodyPart.TORSO_PLATE_SHOULDERS, null));
         return bodyPartCollections;
     }
 

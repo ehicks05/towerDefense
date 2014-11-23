@@ -43,35 +43,35 @@ public class MobTileLoader
     private static final int TILE_SIZE = 64;
     private static Map<Integer, String> directionMap = new HashMap<>();
 
-    public static BufferedImage getTile(int frame, String direction, MobBodyPart type)
+    public static BufferedImage getTile(int frame, String direction, BodyPart type)
     {
         Map<String, List<BufferedImage>> tileMap = null;
-        if (type.equals(MobBodyPart.BACK_QUIVER))             tileMap = backQuiver;
-        if (type.equals(MobBodyPart.BELT_LEATHER))            tileMap = beltLeather;
-        if (type.equals(MobBodyPart.BELT_ROPE))               tileMap = beltRope;
-        if (type.equals(MobBodyPart.BODY_HUMAN))              tileMap = bodyHuman;
-        if (type.equals(MobBodyPart.BODY_SKELETON))           tileMap = bodySkeleton;
-        if (type.equals(MobBodyPart.FEET_PLATE))              tileMap = feetPlate;
-        if (type.equals(MobBodyPart.FEET_SHOES))              tileMap = feetShoes;
-        if (type.equals(MobBodyPart.HANDS_PLATE))             tileMap = handsPlate;
-        if (type.equals(MobBodyPart.HEAD_CHAIN_HELMET))       tileMap = headChainHelmet;
-        if (type.equals(MobBodyPart.HEAD_CHAIN_HOOD))         tileMap = headChainHood;
-        if (type.equals(MobBodyPart.HEAD_HAIR))               tileMap = headHair;
-        if (type.equals(MobBodyPart.HEAD_LEATHER_HAT))        tileMap = headLeatherHat;
-        if (type.equals(MobBodyPart.HEAD_PLATE))              tileMap = headPlate;
-        if (type.equals(MobBodyPart.HEAD_ROBE))               tileMap = headRobe;
-        if (type.equals(MobBodyPart.LEGS_PANTS))              tileMap = legsPants;
-        if (type.equals(MobBodyPart.LEGS_PLATE))              tileMap = legsPlate;
-        if (type.equals(MobBodyPart.LEGS_ROBE))               tileMap = legsRobe;
-        if (type.equals(MobBodyPart.TORSO_CHAIN_JACKET))      tileMap = torsoChainJacket;
-        if (type.equals(MobBodyPart.TORSO_CHAIN_ARMOR))       tileMap = torsoChainArmor;
-        if (type.equals(MobBodyPart.TORSO_LEATHER_BRACERS))   tileMap = torsoLeatherBracers;
-        if (type.equals(MobBodyPart.TORSO_LEATHER_SHIRT))     tileMap = torsoLeatherShirt;
-        if (type.equals(MobBodyPart.TORSO_LEATHER_SHOULDERS)) tileMap = torsoLeatherShoulders;
-        if (type.equals(MobBodyPart.TORSO_LEATHER_ARMOR))     tileMap = torsoLeatherArmor;
-        if (type.equals(MobBodyPart.TORSO_PLATE_SHOULDERS))   tileMap = torsoPlateShoulders;
-        if (type.equals(MobBodyPart.TORSO_PLATE))             tileMap = torsoPlate;
-        if (type.equals(MobBodyPart.TORSO_ROBE))              tileMap = torsoRobe;
+        if (type.equals(BodyPart.BACK_QUIVER))             tileMap = backQuiver;
+        if (type.equals(BodyPart.BELT_LEATHER))            tileMap = beltLeather;
+        if (type.equals(BodyPart.BELT_ROPE))               tileMap = beltRope;
+        if (type.equals(BodyPart.BODY_HUMAN))              tileMap = bodyHuman;
+        if (type.equals(BodyPart.BODY_SKELETON))           tileMap = bodySkeleton;
+        if (type.equals(BodyPart.FEET_PLATE))              tileMap = feetPlate;
+        if (type.equals(BodyPart.FEET_SHOES))              tileMap = feetShoes;
+        if (type.equals(BodyPart.HANDS_PLATE))             tileMap = handsPlate;
+        if (type.equals(BodyPart.HEAD_CHAIN_HELMET))       tileMap = headChainHelmet;
+        if (type.equals(BodyPart.HEAD_CHAIN_HOOD))         tileMap = headChainHood;
+        if (type.equals(BodyPart.HEAD_HAIR))               tileMap = headHair;
+        if (type.equals(BodyPart.HEAD_LEATHER_HAT))        tileMap = headLeatherHat;
+        if (type.equals(BodyPart.HEAD_PLATE))              tileMap = headPlate;
+        if (type.equals(BodyPart.HEAD_ROBE))               tileMap = headRobe;
+        if (type.equals(BodyPart.LEGS_PANTS))              tileMap = legsPants;
+        if (type.equals(BodyPart.LEGS_PLATE))              tileMap = legsPlate;
+        if (type.equals(BodyPart.LEGS_ROBE))               tileMap = legsRobe;
+        if (type.equals(BodyPart.TORSO_CHAIN_JACKET))      tileMap = torsoChainJacket;
+        if (type.equals(BodyPart.TORSO_CHAIN_ARMOR))       tileMap = torsoChainArmor;
+        if (type.equals(BodyPart.TORSO_LEATHER_BRACERS))   tileMap = torsoLeatherBracers;
+        if (type.equals(BodyPart.TORSO_LEATHER_SHIRT))     tileMap = torsoLeatherShirt;
+        if (type.equals(BodyPart.TORSO_LEATHER_SHOULDERS)) tileMap = torsoLeatherShoulders;
+        if (type.equals(BodyPart.TORSO_LEATHER_ARMOR))     tileMap = torsoLeatherArmor;
+        if (type.equals(BodyPart.TORSO_PLATE_SHOULDERS))   tileMap = torsoPlateShoulders;
+        if (type.equals(BodyPart.TORSO_PLATE))             tileMap = torsoPlate;
+        if (type.equals(BodyPart.TORSO_ROBE))              tileMap = torsoRobe;
 
         if (direction == null || direction.equals("")) direction = "right";
         List<BufferedImage> images = tileMap.get(direction);

@@ -3,6 +3,7 @@ package hicks.td.ui;
 import hicks.td.GameCanvas;
 import hicks.td.Init;
 import hicks.td.World;
+import hicks.td.util.HighScoreClient;
 import hicks.td.util.Log;
 
 import javax.swing.*;
@@ -48,6 +49,12 @@ public class MainMenuPanel extends JPanel
         restartButton.setAlignmentX(CENTER_ALIGNMENT);
         InterfaceUtil.setSizeFields(restartButton, new Dimension(240, 80));
 
+        final JButton showHighScoresButton = new JButton("High Scores");
+        showHighScoresButton.setVisible(true);
+        showHighScoresButton.setFont(new Font("Verdana", Font.PLAIN, 32));
+        showHighScoresButton.setAlignmentX(CENTER_ALIGNMENT);
+        InterfaceUtil.setSizeFields(showHighScoresButton, new Dimension(240, 80));
+
         final JButton exitButton = new JButton("Exit");
         exitButton.setVisible(true);
         exitButton.setFont(new Font("Verdana", Font.PLAIN, 32));
@@ -78,6 +85,14 @@ public class MainMenuPanel extends JPanel
             }
         });
 
+        showHighScoresButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                GameCanvas.showHighScoresDialog();
+            }
+        });
+
         exitButton.addActionListener(new ExitListener());
 
         this.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -94,6 +109,8 @@ public class MainMenuPanel extends JPanel
         container.add(startButton);
         container.add(Box.createRigidArea(new Dimension(0, 10)));
         container.add(restartButton);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+        container.add(showHighScoresButton);
         container.add(Box.createRigidArea(new Dimension(0, 10)));
         container.add(exitButton);
     }

@@ -19,11 +19,24 @@ public class SoundManager
     private static final int SIMULTANEOUS_SOUNDS = 8;
     private static final float GLOBAL_VOLUME_OFFSET = -10f;
     private static List<BigDecimal> soundEndTimes = new ArrayList<>();
+    private static List<Clip> playingClips = new ArrayList<>();
 
     public static void init()
     {
-        File wav = convertToWav();
-        playSound(wav, -6f, true);
+//        File wav = convertToWav();
+//        playSound(wav, -6f, true);
+    }
+
+    public static void closeInactiveClips()
+    {
+        for (Clip clip : playingClips)
+        {
+            if (!clip.isActive())
+            {
+                clip.stop();
+                clip.close();
+            }
+        }
     }
 
     public static void playSFX(SoundEffect soundEffect)
@@ -85,6 +98,7 @@ public class SoundManager
         {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(soundFile));
+            playingClips.add(clip);
 
             FloatControl masterGain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             masterGain.setValue(masterGain.getValue() + gainAdjustment);

@@ -1,7 +1,7 @@
 package hicks.td.entities;
 
 import hicks.td.World;
-import hicks.td.util.MobBodyPartCollection;
+import hicks.td.util.BodyPartCollection;
 import hicks.td.util.PathPoint;
 import hicks.td.util.Util;
 
@@ -24,12 +24,12 @@ public class Mob extends Unit
     private int m_slowInstances;
 
     private BigDecimal m_spawnTime = Util.now();
-    private MobBodyPartCollection m_mobBodyPartCollection;
+    private BodyPartCollection m_bodyPartCollection;
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
     private Point m_previousPoint;
 
     public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int maxHp,
-               int armor, int bounty, int slowInstances, MobBodyPartCollection mobBodyPartCollection)
+               int armor, int bounty, int slowInstances, BodyPartCollection bodyPartCollection)
     {
         setTeam(team);
         setSizeRadius(sizeRadius);
@@ -44,13 +44,13 @@ public class Mob extends Unit
         m_bounty = bounty;
         m_slowInstances = slowInstances;
         m_spawnTime = Util.now();
-        m_mobBodyPartCollection = mobBodyPartCollection;
+        m_bodyPartCollection = bodyPartCollection;
     }
 
     public static Mob duplicateMob(Mob original)
     {
         return new Mob(original.getTeam(), original.getSizeRadius(), original.getMoveSpeed(), original.getMobType(), original.getMobTypeIndex(), original.getPowerBudgetUsage(),
-                original.getMaxHp(), original.getArmor(), original.getBounty(), original.getSlowInstances(), original.getMobBodyPartCollection());
+                original.getMaxHp(), original.getArmor(), original.getBounty(), original.getSlowInstances(), original.getBodyPartCollection());
     }
 
     public String toString()
@@ -205,14 +205,14 @@ public class Mob extends Unit
         m_frame = frame;
     }
 
-    public MobBodyPartCollection getMobBodyPartCollection()
+    public BodyPartCollection getBodyPartCollection()
     {
-        return m_mobBodyPartCollection;
+        return m_bodyPartCollection;
     }
 
-    public void setMobBodyPartCollection(MobBodyPartCollection mobBodyPartCollection)
+    public void setBodyPartCollection(BodyPartCollection bodyPartCollection)
     {
-        m_mobBodyPartCollection = mobBodyPartCollection;
+        m_bodyPartCollection = bodyPartCollection;
     }
 
     public int getBounty()
