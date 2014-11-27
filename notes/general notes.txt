@@ -1,3 +1,14 @@
+Technology Used:
+Java
+Jave library for mp3 support
+
+Concepts Used:
+game loop
+csv data files
+A* path finding (create randomized maps)
+simple networking (High Scores Server)
+
+
 Upgrade:
 
 code

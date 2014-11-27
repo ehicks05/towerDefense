@@ -54,15 +54,12 @@ public final class Init
         String imageDir = World.getImageDir();
 
         List<GameImage> gameImages = new ArrayList<>();
-        gameImages.add(new GameImage(imageDir + "arrowTower.gif", new ImageIcon(imageDir + "arrowTower.gif").getImage()));
-        gameImages.add(new GameImage(imageDir + "glaiveTower.gif", new ImageIcon(imageDir + "glaiveTower.gif").getImage()));
-        gameImages.add(new GameImage(imageDir + "cannonTower.gif", new ImageIcon(imageDir + "cannonTower.gif").getImage()));
-        gameImages.add(new GameImage(imageDir + "iceTower.gif", new ImageIcon(imageDir + "iceTower.gif").getImage()));
 
-        gameImages.add(new GameImage(imageDir + "arrow.png", new ImageIcon(imageDir + "arrow.png").getImage()));
-        gameImages.add(new GameImage(imageDir + "glaive.png", new ImageIcon(imageDir + "glaive.png").getImage()));
-        gameImages.add(new GameImage(imageDir + "rock.png", new ImageIcon(imageDir + "rock.png").getImage()));
-        gameImages.add(new GameImage(imageDir + "iceBolt.png", new ImageIcon(imageDir + "iceBolt.png").getImage()));
+        for (Tower towerType : World.getTowerTypes())
+            gameImages.add(new GameImage(imageDir + towerType.getImageFile(), new ImageIcon(imageDir + towerType.getImageFile()).getImage()));
+
+        for (Projectile projectileType : World.getProjectileTypes())
+            gameImages.add(new GameImage(imageDir + projectileType.getImageFile(), new ImageIcon(imageDir + projectileType.getImageFile()).getImage()));
 
         return gameImages;
     }
