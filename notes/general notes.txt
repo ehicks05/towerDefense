@@ -7,7 +7,7 @@ game loop
 csv data files
 A* path finding (create randomized maps)
 simple networking (High Scores Server)
-
+simple collision detection
 
 Upgrade:
 

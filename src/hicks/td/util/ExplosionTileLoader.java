@@ -1,22 +1,17 @@
 package hicks.td.util;
 
-import hicks.td.World;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExplosionTileLoader
 {
-    private static List<BufferedImage> tiles;
+    private static List<BufferedImage> tiles = new ArrayList<>();
 
     public static BufferedImage getTile(int i)
     {
-        if (tiles == null)
-            createTileList();
+        if (tiles.isEmpty())
+            createTileList(100, 100);
 
         if (i >= tiles.size())
             i = tiles.size() - 1;
@@ -24,31 +19,15 @@ public class ExplosionTileLoader
         return tiles.get(i);
     }
 
-    private static BufferedImage loadTileSet()
+    private static void createTileList(int width, int height)
     {
-        try
-        {
-            return ImageIO.read(new File(World.getImageDir() + "explosion.png"));
-        }
-        catch (IOException e)
-        {
-            Log.info(e.getMessage());
-        }
-
-        return null;
-    }
-
-    private static void createTileList()
-    {
-        tiles = new ArrayList<>();
-
-        BufferedImage tileSet = loadTileSet();
+        BufferedImage tileSet = Util.loadBufferedImage("explosion.png");
 
         for (int i = 0; i < 9; i++)
         {
             for (int j = 0; j < 9; j++)
             {
-                BufferedImage image = tileSet.getSubimage(100 * j, 100 * i, 100, 100);
+                BufferedImage image = tileSet.getSubimage(width * j, height * i, width, height);
                 tiles.add(image);
             }
         }

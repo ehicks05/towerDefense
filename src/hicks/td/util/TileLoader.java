@@ -1,11 +1,6 @@
 package hicks.td.util;
 
-import hicks.td.World;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,25 +14,11 @@ public class TileLoader
             "CGCC", "GCCC", "CCCG", "CCGC", "GGCC", "CCGG", "CGCG", "GCGC", "DGDD", "DDGD",
             "WGWG", "GWGW", "WWGG", "GGWW", "WGWW", "GWWW", "WWWG", "WWGW", "GDGD", "NULL");
 
-    private static BufferedImage loadTileSet()
-    {
-        try
-        {
-            return ImageIO.read(new File(World.getImageDir() + "tiles.bmp"));
-        }
-        catch (IOException e)
-        {
-            Log.info(e.getMessage());
-        }
-
-        return null;
-    }
-
     public static Map<String, BufferedImage> createTileList()
     {
         Map<String, BufferedImage> tiles = new HashMap<>();
 
-        BufferedImage tileSet = loadTileSet();
+        BufferedImage tileSet = Util.loadBufferedImage("tiles.bmp");
 
         int x = 0;
         int y = 0;

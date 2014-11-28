@@ -12,7 +12,7 @@ import java.util.List;
 
 public final class World
 {
-    private static String           imageDir = "ass\\img\\";
+    private static String           imageDir;
     private static List<Unit>       units = new ArrayList<>();
     private static GameMap          gameMap;
     private static BigDecimal       startTime;

@@ -1,9 +1,11 @@
 package hicks.td.util;
 
-public class BodyPartCollection
+import java.util.ArrayList;
+import java.util.List;
+
+public class Outfit
 {
     private BodyPart m_body;
-    private BodyPart m_back;
     private BodyPart m_belt;
     private BodyPart m_feet;
     private BodyPart m_hands;
@@ -14,12 +16,10 @@ public class BodyPartCollection
     private BodyPart m_torsoShoulders;
     private BodyPart m_torsoBracers;
 
-    public BodyPartCollection(BodyPart body, BodyPart back, BodyPart belt, BodyPart feet, BodyPart hands,
-                              BodyPart head, BodyPart legs, BodyPart torsoBottomLayer, BodyPart torsoTopLayer,
-                              BodyPart torsoShoulders, BodyPart torsoBracers)
+    public Outfit(BodyPart body, BodyPart belt, BodyPart feet, BodyPart hands, BodyPart head, BodyPart legs,
+                  BodyPart torsoBottomLayer, BodyPart torsoTopLayer, BodyPart torsoShoulders, BodyPart torsoBracers)
     {
         m_body = body;
-        m_back = back;
         m_belt = belt;
         m_feet = feet;
         m_hands = hands;
@@ -31,6 +31,23 @@ public class BodyPartCollection
         m_torsoBracers = torsoBracers;
     }
 
+    public List<BodyPart> getAllActiveBodyParts()
+    {
+        List<BodyPart> bodyParts = new ArrayList<>();
+        if (getBody() != null)             bodyParts.add(getBody());
+        if (getBelt() != null)             bodyParts.add(getBelt());
+        if (getFeet() != null)             bodyParts.add(getFeet());
+        if (getHands() != null)            bodyParts.add(getHands());
+        if (getHead() != null)             bodyParts.add(getHead());
+        if (getLegs() != null)             bodyParts.add(getLegs());
+        if (getTorsoBottomLayer() != null) bodyParts.add(getTorsoBottomLayer());
+        if (getTorsoTopLayer() != null)    bodyParts.add(getTorsoTopLayer());
+        if (getTorsoShoulders() != null)   bodyParts.add(getTorsoShoulders());
+        if (getTorsoBracers() != null)     bodyParts.add(getTorsoBracers());
+
+        return bodyParts;
+    }
+
     public BodyPart getBody()
     {
         return m_body;
@@ -39,16 +56,6 @@ public class BodyPartCollection
     public void setBody(BodyPart body)
     {
         m_body = body;
-    }
-
-    public BodyPart getBack()
-    {
-        return m_back;
-    }
-
-    public void setBack(BodyPart back)
-    {
-        m_back = back;
     }
 
     public BodyPart getBelt()

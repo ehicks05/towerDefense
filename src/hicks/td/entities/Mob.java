@@ -1,7 +1,7 @@
 package hicks.td.entities;
 
 import hicks.td.World;
-import hicks.td.util.BodyPartCollection;
+import hicks.td.util.Outfit;
 import hicks.td.util.PathPoint;
 import hicks.td.util.Util;
 
@@ -24,12 +24,12 @@ public class Mob extends Unit
     private int m_slowInstances;
 
     private BigDecimal m_spawnTime = Util.now();
-    private BodyPartCollection m_bodyPartCollection;
+    private Outfit m_outfit;
     private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
     private Point m_previousPoint;
 
     public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int maxHp,
-               int armor, int bounty, int slowInstances, BodyPartCollection bodyPartCollection)
+               int armor, int bounty, int slowInstances, Outfit outfit)
     {
         setTeam(team);
         setSizeRadius(sizeRadius);
@@ -44,13 +44,13 @@ public class Mob extends Unit
         m_bounty = bounty;
         m_slowInstances = slowInstances;
         m_spawnTime = Util.now();
-        m_bodyPartCollection = bodyPartCollection;
+        m_outfit = outfit;
     }
 
-    public static Mob duplicateMob(Mob original)
+    public static Mob duplicateMob(Mob source)
     {
-        return new Mob(original.getTeam(), original.getSizeRadius(), original.getMoveSpeed(), original.getMobType(), original.getMobTypeIndex(), original.getPowerBudgetUsage(),
-                original.getMaxHp(), original.getArmor(), original.getBounty(), original.getSlowInstances(), original.getBodyPartCollection());
+        return new Mob(source.getTeam(), source.getSizeRadius(), source.getMoveSpeed(), source.getMobType(), source.getMobTypeIndex(), source.getPowerBudgetUsage(),
+                source.getMaxHp(), source.getArmor(), source.getBounty(), source.getSlowInstances(), source.getOutfit());
     }
 
     public String toString()
@@ -107,7 +107,6 @@ public class Mob extends Unit
             {
                 setPreviousPoint(pathPoint);
                 path.remove();
-//                path.add(pathPoint);
             }
             else
                 UnitLogic.move(this, pathPoint, dt);
@@ -205,14 +204,14 @@ public class Mob extends Unit
         m_frame = frame;
     }
 
-    public BodyPartCollection getBodyPartCollection()
+    public Outfit getOutfit()
     {
-        return m_bodyPartCollection;
+        return m_outfit;
     }
 
-    public void setBodyPartCollection(BodyPartCollection bodyPartCollection)
+    public void setOutfit(Outfit outfit)
     {
-        m_bodyPartCollection = bodyPartCollection;
+        m_outfit = outfit;
     }
 
     public int getBounty()

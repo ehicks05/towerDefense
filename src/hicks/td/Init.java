@@ -21,7 +21,7 @@ public final class Init
 
         deleteLogs();
 
-        World.setUnits(new ArrayList<Unit>());
+        World.setImageDir("ass\\img\\");
         World.setPlayer(new Player(300, 1, 0));
         World.setGameMap(new GameMap(768, 576));
         World.setWaves(Wave.getWaves());
@@ -67,37 +67,37 @@ public final class Init
     public static List<Mob> getOneOfEachMobType()
     {
         List<Mob> mobsOfEachType = new ArrayList<>();
-        List<BodyPartCollection> bodyPartCollections = getBodyPartCollections();
+        List<Outfit> outfits = getBodyPartCollections();
 
-        mobsOfEachType.add(new Mob(2, 32, 60, "peasant",            1,  1,  30, 0,   1, 0, bodyPartCollections.get(0)));
-        mobsOfEachType.add(new Mob(2, 32, 60, "archer",             2,  2,  45, 2,   2, 0, bodyPartCollections.get(1)));
-        mobsOfEachType.add(new Mob(2, 32, 60, "footman",            3,  3,  60, 4,   3, 0, bodyPartCollections.get(2)));
-        mobsOfEachType.add(new Mob(2, 32, 70, "barbarian",          4,  4,  75, 2,   4, 0, bodyPartCollections.get(3)));
-        mobsOfEachType.add(new Mob(2, 32, 60, "knight",             5,  5,  90, 7,   5, 0, bodyPartCollections.get(4)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "peasant",            1,  1,  30, 0,   1, 0, outfits.get(0)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "archer",             2,  2,  45, 2,   2, 0, outfits.get(1)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "footman",            3,  3,  60, 4,   3, 0, outfits.get(2)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "barbarian",          4,  4,  75, 2,   4, 0, outfits.get(3)));
+        mobsOfEachType.add(new Mob(2, 32, 60, "knight",             5,  5,  90, 7,   5, 0, outfits.get(4)));
 
-        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonPeasant",    6,  7, 135, 2,   8, 0, bodyPartCollections.get(5)));
-        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonArcher",     7,  9, 200, 4,  10, 0, bodyPartCollections.get(6)));
-        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonFootman",    8, 11, 250, 6,  12, 0, bodyPartCollections.get(7)));
-        mobsOfEachType.add(new Mob(2, 32, 80, "skeletonBarbarian",  9, 12, 300, 4,  14, 0, bodyPartCollections.get(8)));
-        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonKnight",    10, 15, 400, 9,  16, 0, bodyPartCollections.get(9)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonPeasant",    6,  7, 135, 2,   8, 0, outfits.get(5)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonArcher",     7,  9, 200, 4,  10, 0, outfits.get(6)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonFootman",    8, 11, 250, 6,  12, 0, outfits.get(7)));
+        mobsOfEachType.add(new Mob(2, 32, 80, "skeletonBarbarian",  9, 12, 300, 4,  14, 0, outfits.get(8)));
+        mobsOfEachType.add(new Mob(2, 32, 70, "skeletonKnight",    10, 15, 400, 9,  16, 0, outfits.get(9)));
 
         return mobsOfEachType;
     }
 
-    public static List<BodyPartCollection> getBodyPartCollections()
+    public static List<Outfit> getBodyPartCollections()
     {
-        List<BodyPartCollection> bodyPartCollections = new ArrayList<>();
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, null, null, null, null, BodyPart.LEGS_ROBE, BodyPart.TORSO_ROBE, null, null, null));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, BodyPart.BELT_LEATHER, BodyPart.FEET_SHOES, null, null, BodyPart.LEGS_PANTS, BodyPart.TORSO_LEATHER_SHIRT, BodyPart.TORSO_LEATHER_ARMOR, BodyPart.TORSO_LEATHER_SHOULDERS, BodyPart.TORSO_LEATHER_BRACERS));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, BodyPart.BELT_LEATHER, BodyPart.FEET_SHOES, BodyPart.HANDS_PLATE, BodyPart.HEAD_CHAIN_HOOD, BodyPart.LEGS_PANTS, BodyPart.TORSO_LEATHER_SHIRT, BodyPart.TORSO_LEATHER_ARMOR, BodyPart.TORSO_LEATHER_SHOULDERS, BodyPart.TORSO_LEATHER_BRACERS));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, null, BodyPart.FEET_PLATE, BodyPart.HANDS_PLATE, BodyPart.HEAD_CHAIN_HOOD, BodyPart.LEGS_PANTS, BodyPart.TORSO_CHAIN_ARMOR, BodyPart.TORSO_CHAIN_JACKET, null, null));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_HUMAN,    null, null, BodyPart.FEET_PLATE, BodyPart.HANDS_PLATE, null, BodyPart.LEGS_PLATE, BodyPart.TORSO_PLATE, null, BodyPart.TORSO_PLATE_SHOULDERS, null));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, null, null, null, null, BodyPart.LEGS_ROBE, BodyPart.TORSO_ROBE, null, null, null));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, BodyPart.BELT_LEATHER, BodyPart.FEET_SHOES, null, null, BodyPart.LEGS_PANTS, BodyPart.TORSO_LEATHER_SHIRT, BodyPart.TORSO_LEATHER_ARMOR, BodyPart.TORSO_LEATHER_SHOULDERS, BodyPart.TORSO_LEATHER_BRACERS));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, BodyPart.BELT_LEATHER, BodyPart.FEET_SHOES, BodyPart.HANDS_PLATE, BodyPart.HEAD_CHAIN_HOOD, BodyPart.LEGS_PANTS, BodyPart.TORSO_LEATHER_SHIRT, BodyPart.TORSO_LEATHER_ARMOR, BodyPart.TORSO_LEATHER_SHOULDERS, BodyPart.TORSO_LEATHER_BRACERS));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, null, BodyPart.FEET_PLATE, BodyPart.HANDS_PLATE, BodyPart.HEAD_CHAIN_HOOD, BodyPart.LEGS_PANTS, BodyPart.TORSO_CHAIN_ARMOR, BodyPart.TORSO_CHAIN_JACKET, null, null));
-        bodyPartCollections.add(new BodyPartCollection(BodyPart.BODY_SKELETON, null, null, BodyPart.FEET_PLATE, BodyPart.HANDS_PLATE, null, BodyPart.LEGS_PLATE, BodyPart.TORSO_PLATE, null, BodyPart.TORSO_PLATE_SHOULDERS, null));
-        return bodyPartCollections;
+        List<Outfit> outfits = new ArrayList<>();
+        outfits.add(new Outfit(BodyPart.HUMAN, null, null, null, null, BodyPart.L_ROBE, BodyPart.T_ROBE, null, null, null));
+        outfits.add(new Outfit(BodyPart.HUMAN, BodyPart.B_LEATHER, BodyPart.F_SHOES, null, null, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
+        outfits.add(new Outfit(BodyPart.HUMAN, BodyPart.B_LEATHER, BodyPart.F_SHOES, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
+        outfits.add(new Outfit(BodyPart.HUMAN, null, BodyPart.F_PLATE, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_CHAIN, BodyPart.T_CHAIN_JACKET, null, null));
+        outfits.add(new Outfit(BodyPart.HUMAN, null, BodyPart.F_PLATE, BodyPart.G_PLATE, null, BodyPart.L_PLATE, BodyPart.T_PLATE, null, BodyPart.S_PLATE, null));
+        outfits.add(new Outfit(BodyPart.SKELE, null, null, null, null, BodyPart.L_ROBE, BodyPart.T_ROBE, null, null, null));
+        outfits.add(new Outfit(BodyPart.SKELE, BodyPart.B_LEATHER, BodyPart.F_SHOES, null, null, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
+        outfits.add(new Outfit(BodyPart.SKELE, BodyPart.B_LEATHER, BodyPart.F_SHOES, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
+        outfits.add(new Outfit(BodyPart.SKELE, null, BodyPart.F_PLATE, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_CHAIN, BodyPart.T_CHAIN_JACKET, null, null));
+        outfits.add(new Outfit(BodyPart.SKELE, null, BodyPart.F_PLATE, BodyPart.G_PLATE, null, BodyPart.L_PLATE, BodyPart.T_PLATE, null, BodyPart.S_PLATE, null));
+        return outfits;
     }
 
     private static void deleteLogs()

@@ -5,10 +5,7 @@ import hicks.td.World;
 import hicks.td.entities.*;
 import hicks.td.entities.Point;
 import hicks.td.entities.projectile.Projectile;
-import hicks.td.util.ExplosionTileLoader;
-import hicks.td.util.BodyPartCollection;
-import hicks.td.util.MobTileLoader;
-import hicks.td.util.Util;
+import hicks.td.util.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,7 +66,7 @@ public final class UnitPainter
                 if (destination.getX() > previousPoint.getX()) direction = "right";
                 if (destination.getX() < previousPoint.getX()) direction = "left";
 
-                drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getBodyPartCollection());
+                drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getOutfit());
 
                 if (InterfaceLogic.isRunningSimulation())
                 {
@@ -153,19 +150,10 @@ public final class UnitPainter
         }
     }
 
-    private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, BodyPartCollection bodyParts)
+    private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, Outfit outfit)
     {
-        if (bodyParts.getBody() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBody()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getBack() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBack()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getBelt() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getBelt()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getFeet() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getFeet()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getHands() != null)            g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getHands()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getHead() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getHead()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getLegs() != null)             g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getLegs()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getTorsoBottomLayer() != null) g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoBottomLayer()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getTorsoTopLayer() != null)    g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoTopLayer()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getTorsoShoulders() != null)   g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoShoulders()), drawX, drawY, diameter, diameter, null);
-        if (bodyParts.getTorsoBracers() != null)     g2d.drawImage(MobTileLoader.getTile(frameIndex, direction, bodyParts.getTorsoBracers()), drawX, drawY, diameter, diameter, null);
+        for (BodyPart bodyPart : outfit.getAllActiveBodyParts())
+            g2d.drawImage(MobTileLoader.getTile(bodyPart, direction, frameIndex), drawX, drawY, diameter, diameter, null);
     }
 
     private static boolean isFullHealth(Mob mob)

@@ -6,12 +6,17 @@ import hicks.td.entities.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.Tower;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class Util
 {
+    // TIME
     public static BigDecimal now()
     {
         return new BigDecimal(System.currentTimeMillis());
@@ -32,6 +37,12 @@ public final class Util
         return endTime.subtract(startTime);
     }
 
+    public static void adjustStartTime(BigDecimal offset)
+    {
+        World.setStartTime(World.getStartTime().add(offset));
+    }
+
+    // UNIT GETTERS
     public static List<Tower> getTowers()
     {
         List<Tower> towers = new ArrayList<>();
@@ -62,8 +73,32 @@ public final class Util
         return mobs;
     }
 
-    public static void adjustStartTime(BigDecimal offset)
+    // FILE SYSTEM
+    public static BufferedImage loadBufferedImage(String name)
     {
-        World.setStartTime(World.getStartTime().add(offset));
+        try
+        {
+            return ImageIO.read(new File(World.getImageDir() + name));
+        }
+        catch (IOException e)
+        {
+            Log.info(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public static List<File> getFiles(String path)
+    {
+        File rootDirectory = new File(path);
+
+        List<File> files = new ArrayList<>();
+        File[] possibleFiles = rootDirectory.listFiles();
+
+        for (File file : possibleFiles)
+            if (file.isFile())
+                files.add(file);
+
+        return files;
     }
 }
