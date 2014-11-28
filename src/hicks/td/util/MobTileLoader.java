@@ -1,6 +1,7 @@
 package hicks.td.util;
 
 import hicks.td.World;
+import hicks.td.entities.BodyPart;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

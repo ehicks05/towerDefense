@@ -3,7 +3,7 @@ package hicks.td;
 import hicks.td.entities.*;
 import hicks.td.entities.projectile.*;
 import hicks.td.entities.Tower;
-import hicks.td.util.PathPoint;
+import hicks.td.entities.PathPoint;
 
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;

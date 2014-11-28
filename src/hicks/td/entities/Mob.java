@@ -1,8 +1,7 @@
 package hicks.td.entities;
 
 import hicks.td.World;
-import hicks.td.util.Outfit;
-import hicks.td.util.PathPoint;
+import hicks.td.logic.UnitLogic;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package hicks.td.util;
+package hicks.td.entities;
 
 import java.util.ArrayList;
 import java.util.List;

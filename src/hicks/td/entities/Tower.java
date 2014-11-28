@@ -3,6 +3,7 @@ package hicks.td.entities;
 import hicks.td.World;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
+import hicks.td.logic.UnitLogic;
 import hicks.td.util.Log;
 import hicks.td.util.Util;
 

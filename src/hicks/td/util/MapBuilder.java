@@ -1,6 +1,7 @@
 package hicks.td.util;
 
 import hicks.td.World;
+import hicks.td.entities.PathPoint;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -14,7 +15,7 @@ public final class MapBuilder
     {
         BufferedImage terrain = new BufferedImage(World.getGameMap().getWidth(), World.getGameMap().getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        Map<String, BufferedImage> tiles = TileLoader.createTileList();
+        Map<String, BufferedImage> tiles = MapTileLoader.createTileList();
 
         List<int[]> rgbSets = new ArrayList<>();
         int[] grassRGB = tiles.get("GGGG").getRGB(0, 0, 32, 32, null, 0, 32);

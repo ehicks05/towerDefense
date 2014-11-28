@@ -19,7 +19,7 @@ public class MyFrame extends JFrame
         setWindowsLookAndFeel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        setLocation(32, 32);
+        setLocation((DisplayInfo.getDisplayWidth() - DisplayInfo.getWindowWidth()) / 2, (DisplayInfo.getDisplayHeight() - DisplayInfo.getWindowHeight()) / 2);
         setResizable(false);
         setVisible(true);
 

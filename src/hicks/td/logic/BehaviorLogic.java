@@ -1,12 +1,14 @@
-package hicks.td;
+package hicks.td.logic;
 
+import hicks.td.Init;
+import hicks.td.World;
 import hicks.td.entities.*;
 import hicks.td.entities.Mob;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.entities.projectile.ProjectileLogic;
 import hicks.td.entities.Tower;
 import hicks.td.ui.InterfaceLogic;
-import hicks.td.util.PathPoint;
+import hicks.td.entities.PathPoint;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;

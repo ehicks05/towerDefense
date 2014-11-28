@@ -2,6 +2,7 @@ package hicks.td;
 
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Player;
+import hicks.td.logic.BehaviorLogic;
 import hicks.td.ui.*;
 import hicks.td.util.HighScoreClient;
 import hicks.td.util.Log;
@@ -11,12 +12,7 @@ import hicks.td.util.Util;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.net.Socket;
 import java.util.Arrays;
 
 public final class GameCanvas extends Canvas

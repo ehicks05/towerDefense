@@ -9,6 +9,14 @@ public class NewtonRaphson
     private static final BigDecimal SQRT_PRE = new BigDecimal(10).pow(SQRT_DIG.intValue());
 
     /**
+     * Uses Newton Raphson to compute the square root of a BigDecimal.
+     */
+    public static BigDecimal bigSqrt(BigDecimal c)
+    {
+        return sqrtNewtonRaphson(c, new BigDecimal(1), new BigDecimal(1).divide(SQRT_PRE));
+    }
+
+    /**
      * Private utility method used to compute the square root of a BigDecimal.
      */
     private static BigDecimal sqrtNewtonRaphson(BigDecimal c, BigDecimal xn, BigDecimal precision)
@@ -25,13 +33,5 @@ public class NewtonRaphson
             return xn1;
         }
         return sqrtNewtonRaphson(c, xn1, precision);
-    }
-
-    /**
-     * Uses Newton Raphson to compute the square root of a BigDecimal.
-     */
-    public static BigDecimal bigSqrt(BigDecimal c)
-    {
-        return sqrtNewtonRaphson(c, new BigDecimal(1), new BigDecimal(1).divide(SQRT_PRE));
     }
 }

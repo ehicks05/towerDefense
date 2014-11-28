@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TileLoader
+public class MapTileLoader
 {
     private static List<String> tileNames = Arrays.asList(
             "CCCC", "DDDD", "GGGG", "WWWW", "XXX1", "XXX2", "XXX3", "XXX4", "GGDD", "GDDD",

@@ -1,5 +1,6 @@
-package hicks.td;
+package hicks.td.logic;
 
+import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Mob;

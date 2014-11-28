@@ -1,6 +1,9 @@
-package hicks.td.entities;
+package hicks.td.logic;
 
 import hicks.td.World;
+import hicks.td.entities.Mob;
+import hicks.td.entities.Point;
+import hicks.td.entities.Unit;
 import hicks.td.entities.projectile.Projectile;
 import hicks.td.util.Util;
 

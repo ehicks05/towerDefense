@@ -5,7 +5,7 @@ import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Point;
 import hicks.td.entities.Unit;
-import hicks.td.entities.UnitLogic;
+import hicks.td.logic.UnitLogic;
 import hicks.td.entities.Mob;
 import hicks.td.util.NewtonRaphson;
 import hicks.td.util.Util;

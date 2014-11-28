@@ -3,7 +3,7 @@ package hicks.td.ui;
 import hicks.td.World;
 import hicks.td.entities.Point;
 import hicks.td.entities.Tower;
-import hicks.td.util.PathPoint;
+import hicks.td.entities.PathPoint;
 import hicks.td.util.Util;
 
 import javax.swing.*;

@@ -1,12 +1,12 @@
 package hicks.td.entities.projectile;
 
-import hicks.td.CombatLogic;
+import hicks.td.logic.CombatLogic;
 import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Explosion;
 import hicks.td.entities.Mob;
-import hicks.td.entities.UnitLogic;
+import hicks.td.logic.UnitLogic;
 import hicks.td.util.Util;
 
 import java.util.ArrayList;
