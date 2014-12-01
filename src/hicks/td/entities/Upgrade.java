@@ -1,7 +1,5 @@
 package hicks.td.entities;
 
-import hicks.td.entities.projectile.Projectile;
-
 public abstract class Upgrade
 {
     private String m_code;

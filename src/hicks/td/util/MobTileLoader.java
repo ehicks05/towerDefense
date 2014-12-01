@@ -16,22 +16,43 @@ public class MobTileLoader
     private static final Map<Integer, String> directionMap = getDirectionMap();
 
     private static Map<String, Map<String, List<BufferedImage>>> bodyParts = new HashMap<>();
+    private static Map<String, List<BufferedImage>> dyingBodyParts = new HashMap<>();
 
     public static void init()
     {
         List<File> imageFiles = Util.getFiles(World.getImageDir() + File.separator + "mob");
-
         for (File file : imageFiles)
         {
             String fileName = file.getName();
-            Map<String, List<BufferedImage>> imagesForThisBodyPart = createDirectionalTileMap(fileName);
+            Map<String, List<BufferedImage>> imagesForThisBodyPart = createDirectionalTileMap("mob" + File.separator + fileName, 4, 9);
 
             String name = fileName.substring(0, fileName.lastIndexOf(".")).toUpperCase();
             bodyParts.put(name, imagesForThisBodyPart);
         }
+
+        List<File> dyingImageFiles = Util.getFiles(World.getImageDir() + File.separator + "mob" + File.separator + "death");
+        for (File file : dyingImageFiles)
+        {
+            String fileName = file.getName();
+
+            List<BufferedImage> imagesForThisBodyPart = new ArrayList<>();
+
+            BufferedImage tileFile = Util.loadBufferedImage("mob" + File.separator + "death" + File.separator + fileName);
+
+                for (int col = 0; col < 6; col++)
+                {
+                    BufferedImage image = tileFile.getSubimage(TILE_SIZE * col, 0, TILE_SIZE, TILE_SIZE);
+
+                    imagesForThisBodyPart.add(image);
+                }
+
+
+            String name = fileName.substring(0, fileName.lastIndexOf(".")).toUpperCase();
+            dyingBodyParts.put(name, imagesForThisBodyPart);
+        }
     }
 
-    public static BufferedImage getTile(BodyPart type, String direction, int frame)
+    public static BufferedImage getImage(BodyPart type, String direction, int frame)
     {
         Map<String, List<BufferedImage>> tileMap = bodyParts.get(type.toString());
 
@@ -44,15 +65,25 @@ public class MobTileLoader
         return images.get(frame);
     }
 
-    private static Map<String, List<BufferedImage>> createDirectionalTileMap(String filename)
+    public static BufferedImage getDyingImage(BodyPart type, int frame)
+    {
+        List<BufferedImage> images = dyingBodyParts.get(type.toString());
+
+        if (frame == images.size())
+            frame = images.size() - 1;
+
+        return images.get(frame);
+    }
+
+    private static Map<String, List<BufferedImage>> createDirectionalTileMap(String filename, int rows, int cols)
     {
         Map<String, List<BufferedImage>> imagesForThisBodyPart = new HashMap<>();
 
-        BufferedImage tileFile = Util.loadBufferedImage("mob\\" + filename);
+        BufferedImage tileFile = Util.loadBufferedImage(filename);
 
-        for (int row = 0; row < 4; row++)
+        for (int row = 0; row < rows; row++)
         {
-            for (int col = 0; col < 9; col++)
+            for (int col = 0; col < cols; col++)
             {
                 BufferedImage image = tileFile.getSubimage(TILE_SIZE * col, TILE_SIZE * row, TILE_SIZE, TILE_SIZE);
 

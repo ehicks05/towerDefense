@@ -2,7 +2,7 @@ package hicks.td;
 
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
-import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.Projectile;
 import hicks.td.ui.DisplayInfo;
 import hicks.td.util.*;
 
@@ -24,8 +24,8 @@ public final class Init
         World.setImageDir("ass\\img\\");
         World.setPlayer(new Player(300, 1, 0));
         World.setGameMap(new GameMap(768, 576));
-        World.setWaves(Wave.getWaves());
-        World.setLogicalMap(MapBuilder.buildRandomMap());
+        World.setWaves(Wave.getWaves(10));
+        World.setLogicalMap(MapBuilder.buildRandomMap(18, 24));
         World.setTerrainImage(MapBuilder.createImageFromLogicalMap(World.getLogicalMap()));
 
         if (loadResources)

@@ -1,10 +1,9 @@
 package hicks.td;
 
-import hicks.td.audio.SoundManager;
 import hicks.td.entities.Player;
 import hicks.td.logic.BehaviorLogic;
 import hicks.td.ui.*;
-import hicks.td.util.HighScoreClient;
+import hicks.td.net.HighScoreClient;
 import hicks.td.util.Log;
 import hicks.td.util.Metrics;
 import hicks.td.util.Util;
@@ -161,7 +160,6 @@ public final class GameCanvas extends Canvas
                     t += dt;
                 }
             }
-            SoundManager.closeInactiveClips();
 
             // Grab the current non visible frame (Memory on the graphics card)
             // getDrawGraphics actually creates a new off screen buffer; it doesn't get something that already exists.

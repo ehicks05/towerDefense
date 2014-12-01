@@ -1,9 +1,10 @@
-package hicks.td.entities.projectile;
+package hicks.td.logic;
 
 import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
 import hicks.td.entities.Point;
+import hicks.td.entities.Projectile;
 import hicks.td.entities.Unit;
 import hicks.td.logic.UnitLogic;
 import hicks.td.entities.Mob;
@@ -58,7 +59,8 @@ public class ProjectileLogic
     public static void performProjectileBehavior(Projectile projectile, BigDecimal dt)
     {
         // check that we haven't run out of steam
-        if (Math.round(projectile.getDistanceTravelled()) >= projectile.getMaximumRange())
+        boolean outOfRange = Math.round(projectile.getDistanceTravelled()) >= projectile.getMaximumRange();
+        if (outOfRange)
         {
             World.removeUnit(projectile);
             return;
@@ -72,7 +74,7 @@ public class ProjectileLogic
             // don't hit the guy you just hit - glaives are more fun when they bounce around
             if (projectile.getName().equals("Glaive"))
             {
-                if (projectile.getMobsHit().contains(mob))
+                if (projectile.getLastMobHit().equals(mob))
                     continue;
             }
 

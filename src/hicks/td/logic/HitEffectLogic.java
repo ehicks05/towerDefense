@@ -1,15 +1,15 @@
-package hicks.td.entities.projectile;
+package hicks.td.logic;
 
-import hicks.td.logic.CombatLogic;
+import hicks.td.entities.Animation;
+import hicks.td.entities.Projectile;
 import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
-import hicks.td.entities.Explosion;
 import hicks.td.entities.Mob;
-import hicks.td.logic.UnitLogic;
 import hicks.td.util.Util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HitEffectLogic
@@ -38,10 +38,9 @@ public class HitEffectLogic
         // attempt to bounce to another mob
         if (source.getHitsPerformed() < source.getHitsPossible())
         {
-            List<Mob> mobsHit = source.getMobsHit();
-            mobsHit.add(victim);
+            List<Mob> lastMobHit = Arrays.asList(victim);
 
-            List<Mob> closestVisibleEnemies = UnitLogic.getClosestVisibleEnemies(source, source.getBounceRange(), mobsHit, 1);
+            List<Mob> closestVisibleEnemies = UnitLogic.getClosestVisibleEnemies(source, source.getBounceRange(), lastMobHit, 1);
             Mob closestVisibleEnemy = null;
             if (closestVisibleEnemies.size() > 0)
                 closestVisibleEnemy = closestVisibleEnemies.get(0);
@@ -53,7 +52,7 @@ public class HitEffectLogic
                 glaive.setLocation(source.getLocation());
                 glaive.setOriginator(source.getOriginator());
                 glaive.setHitsPerformed(source.getHitsPerformed() + 1);
-                glaive.setMobsHit(mobsHit);
+                glaive.setLastMobHit(victim);
 
                 glaive.setDestination(ProjectileLogic.getProjectileDestination(glaive, closestVisibleEnemy.getLocation()));
 
@@ -75,9 +74,8 @@ public class HitEffectLogic
             CombatLogic.performAttack(source, mob);
 
         // add a visual explosion
-        Explosion explosion = new Explosion();
-        explosion.setLocation(source.getLocation());
-        World.addUnit(explosion);
+        Animation animation = new Animation("explosion", 96, source.getLocation());
+        World.addUnit(animation);
 
         SoundManager.playSFX(SoundEffect.CANNON_HIT);
         World.removeUnit(source);

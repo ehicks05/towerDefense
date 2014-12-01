@@ -3,7 +3,7 @@ package hicks.td.util;
 import hicks.td.World;
 import hicks.td.entities.Unit;
 import hicks.td.entities.Mob;
-import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.Projectile;
 import hicks.td.entities.Tower;
 
 import javax.imageio.ImageIO;

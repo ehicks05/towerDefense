@@ -10,16 +10,13 @@ import it.sauronsoftware.jave.EncodingAttributes;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class SoundManager
 {
     private static final int SIMULTANEOUS_SOUNDS = 8;
     private static final float GLOBAL_VOLUME_OFFSET = -10f;
-    private static List<BigDecimal> soundEndTimes = new ArrayList<>();
-    private static List<Clip> playingClips = new ArrayList<>();
+    private static Map<Clip, BigDecimal> clipEndTimes = new HashMap<>();
 
     public static void init()
     {
@@ -27,26 +24,9 @@ public class SoundManager
 //        playSound(wav, -6f, true);
     }
 
-    public static void closeInactiveClips()
-    {
-        for (Clip clip : playingClips)
-        {
-            if (!clip.isActive())
-            {
-                clip.stop();
-                clip.close();
-            }
-        }
-    }
-
     public static void playSFX(SoundEffect soundEffect)
     {
         playSound(new File(soundEffect.getPath()), GLOBAL_VOLUME_OFFSET + soundEffect.getVolumeOffset());
-    }
-
-    public static int getNumberOfSoundsPlaying()
-    {
-        return soundEndTimes.size();
     }
 
     private static File convertToWav()
@@ -82,23 +62,37 @@ public class SoundManager
     {
         playSound(soundFile, gainAdjustment, false);
     }
+
     private static void playSound(File soundFile, float gainAdjustment, boolean loopContinuously)
     {
-        BigDecimal instant = Util.now();
-        for (Iterator<BigDecimal> i = soundEndTimes.iterator(); i.hasNext();)
-        {
-            BigDecimal soundEndTime = i.next();
-            if (soundEndTime.compareTo(instant) < 0)
-                i.remove();
-        }
+        // remove expired entries
+//        BigDecimal instant = Util.now();
+//        for (Iterator<BigDecimal> i = soundEndTimes.iterator(); i.hasNext();)
+//        {
+//            BigDecimal soundEndTime = i.next();
+//            if (soundEndTime.compareTo(instant) < 0)
+//                i.remove();
+//        }
 
-        if (soundEndTimes.size() > SIMULTANEOUS_SOUNDS) return;
+//        for (Iterator<Clip> i = clipEndTimes.keySet().iterator(); i.hasNext();)
+//        {
+//            Clip clip = i.next();
+//            BigDecimal value = clipEndTimes.get(clip);
+//            if (value.compareTo(instant) < 0)
+//            {
+//                clip.stop();
+//                clip.close();
+//                i.remove();
+//            }
+//        }
+
+        if (clipEndTimes.size() > SIMULTANEOUS_SOUNDS) return;
 
         try
         {
-            Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(soundFile));
-            playingClips.add(clip);
+            final Clip clip = AudioSystem.getClip();
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            clip.open(audioInputStream);
 
             FloatControl masterGain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             masterGain.setValue(masterGain.getValue() + gainAdjustment);
@@ -110,11 +104,22 @@ public class SoundManager
             else
                 clip.start();
 
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             AudioFormat format = audioInputStream.getFormat();
             long frames = audioInputStream.getFrameLength();
-            double durationInSeconds = (frames+0.0) / format.getFrameRate();
-            soundEndTimes.add(Util.now().add(new BigDecimal(durationInSeconds * 1000)));
+            double durationInSeconds = ((float) frames) / format.getFrameRate();
+            clipEndTimes.put(clip, Util.now().add(new BigDecimal(durationInSeconds * 1000)));
+
+            clip.addLineListener(new LineListener()
+            {
+                public void update(LineEvent myLineEvent)
+                {
+                    if (myLineEvent.getType() == LineEvent.Type.STOP)
+                    {
+                        clipEndTimes.remove(clip);
+                        clip.close();
+                    }
+                }
+            });
         }
         catch (Exception e)
         {

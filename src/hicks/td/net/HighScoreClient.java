@@ -1,4 +1,6 @@
-package hicks.td.util;
+package hicks.td.net;
+
+import hicks.td.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,11 +1,11 @@
 package hicks.td.ui;
 
 import hicks.td.World;
-import hicks.td.entities.Explosion;
+import hicks.td.entities.Animation;
 import hicks.td.entities.Point;
 import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
-import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.Projectile;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -49,7 +49,7 @@ public class MyMouseListener extends MouseAdapter
     {
         for (Unit unit : World.getUnits())
         {
-            if (unit instanceof Projectile || unit instanceof Explosion) continue;
+            if (unit instanceof Projectile || unit instanceof Animation) continue;
 
             int unitX = (int) unit.getLocation().getX();
             int unitY = (int) unit.getLocation().getY();

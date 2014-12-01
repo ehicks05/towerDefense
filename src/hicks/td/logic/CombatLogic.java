@@ -3,8 +3,9 @@ package hicks.td.logic;
 import hicks.td.World;
 import hicks.td.audio.SoundEffect;
 import hicks.td.audio.SoundManager;
+import hicks.td.entities.Animation;
 import hicks.td.entities.Mob;
-import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.Projectile;
 
 import java.math.BigDecimal;
 
@@ -29,6 +30,7 @@ public final class CombatLogic
     {
         defender.removeFromTargeting();
         SoundManager.playSFX(SoundEffect.DEATH);
+        playDeathAnimation(defender);
         World.removeUnit(defender);
     }
 
@@ -40,5 +42,12 @@ public final class CombatLogic
         BigDecimal unmitigatedDamage    = rawDamage.subtract(mitigatedDamage);
 
         return unmitigatedDamage.intValue();
+    }
+
+    private static void playDeathAnimation(Mob mob)
+    {
+        // add a dying animation
+        Animation animation = new Animation("death", mob.getSizeRadius(), mob.getLocation(), mob.getOutfit());
+        World.addUnit(animation);
     }
 }

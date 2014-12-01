@@ -1,12 +1,8 @@
-package hicks.td.entities.projectile;
+package hicks.td.entities;
 
 import hicks.td.World;
-import hicks.td.entities.Mob;
-import hicks.td.entities.Tower;
-import hicks.td.entities.Unit;
-import hicks.td.entities.Upgrade;
+import hicks.td.logic.HitEffectLogic;
 import hicks.td.util.Log;
-import hicks.td.util.Util;
 
 import java.awt.*;
 import java.io.IOException;
@@ -38,7 +34,7 @@ public class Projectile extends Unit
 
     private int m_hitsPossible;
     private int m_hitsPerformed;
-    private List<Mob> m_mobsHit = new ArrayList<>();
+    private Mob m_lastMobHit = new Mob(0,0,0,"na",0,0,0,0,0,0,null);
     private int m_bounceRange;
 
     private List<Upgrade> m_upgrades = new ArrayList<>();
@@ -281,14 +277,14 @@ public class Projectile extends Unit
         m_hitsPerformed = hitsPerformed;
     }
 
-    public List<Mob> getMobsHit()
+    public Mob getLastMobHit()
     {
-        return m_mobsHit;
+        return m_lastMobHit;
     }
 
-    public void setMobsHit(List<Mob> mobsHit)
+    public void setLastMobHit(Mob lastMobHit)
     {
-        m_mobsHit = mobsHit;
+        m_lastMobHit = lastMobHit;
     }
 
     public int getBounceRange()

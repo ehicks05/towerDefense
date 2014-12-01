@@ -1,7 +1,5 @@
 package hicks.td.entities;
 
-import hicks.td.entities.projectile.Projectile;
-
 public class UpgradeDamage extends Upgrade
 {
     public UpgradeDamage()

@@ -8,8 +8,8 @@ import java.util.*;
 
 public final class MapBuilder
 {
-    private static int ROWS = 18;
-    private static int COLUMNS = 24;
+    private static int ROWS;
+    private static int COLUMNS;
 
     public static BufferedImage createImageFromLogicalMap(int[][] logicalMap)
     {
@@ -30,8 +30,10 @@ public final class MapBuilder
         return terrain;
     }
 
-    public static int[][] buildRandomMap()
+    public static int[][] buildRandomMap(int rows, int columns)
     {
+        ROWS = rows;
+        COLUMNS = columns;
         int[][] logicalMap = new int[COLUMNS][ROWS];
 
         // determine start and end points

@@ -4,12 +4,13 @@ import hicks.td.GameCanvas;
 import hicks.td.World;
 import hicks.td.entities.*;
 import hicks.td.entities.Point;
-import hicks.td.entities.projectile.Projectile;
+import hicks.td.entities.Projectile;
 import hicks.td.util.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,52 +40,41 @@ public final class UnitPainter
             }
             if (unit instanceof Projectile)
             {
-                Projectile projectile = (Projectile) unit;
-
-                g2d.rotate(projectile.getTheta(), x, y);
-
-                g2d.drawImage(projectile.getImage(), drawX, drawY, diameter, diameter, null);
-
-                if (InterfaceLogic.isRunningSimulation())
-                    projectile.setTheta(projectile.getTheta() + projectile.getThetaDelta());
-
-                // reset the transform
-                AffineTransform reset = new AffineTransform();
-                reset.rotate(0,0,0);
-                g2d.setTransform(reset);
+                drawProjectile(g2d, (Projectile) unit, diameter, x, y, drawX, drawY);
             }
             if (unit instanceof Mob)
             {
-                Mob mob = (Mob) unit;
-                int frameIndex = mob.getFrame() / 10;
-
-                Point previousPoint = mob.getPreviousPoint();
-                Point destination = mob.getPath().peek();
-                String direction = "";
-                if (destination.getY() > previousPoint.getY()) direction = "down";
-                if (destination.getY() < previousPoint.getY()) direction = "up";
-                if (destination.getX() > previousPoint.getX()) direction = "right";
-                if (destination.getX() < previousPoint.getX()) direction = "left";
-
-                drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getOutfit());
-
-                if (InterfaceLogic.isRunningSimulation())
-                {
-                    mob.setFrame(mob.getFrame() + 1);
-                    if (mob.getFrame() > 89)
-                        mob.setFrame(10); // start on frame index 1 because index 0 is the idle position...
-                }
+                drawMob(g2d, (Mob) unit, diameter, drawX, drawY);
             }
-            if (unit instanceof Explosion)
+            if (unit instanceof Animation)
             {
-                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 7 * .1f));
-                Explosion explosion = (Explosion) unit;
-                int frameIndex = explosion.getFrame();
-                g2d.drawImage(ExplosionTileLoader.getTile(frameIndex), drawX, drawY, diameter, diameter, null);
-                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+                Animation animation = (Animation) unit;
+                int frameIndex = animation.getFrame();
 
-                if (InterfaceLogic.isRunningSimulation())
-                    explosion.setFrame(frameIndex + 2);
+                if (animation.getName().equals("explosion"))
+                {
+                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 7 * .1f));
+                    BufferedImage image = ExplosionTileLoader.getTile(frameIndex);
+                    g2d.drawImage(image, drawX, drawY, diameter, diameter, null);
+                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+
+                    if (InterfaceLogic.isRunningSimulation())
+                        animation.setFrame(frameIndex + 2);
+                }
+
+                if (animation.getName().equals("death"))
+                {
+                    frameIndex = animation.getFrame() / 10;
+
+                    drawMobBodyParts(g2d, frameIndex, null, drawX, drawY, diameter, animation.getOutfit(), true);
+
+                    if (InterfaceLogic.isRunningSimulation())
+                    {
+                        animation.setFrame(animation.getFrame() + 1);
+                        if (animation.getFrame() > 59)
+                            animation.setFrame(0); // start on frame index 1 because index 0 is the idle position...
+                    }
+                }
             }
         }
 
@@ -150,10 +140,58 @@ public final class UnitPainter
         }
     }
 
-    private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, Outfit outfit)
+    private static void drawMob(Graphics2D g2d, Mob mob, int diameter, int drawX, int drawY)
+    {
+        int frameIndex = mob.getFrame() / 10;
+
+        String direction = getMobDirection(mob);
+
+        drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getOutfit(), false);
+
+        if (InterfaceLogic.isRunningSimulation())
+        {
+            mob.setFrame(mob.getFrame() + 1);
+            if (mob.getFrame() > 89)
+                mob.setFrame(10); // start on frame index 1 because index 0 is the idle position...
+        }
+    }
+
+    private static String getMobDirection(Mob mob)
+    {
+        Point previousPoint = mob.getPreviousPoint();
+        Point destination = mob.getPath().peek();
+        String direction = "";
+        if (destination.getY() > previousPoint.getY()) direction = "down";
+        if (destination.getY() < previousPoint.getY()) direction = "up";
+        if (destination.getX() > previousPoint.getX()) direction = "right";
+        if (destination.getX() < previousPoint.getX()) direction = "left";
+        return direction;
+    }
+
+    private static void drawProjectile(Graphics2D g2d, Projectile projectile, int diameter, int x, int y, int drawX, int drawY)
+    {
+        g2d.rotate(projectile.getTheta(), x, y);
+
+        g2d.drawImage(projectile.getImage(), drawX, drawY, diameter, diameter, null);
+
+        if (InterfaceLogic.isRunningSimulation())
+            projectile.setTheta(projectile.getTheta() + projectile.getThetaDelta());
+
+        // reset the transform
+        AffineTransform reset = new AffineTransform();
+        reset.rotate(0,0,0);
+        g2d.setTransform(reset);
+    }
+
+    private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, Outfit outfit, boolean dying)
     {
         for (BodyPart bodyPart : outfit.getAllActiveBodyParts())
-            g2d.drawImage(MobTileLoader.getTile(bodyPart, direction, frameIndex), drawX, drawY, diameter, diameter, null);
+        {
+            if (dying)
+                g2d.drawImage(MobTileLoader.getDyingImage(bodyPart, frameIndex), drawX, drawY, diameter, diameter, null);
+            else
+                g2d.drawImage(MobTileLoader.getImage(bodyPart, direction, frameIndex), drawX, drawY, diameter, diameter, null);
+        }
     }
 
     private static boolean isFullHealth(Mob mob)

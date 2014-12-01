@@ -1,7 +1,6 @@
 package hicks.td;
 
 import hicks.td.entities.*;
-import hicks.td.entities.projectile.*;
 import hicks.td.entities.Tower;
 import hicks.td.entities.PathPoint;
 

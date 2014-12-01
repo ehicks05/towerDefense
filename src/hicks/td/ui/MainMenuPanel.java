@@ -3,8 +3,6 @@ package hicks.td.ui;
 import hicks.td.GameCanvas;
 import hicks.td.Init;
 import hicks.td.World;
-import hicks.td.util.HighScoreClient;
-import hicks.td.util.Log;
 
 import javax.swing.*;
 import java.awt.*;

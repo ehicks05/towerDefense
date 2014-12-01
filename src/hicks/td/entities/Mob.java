@@ -46,10 +46,10 @@ public class Mob extends Unit
         m_outfit = outfit;
     }
 
-    public static Mob duplicateMob(Mob source)
+    public static Mob duplicateMob(Mob m)
     {
-        return new Mob(source.getTeam(), source.getSizeRadius(), source.getMoveSpeed(), source.getMobType(), source.getMobTypeIndex(), source.getPowerBudgetUsage(),
-                source.getMaxHp(), source.getArmor(), source.getBounty(), source.getSlowInstances(), source.getOutfit());
+        return new Mob(m.getTeam(), m.getSizeRadius(), m.getMoveSpeed(), m.getMobType(), m.getMobTypeIndex(), m.getPowerBudgetUsage(),
+                m.getMaxHp(), m.getArmor(), m.getBounty(), m.getSlowInstances(), m.getOutfit());
     }
 
     public String toString()

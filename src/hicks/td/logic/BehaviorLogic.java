@@ -4,8 +4,7 @@ import hicks.td.Init;
 import hicks.td.World;
 import hicks.td.entities.*;
 import hicks.td.entities.Mob;
-import hicks.td.entities.projectile.Projectile;
-import hicks.td.entities.projectile.ProjectileLogic;
+import hicks.td.entities.Projectile;
 import hicks.td.entities.Tower;
 import hicks.td.ui.InterfaceLogic;
 import hicks.td.entities.PathPoint;
@@ -64,10 +63,10 @@ public final class BehaviorLogic
                 ProjectileLogic.performProjectileBehavior(projectile, dt);
             }
 
-            if (unit instanceof Explosion)
+            if (unit instanceof Animation)
             {
-                Explosion explosion = (Explosion) unit;
-                if (explosion.getFrame() > 73)
+                Animation animation = (Animation) unit;
+                if (animation.getFrame() >= animation.getTotalFrames())
                     World.removeUnit(unit);
             }
         }
