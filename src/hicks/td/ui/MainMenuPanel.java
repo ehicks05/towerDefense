@@ -3,6 +3,7 @@ package hicks.td.ui;
 import hicks.td.GameCanvas;
 import hicks.td.Init;
 import hicks.td.World;
+import hicks.td.entities.Tower;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,9 +100,15 @@ public class MainMenuPanel extends JPanel
         container.add(mainLabel);
         container.add(Box.createRigidArea(new Dimension(0, 50)));
 
-        JLabel picLabel = new JLabel(new ImageIcon(World.getTowerByName("IceTower").getImage()));
-        picLabel.setAlignmentX(CENTER_ALIGNMENT);
-        container.add(picLabel);
+        Container picContainer = new Container();
+        picContainer.setLayout(new FlowLayout());
+        for (Tower tower : World.getTowerTypes())
+        {
+            JLabel picLabel = new JLabel(new ImageIcon(tower.getImage()));
+            picLabel.setAlignmentX(CENTER_ALIGNMENT);
+            picContainer.add(picLabel);
+        }
+        container.add(picContainer);
 
         container.add(Box.createRigidArea(new Dimension(0, 50)));
         container.add(startButton);
