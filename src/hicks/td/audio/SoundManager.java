@@ -1,7 +1,6 @@
 package hicks.td.audio;
 
 import hicks.td.util.Log;
-import hicks.td.util.Util;
 import it.sauronsoftware.jave.AudioAttributes;
 import it.sauronsoftware.jave.Encoder;
 import it.sauronsoftware.jave.EncoderException;
@@ -9,14 +8,14 @@ import it.sauronsoftware.jave.EncodingAttributes;
 
 import javax.sound.sampled.*;
 import java.io.File;
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SoundManager
 {
     private static final int SIMULTANEOUS_SOUNDS = 8;
     private static final float GLOBAL_VOLUME_OFFSET = -10f;
-    private static Map<Clip, BigDecimal> clipEndTimes = new HashMap<>();
+    private static List<Clip> liveClips = new ArrayList<>();
 
     public static void init()
     {
@@ -65,28 +64,7 @@ public class SoundManager
 
     private static void playSound(File soundFile, float gainAdjustment, boolean loopContinuously)
     {
-        // remove expired entries
-//        BigDecimal instant = Util.now();
-//        for (Iterator<BigDecimal> i = soundEndTimes.iterator(); i.hasNext();)
-//        {
-//            BigDecimal soundEndTime = i.next();
-//            if (soundEndTime.compareTo(instant) < 0)
-//                i.remove();
-//        }
-
-//        for (Iterator<Clip> i = clipEndTimes.keySet().iterator(); i.hasNext();)
-//        {
-//            Clip clip = i.next();
-//            BigDecimal value = clipEndTimes.get(clip);
-//            if (value.compareTo(instant) < 0)
-//            {
-//                clip.stop();
-//                clip.close();
-//                i.remove();
-//            }
-//        }
-
-        if (clipEndTimes.size() > SIMULTANEOUS_SOUNDS) return;
+        if (liveClips.size() > SIMULTANEOUS_SOUNDS) return;
 
         try
         {
@@ -104,10 +82,7 @@ public class SoundManager
             else
                 clip.start();
 
-            AudioFormat format = audioInputStream.getFormat();
-            long frames = audioInputStream.getFrameLength();
-            double durationInSeconds = ((float) frames) / format.getFrameRate();
-            clipEndTimes.put(clip, Util.now().add(new BigDecimal(durationInSeconds * 1000)));
+            liveClips.add(clip);
 
             clip.addLineListener(new LineListener()
             {
@@ -115,7 +90,7 @@ public class SoundManager
                 {
                     if (myLineEvent.getType() == LineEvent.Type.STOP)
                     {
-                        clipEndTimes.remove(clip);
+                        liveClips.remove(clip);
                         clip.close();
                     }
                 }
