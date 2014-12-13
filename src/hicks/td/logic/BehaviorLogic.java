@@ -40,11 +40,11 @@ public final class BehaviorLogic
     {
         if (!InterfaceLogic.isRunningSimulation()) return;
 
-        for (Unit unit : new ArrayList<>(World.getUnits()))
+        for (final Unit unit : new ArrayList<>(World.getUnits()))
         {
             if (unit instanceof Mob)
             {
-                Mob mob = (Mob) unit;
+                final Mob mob = (Mob) unit;
 
                 if (!mob.isAlive())
                     continue;
@@ -54,18 +54,18 @@ public final class BehaviorLogic
 
             if (unit instanceof Tower)
             {
-                Tower tower = (Tower) unit;
+                final Tower tower = (Tower) unit;
                 tower.performTowerBehavior();
             }
             if (unit instanceof Projectile)
             {
-                Projectile projectile = (Projectile) unit;
+                final Projectile projectile = (Projectile) unit;
                 ProjectileLogic.performProjectileBehavior(projectile, dt);
             }
 
             if (unit instanceof Animation)
             {
-                Animation animation = (Animation) unit;
+                final Animation animation = (Animation) unit;
                 if (animation.getFrame() >= animation.getTotalFrames())
                     World.removeUnit(unit);
             }
@@ -76,17 +76,17 @@ public final class BehaviorLogic
     {
         if (InterfaceLogic.isActiveRound() && InterfaceLogic.runningSimulation)
         {
-            Player player                   = World.getPlayer();
-            Wave wave                       = World.getWave(player.getWaveNumber());
+            final Player player                   = World.getPlayer();
+            final Wave wave                       = World.getWave(player.getWaveNumber());
             if (wave == null) return;
 
-            BigDecimal timeSinceStartOfWave = Util.getElapsedTime(wave.getTimeStarted(), Util.now());
+            final BigDecimal timeSinceStartOfWave = Util.getElapsedTime(wave.getTimeStarted(), Util.now());
 
-            List<Integer> mobTypeIndexesToCreate = new ArrayList<>();
-            List<WaveSpawn> waveSpawns = wave.getWaveSpawns();
+            final List<Integer> mobTypeIndexesToCreate = new ArrayList<>();
+            final List<WaveSpawn> waveSpawns = wave.getWaveSpawns();
             for (Iterator<WaveSpawn> i = waveSpawns.iterator(); i.hasNext();)
             {
-                WaveSpawn waveSpawn = i.next();
+                final WaveSpawn waveSpawn = i.next();
                 if (waveSpawn.getSpawnTime().compareTo(timeSinceStartOfWave) == -1)
                 {
                     mobTypeIndexesToCreate.add(waveSpawn.getMobTypeIndex());
@@ -98,20 +98,20 @@ public final class BehaviorLogic
             // spawn units
             if (mobTypeIndexesToCreate.size() > 0 && player.getWaveNumber() < World.getWaves().size())
             {
-                List<Mob> mobTypes = Init.getOneOfEachMobType();
-                for (Integer mobTypeIndexToCreate : mobTypeIndexesToCreate)
+                final List<Mob> mobTypes = Init.getOneOfEachMobType();
+                for (final Integer mobTypeIndexToCreate : mobTypeIndexesToCreate)
                 {
-                    Mob mob = Mob.duplicateMob(mobTypes.get(mobTypeIndexToCreate));
+                    final Mob mob = Mob.duplicateMob(mobTypes.get(mobTypeIndexToCreate));
 
                     if (wave.getWaveNumber() > 5)
                     {
-                        double healthMultiplier = 1 + (3 * (wave.getWaveNumber() - 5) / (double) 100);
-                        int newHp = (int) (mob.getCurrentHp() * healthMultiplier);
+                        final double healthMultiplier = 1 + (3 * (wave.getWaveNumber() - 5) / (double) 100);
+                        final int newHp = (int) (mob.getCurrentHp() * healthMultiplier);
                         mob.setCurrentHp(newHp);
                         mob.setMaxHp(newHp);
                     }
 
-                    PathPoint origin = World.getMobPath().get(0);
+                    final PathPoint origin = World.getMobPath().get(0);
                     mob.setLocation(new Point(origin.getCol() * 32 + 16, origin.getRow() * 32));
                     mob.setPath(mob.createPath());
 

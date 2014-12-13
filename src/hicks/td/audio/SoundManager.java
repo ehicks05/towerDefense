@@ -15,7 +15,7 @@ public class SoundManager
 {
     private static final int SIMULTANEOUS_SOUNDS = 8;
     private static final float GLOBAL_VOLUME_OFFSET = -10f;
-    private static List<Clip> liveClips = new ArrayList<>();
+    private static final List<Clip> liveClips = new ArrayList<>();
 
     public static void init()
     {
@@ -69,10 +69,10 @@ public class SoundManager
         try
         {
             final Clip clip = AudioSystem.getClip();
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            final AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             clip.open(audioInputStream);
 
-            FloatControl masterGain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            final FloatControl masterGain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             masterGain.setValue(masterGain.getValue() + gainAdjustment);
 
             clip.setFramePosition(0);

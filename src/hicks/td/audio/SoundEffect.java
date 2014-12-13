@@ -28,4 +28,9 @@ public enum SoundEffect
     {
         return volumeOffset;
     }
+
+    public String getFilename()
+    {
+        return filename;
+    }
 }
