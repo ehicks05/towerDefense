@@ -74,7 +74,7 @@ public class ProjectileLogic
             // don't hit the guy you just hit - glaives are more fun when they bounce around
             if (projectile.getName().equals("Glaive"))
             {
-                if (projectile.getLastMobHit().equals(mob))
+                if (projectile.getLastMobHit() != null && projectile.getLastMobHit().equals(mob))
                     continue;
             }
 

@@ -2,11 +2,11 @@ package hicks.td.entities;
 
 public final class GameMap
 {
-    private int m_width;
-    private int m_height;
+    private final int m_width;
+    private final int m_height;
 
-    private int m_worldWidthInTiles;
-    private int m_worldHeightInTiles;
+    private final int m_worldWidthInTiles;
+    private final int m_worldHeightInTiles;
 
     private Tile[][] m_tiles;
 
@@ -24,19 +24,9 @@ public final class GameMap
         return m_worldWidthInTiles;
     }
 
-    public void setWorldWidthInTiles(int worldWidthInTiles)
-    {
-        this.m_worldWidthInTiles = worldWidthInTiles;
-    }
-
     public int getWorldHeightInTiles()
     {
         return m_worldHeightInTiles;
-    }
-
-    public void setWorldHeightInTiles(int worldHeightInTiles)
-    {
-        this.m_worldHeightInTiles = worldHeightInTiles;
     }
 
     public int getWidth()
@@ -44,19 +34,9 @@ public final class GameMap
         return m_width;
     }
 
-    public void setWidth(int width)
-    {
-        m_width = width;
-    }
-
     public int getHeight()
     {
         return m_height;
-    }
-
-    public void setHeight(int height)
-    {
-        m_height = height;
     }
 
     public Tile[][] getTiles()

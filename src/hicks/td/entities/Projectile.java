@@ -2,15 +2,9 @@ package hicks.td.entities;
 
 import hicks.td.World;
 import hicks.td.logic.HitEffectLogic;
-import hicks.td.util.Log;
 
 import java.awt.*;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -34,7 +28,7 @@ public class Projectile extends Unit
 
     private int m_hitsPossible;
     private int m_hitsPerformed;
-    private Mob m_lastMobHit = new Mob(0,0,0,"na",0,0,0,0,0,0,null);
+    private Mob m_lastMobHit;
     private int m_bounceRange;
 
     private List<Upgrade> m_upgrades = new ArrayList<>();
@@ -77,43 +71,6 @@ public class Projectile extends Unit
         m_thetaDelta = projectile.getThetaDelta();
         m_imageFile = projectile.getImageFile();
         setTeam(1);
-    }
-
-    public static List<Projectile> getProjectileTypes()
-    {
-        List<Projectile> projectileTypes = new ArrayList<>();
-        try
-        {
-            List<String> lines = Files.readAllLines(Paths.get("data\\projectiles.csv"), Charset.defaultCharset());
-            lines.remove(0);
-            for (String line : lines)
-            {
-                List<String> elements = Arrays.asList(line.split(","));
-                String name             = elements.get(0);
-                int sizeRadius          = Integer.parseInt(elements.get(1));
-                int moveSpeed           = Integer.parseInt(elements.get(2));
-                int minDamage           = Integer.parseInt(elements.get(3));
-                int maxDamage           = Integer.parseInt(elements.get(4));
-                int maxRange            = Integer.parseInt(elements.get(5));
-                String fireSound        = elements.get(6);
-                String onHitEffect      = elements.get(7);
-                int splashRadius        = Integer.parseInt(elements.get(8));
-                int hitsPossible        = Integer.parseInt(elements.get(9));
-                int bounceRange         = Integer.parseInt(elements.get(10));
-                double thetaDelta         = Double.parseDouble(elements.get(11));
-                String imageFile        = elements.get(12);
-
-                Projectile projectile = new Projectile(name, sizeRadius, moveSpeed, minDamage, maxDamage, maxRange, fireSound,
-                        onHitEffect, splashRadius, hitsPossible, bounceRange, thetaDelta, imageFile);
-                projectileTypes.add(projectile);
-            }
-        }
-        catch (IOException e)
-        {
-            Log.info(e.getMessage(), true);
-        }
-
-        return projectileTypes;
     }
 
     public Image getImage()

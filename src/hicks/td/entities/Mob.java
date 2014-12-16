@@ -12,23 +12,24 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class Mob extends Unit
 {
-    private String m_mobType = "";
-    private int m_mobTypeIndex;
-    private int m_powerBudgetUsage;
-    private int m_currentHp;
+    private final BigDecimal m_spawnTime = Util.now();
+    private final String m_mobType;
+    private final int m_mobTypeIndex;
+    private final int m_powerBudgetUsage;
+    private final int m_bounty;
+    private final int m_outfit;
+
     private int m_maxHp;
+    private int m_currentHp;
     private int m_armor;
     private int m_frame;
-    private int m_bounty;
     private int m_slowInstances;
 
-    private BigDecimal m_spawnTime = Util.now();
-    private Outfit m_outfit;
-    private Queue<Point> m_path = new ArrayBlockingQueue<>(4);
+    private Queue<Point> m_path = createPath();
     private Point m_previousPoint;
 
     public Mob(int team, int sizeRadius, int moveSpeed, String mobType, int mobTypeIndex, int powerBudgetUsage, int maxHp,
-               int armor, int bounty, int slowInstances, Outfit outfit)
+               int armor, int bounty, int slowInstances, int outfit)
     {
         setTeam(team);
         setSizeRadius(sizeRadius);
@@ -42,7 +43,6 @@ public class Mob extends Unit
         m_armor = armor;
         m_bounty = bounty;
         m_slowInstances = slowInstances;
-        m_spawnTime = Util.now();
         m_outfit = outfit;
     }
 
@@ -55,6 +55,16 @@ public class Mob extends Unit
     public String toString()
     {
         return this.getClass().getSimpleName() + " HP:" + getCurrentHp() + "(" + getMaxHp() + ")" + ",ID:" + getObjectId();
+    }
+
+    public static Queue<Point> createPath()
+    {
+        Queue<Point> path = new ArrayBlockingQueue<>(World.getMobPath().size());
+        for (PathPoint point : World.getMobPath())
+        {
+            path.add(new Point(point.getCol() * 32 + 16, point.getRow() * 32));
+        }
+        return path;
     }
 
     public boolean isAlive()
@@ -84,16 +94,6 @@ public class Mob extends Unit
             }
     }
 
-    public Queue<Point> createPath()
-    {
-        Queue<Point> path = new ArrayBlockingQueue<>(World.getMobPath().size());
-        for (PathPoint point : World.getMobPath())
-        {
-            path.add(new Point(point.getCol() * 32 + 16, point.getRow() * 32));
-        }
-        return path;
-    }
-
     public void moveAlongPath(BigDecimal dt)
     {
         Queue<Point> path = this.getPath();
@@ -118,19 +118,9 @@ public class Mob extends Unit
         return m_mobType;
     }
 
-    public void setMobType(String mobType)
-    {
-        m_mobType = mobType;
-    }
-
     public int getMobTypeIndex()
     {
         return m_mobTypeIndex;
-    }
-
-    public void setMobTypeIndex(int mobTypeIndex)
-    {
-        m_mobTypeIndex = mobTypeIndex;
     }
 
     public int getPowerBudgetUsage()
@@ -138,19 +128,9 @@ public class Mob extends Unit
         return m_powerBudgetUsage;
     }
 
-    public void setPowerBudgetUsage(int powerBudgetUsage)
-    {
-        m_powerBudgetUsage = powerBudgetUsage;
-    }
-
     public BigDecimal getSpawnTime()
     {
         return m_spawnTime;
-    }
-
-    public void setSpawnTime(BigDecimal spawnTime)
-    {
-        m_spawnTime = spawnTime;
     }
 
     public int getCurrentHp()
@@ -203,24 +183,14 @@ public class Mob extends Unit
         m_frame = frame;
     }
 
-    public Outfit getOutfit()
+    public int getOutfit()
     {
         return m_outfit;
-    }
-
-    public void setOutfit(Outfit outfit)
-    {
-        m_outfit = outfit;
     }
 
     public int getBounty()
     {
         return m_bounty;
-    }
-
-    public void setBounty(int bounty)
-    {
-        m_bounty = bounty;
     }
 
     public int getSlowInstances()

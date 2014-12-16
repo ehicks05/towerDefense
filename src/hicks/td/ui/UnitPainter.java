@@ -183,8 +183,9 @@ public final class UnitPainter
         g2d.setTransform(reset);
     }
 
-    private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, Outfit outfit, boolean dying)
+    private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, int outfitType, boolean dying)
     {
+        Outfit outfit = World.getOutfitTypes().get(outfitType);
         for (BodyPart bodyPart : outfit.getAllActiveBodyParts())
         {
             if (dying)

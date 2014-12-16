@@ -98,19 +98,6 @@ public final class UnitLogic
         return results;
     }
 
-    public static int getUnitsOnTeam(int team)
-    {
-        List<Unit> units = new ArrayList<>(World.getUnits());
-
-        for (Iterator<Unit> i = units.iterator(); i.hasNext();)
-        {
-            Unit unit = i.next();
-            if (unit.getTeam() != team) i.remove();
-        }
-
-        return units.size();
-    }
-
     private static BigDecimal trimOvershoot(BigDecimal potentialDistanceToMove, BigDecimal currentDistance, BigDecimal desiredDistance)
     {
         BigDecimal expectedNewDistance = currentDistance.subtract(potentialDistanceToMove);

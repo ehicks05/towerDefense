@@ -98,10 +98,9 @@ public final class BehaviorLogic
             // spawn units
             if (mobTypeIndexesToCreate.size() > 0 && player.getWaveNumber() < World.getWaves().size())
             {
-                final List<Mob> mobTypes = Init.getOneOfEachMobType();
                 for (final Integer mobTypeIndexToCreate : mobTypeIndexesToCreate)
                 {
-                    final Mob mob = Mob.duplicateMob(mobTypes.get(mobTypeIndexToCreate));
+                    final Mob mob = Mob.duplicateMob(World.getMobTypes().get(mobTypeIndexToCreate));
 
                     if (wave.getWaveNumber() > 5)
                     {
@@ -113,7 +112,6 @@ public final class BehaviorLogic
 
                     final PathPoint origin = World.getMobPath().get(0);
                     mob.setLocation(new Point(origin.getCol() * 32 + 16, origin.getRow() * 32));
-                    mob.setPath(mob.createPath());
 
                     World.addUnit(mob);
                 }

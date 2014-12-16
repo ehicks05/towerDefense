@@ -1,0 +1,11 @@
+name,index,size,speed,powerBudget,maxHp,armor,bounty,outfit
+peasant,1,32,60,1,30,0,1,0
+archer,2,32,60,2,45,2,2,1
+footman,3,32,60,3,60,4,3,2
+barbarian,4,32,70,4,75,2,4,3
+knight,5,32,60,5,90,7,5,4
+skeletonPeasant,6,32,70,7,135,2,8,5
+skeletonArcher,7,32,70,9,200,4,10,6
+skeletonFootman,8,32,70,11,250,6,12,7
+skeletonBarbarian,9,32,80,13,300,4,14,8
+skeletonKnight,10,32,70,15,400,9,16,9

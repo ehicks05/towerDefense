@@ -1,5 +1,7 @@
 package hicks.td.audio;
 
+import java.io.File;
+
 public enum SoundEffect
 {
     DEATH ("humanDeath.wav", 0),
@@ -9,6 +11,8 @@ public enum SoundEffect
     CANNON_FIRE ("cannonFire.wav", 0),
     CANNON_HIT ("cannonHit.wav", 0),
     ICE_HIT ("iceHit.wav", 0);
+
+    private static final String AUDIO_PATH = "ass" + File.separator + "aud"  + File.separator;
 
     private final String filename;
     private final float volumeOffset;
@@ -21,7 +25,7 @@ public enum SoundEffect
 
     public String getPath()
     {
-        return "ass\\aud\\" + filename;
+        return AUDIO_PATH + filename;
     }
 
     public float getVolumeOffset()

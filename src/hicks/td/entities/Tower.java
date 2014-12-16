@@ -61,37 +61,6 @@ public class Tower extends Unit
         setSizeRadius(tower.getSizeRadius());
     }
 
-    public static List<Tower> getTowerTypes()
-    {
-        List<Tower> towerTypes = new ArrayList<>();
-        try
-        {
-            List<String> lines = Files.readAllLines(Paths.get("data\\towers.csv"), Charset.defaultCharset());
-            lines.remove(0);
-            for (String line : lines)
-            {
-                List<String> elements = Arrays.asList(line.split(","));
-                String name             = elements.get(0);
-                String projectileType   = elements.get(1);
-                int price               = Integer.parseInt(elements.get(2));
-                int attackRange         = Integer.parseInt(elements.get(3));
-                BigDecimal attackSpeed  = new BigDecimal(elements.get(4));
-                int numberOfTargets     = Integer.parseInt(elements.get(5));
-                int sizeRadius          = Integer.parseInt(elements.get(6));
-                String imageFile        = elements.get(7);
-
-                Tower tower = new Tower(price, attackRange, attackSpeed, numberOfTargets, name, projectileType, sizeRadius, imageFile);
-                towerTypes.add(tower);
-            }
-        }
-        catch (IOException e)
-        {
-            Log.info(e.getMessage(), true);
-        }
-
-        return towerTypes;
-    }
-
     public Image getImage()
     {
         return World.getGameImage(World.getImageDir() + m_imageFile).getImage();

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public final class World
 {
@@ -21,6 +22,8 @@ public final class World
     private static List<Upgrade>    upgradeTypes;
     private static List<Tower>      towerTypes;
     private static List<Projectile> projectileTypes;
+    private static List<Mob>        mobTypes;
+    private static List<Outfit>     outfitTypes;
     private static List<GameImage>  gameImages;
     private static int[][]          logicalMap;
     private static List<PathPoint>  mobPath;
@@ -171,6 +174,26 @@ public final class World
     public static void setProjectileTypes(List<Projectile> projectileTypes)
     {
         World.projectileTypes = projectileTypes;
+    }
+
+    public static List<Mob> getMobTypes()
+    {
+        return mobTypes;
+    }
+
+    public static void setMobTypes(List<Mob> mobTypes)
+    {
+        World.mobTypes = mobTypes;
+    }
+
+    public static List<Outfit> getOutfitTypes()
+    {
+        return outfitTypes;
+    }
+
+    public static void setOutfitTypes(List<Outfit> outfitTypes)
+    {
+        World.outfitTypes = outfitTypes;
     }
 
     public static List<GameImage> getGameImages()

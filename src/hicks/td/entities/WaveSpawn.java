@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public class WaveSpawn
 {
-    private int m_mobTypeIndex;
-    private BigDecimal m_spawnTime;
+    private final int m_mobTypeIndex;
+    private final BigDecimal m_spawnTime;
 
     public WaveSpawn(int mobTypeIndex, BigDecimal spawnTime)
     {
@@ -18,18 +18,8 @@ public class WaveSpawn
         return m_mobTypeIndex;
     }
 
-    public void setMobTypeIndex(int mobTypeIndex)
-    {
-        m_mobTypeIndex = mobTypeIndex;
-    }
-
     public BigDecimal getSpawnTime()
     {
         return m_spawnTime;
-    }
-
-    public void setSpawnTime(BigDecimal spawnTime)
-    {
-        m_spawnTime = spawnTime;
     }
 }

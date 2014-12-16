@@ -11,6 +11,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,5 +103,20 @@ public final class Util
                 files.add(file);
 
         return files;
+    }
+
+    static List<String> readAllLines(String path, boolean removeHeader)
+    {
+        List<String> lines = new ArrayList<>();
+        try
+        {
+            lines = Files.readAllLines(Paths.get(path), Charset.defaultCharset());
+            if (removeHeader) lines.remove(0);
+        }
+        catch (IOException e)
+        {
+            Log.info(e.getMessage(), true);
+        }
+        return lines;
     }
 }
