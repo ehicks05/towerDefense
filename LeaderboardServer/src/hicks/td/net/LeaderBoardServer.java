@@ -75,7 +75,7 @@ public class LeaderBoardServer
 
                     List<Score> topTen = new ArrayList<>();
                     if (SCORES.size() > 9)
-                        topTen = SCORES.subList(0, 9);
+                        topTen = SCORES.subList(0, 10);
 
                     for (int i = 0; i < topTen.size(); i++)
                     {
