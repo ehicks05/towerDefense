@@ -74,7 +74,7 @@ public class LeaderBoardServer
                     Collections.sort(SCORES);
 
                     List<Score> topTen = new ArrayList<>();
-                    if (SCORES.size() > 9)
+                    if (SCORES.size() > 10)
                         topTen = SCORES.subList(0, 10);
 
                     for (int i = 0; i < topTen.size(); i++)
