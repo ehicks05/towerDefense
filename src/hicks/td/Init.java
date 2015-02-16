@@ -32,6 +32,7 @@ public final class Init
         World.setPlayer(new Player(300, 1, 0));
         World.setWaves(Wave.getWaves(10));
         World.setTerrainImage(MapBuilder.createImageFromLogicalMap(World.getLogicalMap()));
+        World.setUnits(new ArrayList<>());
     }
 
     private static void loadResources()
