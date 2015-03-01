@@ -1,13 +1,9 @@
 package hicks.td.logic;
 
-import hicks.td.Init;
 import hicks.td.World;
+import hicks.td.audio.SoundManager;
 import hicks.td.entities.*;
-import hicks.td.entities.Mob;
-import hicks.td.entities.Projectile;
-import hicks.td.entities.Tower;
 import hicks.td.ui.InterfaceLogic;
-import hicks.td.entities.PathPoint;
 import hicks.td.util.Util;
 
 import java.math.BigDecimal;
@@ -19,6 +15,7 @@ public final class BehaviorLogic
 {
     public static void updateState(BigDecimal dt)
     {
+        SoundManager.clearEffectsTriggeredThisTick();
         goldTick();
         performSpawningPhase();
         performUpdatePhase(dt);

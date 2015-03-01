@@ -15,12 +15,18 @@ public class SoundManager
 {
     private static final int SIMULTANEOUS_SOUNDS = 8;
     private static final float GLOBAL_VOLUME_OFFSET = -10f;
-    private static final List<Clip> liveClips = new ArrayList<>();
+    private static final List<Clip> LIVE_CLIPS = new ArrayList<>();
+    private static final List<String> EFFECTS_TRIGGERED_THIS_TICK = new ArrayList<>();
 
     public static void init()
     {
 //        File wav = convertToWav();
 //        playSound(wav, -6f, true);
+    }
+
+    public static void clearEffectsTriggeredThisTick()
+    {
+        EFFECTS_TRIGGERED_THIS_TICK.clear();
     }
 
     public static void playSFX(SoundEffect soundEffect)
@@ -64,10 +70,15 @@ public class SoundManager
 
     private static void playSound(File soundFile, float gainAdjustment, boolean loopContinuously)
     {
-        if (liveClips.size() > SIMULTANEOUS_SOUNDS) return;
-
         try
         {
+            if (LIVE_CLIPS.size() > SIMULTANEOUS_SOUNDS) return;
+            if (EFFECTS_TRIGGERED_THIS_TICK.contains(soundFile.getCanonicalPath()))
+            {
+//                Log.info(soundFile.getCanonicalPath() + " was not played because it was already triggered this tick...");
+                return;
+            }
+
             final Clip clip = AudioSystem.getClip();
             final AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             clip.open(audioInputStream);
@@ -82,7 +93,8 @@ public class SoundManager
             else
                 clip.start();
 
-            liveClips.add(clip);
+            LIVE_CLIPS.add(clip);
+            EFFECTS_TRIGGERED_THIS_TICK.add(soundFile.getCanonicalPath());
 
             clip.addLineListener(new LineListener()
             {
@@ -90,7 +102,7 @@ public class SoundManager
                 {
                     if (myLineEvent.getType() == LineEvent.Type.STOP)
                     {
-                        liveClips.remove(clip);
+                        LIVE_CLIPS.remove(clip);
                         clip.close();
                     }
                 }
