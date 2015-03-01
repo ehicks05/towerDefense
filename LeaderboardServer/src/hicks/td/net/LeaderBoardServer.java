@@ -1,7 +1,5 @@
 package hicks.td.net;
 
-import hicks.td.net.Score;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,7 +18,7 @@ public class LeaderBoardServer
 
     public static void main(String[] args) throws Exception
     {
-        System.out.println("The leaderboard server is running.");
+        System.out.println("The leaderboard server is starting.");
 
         File scoresFile = new File(DATABASE.toString());
         if (!scoresFile.exists())
@@ -40,8 +38,6 @@ public class LeaderBoardServer
     private static class Handler extends Thread
     {
         private Socket socket;
-        private BufferedReader in;
-        private PrintWriter out;
 
         public Handler(Socket socket)
         {
@@ -50,7 +46,9 @@ public class LeaderBoardServer
 
         public void run()
         {
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream(), true); PrintWriter dbWriter = new PrintWriter(new BufferedWriter(new FileWriter(DATABASE.toFile(), true))))
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                 PrintWriter dbWriter = new PrintWriter(new BufferedWriter(new FileWriter(DATABASE.toFile(), true))))
             {
                 String message = in.readLine();
 
@@ -70,17 +68,19 @@ public class LeaderBoardServer
                 if (message.startsWith("GET_HIGH_SCORES"))
                 {
                     String highScoresTable = "<html><table>";
-                    highScoresTable += "<tr><td align='right'></td><<td align='left'>name</td><td align='right'>wave</td><td align='right'>lives</td><td align='right'>gold</td></tr>";
+                    highScoresTable += "<tr><td align='right'></td><td align='left'>name</td><td align='left'>date</td>" +
+                            "<td align='right'>wave</td><td align='right'>lives</td><td align='right'>gold</td></tr>";
                     Collections.sort(SCORES);
 
-                    List<Score> topTen = new ArrayList<>();
+                    List<Score> topTen = new ArrayList<>(SCORES);
                     if (SCORES.size() > 10)
                         topTen = SCORES.subList(0, 10);
 
                     for (int i = 0; i < topTen.size(); i++)
                     {
                         Score score = topTen.get(i);
-                        String scoreRow = "<tr><td>" + (i+1) + ".</td><td>" + score.getName() + "</td><td>" + score.getWave() + "</td><td>" + score.getLives() + "</td><td>" + score.getGold() + "</td></tr>";
+                        String scoreRow = "<tr><td>" + (i+1) + ".</td><td>" + score.getName() + "</td><td>" + score.getCreatedOn().toString() +
+                                "</td><td>" + score.getWave() + "</td><td>" + score.getLives() + "</td><td>" + score.getGold() + "</td></tr>";
                         highScoresTable += scoreRow;
                     }
                     highScoresTable += "</table></html>";

@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 public final class GameCanvas extends Canvas
@@ -198,7 +199,7 @@ public final class GameCanvas extends Canvas
         if (playerName != null)
         {
             Player player = World.getPlayer();
-            String score = playerName + "\t" + player.getWaveNumber() + "\t" + player.getLives() + "\t" + player.getGold();
+            String score = playerName + "\t" + player.getWaveNumber() + "\t" + player.getLives() + "\t" + player.getGold() + "\t" + LocalDate.now();
 
             try
             {
