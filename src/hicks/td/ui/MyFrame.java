@@ -1,6 +1,7 @@
 package hicks.td.ui;
 
 import hicks.td.GameCanvas;
+import hicks.td.audio.SoundManager;
 import hicks.td.util.Log;
 
 import javax.swing.*;
@@ -36,6 +37,7 @@ public class MyFrame extends JFrame
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
                 {
+                    SoundManager.shutDown();
                     Log.info("Game was manually terminated...", true);
                     System.exit(0);
                 }

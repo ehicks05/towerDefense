@@ -6,7 +6,7 @@ public enum SoundEffect
 {
     DEATH ("humanDeath.wav", 0),
     SHOOT_ARROW ("shootArrow.wav", 0),
-    SHOOT_GLAIVE ("shootGlaive.wav", -9),
+    SHOOT_GLAIVE ("shootGlaive.wav", -.3f),
     WEAPON_HIT ("bowHit.wav", 0),
     CANNON_FIRE ("cannonFire.wav", 0),
     CANNON_HIT ("cannonHit.wav", 0),
