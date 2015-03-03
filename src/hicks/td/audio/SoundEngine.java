@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * <b>This code is originally from Carl Dea's JavaFX 2 GameTutorial Part 5.</b><br>
+ * This code is originally from <b>Carl Dea's JavaFX 2 GameTutorial Part 5</b>.<br>
  *
  * Responsible for loading sound media to be played using an id or key.
  * Contains all sounds for use later.

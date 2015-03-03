@@ -124,6 +124,7 @@ public final class GameCanvas extends Canvas
         double t = 0;
 //        final int dt = 33333333; // (33 ms)
         final int dt = 16666666; // (16 ms)
+//        final int dt = 8333333; // (8 ms)
 
         long currentTime = System.nanoTime();
         accumulator = 0;

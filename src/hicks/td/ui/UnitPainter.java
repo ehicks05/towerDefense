@@ -142,18 +142,9 @@ public final class UnitPainter
 
     private static void drawMob(Graphics2D g2d, Mob mob, int diameter, int drawX, int drawY)
     {
-        int frameIndex = mob.getFrame() / 10;
-
         String direction = getMobDirection(mob);
 
-        drawMobBodyParts(g2d, frameIndex, direction, drawX, drawY, diameter, mob.getOutfit(), false);
-
-        if (InterfaceLogic.isRunningSimulation())
-        {
-            mob.setFrame(mob.getFrame() + 1);
-            if (mob.getFrame() > 89)
-                mob.setFrame(10); // start on frame index 1 because index 0 is the idle position...
-        }
+        drawMobBodyParts(g2d, mob.getFrame(), direction, drawX, drawY, diameter, mob.getOutfit(), false);
     }
 
     private static String getMobDirection(Mob mob)

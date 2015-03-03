@@ -23,6 +23,8 @@ public class Mob extends Unit
     private int m_currentHp;
     private int m_armor;
     private int m_frame;
+    private BigDecimal m_secondsPerFrame = BigDecimal.ONE.divide(new BigDecimal(6), 3, RoundingMode.HALF_UP);
+    private BigDecimal m_timeSinceLastFrame = BigDecimal.ZERO;
     private int m_slowInstances;
 
     private Queue<Point> m_path = createPath();
@@ -80,6 +82,15 @@ public class Mob extends Unit
             removeFromTargeting();
             World.removeUnit(this);
             World.getPlayer().removeLife();
+        }
+
+        m_timeSinceLastFrame = m_timeSinceLastFrame.add(dt);
+        while (m_timeSinceLastFrame.compareTo(m_secondsPerFrame) > 0)
+        {
+            m_frame++;
+            if (m_frame > 8)
+                m_frame = 1; // start on frame index 1 because index 0 is the idle position...
+            m_timeSinceLastFrame = m_timeSinceLastFrame.subtract(m_secondsPerFrame);
         }
     }
 
