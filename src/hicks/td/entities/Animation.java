@@ -1,11 +1,16 @@
 package hicks.td.entities;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Animation extends Unit
 {
     private final String m_name;
     private final int m_outfit;
     private final int m_totalFrames;
     private int m_frame;
+    private BigDecimal m_secondsPerFrame;
+    private BigDecimal m_timeSinceLastFrame = BigDecimal.ZERO;
 
     public Animation(String name, int sizeRadius, Point location)
     {
@@ -21,10 +26,12 @@ public class Animation extends Unit
         switch (name)
         {
             case "explosion":
-                m_totalFrames = 73;
+                m_totalFrames = 74;
+                m_secondsPerFrame = BigDecimal.ONE.divide(new BigDecimal(120), 3, RoundingMode.HALF_UP);
                 break;
             case "death":
-                m_totalFrames = 59;
+                m_totalFrames = 6;
+                m_secondsPerFrame = BigDecimal.ONE.divide(new BigDecimal(6), 3, RoundingMode.HALF_UP);
                 break;
             default:
                 m_totalFrames = 0;
@@ -58,5 +65,25 @@ public class Animation extends Unit
     public void setFrame(int frame)
     {
         m_frame = frame;
+    }
+
+    public BigDecimal getSecondsPerFrame()
+    {
+        return m_secondsPerFrame;
+    }
+
+    public void setSecondsPerFrame(BigDecimal secondsPerFrame)
+    {
+        m_secondsPerFrame = secondsPerFrame;
+    }
+
+    public BigDecimal getTimeSinceLastFrame()
+    {
+        return m_timeSinceLastFrame;
+    }
+
+    public void setTimeSinceLastFrame(BigDecimal timeSinceLastFrame)
+    {
+        m_timeSinceLastFrame = timeSinceLastFrame;
     }
 }

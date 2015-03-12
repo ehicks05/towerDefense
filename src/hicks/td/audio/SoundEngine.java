@@ -1,6 +1,8 @@
 package hicks.td.audio;
 
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -13,13 +15,12 @@ import java.util.concurrent.Executors;
  *
  * Responsible for loading sound media to be played using an id or key.
  * Contains all sounds for use later.
- * </pre>
- * <pre> * User: cdea
  */
 public class SoundEngine
 {
-    ExecutorService soundPool = Executors.newFixedThreadPool(2);
+    ExecutorService soundPool = Executors.newFixedThreadPool(8);
     Map<String, AudioClip> soundEffectsMap = new HashMap<>();
+    Map<String, Media> musicMap = new HashMap<>();
 
     /**
      * Constructor to create a simple thread pool.
@@ -32,22 +33,23 @@ public class SoundEngine
     }
 
     /**
-     * Load a sound into a map to later be played based on the id.
-     *
      * @param id  - The identifier for a sound.
      * @param url - The url location of the media or audio resource. Usually in src/main/resources directory.
      */
-    public void loadSoundEffects(String id, URL url, float volume, boolean loop)
+    public void loadSoundEffects(String id, URL url, float volume)
     {
         AudioClip sound = new AudioClip(url.toExternalForm());
         sound.setVolume(.8 + volume);
-        if (loop) sound.setCycleCount(AudioClip.INDEFINITE);
         soundEffectsMap.put(id, sound);
     }
 
+    public void loadMusic(String id, URL url)
+    {
+        Media music = new Media(url.toExternalForm());
+        musicMap.put(id, music);
+    }
+
     /**
-     * Lookup a name resource to play sound based on the id.
-     *
      * @param id identifier for a sound to be played.
      */
     public void playSound(final String id)
@@ -63,6 +65,21 @@ public class SoundEngine
         soundPool.execute(soundPlay);
     }
 
+    public void playMusic(final String id)
+    {
+        Runnable musicPlay = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                MediaPlayer player = new MediaPlayer(musicMap.get(id));
+                player.setCycleCount(MediaPlayer.INDEFINITE);
+                player.play();
+            }
+        };
+        soundPool.execute(musicPlay);
+    }
+
     /**
      * Stop all threads and media players.
      */
@@ -70,5 +87,4 @@ public class SoundEngine
     {
         soundPool.shutdown();
     }
-
 }

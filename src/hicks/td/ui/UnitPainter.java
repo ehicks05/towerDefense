@@ -57,24 +57,10 @@ public final class UnitPainter
                     BufferedImage image = ExplosionTileLoader.getTile(frameIndex);
                     g2d.drawImage(image, drawX, drawY, diameter, diameter, null);
                     g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-
-                    if (InterfaceLogic.isRunningSimulation())
-                        animation.setFrame(frameIndex + 2);
                 }
 
                 if (animation.getName().equals("death"))
-                {
-                    frameIndex = animation.getFrame() / 10;
-
                     drawMobBodyParts(g2d, frameIndex, null, drawX, drawY, diameter, animation.getOutfit(), true);
-
-                    if (InterfaceLogic.isRunningSimulation())
-                    {
-                        animation.setFrame(animation.getFrame() + 1);
-                        if (animation.getFrame() > 59)
-                            animation.setFrame(0); // start on frame index 1 because index 0 is the idle position...
-                    }
-                }
             }
         }
 

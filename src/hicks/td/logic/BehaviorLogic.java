@@ -63,8 +63,14 @@ public final class BehaviorLogic
             if (unit instanceof Animation)
             {
                 final Animation animation = (Animation) unit;
-                if (animation.getFrame() >= animation.getTotalFrames())
-                    World.removeUnit(unit);
+                animation.setTimeSinceLastFrame(animation.getTimeSinceLastFrame().add(dt));
+                while (animation.getTimeSinceLastFrame().compareTo(animation.getSecondsPerFrame()) > 0)
+                {
+                    animation.setFrame(animation.getFrame() + 1);
+                    if (animation.getFrame() > animation.getTotalFrames())
+                        World.removeUnit(unit);
+                    animation.setTimeSinceLastFrame(animation.getTimeSinceLastFrame().subtract(animation.getSecondsPerFrame()));
+                }
             }
         }
     }
