@@ -19,7 +19,7 @@ public final class UnitPainter
 {
     public static void drawUnits(Graphics2D g2d)
     {
-        Tower towerThatNeedsVisionCircle = null;
+        Tower selectedTower = null;
         for (Unit unit : new ArrayList<>(World.getUnits()))
         {
             int size = unit.getSizeRadius();
@@ -36,45 +36,22 @@ public final class UnitPainter
 
                 g2d.drawImage(tower.getImage(), drawX, drawY, diameter, diameter, null);
 
-                if (isSelected(tower)) towerThatNeedsVisionCircle = tower;
+                if (isSelected(tower)) selectedTower = tower;
             }
             if (unit instanceof Projectile)
-            {
                 drawProjectile(g2d, (Projectile) unit, diameter, x, y, drawX, drawY);
-            }
             if (unit instanceof Mob)
-            {
-                drawMob(g2d, (Mob) unit, diameter, drawX, drawY);
-            }
+                drawMobBodyParts(g2d, ((Mob) unit).getFrame(), getMobDirection((Mob)unit), drawX, drawY, diameter, ((Mob) unit).getOutfit(), false);
             if (unit instanceof Animation)
-            {
-                Animation animation = (Animation) unit;
-                int frameIndex = animation.getFrame();
-
-                if (animation.getName().equals("explosion"))
-                {
-                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 7 * .1f));
-                    BufferedImage image = ExplosionTileLoader.getTile(frameIndex);
-                    g2d.drawImage(image, drawX, drawY, diameter, diameter, null);
-                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-                }
-
-                if (animation.getName().equals("death"))
-                    drawMobBodyParts(g2d, frameIndex, null, drawX, drawY, diameter, animation.getOutfit(), true);
-            }
+                drawAnimation(g2d, (Animation) unit, diameter, drawX, drawY);
         }
 
-        if (towerThatNeedsVisionCircle != null)
-            drawVisionCircle(g2d, towerThatNeedsVisionCircle);
+        if (selectedTower != null)
+            drawVisionCircle(g2d, selectedTower);
 
         // if the selected mob has died, stop showing its info...
         if (InterfaceLogic.getSelectedUnit() instanceof Mob && !Util.getMobs().contains(InterfaceLogic.getSelectedUnit()))
-        {
-            JPanel unitInfo = GameCanvas.getGamePanel().getUnitInfoPanel();
-            Component component = unitInfo.getComponent(0);
-            JLabel label = (JLabel) component;
-            label.setText("");
-        }
+            clearLabelText();
 
         for (Unit unit : new ArrayList<>(World.getUnits()))
         {
@@ -84,53 +61,72 @@ public final class UnitPainter
                 if (!isFullHealth(mob) || isSelected(unit)) drawHealthBar(g2d, mob);
             }
 
-            // draw additional UI elements connected to the unit
             if (isSelected(unit))
+                drawAdditionalUiElementsForUnit(unit);
+        }
+    }
+
+    private static void clearLabelText()
+    {
+        JPanel unitInfo = GameCanvas.getGamePanel().getUnitInfoPanel();
+        Component component = unitInfo.getComponent(0);
+        JLabel label = (JLabel) component;
+        label.setText("");
+    }
+
+    private static void drawAdditionalUiElementsForUnit(Unit unit)
+    {
+        JPanel unitInfo = GameCanvas.getGamePanel().getUnitInfoPanel();
+        Component component = unitInfo.getComponent(0);
+        JLabel label = (JLabel) component;
+        label.setText(unit.toString());
+
+        if (unit instanceof Tower)
+        {
+            Tower tower = (Tower) unit;
+            Projectile projectile = tower.getProjectileWithUpgrades();
+            label.setText("  R:" + tower.getAttackRange() + "  D:" + projectile.getMinDamage() + "-" + projectile.getMaxDamage());
+
+            List<Upgrade> availableUpgrades = tower.getAvailableUpgrades();
+            List<Component> components = Arrays.asList(GameCanvas.getGamePanel().getUnitInfoPanel().getComponents());
+            for (Upgrade upgrade : availableUpgrades)
             {
-                JPanel unitInfo = GameCanvas.getGamePanel().getUnitInfoPanel();
-                Component component = unitInfo.getComponent(0);
-                JLabel label = (JLabel) component;
-                label.setText(unit.toString());
-
-                if (unit instanceof Tower)
+                for (Component component1 : components)
                 {
-                    Tower tower = (Tower) unit;
-                    Projectile projectile = tower.getProjectileWithUpgrades();
-                    label.setText("  R:" + tower.getAttackRange() + "  D:" + projectile.getMinDamage() + "-" + projectile.getMaxDamage());
-
-                    List<Upgrade> availableUpgrades = tower.getAvailableUpgrades();
-                    List<Component> components = Arrays.asList(GameCanvas.getGamePanel().getUnitInfoPanel().getComponents());
-                    for (Upgrade upgrade : availableUpgrades)
+                    if (component1 instanceof JButton)
                     {
-                        for (Component component1 : components)
-                        {
-                            if (component1 instanceof JButton)
-                            {
-                                JButton button = (JButton) component1;
-                                if (button.getName().equals(upgrade.getCode()))
-                                    button.setVisible(true);
-                            }
-                        }
+                        JButton button = (JButton) component1;
+                        if (button.getName().equals(upgrade.getCode()))
+                            button.setVisible(true);
                     }
-                    for (Component component1 : components)
-                    {
-                        if (component1 instanceof JButton)
-                        {
-                            JButton button = (JButton) component1;
-                            if (button.getName().equals("sell"))
-                                button.setVisible(true);
-                        }
-                    }
+                }
+            }
+            for (Component component1 : components)
+            {
+                if (component1 instanceof JButton)
+                {
+                    JButton button = (JButton) component1;
+                    if (button.getName().equals("sell"))
+                        button.setVisible(true);
                 }
             }
         }
     }
 
-    private static void drawMob(Graphics2D g2d, Mob mob, int diameter, int drawX, int drawY)
+    private static void drawAnimation(Graphics2D g2d, Animation animation, int diameter, int drawX, int drawY)
     {
-        String direction = getMobDirection(mob);
+        int frameIndex = animation.getFrame();
 
-        drawMobBodyParts(g2d, mob.getFrame(), direction, drawX, drawY, diameter, mob.getOutfit(), false);
+        if (animation.getName().equals("explosion"))
+        {
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 7 * .1f));
+            BufferedImage image = ExplosionTileLoader.getTile(frameIndex);
+            g2d.drawImage(image, drawX, drawY, diameter, diameter, null);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        }
+
+        if (animation.getName().equals("death"))
+            drawMobBodyParts(g2d, frameIndex, null, drawX, drawY, diameter, animation.getOutfit(), true);
     }
 
     private static String getMobDirection(Mob mob)
