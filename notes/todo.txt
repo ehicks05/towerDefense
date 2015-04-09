@@ -1,3 +1,0 @@
-sound system was creating new threads for each sound and then not terminating the threads.
-
-I tried adding process that checks every tick to see if any of the clips are inactive and closes them, but it is causing stuttering...
