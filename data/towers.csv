@@ -1,5 +1,5 @@
 path,projectile,price,attackRange,attackSpeed,numberOfTargets,sizeRadius,imageFile
 ArrowTower,Arrow,50,256,1.5,1,16,arrowTower.png
 GlaiveTower,Glaive,100,160,1,1,16,glaiveTower.png
-CannonTower,Cannonball,150,256,2,1,16,cannonTower.png
+CannonTower,Cannonball,150,256,2.75,1,16,cannonTower.png
 IceTower,IceBolt,100,224,1.7,1,16,iceTower.png
