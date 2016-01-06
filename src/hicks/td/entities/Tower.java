@@ -69,7 +69,7 @@ public class Tower extends Unit
     public void performTowerBehavior()
     {
         // set targets
-        this.setTargets(UnitLogic.getClosestVisibleEnemies(this, m_attackRange, null, this.getNumberOfTargets()));
+        this.setTargets(UnitLogic.getEnemiesClosestToCore(this, m_attackRange, null, this.getNumberOfTargets()));
 
         if (this.getTargets().size() > 0) this.performHostileBehavior();
     }

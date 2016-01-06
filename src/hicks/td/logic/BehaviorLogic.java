@@ -107,7 +107,7 @@ public final class BehaviorLogic
 
                     if (wave.getWaveNumber() > 5)
                     {
-                        final double healthMultiplier = 1 + (3 * (wave.getWaveNumber() - 5) / (double) 100);
+                        final double healthMultiplier = 1 + (4 * (wave.getWaveNumber() - 5) / (double) 100);
                         final int newHp = (int) (mob.getCurrentHp() * healthMultiplier);
                         mob.setCurrentHp(newHp);
                         mob.setMaxHp(newHp);

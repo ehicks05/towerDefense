@@ -11,6 +11,7 @@ import java.util.Random;
 public class Projectile extends Unit
 {
     private String m_name;
+    private long m_createdOn;
 
     private Tower m_originator;
     private String m_fireSound;
@@ -39,6 +40,7 @@ public class Projectile extends Unit
                       String onHitEffect, int splashRadius, int hitsPossible, int bounceRange, double thetaDelta, String imageFile)
     {
         m_name = name;
+        m_createdOn = System.currentTimeMillis();
         this.setSizeRadius(sizeRadius);
         this.setMoveSpeed(moveSpeed);
         m_minDamage = minDamage;
@@ -58,6 +60,7 @@ public class Projectile extends Unit
     public Projectile(Projectile projectile)
     {
         m_name = projectile.getName();
+        m_createdOn = System.currentTimeMillis();
         this.setSizeRadius(projectile.getSizeRadius());
         this.setMoveSpeed(projectile.getMoveSpeed());
         m_minDamage = projectile.getMinDamage();
@@ -112,6 +115,16 @@ public class Projectile extends Unit
     public void setName(String name)
     {
         m_name = name;
+    }
+
+    public long getCreatedOn()
+    {
+        return m_createdOn;
+    }
+
+    public void setCreatedOn(long createdOn)
+    {
+        m_createdOn = createdOn;
     }
 
     public Tower getOriginator()
