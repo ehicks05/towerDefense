@@ -53,11 +53,39 @@ public final class UnitLogic
         unit.setLocation(new Point(newX, newY));
     }
 
-    public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange, List<Mob> exceptions, int sizeToReturn)
+    public static List<Mob> getEnemiesClosestToCore(Unit callingUnit, int attackRange, List<Mob> exceptions, int sizeToReturn)
     {
         final Point callingUnitLocation = callingUnit.getLocation();
 
-        // filter out unwanted mobs: calling unit, same team units, exception units, and out of range units
+        // filter out unwanted mobs: the calling unit, same team units, exception units, and out of range units
+        List<Mob> mobsToProcess = getPotentialTargets(callingUnit, attackRange, exceptions, callingUnitLocation);
+
+        // sort remaining mobs by distance to core
+        Collections.sort(mobsToProcess, new Comparator<Mob>()
+        {
+            @Override
+            public int compare(Mob o1, Mob o2)
+            {
+                int o1Distance = o1.getPath().size();
+                int o2Distance = o2.getPath().size();
+
+                if (o1Distance < o2Distance) return -1;
+                if (o1Distance > o2Distance) return 1;
+
+                return 0;
+            }
+        });
+
+        List<Mob> results = mobsToProcess;
+
+        if (results.size() > sizeToReturn)
+            results = mobsToProcess.subList(0, sizeToReturn);
+
+        return results;
+    }
+
+    private static List<Mob> getPotentialTargets(Unit callingUnit, int attackRange, List<Mob> exceptions, Point callingUnitLocation)
+    {
         List<Mob> mobsToProcess = new ArrayList<>();
         for (Mob mob : new ArrayList<>(Util.getMobs()))
         {
@@ -73,6 +101,15 @@ public final class UnitLogic
 
             mobsToProcess.add(mob);
         }
+        return mobsToProcess;
+    }
+
+    public static List<Mob> getClosestVisibleEnemies(Unit callingUnit, int attackRange, List<Mob> exceptions, int sizeToReturn)
+    {
+        final Point callingUnitLocation = callingUnit.getLocation();
+
+        // filter out unwanted mobs: calling unit, same team units, exception units, and out of range units
+        List<Mob> mobsToProcess = getPotentialTargets(callingUnit, attackRange, exceptions, callingUnitLocation);
 
         // sort remaining mobs by distance
         Collections.sort(mobsToProcess, new Comparator<Mob>()
