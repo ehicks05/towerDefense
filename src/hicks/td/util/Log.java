@@ -2,10 +2,7 @@ package hicks.td.util;
 
 import hicks.td.World;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -16,7 +13,8 @@ public final class Log
     private static long lines;
     private static String messageQueue = "";
     private static final DecimalFormat TIME_FORMAT = new DecimalFormat("000.00");
-    private static final DecimalFormat LINE_FORMAT = new DecimalFormat("000");
+    private static final DecimalFormat LINE_NUMBER_FORMAT = new DecimalFormat("000");
+    private static final String LOG_FILE = "log.txt";
 
     public static void info(String message)
     {
@@ -37,14 +35,14 @@ public final class Log
 
         String timeStamp = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss.SSS").format(new Date());
 
-        message = LINE_FORMAT.format(lines) + "  " + timeStamp + " (" + elapsedString + " sec)" + ":  " + message + "\r\n";
+        message = LINE_NUMBER_FORMAT.format(lines) + "  " + timeStamp + " (" + elapsedString + " sec)" + ":  " + message + "\r\n";
 
         messageQueue += message;
 
         if (lines % 1000 == 0 || forceFlush)
         {
             // System.out.print(message);
-            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("log.txt", true))))
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(LOG_FILE, true))))
             {
                 writer.print(messageQueue);
                 messageQueue = "";
@@ -54,5 +52,11 @@ public final class Log
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public static void deleteLogs()
+    {
+        boolean deleteSuccess = new File(LOG_FILE).delete();
+        info("Clearing logs..." + (deleteSuccess ? "done." : "none found."));
     }
 }

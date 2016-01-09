@@ -20,7 +20,7 @@ public final class Init
         World.setStartTime(Util.now());
         Log.info("Initializing " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(World.getStartTime()));
 
-        deleteLogs();
+        Log.deleteLogs();
 
         World.setImageDir("ass" + File.separator + "img" + File.separator);
         World.setGameMap(new GameMap(768, 576));
@@ -75,11 +75,5 @@ public final class Init
         }
 
         return gameImages;
-    }
-
-    private static void deleteLogs()
-    {
-        boolean deleteSuccess = new File("log.txt").delete();
-        Log.info("Clearing logs..." + (deleteSuccess ? "done." : "none found."));
     }
 }

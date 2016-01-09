@@ -72,59 +72,10 @@ public final class GameCanvas extends Canvas
         runGameLoop(bufferStrategy);
     }
 
-//    private static void runGameLoop(BufferStrategy bufferStrategy)
-//    {
-////        final int DELAY = 16666666; // (16 ms)
-//        final int DELAY = 33333333; // (33 ms)
-//        long beforeTime = System.nanoTime();
-//        long sleep;
-//
-//        // run game loop
-//        while (true)
-//        {
-//            // loops through every unit on the map and updates their state
-//            if (InterfaceLogic.runningSimulation)
-//                BehaviorLogic.updateState();
-//
-//            // Grab the current non visible frame (Memory on the graphics card)
-//            // getDrawGraphics actually creates a new off screen buffer; it doesn't get something that already exists.
-//            Graphics2D frameBuffer = (Graphics2D) bufferStrategy.getDrawGraphics();
-//
-//            InterfaceLogic.paintWorld(frameBuffer);
-//
-//            // Release the off screen buffer
-//            frameBuffer.dispose();
-//
-//            // Flip the off screen buffer back in.
-//            bufferStrategy.show();
-//
-//            long now = System.nanoTime();
-//            Metrics.timeDiff = now - beforeTime;
-//            sleep = (DELAY - Metrics.timeDiff) / 1000000;
-//            beforeTime = System.nanoTime();
-//
-//            if (sleep < 0)
-//                sleep = 1;
-//            try
-//            {
-//                Thread.sleep(sleep);
-//            }
-//            catch (InterruptedException e)
-//            {
-//                System.out.println("interrupted");
-//            }
-//
-//            checkGameOverConditions();
-//        }
-//    }
-
-    // todo alternate game loop logic...
     private static void runGameLoop(BufferStrategy bufferStrategy)
     {
         double t = 0;
-//        final int dt = 33333333; // (33 ms)
         final int dt = 16666666; // (16 ms)
-//        final int dt = 8333333; // (8 ms)
 
         long currentTime = System.nanoTime();
         accumulator = 0;
