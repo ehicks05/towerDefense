@@ -57,6 +57,6 @@ public final class Log
     public static void deleteLogs()
     {
         boolean deleteSuccess = new File(LOG_FILE).delete();
-        info("Clearing logs..." + (deleteSuccess ? "done." : "none found."));
+        info("Clearing previous logs..." + (deleteSuccess ? "done." : "none found."));
     }
 }

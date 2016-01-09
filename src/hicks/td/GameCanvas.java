@@ -76,6 +76,7 @@ public final class GameCanvas extends Canvas
     {
         double t = 0;
         final int dt = 16666666; // (16 ms)
+        final BigDecimal dtInSeconds = new BigDecimal(String.valueOf(dt)).divide(new BigDecimal(String.valueOf(1_000_000_000)), 5, BigDecimal.ROUND_HALF_UP);
 
         long currentTime = System.nanoTime();
         accumulator = 0;
@@ -107,7 +108,6 @@ public final class GameCanvas extends Canvas
             {
                 while(accumulator >= dt)
                 {
-                    BigDecimal dtInSeconds = new BigDecimal(String.valueOf(dt)).divide(new BigDecimal(String.valueOf(1_000_000_000)), 5, BigDecimal.ROUND_HALF_UP);
                     BehaviorLogic.updateState(dtInSeconds);
                     accumulator -= dt;
                     t += dt;

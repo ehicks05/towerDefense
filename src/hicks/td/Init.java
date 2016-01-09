@@ -18,9 +18,8 @@ public final class Init
     public static void init(boolean loadResources)
     {
         World.setStartTime(Util.now());
-        Log.info("Initializing " + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").format(World.getStartTime()));
-
         Log.deleteLogs();
+        Log.info("Initializing...");
 
         World.setImageDir("ass" + File.separator + "img" + File.separator);
         World.setGameMap(new GameMap(768, 576));
