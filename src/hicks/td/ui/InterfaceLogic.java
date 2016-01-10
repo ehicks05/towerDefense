@@ -42,12 +42,9 @@ public class InterfaceLogic
 
         UnitPainter.drawUnits(g2d);
 
-        if (isRunningSimulation())
+        if (runningSimulation)
             infoLabel.setText(getLabelText());
-
-//        infoLabel.setPreferredSize(new Dimension(300, 20));
-
-        if (!isRunningSimulation())
+        else
         {
             Font font = new Font("Helvetica", Font.PLAIN, 36);
             g2d.setFont(font);
@@ -65,7 +62,6 @@ public class InterfaceLogic
         }
 
         Toolkit.getDefaultToolkit().sync();
-//        g.dispose();
     }
 
     private static void drawTileGrid(Graphics2D g2d)
@@ -169,16 +165,6 @@ public class InterfaceLogic
     public static Unit getSelectedUnit()
     {
         return selectedUnit;
-    }
-
-    public static boolean isRunningSimulation()
-    {
-        return runningSimulation;
-    }
-
-    public static void setRunningSimulation(boolean runningSimulation)
-    {
-        InterfaceLogic.runningSimulation = runningSimulation;
     }
 
     public static boolean isActiveRound()

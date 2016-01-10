@@ -147,7 +147,7 @@ public final class UnitPainter
 
         g2d.drawImage(projectile.getImage(), drawX, drawY, diameter, diameter, null);
 
-        if (InterfaceLogic.isRunningSimulation())
+        if (InterfaceLogic.runningSimulation)
             projectile.setTheta(projectile.getTheta() + projectile.getThetaDelta());
 
         // reset the transform

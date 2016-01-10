@@ -39,7 +39,7 @@ public class SoundEngine
     public void loadSoundEffects(String id, URL url, float volume)
     {
         AudioClip sound = new AudioClip(url.toExternalForm());
-        sound.setVolume(.8 + volume);
+        sound.setVolume(.5 + volume);
         soundEffectsMap.put(id, sound);
     }
 
@@ -73,6 +73,7 @@ public class SoundEngine
             public void run()
             {
                 MediaPlayer player = new MediaPlayer(musicMap.get(id));
+                player.setVolume(0.5);
                 player.setCycleCount(MediaPlayer.INDEFINITE);
                 player.play();
             }

@@ -138,7 +138,7 @@ public final class GameCanvas extends Canvas
 
         if (playerLost || playerWon)
         {
-            InterfaceLogic.setRunningSimulation(false);
+            InterfaceLogic.runningSimulation = false;
             if (playerLost) InterfaceLogic.stopSimulationReason = "RIP!";
             if (playerWon) InterfaceLogic.stopSimulationReason = "YOU WIN!";
             reportScore();
