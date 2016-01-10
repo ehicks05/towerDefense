@@ -35,8 +35,6 @@ public final class BehaviorLogic
 
     private static void performUpdatePhase(BigDecimal dt)
     {
-        if (!InterfaceLogic.isRunningSimulation()) return;
-
         for (final Unit unit : new ArrayList<>(World.getUnits()))
         {
             if (unit instanceof Mob)
@@ -113,7 +111,7 @@ public final class BehaviorLogic
                         mob.setMaxHp(newHp);
                     }
 
-                    final PathPoint origin = World.getMobPath().get(0);
+                    final PathPoint origin = World.getGameMap().getMobPath().get(0);
                     mob.setLocation(new Point(origin.getCol() * 32 + 16, origin.getRow() * 32));
 
                     World.addUnit(mob);

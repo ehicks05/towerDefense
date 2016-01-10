@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 
 public final class Player
 {
-    private int m_team;
     private int m_gold;
     private int m_lives;
     private int m_waveNumber;
@@ -20,10 +19,6 @@ public final class Player
         m_timeOfLastGoldTick = Util.now();
     }
 
-    public void addLife()
-    {
-        m_lives += 1;
-    }
     public void removeLife()
     {
         m_lives -= 1;
@@ -39,16 +34,6 @@ public final class Player
     }
 
     // -------------- properties
-
-    public int getTeam()
-    {
-        return m_team;
-    }
-
-    public void setTeam(int team)
-    {
-        m_team = team;
-    }
 
     public int getGold()
     {

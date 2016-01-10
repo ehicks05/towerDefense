@@ -159,7 +159,7 @@ public final class UnitPainter
     private static void drawMobBodyParts(Graphics2D g2d, int frameIndex, String direction, int drawX, int drawY, int diameter, int outfitType, boolean dying)
     {
         Outfit outfit = World.getOutfitTypes().get(outfitType);
-        for (BodyPart bodyPart : outfit.getAllActiveBodyParts())
+        for (BodyPart bodyPart : outfit.getBodyParts())
         {
             if (dying)
                 g2d.drawImage(MobTileLoader.getDyingImage(bodyPart, frameIndex), drawX, drawY, diameter, diameter, null);

@@ -41,7 +41,6 @@ public final class Log
 
         if (lines % 1000 == 0 || forceFlush)
         {
-            // System.out.print(message);
             try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(LOG_FILE, true))))
             {
                 writer.print(messageQueue);

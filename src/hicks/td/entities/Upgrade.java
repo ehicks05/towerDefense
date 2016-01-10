@@ -1,15 +1,34 @@
 package hicks.td.entities;
 
-public abstract class Upgrade
+public class Upgrade
 {
     private String m_code;
     private String m_description;
     private String m_preReq;
     private int m_cost;
 
-    public abstract void applyTowerEffect(Tower tower);
+    public Upgrade(String code, String description, String preReq, int cost)
+    {
+        m_code = code;
+        m_description = description;
+        m_preReq = preReq;
+        m_cost = cost;
+    }
 
-    public abstract void applyProjectileEffect(Projectile projectile);
+    public void applyTowerEffect(Tower tower)
+    {
+        if (m_code.equals("AR"))
+            tower.setAttackRange(tower.getAttackRange() + 32);
+    }
+
+    public void applyProjectileEffect(Projectile projectile)
+    {
+        if (m_code.equals("AR"))
+        {
+            projectile.setMinDamage(projectile.getMinDamage() + 2);
+            projectile.setMaxDamage(projectile.getMaxDamage() + 2);
+        }
+    }
 
     public String getCode()
     {

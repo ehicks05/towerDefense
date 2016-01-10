@@ -94,16 +94,16 @@ public class DataFileLoader
     public static List<Outfit> getOutfitTypes()
     {
         List<Outfit> outfits = new ArrayList<>();
-        outfits.add(new Outfit(BodyPart.HUMAN, null, null, null, null, BodyPart.L_ROBE, BodyPart.T_ROBE, null, null, null));
-        outfits.add(new Outfit(BodyPart.HUMAN, BodyPart.B_LEATHER, BodyPart.F_SHOES, null, null, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
+        outfits.add(new Outfit(BodyPart.HUMAN, BodyPart.L_ROBE, BodyPart.T_ROBE));
+        outfits.add(new Outfit(BodyPart.HUMAN, BodyPart.B_LEATHER, BodyPart.F_SHOES, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
         outfits.add(new Outfit(BodyPart.HUMAN, BodyPart.B_LEATHER, BodyPart.F_SHOES, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
-        outfits.add(new Outfit(BodyPart.HUMAN, null, BodyPart.F_PLATE, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_CHAIN, BodyPart.T_CHAIN_JACKET, null, null));
-        outfits.add(new Outfit(BodyPart.HUMAN, null, BodyPart.F_PLATE, BodyPart.G_PLATE, null, BodyPart.L_PLATE, BodyPart.T_PLATE, null, BodyPart.S_PLATE, null));
-        outfits.add(new Outfit(BodyPart.SKELE, null, null, null, null, BodyPart.L_ROBE, BodyPart.T_ROBE, null, null, null));
-        outfits.add(new Outfit(BodyPart.SKELE, BodyPart.B_LEATHER, BodyPart.F_SHOES, null, null, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
+        outfits.add(new Outfit(BodyPart.HUMAN, BodyPart.F_PLATE, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_CHAIN, BodyPart.T_CHAIN_JACKET));
+        outfits.add(new Outfit(BodyPart.HUMAN, BodyPart.F_PLATE, BodyPart.G_PLATE, BodyPart.L_PLATE, BodyPart.T_PLATE, BodyPart.S_PLATE));
+        outfits.add(new Outfit(BodyPart.SKELE, BodyPart.L_ROBE, BodyPart.T_ROBE));
+        outfits.add(new Outfit(BodyPart.SKELE, BodyPart.B_LEATHER, BodyPart.F_SHOES, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
         outfits.add(new Outfit(BodyPart.SKELE, BodyPart.B_LEATHER, BodyPart.F_SHOES, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_SHIRT, BodyPart.T_LEATHER, BodyPart.S_LEATHER, BodyPart.BR_LEATHER));
-        outfits.add(new Outfit(BodyPart.SKELE, null, BodyPart.F_PLATE, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_CHAIN, BodyPart.T_CHAIN_JACKET, null, null));
-        outfits.add(new Outfit(BodyPart.SKELE, null, BodyPart.F_PLATE, BodyPart.G_PLATE, null, BodyPart.L_PLATE, BodyPart.T_PLATE, null, BodyPart.S_PLATE, null));
+        outfits.add(new Outfit(BodyPart.SKELE, BodyPart.F_PLATE, BodyPart.G_PLATE, BodyPart.H_CHAIN_HOOD, BodyPart.L_PANTS, BodyPart.T_CHAIN, BodyPart.T_CHAIN_JACKET));
+        outfits.add(new Outfit(BodyPart.SKELE, BodyPart.F_PLATE, BodyPart.G_PLATE, BodyPart.L_PLATE, BodyPart.T_PLATE, BodyPart.S_PLATE));
         return outfits;
     }
 }

@@ -19,50 +19,54 @@ public class HitEffectLogic
         String code = source.getOnHitEffect();
         if (code.equals("NONE"))
         {
-            CombatLogic.performAttack(source, victim);
+            if (victim != null)
+                CombatLogic.performAttack(source, victim);
             World.removeUnit(source);
             SoundManager.playSFX(SoundEffect.WEAPON_HIT);
         }
 
         if (code.equals("BOUNCE")) bounce(source, victim);
         if (code.equals("SLOW")) slow(source, victim);
-        if (code.equals("EXPLODE")) explode(source, victim);
+        if (code.equals("EXPLODE")) explode(source);
     }
 
     public static void bounce(Projectile source, Mob victim)
     {
-        CombatLogic.performAttack(source, victim);
         World.removeUnit(source);
         SoundManager.playSFX(SoundEffect.WEAPON_HIT);
 
-        // attempt to bounce to another mob
-        if (source.getHitsPerformed() < source.getHitsPossible())
+        if (victim != null)
         {
-            List<Mob> lastMobHit = Arrays.asList(victim);
-
-            List<Mob> closestVisibleEnemies = UnitLogic.getClosestVisibleEnemies(source, source.getBounceRange(), lastMobHit, 1);
-            Mob closestVisibleEnemy = null;
-            if (closestVisibleEnemies.size() > 0)
-                closestVisibleEnemy = closestVisibleEnemies.get(0);
-
-            if (closestVisibleEnemy != null)
+            CombatLogic.performAttack(source, victim);
+            // attempt to bounce to another mob
+            if (source.getHitsPerformed() < source.getHitsPossible())
             {
-                Projectile glaive = new Projectile(World.getProjectileByName("Glaive"));
-                glaive.applyUpgrades(source.getUpgrades());
-                glaive.setLocation(source.getLocation());
-                glaive.setOriginator(source.getOriginator());
-                glaive.setHitsPerformed(source.getHitsPerformed() + 1);
-                glaive.setLastMobHit(victim);
+                List<Mob> lastMobHit = Arrays.asList(victim);
 
-                glaive.setDestination(ProjectileLogic.getProjectileDestination(glaive, closestVisibleEnemy.getLocation()));
+                List<Mob> closestVisibleEnemies = UnitLogic.getClosestVisibleEnemies(source, source.getBounceRange(), lastMobHit, 1);
+                Mob closestVisibleEnemy = null;
+                if (closestVisibleEnemies.size() > 0)
+                    closestVisibleEnemy = closestVisibleEnemies.get(0);
 
-                SoundManager.playSFX(SoundEffect.SHOOT_GLAIVE);
-                World.addUnit(glaive);
+                if (closestVisibleEnemy != null)
+                {
+                    Projectile glaive = new Projectile(World.getProjectileByName("Glaive"));
+                    glaive.applyUpgrades(source.getUpgrades());
+                    glaive.setLocation(source.getLocation());
+                    glaive.setOriginator(source.getOriginator());
+                    glaive.setHitsPerformed(source.getHitsPerformed() + 1);
+                    glaive.setLastMobHit(victim);
+
+                    glaive.setDestination(closestVisibleEnemy.getLocation());
+
+                    SoundManager.playSFX(SoundEffect.SHOOT_GLAIVE);
+                    World.addUnit(glaive);
+                }
             }
         }
     }
 
-    public static void explode(Projectile source, Mob victim)
+    public static void explode(Projectile source)
     {
         // get all mobs caught in the splash radius
         List<Mob> mobsHit = new ArrayList<>();
@@ -83,14 +87,17 @@ public class HitEffectLogic
 
     public static void slow(Projectile source, Mob victim)
     {
-        CombatLogic.performAttack(source, victim);
         World.removeUnit(source);
         SoundManager.playSFX(SoundEffect.ICE_HIT);
 
-        if (victim.getSlowInstances() < 4)
+        if (victim != null)
         {
-            victim.setMoveSpeed((int) (victim.getMoveSpeed() * .8));
-            victim.setSlowInstances(victim.getSlowInstances() + 1);
+            CombatLogic.performAttack(source, victim);
+            if (victim.getSlowInstances() < 4)
+            {
+                victim.setMoveSpeed((int) (victim.getMoveSpeed() * .8));
+                victim.setSlowInstances(victim.getSlowInstances() + 1);
+            }
         }
     }
 }

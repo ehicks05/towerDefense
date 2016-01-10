@@ -1,32 +1,51 @@
 package hicks.td.entities;
 
+import java.awt.image.BufferedImage;
+import java.util.List;
+
 public final class GameMap
 {
+    private static BufferedImage  terrainImage;
+    public int[][]         m_logicalMap;
+    public List<PathPoint> m_mobPath;
+
     private final int m_width;
     private final int m_height;
-
-    private final int m_worldWidthInTiles;
-    private final int m_worldHeightInTiles;
-
-    private Tile[][] m_tiles;
 
     public GameMap(int width, int height)
     {
         m_width = width;
         m_height = height;
-
-        m_worldWidthInTiles = width / 32;
-        m_worldHeightInTiles = height / 32;
     }
 
-    public int getWorldWidthInTiles()
+    public static BufferedImage getTerrainImage()
     {
-        return m_worldWidthInTiles;
+        return terrainImage;
     }
 
-    public int getWorldHeightInTiles()
+    public static void setTerrainImage(BufferedImage terrainImage)
     {
-        return m_worldHeightInTiles;
+        GameMap.terrainImage = terrainImage;
+    }
+
+    public int[][] getLogicalMap()
+    {
+        return m_logicalMap;
+    }
+
+    public void setLogicalMap(int[][] logicalMap)
+    {
+        m_logicalMap = logicalMap;
+    }
+
+    public List<PathPoint> getMobPath()
+    {
+        return m_mobPath;
+    }
+
+    public void setMobPath(List<PathPoint> mobPath)
+    {
+        m_mobPath = mobPath;
     }
 
     public int getWidth()
@@ -37,15 +56,5 @@ public final class GameMap
     public int getHeight()
     {
         return m_height;
-    }
-
-    public Tile[][] getTiles()
-    {
-        return m_tiles;
-    }
-
-    public void setTiles(Tile[][] tiles)
-    {
-        m_tiles = tiles;
     }
 }

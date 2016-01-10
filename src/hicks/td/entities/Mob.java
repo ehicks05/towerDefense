@@ -12,7 +12,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class Mob extends Unit
 {
-    private final BigDecimal m_spawnTime = Util.now();
     private final String m_mobType;
     private final int m_mobTypeIndex;
     private final int m_powerBudgetUsage;
@@ -61,8 +60,8 @@ public class Mob extends Unit
 
     public static Queue<Point> createPath()
     {
-        Queue<Point> path = new ArrayBlockingQueue<>(World.getMobPath().size());
-        for (PathPoint point : World.getMobPath())
+        Queue<Point> path = new ArrayBlockingQueue<>(World.getGameMap().getMobPath().size());
+        for (PathPoint point : World.getGameMap().getMobPath())
         {
             path.add(new Point(point.getCol() * 32 + 16, point.getRow() * 32));
         }
@@ -137,11 +136,6 @@ public class Mob extends Unit
     public int getPowerBudgetUsage()
     {
         return m_powerBudgetUsage;
-    }
-
-    public BigDecimal getSpawnTime()
-    {
-        return m_spawnTime;
     }
 
     public int getCurrentHp()

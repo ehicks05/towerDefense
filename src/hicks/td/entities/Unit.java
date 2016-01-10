@@ -1,9 +1,12 @@
 package hicks.td.entities;
 
+import hicks.td.util.Util;
+
 public class Unit
 {
     private static int      m_seq = 0;
     private int             m_objectId;
+    private long            m_creationTime = Util.now().longValue();
     private int             m_team;
     private int             m_sizeRadius;
     private int             m_moveSpeed;
@@ -32,6 +35,16 @@ public class Unit
     public void setObjectId(int objectId)
     {
         m_objectId = objectId;
+    }
+
+    public long getCreationTime()
+    {
+        return m_creationTime;
+    }
+
+    public void setCreationTime(long creationTime)
+    {
+        m_creationTime = creationTime;
     }
 
     public int getSizeRadius()

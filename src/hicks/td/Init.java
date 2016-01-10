@@ -9,7 +9,6 @@ import hicks.td.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +22,14 @@ public final class Init
 
         World.setImageDir("ass" + File.separator + "img" + File.separator);
         World.setGameMap(new GameMap(768, 576));
-        World.setLogicalMap(MapBuilder.buildRandomMap(18, 24));
+        World.getGameMap().setLogicalMap(MapBuilder.buildRandomMap(18, 24));
 
         if (loadResources)
             loadResources();
 
         World.setPlayer(new Player(300, 1, 0));
         World.setWaves(Wave.getWaves(10));
-        World.setTerrainImage(MapBuilder.createImageFromLogicalMap(World.getLogicalMap()));
+        GameMap.setTerrainImage(MapBuilder.createImageFromLogicalMap(World.getGameMap().getLogicalMap()));
         World.setUnits(new ArrayList<>());
     }
 
@@ -41,8 +40,8 @@ public final class Init
         MobTileLoader.init();
 
         List<Upgrade> allUpgrades = new ArrayList<>();
-        allUpgrades.add(new UpgradeAttackRange());
-        allUpgrades.add(new UpgradeDamage());
+        allUpgrades.add(new Upgrade("AR", "Attack Range", "", 50));
+        allUpgrades.add(new Upgrade("AD", "Attack Damage", "", 50));
         World.setUpgradeTypes(allUpgrades);
 
         World.setTowerTypes(DataFileLoader.getTowerTypes());

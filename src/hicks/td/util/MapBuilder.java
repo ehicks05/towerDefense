@@ -1,12 +1,11 @@
 package hicks.td.util;
 
 import hicks.td.World;
+import hicks.td.entities.GameMap;
 import hicks.td.entities.PathPoint;
-import hicks.td.entities.Point;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public final class MapBuilder
 {
@@ -91,7 +90,7 @@ public final class MapBuilder
         }
         path.add(endPoint);
 
-        World.setMobPath(path);
+        World.getGameMap().setMobPath(path);
 
         return logicalMap;
     }

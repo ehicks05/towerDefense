@@ -2,6 +2,7 @@ package hicks.td.ui;
 
 import hicks.td.GameCanvas;
 import hicks.td.World;
+import hicks.td.entities.GameMap;
 import hicks.td.entities.Tower;
 import hicks.td.entities.Unit;
 import hicks.td.entities.Wave;
@@ -35,7 +36,7 @@ public class InterfaceLogic
         double scalingFactor = DisplayInfo.getScalingFactor();
         g2d.scale(scalingFactor, scalingFactor);
 
-        g2d.drawImage(World.getTerrainImage(), 0, 0, null);
+        g2d.drawImage(GameMap.getTerrainImage(), 0, 0, null);
 
         drawTileGrid(g2d);
 

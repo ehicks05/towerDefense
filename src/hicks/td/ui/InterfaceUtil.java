@@ -1,6 +1,7 @@
 package hicks.td.ui;
 
 import hicks.td.World;
+import hicks.td.entities.GameMap;
 import hicks.td.entities.Point;
 import hicks.td.entities.Tower;
 import hicks.td.entities.PathPoint;
@@ -65,15 +66,15 @@ public class InterfaceUtil
     {
         int col = convertToTile(x);
         int row = convertToTile(y);
-        return (col >= 0 && col < World.getLogicalMap().length &&
-                row >= 0 && row < World.getLogicalMap()[0].length);
+        return (col >= 0 && col < World.getGameMap().getLogicalMap().length &&
+                row >= 0 && row < World.getGameMap().getLogicalMap()[0].length);
     }
 
     private static boolean isOnTheRoad(int x, int y, int radius)
     {
         int col = convertToTile(x);
         int row = convertToTile(y);
-        for (PathPoint pathPoint : World.getMobPath())
+        for (PathPoint pathPoint : World.getGameMap().getMobPath())
             if (pathPoint.getCol() == col && pathPoint.getRow() == row)
                 return true;
         return false;

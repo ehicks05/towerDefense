@@ -1,10 +1,9 @@
 package hicks.td.util;
 
 import hicks.td.World;
-import hicks.td.entities.Unit;
 import hicks.td.entities.Mob;
-import hicks.td.entities.Projectile;
 import hicks.td.entities.Tower;
+import hicks.td.entities.Unit;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -54,16 +53,6 @@ public final class Util
             if (unit instanceof Tower) towers.add((Tower) unit);
 
         return towers;
-    }
-
-    public static List<Projectile> getProjectiles()
-    {
-        List<Projectile> projectiles = new ArrayList<>();
-
-        for (Unit unit : new ArrayList<>(World.getUnits()))
-            if (unit instanceof Projectile) projectiles.add((Projectile) unit);
-
-        return projectiles;
     }
 
     public static List<Mob> getMobs()

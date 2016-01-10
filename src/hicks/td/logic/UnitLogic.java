@@ -15,9 +15,7 @@ public final class UnitLogic
 {
     public static void move(Unit unit, Point destination, BigDecimal dt)
     {
-        BigDecimal moveSpeed                = new BigDecimal(unit.getMoveSpeed());
-//        BigDecimal timeSinceLastMove        = dt;
-        BigDecimal potentialDistanceToMove  = moveSpeed.multiply(dt);
+        BigDecimal potentialDistanceToMove  = new BigDecimal(unit.getMoveSpeed()).multiply(dt);
         BigDecimal currentDistance          = new BigDecimal(unit.getLocation().getDistance(destination)).setScale(0, RoundingMode.HALF_UP);
 
         BigDecimal desiredDistance = BigDecimal.ZERO;

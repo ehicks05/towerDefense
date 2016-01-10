@@ -1,6 +1,5 @@
 package hicks.td.entities;
 
-import hicks.td.Init;
 import hicks.td.World;
 
 import java.math.BigDecimal;

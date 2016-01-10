@@ -22,7 +22,7 @@ public class Tower extends Unit
     private int             m_attackRange;
     private BigDecimal      m_attackSpeed;
     private BigDecimal      m_timeOfLastAttack = Util.now();
-    private List<Mob>       m_targets;
+    private List<Mob>       m_targets = new ArrayList<>();
     private int             m_kills;
     private int             m_numberOfTargets;
     private List<Upgrade>   m_upgrades = new ArrayList<>();
@@ -35,8 +35,6 @@ public class Tower extends Unit
         m_price = price;
         m_attackRange = attackRange;
         m_attackSpeed = attackSpeed;
-        m_timeOfLastAttack = Util.now();
-        m_targets = new ArrayList<>();
         m_numberOfTargets = numberOfTargets;
         m_upgrades = new ArrayList<>();
         m_name = name;
@@ -51,8 +49,6 @@ public class Tower extends Unit
         m_price = tower.getPrice();
         m_attackRange = tower.getAttackRange();
         m_attackSpeed = tower.getAttackSpeed();
-        m_timeOfLastAttack = Util.now();
-        m_targets = new ArrayList<>();
         m_numberOfTargets = tower.getNumberOfTargets();
         m_upgrades = new ArrayList<>();
         m_name = tower.getName();
@@ -71,7 +67,8 @@ public class Tower extends Unit
         // set targets
         this.setTargets(UnitLogic.getEnemiesClosestToCore(this, m_attackRange, null, this.getNumberOfTargets()));
 
-        if (this.getTargets().size() > 0) this.performHostileBehavior();
+        if (this.getTargets().size() > 0 && isReadyToAttack())
+            this.performHostileBehavior();
     }
 
     public void addUpgrade(Upgrade upgrade)
@@ -87,17 +84,14 @@ public class Tower extends Unit
 
     public void performHostileBehavior()
     {
-        if (isReadyToAttack())
+        for (Mob target : this.getTargets())
         {
-            for (Mob target : this.getTargets())
-            {
-                Projectile newProjectile = getProjectileWithUpgrades();
+            Projectile newProjectile = getProjectileWithUpgrades();
 
-                newProjectile.setOriginator(this);
+            newProjectile.setOriginator(this);
 
-                ProjectileLogic.shootProjectile(this, newProjectile, target.getLocation());
-                this.setTimeOfLastAttack(Util.now());
-            }
+            ProjectileLogic.shootProjectile(this, newProjectile, target.getLocation());
+            this.setTimeOfLastAttack(Util.now());
         }
     }
 

@@ -39,13 +39,12 @@ public class MobTileLoader
 
             BufferedImage tileFile = Util.loadBufferedImage("mob" + File.separator + "death" + File.separator + fileName);
 
-                for (int col = 0; col < 6; col++)
-                {
-                    BufferedImage image = tileFile.getSubimage(TILE_SIZE * col, 0, TILE_SIZE, TILE_SIZE);
+            for (int col = 0; col < 6; col++)
+            {
+                BufferedImage image = tileFile.getSubimage(TILE_SIZE * col, 0, TILE_SIZE, TILE_SIZE);
 
-                    imagesForThisBodyPart.add(image);
-                }
-
+                imagesForThisBodyPart.add(image);
+            }
 
             String name = fileName.substring(0, fileName.lastIndexOf(".")).toUpperCase();
             dyingBodyParts.put(name, imagesForThisBodyPart);

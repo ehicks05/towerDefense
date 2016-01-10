@@ -2,13 +2,10 @@ package hicks.td;
 
 import hicks.td.entities.*;
 import hicks.td.entities.Tower;
-import hicks.td.entities.PathPoint;
 
-import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public final class World
 {
@@ -17,7 +14,6 @@ public final class World
     private static GameMap          gameMap;
     private static BigDecimal       startTime;
     private static Player           player;
-    private static BufferedImage    terrainImage;
     private static List<Wave>       waves;
     private static List<Upgrade>    upgradeTypes;
     private static List<Tower>      towerTypes;
@@ -25,8 +21,6 @@ public final class World
     private static List<Mob>        mobTypes;
     private static List<Outfit>     outfitTypes;
     private static List<GameImage>  gameImages;
-    private static int[][]          logicalMap;
-    private static List<PathPoint>  mobPath;
 
     public static void addUnit(Unit unit)
     {
@@ -126,16 +120,6 @@ public final class World
         World.player = player;
     }
 
-    public static BufferedImage getTerrainImage()
-    {
-        return terrainImage;
-    }
-
-    public static void setTerrainImage(BufferedImage terrainImage)
-    {
-        World.terrainImage = terrainImage;
-    }
-
     public static List<Wave> getWaves()
     {
         return waves;
@@ -206,23 +190,4 @@ public final class World
         World.gameImages = gameImages;
     }
 
-    public static int[][] getLogicalMap()
-    {
-        return logicalMap;
-    }
-
-    public static void setLogicalMap(int[][] logicalMap)
-    {
-        World.logicalMap = logicalMap;
-    }
-
-    public static List<PathPoint> getMobPath()
-    {
-        return mobPath;
-    }
-
-    public static void setMobPath(List<PathPoint> mobPath)
-    {
-        World.mobPath = mobPath;
-    }
 }
