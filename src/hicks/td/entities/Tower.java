@@ -3,17 +3,11 @@ package hicks.td.entities;
 import hicks.td.World;
 import hicks.td.logic.ProjectileLogic;
 import hicks.td.logic.UnitLogic;
-import hicks.td.util.Log;
 import hicks.td.util.Util;
 
 import java.awt.*;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Tower extends Unit
@@ -59,7 +53,7 @@ public class Tower extends Unit
 
     public Image getImage()
     {
-        return World.getGameImage(World.getImageDir() + m_imageFile).getImage();
+        return World.getGameImage(Util.getImageDir() + m_imageFile).getImage();
     }
 
     public void performTowerBehavior()

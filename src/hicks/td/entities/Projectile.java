@@ -2,6 +2,7 @@ package hicks.td.entities;
 
 import hicks.td.World;
 import hicks.td.logic.HitEffectLogic;
+import hicks.td.util.Util;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class Projectile extends Unit
 
     public Image getImage()
     {
-        return World.getGameImage(World.getImageDir() + m_imageFile).getImage();
+        return World.getGameImage(Util.getImageDir() + m_imageFile).getImage();
     }
 
     public int getAttackDamage()

@@ -18,6 +18,8 @@ import java.util.List;
 
 public final class Util
 {
+    public static String imageDir;
+
     // TIME
     public static BigDecimal now()
     {
@@ -70,7 +72,7 @@ public final class Util
     {
         try
         {
-            return ImageIO.read(new File(World.getImageDir() + name));
+            return ImageIO.read(new File(getImageDir() + name));
         }
         catch (IOException e)
         {
@@ -107,5 +109,15 @@ public final class Util
             Log.info(e.getMessage(), true);
         }
         return lines;
+    }
+
+    public static String getImageDir()
+    {
+        return imageDir;
+    }
+
+    public static void setImageDir(String imageDir)
+    {
+        Util.imageDir = imageDir;
     }
 }

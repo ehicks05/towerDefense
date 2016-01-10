@@ -1,6 +1,5 @@
 package hicks.td.util;
 
-import hicks.td.World;
 import hicks.td.entities.BodyPart;
 
 import java.awt.image.BufferedImage;
@@ -20,7 +19,7 @@ public class MobTileLoader
 
     public static void init()
     {
-        List<File> imageFiles = Util.getFiles(World.getImageDir() + File.separator + "mob");
+        List<File> imageFiles = Util.getFiles(Util.getImageDir() + File.separator + "mob");
         for (File file : imageFiles)
         {
             String fileName = file.getName();
@@ -30,7 +29,7 @@ public class MobTileLoader
             bodyParts.put(name, imagesForThisBodyPart);
         }
 
-        List<File> dyingImageFiles = Util.getFiles(World.getImageDir() + File.separator + "mob" + File.separator + "death");
+        List<File> dyingImageFiles = Util.getFiles(Util.getImageDir() + File.separator + "mob" + File.separator + "death");
         for (File file : dyingImageFiles)
         {
             String fileName = file.getName();

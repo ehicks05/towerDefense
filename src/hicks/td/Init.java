@@ -20,7 +20,7 @@ public final class Init
         Log.deleteLogs();
         Log.info("Initializing...");
 
-        World.setImageDir("ass" + File.separator + "img" + File.separator);
+        Util.setImageDir("ass" + File.separator + "img" + File.separator);
         World.setGameMap(new GameMap(768, 576));
         World.getGameMap().setLogicalMap(MapBuilder.buildRandomMap(18, 24));
 
@@ -54,7 +54,7 @@ public final class Init
 
     private static List<GameImage> getGameImages()
     {
-        String imageDir = World.getImageDir();
+        String imageDir = Util.getImageDir();
 
         List<GameImage> gameImages = new ArrayList<>();
 
