@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+}
+
+mainClassName = 'net.ehicks.td.GameCanvas'
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "net.ehicks.td.GameCanvas"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task myZip(type: Zip) {
+    dependsOn 'myCopy'
+    from 'build/packaging/'
+    include '**/'
+    archiveName 'td.zip'
+    destinationDir(file('/build/libs/'))
+}
+
+task myCopy(type: Copy) {
+    dependsOn build
+    from configurations.runtime.allArtifacts.files
+    from 'src/main/resources/'
+    into 'build/packaging/'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8

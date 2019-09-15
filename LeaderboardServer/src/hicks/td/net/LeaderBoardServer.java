@@ -1,4 +1,4 @@
-package hicks.td.net;
+package net.ehicks.td.net;
 
 import java.io.*;
 import java.net.ServerSocket;
